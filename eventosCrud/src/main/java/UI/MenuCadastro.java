@@ -1,5 +1,5 @@
 package UI;
-
+import java.util.Scanner;
 public class MenuCadastro {
 
     public static void main(String[] args) {
