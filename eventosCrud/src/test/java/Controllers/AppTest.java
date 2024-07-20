@@ -1,4 +1,4 @@
-package controlador;
+package Controllers;
 
 public class AppTest {
     

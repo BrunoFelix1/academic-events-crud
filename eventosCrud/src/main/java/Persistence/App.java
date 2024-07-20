@@ -1,4 +1,4 @@
-package persistencia;
+package Persistence;
 
 /**
  * Hello world!

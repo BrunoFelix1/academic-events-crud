@@ -1,4 +1,4 @@
-package persistencia;
+package Persistence;
 
 import static org.junit.Assert.assertTrue;
 
