@@ -18,6 +18,8 @@ public class Usuario {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
+    public Usuario () {}
+
     // Getters e Setters
 
     public int getId() {

@@ -1,7 +1,7 @@
 package Enum;
 
 public enum TipoDeAtividade {
+    WORKSHOP,
     ARTIGO,
-    PALESTRA,
-    WORKSHOP
+    PALESTRA;
 }

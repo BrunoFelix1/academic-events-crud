@@ -14,6 +14,8 @@ public class Atividade {
         this.resumo = resumo;
         this.trilha = trilha;
     }
+    
+    public Atividade(){}
 
     // Getters e Setters
 

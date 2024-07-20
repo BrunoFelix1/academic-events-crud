@@ -23,6 +23,8 @@ public class Evento {
         this.subEventos = new ArrayList<>();
     }
 
+    public Evento() {}
+
     // Getters e Setters
 
     public int getId() {

@@ -17,6 +17,8 @@ public abstract class AbstractInfo {
         this.status = status;
     }
 
+    public AbstractInfo () {}
+
     // Getters e Setters
 
     public Usuario getUsuario() {

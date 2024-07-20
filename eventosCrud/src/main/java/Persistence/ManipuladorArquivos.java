@@ -11,10 +11,13 @@ public class ManipuladorArquivos {
     private FileWriter fileWriter;
     private BufferedWriter bufferedWriter;
 
-    //CONSTRUTOR DA CLASSE
+    //CONSTRUTORES DA CLASSE
     public ManipuladorArquivos(String path) {
         this.path = path;
     }
+
+    public ManipuladorArquivos(){}
+
 
     //ACESSORES
     public String getPath(){

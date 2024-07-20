@@ -9,6 +9,8 @@ public class Secao {
         this.nome = nome;
     }
 
+    public Secao() {}
+
     // Getters e Setters
 
     public int getId() {

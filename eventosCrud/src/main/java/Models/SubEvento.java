@@ -12,6 +12,8 @@ public class SubEvento {
         this.secoes = new ArrayList<>();
     }
 
+    public SubEvento() {}
+
     // Getters e Setters
 
     public Evento getEvento() {

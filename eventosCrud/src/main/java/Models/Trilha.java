@@ -11,6 +11,8 @@ public class Trilha {
         this.nome = nome;
     }
 
+    public Trilha () {}
+
     // Getters e Setters
 
     public Secao getSecao() {

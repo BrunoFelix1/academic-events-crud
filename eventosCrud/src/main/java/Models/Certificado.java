@@ -6,6 +6,7 @@ public class Certificado extends AbstractInfo {
         super(usuario, evento, subevento, secao, trilha, status);
     }
 
+
     public void checarParticipacao() {
         // Implementação para checar participação
     }
