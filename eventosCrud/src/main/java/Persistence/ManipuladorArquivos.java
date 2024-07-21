@@ -70,7 +70,7 @@ public class ManipuladorArquivos {
         }
     }
 
-    public void escreverNoArquivo(String conteudo) {
+    public void escreverNoArquivoPorUltimo(String conteudo) {
         try {
             if (bufferedWriter != null) {
                 bufferedWriter.write(conteudo);
@@ -78,6 +78,16 @@ public class ManipuladorArquivos {
             }
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    //Esse método abaixo reescreve as linhas
+    public void escreverNoArquivo(String conteudo) {
+        try {
+            bufferedWriter.write(conteudo);
+            bufferedWriter.newLine(); 
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
