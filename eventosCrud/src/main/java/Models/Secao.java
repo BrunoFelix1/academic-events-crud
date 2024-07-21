@@ -1,21 +1,23 @@
 package Models;
-import java.util.Date;
+
 
 public class Secao {
     private int id;
     private int id_evento;
     private int id_subEvento;
     private String local;
-    private Date horario;
+    private String horario;
     
     //Construtor
-    public Secao(int id, int id_evento, int id_subEvento, String local, Date horario) {
+    public Secao(int id, int id_evento, int id_subEvento, String local, String horario) {
         this.id = id;
         this.id_evento = id_evento;
         this.id_subEvento = id_subEvento;
         this.local = local;
         this.horario = horario;
     }
+
+    public Secao(){}
     
     //Acessores
     public int getId() {
@@ -42,10 +44,10 @@ public class Secao {
     public void setLocal(String local) {
         this.local = local;
     }
-    public Date getHorario() {
+    public String getHorario() {
         return horario;
     }
-    public void setHorario(Date horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 

@@ -68,7 +68,7 @@ public class PersistenceEvento {
         eventos = getTodosEventos();
         for (int i = 0; i < eventos.size(); i++){
             if (eventoAntigo.getId() == eventos.get(i).getId()) {
-                eventos.get(i).setId(eventoNovo.getId());
+                eventos.get(i).setTitulo(eventoNovo.getTitulo());
                 eventos.get(i).setLocal(eventoNovo.getLocal());
                 eventos.get(i).setHorario(eventoNovo.getHorario());
                 eventos.get(i).setDescricao(eventoNovo.getDescricao());

@@ -69,7 +69,8 @@ public class PersistenceSubEvento {
         subEventos = getTodosSubEventos();
         for (int i = 0; i < subEventos.size(); i++){
             if (subEventoAntigo.getId() == subEventos.get(i).getId()) {
-                subEventos.get(i).setId(subEventoNovo.getId());
+                subEventos.get(i).setIdEvento(subEventoNovo.getIdEvento());
+                subEventos.get(i).setTitulo(subEventoNovo.getTitulo());
                 subEventos.get(i).setLocal(subEventoNovo.getLocal());
                 subEventos.get(i).setHorario(subEventoNovo.getHorario());
                 subEventos.get(i).setDescricao(subEventoNovo.getDescricao());
