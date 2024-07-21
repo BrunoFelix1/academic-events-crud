@@ -10,7 +10,7 @@ public class CarregadorDeArquivos {
         ArrayList<Usuario> usuarios = new ArrayList<>();
         String linha;
         Usuario usuarioDaVez = new Usuario();
-        manipulador.setPath(path);
+        manipulador.setPath(path); 
         manipulador.abrirArquivoParaLeitura();
 
         while ((linha = manipulador.lerLinhaArquivo()) != null) {

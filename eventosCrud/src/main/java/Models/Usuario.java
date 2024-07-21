@@ -1,4 +1,6 @@
 package Models;
+import java.util.ArrayList;
+
 import Enum.TipoDeUsuario;
 
 public class Usuario {
@@ -8,14 +10,54 @@ public class Usuario {
     private int idade;
     private String instituicao;
     private TipoDeUsuario tipoDeUsuario;
+    private ArrayList<Evento> eventos;
+    private ArrayList<SubEvento> subEventos;
+    private ArrayList<Secao> secoes;
+    private ArrayList<Trilha> trilhas;
 
-    public Usuario(int id, String CPF, String nome, int idade, String instituicao, TipoDeUsuario tipoDeUsuario) {
+    public Usuario(int id, String CPF, String nome, int idade, String instituicao, TipoDeUsuario tipoDeUsuario, 
+    ArrayList<Evento> eventos, ArrayList<SubEvento> subEventos, ArrayList<Secao> secoes, ArrayList<Trilha> trilhas) {
         this.id = id;
         this.CPF = CPF;
         this.nome = nome;
         this.idade = idade;
         this.instituicao = instituicao;
         this.tipoDeUsuario = tipoDeUsuario;
+        this.eventos = eventos;
+        this.subEventos = subEventos;
+        this.secoes = secoes;
+        this.trilhas = trilhas;
+    }
+
+    public ArrayList<Trilha> getTrilhas() {
+        return trilhas;
+    }
+
+    public void setTrilhas(ArrayList<Trilha> trilhas) {
+        this.trilhas = trilhas;
+    }
+
+    public ArrayList<Secao> getSecoes() {
+        return secoes;
+    }
+
+    public void setSecoes(ArrayList<Secao> secoes) {
+        this.secoes = secoes;
+    }
+    
+    public ArrayList<SubEvento> getSubEventos() {
+        return subEventos;
+    }
+
+    public void setSubEventos(ArrayList<SubEvento> subEventos) {
+        this.subEventos = subEventos;
+    }
+    public ArrayList<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(ArrayList<Evento> eventos) {
+        this.eventos = eventos;
     }
 
     public Usuario () {}
