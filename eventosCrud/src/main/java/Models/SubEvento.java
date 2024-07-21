@@ -1,6 +1,6 @@
 package Models;
 
-import java.util.Date;
+
 
 
 public class SubEvento {
@@ -8,11 +8,11 @@ public class SubEvento {
     private int idEvento;
     private String titulo;
     private String local;
-    private Date horario;
+    private String horario;
     private String descricao;
 
     //Construtor
-    public SubEvento(int id, int idEvento, String titulo, String local, Date horario, String descricao) {
+    public SubEvento(int id, int idEvento, String titulo, String local, String horario, String descricao) {
         this.id = id;
         this.idEvento = idEvento;
         this.titulo = titulo;
@@ -47,10 +47,10 @@ public class SubEvento {
     public void setLocal(String local) {
         this.local = local;
     }
-    public Date getHorario() {
+    public String getHorario() {
         return horario;
     }
-    public void setHorario(Date horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
     public String getDescricao() {
