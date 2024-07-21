@@ -5,6 +5,8 @@ import Models.*;
 import java.util.List;
 
 public interface iUsuario {
+     boolean Logar(String login, String senha);
+     void Cadastrar(Usuario usuario);
      List<Evento> ListarEventosDisponiveis();
      void ParticiparDeEvento(Usuario usuario, Evento evento);
      void ParticiparDeSubEvento(Usuario usuario, SubEvento subevento);

@@ -9,7 +9,8 @@ public class Usuario {
     private int idade;
     private String instituicao;
     private TipoDeUsuario tipoDeUsuario;
-
+    private String login;
+    private String senha;
 
     public Usuario(int id, String CPF, String nome, int idade, String instituicao, TipoDeUsuario tipoDeUsuario) {
         this.id = id;
@@ -21,7 +22,13 @@ public class Usuario {
     }
 
     public Usuario () {}
+    public boolean Logar(String login, String senha){
+        if (this.login == login && this.senha==senha){
+            return true;
+        }
+        else { return false; }
 
+    }
     // Getters e Setters
 
     public int getId() {
