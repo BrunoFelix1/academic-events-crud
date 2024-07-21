@@ -3,67 +3,52 @@ import java.util.Date;
 
 public class Secao {
     private int id;
-    private String nome;
+    private int id_evento;
+    private int id_subEvento;
     private String local;
     private Date horario;
-    private SubEvento subEvento;
-    private Evento evento;
-
-
-    public Secao(int id, String nome) {
+    
+    //Construtor
+    public Secao(int id, int id_evento, int id_subEvento, String local, Date horario) {
         this.id = id;
-        this.nome = nome;
+        this.id_evento = id_evento;
+        this.id_subEvento = id_subEvento;
+        this.local = local;
+        this.horario = horario;
     }
-
-    public Secao() {}
-
-    // Getters e Setters
-
+    
+    //Acessores
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getNome() {
-        return nome;
+    public int getId_evento() {
+        return id_evento;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId_evento(int id_evento) {
+        this.id_evento = id_evento;
     }
-
+    public int getId_subEvento() {
+        return id_subEvento;
+    }
+    public void setId_subEvento(int id_subEvento) {
+        this.id_subEvento = id_subEvento;
+    }
     public String getLocal() {
         return local;
     }
-
     public void setLocal(String local) {
         this.local = local;
     }
-
     public Date getHorario() {
         return horario;
     }
-
     public void setHorario(Date horario) {
         this.horario = horario;
     }
 
-    public SubEvento getSubEvento() {
-        return subEvento;
-    }
 
-    public void setSubEvento(SubEvento subEvento) {
-        this.subEvento = subEvento;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
+   
 }

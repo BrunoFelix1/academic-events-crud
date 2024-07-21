@@ -10,8 +10,7 @@ public class Evento {
     private String local;
     private Date horario;
     private String descricao;
-    private List<Secao> secoes;
-    private List<SubEvento> subEventos;
+
 
     public Evento(int id, String titulo, String local, Date horario, String descricao) {
         this.id = id;
@@ -19,8 +18,6 @@ public class Evento {
         this.local = local;
         this.horario = horario;
         this.descricao = descricao;
-        this.secoes = new ArrayList<>();
-        this.subEventos = new ArrayList<>();
     }
 
     public Evento() {}
@@ -65,21 +62,5 @@ public class Evento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public List<Secao> getSecoes() {
-        return secoes;
-    }
-
-    public void adicionarSecao(Secao secao) {
-        this.secoes.add(secao);
-    }
-
-    public List<SubEvento> getSubEventos() {
-        return subEventos;
-    }
-
-    public void adicionarSubEvento(SubEvento subEvento) {
-        this.subEventos.add(subEvento);
     }
 }

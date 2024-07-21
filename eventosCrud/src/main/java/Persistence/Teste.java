@@ -6,7 +6,7 @@ import Models.Usuario;
 public class Teste {
     public static void main(String[] args) {
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        CarregadorDeArquivos carregadorDeArquivos = new CarregadorDeArquivos();
+        PersistenceUsuario carregadorDeArquivos = new PersistenceUsuario();
         usuarios = carregadorDeArquivos.carregarDadosUsuarios("C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Usuários.txt");
         System.out.println("O primeiro usuario foi:" + usuarios.get(0).getId());
         System.out.println("O primeiro usuario foi:" + usuarios.get(0).getNome());
