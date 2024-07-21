@@ -1,34 +1,32 @@
 package Models;
 
 public class Trilha {
-    private Secao secao;
     private int id;
+    private int idSecao;
     private String nome;
-
-    public Trilha(Secao secao, int id, String nome) {
-        this.secao = secao;
+    
+    //Construtor
+    public Trilha(int id, int idSecao, String nome) {
         this.id = id;
+        this.idSecao = idSecao;
         this.nome = nome;
     }
-
-    public Trilha () {}
-
-    // Getters e Setters
-
-    public Secao getSecao() {
-        return secao;
-    }
-
-    public void setSecao(Secao secao) {
-        this.secao = secao;
-    }
-
+    
+    //Acessores
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdSecao() {
+        return idSecao;
+    }
+
+    public void setIdSecao(int idSecao) {
+        this.idSecao = idSecao;
     }
 
     public String getNome() {
@@ -38,5 +36,8 @@ public class Trilha {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+
+
 }
 
