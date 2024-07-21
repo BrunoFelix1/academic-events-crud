@@ -43,15 +43,23 @@ public class MenuPrincipal {
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
 
-        // Aqui, você adicionaria a lógica para verificar o usuário e senha
-        boolean isAdmin = verificarPermissaoAdmin(usuario, senha);
+        // Simulação de verificação de tipo de usuário
+        String tipoUsuario = verificarTipoUsuario(usuario, senha);
 
         System.out.println("Login realizado com sucesso como " + usuario);
 
-        if (isAdmin) {
-            mostrarMenuAdmin(scanner, usuario);
-        } else {
-            mostrarMenuUsuario(scanner, usuario);
+        switch (tipoUsuario) {
+            case "admin":
+                mostrarMenuAdmin(scanner, usuario);
+                break;
+            case "palestrante":
+                mostrarMenuPalestrante(scanner, usuario);
+                break;
+            case "usuario":
+                mostrarMenuUsuario(scanner, usuario);
+                break;
+            default:
+                System.out.println("Tipo de usuário desconhecido.");
         }
     }
 
@@ -70,10 +78,60 @@ public class MenuPrincipal {
 
         while (!sair) {
             System.out.println("Escolha uma das opções:");
-            System.out.println("1. Participar de Evento");
-            System.out.println("2. Emitir Certificado");
-            System.out.println("3. Cancelar Inscrição");
-            System.out.println("4. Visualizar inscrições");
+            System.out.println("1. Listar Eventos");
+            System.out.println("2. Participar de Evento");
+            System.out.println("3. Participar de Subevento");
+            System.out.println("4. Participar de Trilha");
+            System.out.println("5. Listar Inscrições");
+            System.out.println("6. Cancelar Inscrição de Trilha");
+            System.out.println("7. Emitir Certificado de Trilha");
+            System.out.println("8. Sair");
+
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer do scanner
+
+            switch (opcao) {
+                case 1:
+                    // Implementar a lógica de listar eventos
+                    break;
+                case 2:
+                    // Implementar a lógica de participar de evento
+                    break;
+                case 3:
+                    // Implementar a lógica de participar de subevento
+                    break;
+                case 4:
+                    // Implementar a lógica de participar de trilha
+                    break;
+                case 5:
+                    VisualizarInscricao.visualizarInscricao(scanner);
+                    break;
+                case 6:
+                    CancelarInscricao.cancelarInscricao(scanner);
+                    break;
+                case 7:
+                    EmitirCertificado.emitirCertificado(scanner);
+                    break;
+                case 8:
+                    System.out.println("Saindo...");
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        }
+    }
+
+    private static void mostrarMenuPalestrante(Scanner scanner, String usuario) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("Escolha uma das opções:");
+            System.out.println("1. Submeter Atividade");
+            System.out.println("2. Apagar Atividade");
+            System.out.println("3. Atualizar Atividade");
+            System.out.println("4. Listar Atividades");
             System.out.println("5. Sair");
 
             System.out.print("Escolha uma opção: ");
@@ -82,16 +140,16 @@ public class MenuPrincipal {
 
             switch (opcao) {
                 case 1:
-                    ParticiparEvento.participarEvento(scanner);
+                    // Implementar a lógica de submeter atividade
                     break;
                 case 2:
-                    EmitirCertificado.emitirCertificado(scanner);
+                    // Implementar a lógica de apagar atividade
                     break;
                 case 3:
-                    CancelarInscricao.cancelarInscricao(scanner);
+                    // Implementar a lógica de atualizar atividade
                     break;
                 case 4:
-                    VisualizarInscricao.visualizarInscricao(scanner);
+                    // Implementar a lógica de listar atividades
                     break;
                 case 5:
                     System.out.println("Saindo...");
@@ -108,12 +166,11 @@ public class MenuPrincipal {
 
         while (!sair) {
             System.out.println("Escolha uma das opções:");
-            System.out.println("1. Participar de Evento");
-            System.out.println("2. Emitir Certificado");
-            System.out.println("3. Cancelar Inscrição");
-            System.out.println("4. Visualizar inscrições");
-            System.out.println("5. Cadastrar Evento");
-            System.out.println("6. Sair");
+            System.out.println("1. Gerenciar Eventos");
+            System.out.println("2. Gerenciar Subeventos");
+            System.out.println("3. Gerenciar Seções");
+            System.out.println("4. Gerenciar Trilhas");
+            System.out.println("5. Sair");
 
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
@@ -121,21 +178,18 @@ public class MenuPrincipal {
 
             switch (opcao) {
                 case 1:
-                    ParticiparEvento.participarEvento(scanner);
+                    gerenciarEventos(scanner);
                     break;
                 case 2:
-                    EmitirCertificado.emitirCertificado(scanner);
+                    gerenciarSubeventos(scanner);
                     break;
                 case 3:
-                    CancelarInscricao.cancelarInscricao(scanner);
+                    gerenciarSecoes(scanner);
                     break;
                 case 4:
-                    VisualizarInscricao.visualizarInscricao(scanner);
+                    gerenciarTrilhas(scanner);
                     break;
                 case 5:
-                    CadastrarEvento.cadastrarEvento(scanner);
-                    break;
-                case 6:
                     System.out.println("Saindo...");
                     sair = true;
                     break;
@@ -145,13 +199,162 @@ public class MenuPrincipal {
         }
     }
 
-    private static boolean verificarPermissaoAdmin(String usuario, String senha) {
-        // Simulação de verificação de permissão de administrador
-        // Login padrão de administrador para testes
-        if ("admin".equals(usuario) && "admin123".equals(senha)) {
-            return true;
+    private static void gerenciarEventos(Scanner scanner) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("Gerenciamento de Eventos:");
+            System.out.println("1. Adicionar Evento");
+            System.out.println("2. Listar Eventos");
+            System.out.println("3. Atualizar Evento");
+            System.out.println("4. Deletar Evento");
+            System.out.println("5. Voltar");
+
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer do scanner
+
+            switch (opcao) {
+                case 1:
+                    CadastrarEvento.cadastrarEvento(scanner);
+                    break;
+                case 2:
+                    // Implementar a lógica de listar eventos
+                    break;
+                case 3:
+                    // Implementar a lógica de atualizar evento
+                    break;
+                case 4:
+                    // Implementar a lógica de deletar evento
+                    break;
+                case 5:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
         }
-        // TODO: Implementar a lógica de verificação real para outros usuários
-        return false;
+    }
+
+    private static void gerenciarSubeventos(Scanner scanner) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("Gerenciamento de Subeventos:");
+            System.out.println("1. Adicionar Subevento");
+            System.out.println("2. Listar Subeventos");
+            System.out.println("3. Atualizar Subevento");
+            System.out.println("4. Deletar Subevento");
+            System.out.println("5. Voltar");
+
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer do scanner
+
+            switch (opcao) {
+                case 1:
+                    // Implementar a lógica de adicionar subevento
+                    break;
+                case 2:
+                    // Implementar a lógica de listar subeventos
+                    break;
+                case 3:
+                    // Implementar a lógica de atualizar subevento
+                    break;
+                case 4:
+                    // Implementar a lógica de deletar subevento
+                    break;
+                case 5:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        }
+    }
+
+    private static void gerenciarSecoes(Scanner scanner) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("Gerenciamento de Seções:");
+            System.out.println("1. Adicionar Seção");
+            System.out.println("2. Listar Seções");
+            System.out.println("3. Atualizar Seção");
+            System.out.println("4. Deletar Seção");
+            System.out.println("5. Voltar");
+
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer do scanner
+
+            switch (opcao) {
+                case 1:
+                    // Implementar a lógica de adicionar seção
+                    break;
+                case 2:
+                    // Implementar a lógica de listar seções
+                    break;
+                case 3:
+                    // Implementar a lógica de atualizar seção
+                    break;
+                case 4:
+                    // Implementar a lógica de deletar seção
+                    break;
+                case 5:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        }
+    }
+
+    private static void gerenciarTrilhas(Scanner scanner) {
+        boolean sair = false;
+
+        while (!sair) {
+            System.out.println("Gerenciamento de Trilhas:");
+            System.out.println("1. Adicionar Trilha");
+            System.out.println("2. Listar Trilhas");
+            System.out.println("3. Atualizar Trilha");
+            System.out.println("4. Deletar Trilha");
+            System.out.println("5. Voltar");
+
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Limpa o buffer do scanner
+
+            switch (opcao) {
+                case 1:
+                    // Implementar a lógica de adicionar trilha
+                    break;
+                case 2:
+                    // Implementar a lógica de listar trilhas
+                    break;
+                case 3:
+                    // Implementar a lógica de atualizar trilha
+                    break;
+                case 4:
+                    // Implementar a lógica de deletar trilha
+                    break;
+                case 5:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        }
+    }
+
+    private static String verificarTipoUsuario(String usuario, String senha) {
+        // Simulação de verificação de tipo de usuário
+        if ("admin".equals(usuario) && "admin123".equals(senha)) {
+            return "admin";
+        } else if ("palestrante".equals(usuario) && "palestrante123".equals(senha)) {
+            return "palestrante";
+        } else {
+            return "usuario";
+        }
     }
 }
