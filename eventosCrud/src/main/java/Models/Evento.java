@@ -1,16 +1,16 @@
 package Models;
 
-import java.util.Date;
+
 
 public class Evento {
     private int id;
     private String titulo;
     private String local;
-    private Date horario;
+    private String horario;
     private String descricao;
 
 
-    public Evento(int id, String titulo, String local, Date horario, String descricao) {
+    public Evento(int id, String titulo, String local, String horario, String descricao) {
         this.id = id;
         this.titulo = titulo;
         this.local = local;
@@ -46,11 +46,11 @@ public class Evento {
         this.local = local;
     }
 
-    public Date getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(Date horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
