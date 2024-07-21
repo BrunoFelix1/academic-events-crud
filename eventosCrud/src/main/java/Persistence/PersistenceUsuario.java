@@ -65,6 +65,27 @@ public class PersistenceUsuario {
         manipulador.fecharArquivoEscrita();
     }
 
+    public void updateUsuario (Usuario usuarioAntigo, Usuario usuarioNovo) {
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        usuarios = getTodosUsuarios();
+        for (int i = 0; i < usuarios.size(); i++){
+            if (usuarioAntigo.getId() == usuarios.get(i).getId()) {
+                usuarios.get(i).setCPF(usuarioNovo.getCPF());
+                usuarios.get(i).setNome(usuarioNovo.getNome());
+                usuarios.get(i).setIdade(usuarioNovo.getIdade());
+                usuarios.get(i).setInstituicao(usuarioNovo.getInstituicao());
+                usuarios.get(i).setTipoDeUsuario(usuarioNovo.getTipoDeUsuario());
+                break;
+            }
+        }
+        manipulador.abrirArquivoParaEscrita();
+        manipulador.escreverNoArquivo("id,cpf,nome,idade,instituicao,tipoDeUsuario");
+        for (Usuario u : usuarios) {
+            manipulador.escreverNoArquivo(usuarioToCSV(u));
+        }
+        manipulador.fecharArquivoEscrita();
+    }
+
 
    
 }
