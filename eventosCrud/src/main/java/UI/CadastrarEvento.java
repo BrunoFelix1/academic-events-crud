@@ -61,4 +61,31 @@ public class CadastrarEvento {
             }
         }
     }
+
+    public static void listarEventos(Scanner scanner) {
+        // TODO: Implementar lógica para listar eventos
+        System.out.println("=== Listar Eventos ===");
+        // Exemplo de eventos
+        System.out.println("1. Evento 1");
+        System.out.println("2. Evento 2");
+        System.out.println("3. Evento 3");
+    }
+
+    public static void atualizarEvento(Scanner scanner) {
+        // TODO: Implementar lógica para atualizar evento
+        System.out.println("=== Atualizar Evento ===");
+        System.out.print("Digite o ID do evento: ");
+        String idEvento = scanner.nextLine();
+        System.out.print("Digite o novo nome do evento: ");
+        String novoNome = scanner.nextLine();
+        System.out.println("Evento " + idEvento + " atualizado para " + novoNome);
+    }
+
+    public static void deletarEvento(Scanner scanner) {
+        // TODO: Implementar lógica para deletar evento
+        System.out.println("=== Deletar Evento ===");
+        System.out.print("Digite o ID do evento: ");
+        String idEvento = scanner.nextLine();
+        System.out.println("Evento " + idEvento + " deletado com sucesso!");
+    }
 }
