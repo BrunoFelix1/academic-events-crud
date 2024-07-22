@@ -60,7 +60,7 @@ public class GerenciadorDeDadosCSV {
     }
 
     //Métodos que retornam uma lista dos tipos dos arquivos
-    public ArrayList<Atividade> getTodasatividades() {
+    public ArrayList<Atividade> getTodasAtividades() {
         Atividade atividadeDaVez = new Atividade();
         String linha;
         ArrayList<Atividade> atividades = new ArrayList<>();
