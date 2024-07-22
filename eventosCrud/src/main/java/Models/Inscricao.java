@@ -15,6 +15,8 @@ public class Inscricao {
         this.idSecao = idSecao;
         this.idTrilha = idTrilha;
     }
+
+    public Inscricao() {}
     //Acessores
     public int getIdUsuario() {
         return idUsuario;

@@ -16,7 +16,7 @@ public class PersistenceSecao {
         return linha;
     }
 
-    //Retorna uma lista de todos as secoes no momento
+    //Retorna uma lista de todas as secoes no momento
     public ArrayList<Secao> getTodasSecoes() {
         Secao secaoDaVez = new Secao();
         String linha;
