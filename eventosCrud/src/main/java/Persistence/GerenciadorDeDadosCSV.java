@@ -270,7 +270,7 @@ public class GerenciadorDeDadosCSV {
     public void deleteNoCSV (Atividade atividade) {
         manipulador.setPath(pathAtividade);
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodasatividades();
+        atividades = getTodasAtividades();
         for (int i = 0; i < atividades.size(); i++){
             if (atividade.getId() == atividades.get(i).getId()){
                 atividades.remove(i);
@@ -402,7 +402,7 @@ public class GerenciadorDeDadosCSV {
     public void updateNoCSV (Atividade atividadeAntiga, Atividade atividadeNova) {
         manipulador.setPath(pathAtividade);
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodasatividades();
+        atividades = getTodasAtividades();
         for (int i = 0; i < atividades.size(); i++){
             if (atividadeAntiga.getId() == atividades.get(i).getId()) {
                 atividades.get(i).setTipoSubmissao(atividadeNova.getTipoSubmissao());
