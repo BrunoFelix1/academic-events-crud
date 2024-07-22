@@ -11,6 +11,8 @@ public class Trilha {
         this.idSecao = idSecao;
         this.nome = nome;
     }
+
+    public Trilha() {}
     
     //Acessores
     public int getId() {

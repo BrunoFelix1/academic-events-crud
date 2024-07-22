@@ -82,7 +82,4 @@ public class PersistenceSecao {
         }
         manipulador.fecharArquivoEscrita();
     }
-
-
-   
 }
