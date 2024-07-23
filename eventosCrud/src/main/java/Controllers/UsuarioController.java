@@ -1,13 +1,16 @@
 package Controllers;
 
 import Interfaces.iUsuario;
+import Interfaces.iUsuarioPersistenciaControlador;
 import Models.*;
 import Persistence.PersistenceUsuario;
 
 import java.util.List;
 
 public class UsuarioController implements iUsuario {
-    private PersistenceUsuario _persistenceUsuario;
+    //Exemplo de comunicação com as interfaces
+    //Porque pode mudar pra qualquer objeto que implemente a interface
+    iUsuarioPersistenciaControlador u = new PersistenceUsuario();
 
     public UsuarioController(){
         this._persistenceUsuario = new PersistenceUsuario();

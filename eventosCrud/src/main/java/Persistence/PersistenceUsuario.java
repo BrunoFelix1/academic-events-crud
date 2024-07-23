@@ -2,10 +2,12 @@ package Persistence;
 
 import java.util.ArrayList;
 import Enum.TipoDeUsuario;
+import Interfaces.iUsuarioPersistenciaControlador;
 import Models.Usuario;
 
 
-public class PersistenceUsuario {
+public class PersistenceUsuario implements iUsuarioPersistenciaControlador {
+    //Adicionar SENHA E LOGIN
     //Instanciando manipulador e adicionando o path da tabela de usuários
     private String pathUsuario = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Usuarios.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathUsuario);
