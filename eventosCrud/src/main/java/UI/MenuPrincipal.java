@@ -68,9 +68,23 @@ public class MenuPrincipal {
         String novoUsuario = scanner.nextLine();
         System.out.print("Digite sua nova senha: ");
         String novaSenha = scanner.nextLine();
+        System.out.print("Digite seu CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Digite seu nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("Digite sua idade: ");
+        int idade = scanner.nextInt();
+        scanner.nextLine(); // Limpa o buffer do scanner
+        System.out.print("Digite sua instituição: ");
+        String instituicao = scanner.nextLine();
 
-        // Aqui, você adicionaria a lógica para registrar o novo usuário
+        // Aqui, você adicionaria a lógica para registrar o novo usuário com as informações coletadas
         System.out.println("Usuário " + novoUsuario + " cadastrado com sucesso!");
+        System.out.println("Informações cadastradas:");
+        System.out.println("CPF: " + cpf);
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+        System.out.println("Instituição: " + instituicao);
     }
 
     private static void mostrarMenuUsuario(Scanner scanner, String usuario) {
@@ -219,13 +233,13 @@ public class MenuPrincipal {
                     CadastrarEvento.cadastrarEvento(scanner);
                     break;
                 case 2:
-                    // Implementar a lógica de listar eventos
+                    CadastrarEvento.listarEventos(scanner);
                     break;
                 case 3:
-                    // Implementar a lógica de atualizar evento
+                    CadastrarEvento.atualizarEvento(scanner);
                     break;
                 case 4:
-                    // Implementar a lógica de deletar evento
+                    CadastrarEvento.deletarEvento(scanner);
                     break;
                 case 5:
                     sair = true;
