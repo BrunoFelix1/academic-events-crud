@@ -1,10 +1,13 @@
 package Persistence;
 
 import java.util.ArrayList;
+
+import Interfaces.iPersistenciaControlador;
 import Models.Evento;
 
 
-public class PersistenceEvento {
+
+public class PersistenceEvento implements iPersistenciaControlador<Evento> {
     //Instanciando manipulador e adicionando o path da tabela de eventos
     private String pathEvento = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Eventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathEvento);
@@ -17,7 +20,7 @@ public class PersistenceEvento {
     }
 
     //Retorna uma lista de todos os eventos no momento
-    public ArrayList<Evento> getTodosEventos() {
+    public ArrayList<Evento> getTodos() {
         Evento eventoDaVez = new Evento();
         String linha;
         ArrayList<Evento> eventos = new ArrayList<>();
@@ -40,15 +43,15 @@ public class PersistenceEvento {
     }
 
     //Adiciona um Evento na tabela
-    public void addEvento(Evento evento) {
+    public void add(Evento evento) {
         String linha = eventoToCSV(evento);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteEvento (Evento evento) {
+    public void delete (Evento evento) {
         ArrayList<Evento> eventos = new ArrayList<>();
-        eventos = getTodosEventos();
+        eventos = getTodos();
         for (int i = 0; i < eventos.size(); i++){
             if (evento.getId() == eventos.get(i).getId()){
                 eventos.remove(i);
@@ -63,9 +66,9 @@ public class PersistenceEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateEvento (Evento eventoAntigo, Evento eventoNovo) {
+    public void update (Evento eventoAntigo, Evento eventoNovo) {
         ArrayList<Evento> eventos = new ArrayList<>();
-        eventos = getTodosEventos();
+        eventos = getTodos();
         for (int i = 0; i < eventos.size(); i++){
             if (eventoAntigo.getId() == eventos.get(i).getId()) {
                 eventos.get(i).setTitulo(eventoNovo.getTitulo());
@@ -83,8 +86,8 @@ public class PersistenceEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-    public Evento getEventoPorId(int id) {
-        ArrayList<Evento> eventos = getTodosEventos();
+    public Evento getPorId(int id) {
+        ArrayList<Evento> eventos = getTodos();
         for (Evento e : eventos) {
             if (id == e.getId()) {
                 return e;
@@ -92,5 +95,13 @@ public class PersistenceEvento {
         }
         return null; // Caso não encontre o ID do Evento
     }
+
+    //Usar apenas na persistência da inscrição
+    public Evento getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        Evento Evento = new Evento();
+        return Evento;
+    }
+
+
    
 }

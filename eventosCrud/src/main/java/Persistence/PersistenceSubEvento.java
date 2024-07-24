@@ -1,10 +1,13 @@
 package Persistence;
 
 import java.util.ArrayList;
+
+import Interfaces.iPersistenciaControlador;
 import Models.SubEvento;
 
 
-public class PersistenceSubEvento {
+
+public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento> {
     //Instanciando manipulador e adicionando o path da tabela de SubEventos
     private String pathSubEvento = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\SubEventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);
@@ -17,7 +20,7 @@ public class PersistenceSubEvento {
     }
 
     //Retorna uma lista de todos os SubEventos no momento
-    public ArrayList<SubEvento> getTodosSubEventos() {
+    public ArrayList<SubEvento> getTodos() {
         SubEvento subEventoDaVez = new SubEvento();
         String linha;
         ArrayList<SubEvento> subEventos = new ArrayList<>();
@@ -41,15 +44,15 @@ public class PersistenceSubEvento {
     }
 
     //Adiciona um SubEvento na tabela
-    public void addSubEvento(SubEvento subEvento) {
+    public void add(SubEvento subEvento) {
         String linha = SubEventoToCSV(subEvento);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteSubEvento (SubEvento subEvento) {
+    public void delete (SubEvento subEvento) {
         ArrayList<SubEvento> subEventos = new ArrayList<>();
-        subEventos = getTodosSubEventos();
+        subEventos = getTodos();
         for (int i = 0; i < subEventos.size(); i++){
             if (subEvento.getId() == subEventos.get(i).getId()){
                 subEventos.remove(i);
@@ -64,9 +67,9 @@ public class PersistenceSubEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateSubEvento (SubEvento subEventoAntigo, SubEvento subEventoNovo) {
+    public void update (SubEvento subEventoAntigo, SubEvento subEventoNovo) {
         ArrayList<SubEvento> subEventos = new ArrayList<>();
-        subEventos = getTodosSubEventos();
+        subEventos = getTodos();
         for (int i = 0; i < subEventos.size(); i++){
             if (subEventoAntigo.getId() == subEventos.get(i).getId()) {
                 subEventos.get(i).setIdEvento(subEventoNovo.getIdEvento());
@@ -85,14 +88,20 @@ public class PersistenceSubEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-    public SubEvento getSubEventoPorId(int id) {
-        ArrayList<SubEvento> subEventos = getTodosSubEventos();
+    public SubEvento getPorId(int id) {
+        ArrayList<SubEvento> subEventos = getTodos();
         for (SubEvento s : subEventos) {
             if (id == s.getId()) {
                 return s;
             }
         }
         return null; // Caso não encontre o ID do SubEvento
-    }    
+    }   
+    
+    //Usar apenas na persistência da inscrição
+    public SubEvento getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        SubEvento SubEvento = new SubEvento();
+        return SubEvento;
+    }
    
 }

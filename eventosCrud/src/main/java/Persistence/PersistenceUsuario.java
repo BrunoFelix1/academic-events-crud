@@ -97,5 +97,10 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
         return null; // Caso não encontre o Usuário
     }
     
+    //Usar apenas na persistência da inscrição
+    public Usuario getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        Usuario usuario = new Usuario();
+        return usuario;
+    }
    
 }

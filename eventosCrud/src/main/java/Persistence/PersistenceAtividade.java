@@ -3,10 +3,11 @@ package Persistence;
 import java.util.ArrayList;
 
 import Enum.TipoDeAtividade;
+import Interfaces.iPersistenciaControlador;
 import Models.Atividade;
 
 
-public class PersistenceAtividade {
+public class PersistenceAtividade implements iPersistenciaControlador<Atividade>{
     //Instanciando manipulador e adicionando o path da tabela de atividades
     private String pathAtividade = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Atividades.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathAtividade);
@@ -19,7 +20,7 @@ public class PersistenceAtividade {
     }
 
     //Retorna uma lista de todos os atividades no momento
-    public ArrayList<Atividade> getTodasAtividades() {
+    public ArrayList<Atividade> getTodos() {
         Atividade atividadeDaVez = new Atividade();
         String linha;
         ArrayList<Atividade> atividades = new ArrayList<>();
@@ -42,15 +43,15 @@ public class PersistenceAtividade {
     }
 
     //Adiciona um atividade na tabela
-    public void addatividade(Atividade atividade) {
+    public void add(Atividade atividade) {
         String linha = atividadeToCSV(atividade);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteatividade (Atividade atividade) {
+    public void delete (Atividade atividade) {
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodasAtividades();
+        atividades = getTodos();
         for (int i = 0; i < atividades.size(); i++){
             if (atividade.getId() == atividades.get(i).getId()){
                 atividades.remove(i);
@@ -65,9 +66,9 @@ public class PersistenceAtividade {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateatividade (Atividade atividadeAntiga, Atividade atividadeNova) {
+    public void update (Atividade atividadeAntiga, Atividade atividadeNova) {
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodasAtividades();
+        atividades = getTodos();
         for (int i = 0; i < atividades.size(); i++){
             if (atividadeAntiga.getId() == atividades.get(i).getId()) {
                 atividades.get(i).setTipoSubmissao(atividadeNova.getTipoSubmissao());
@@ -85,14 +86,20 @@ public class PersistenceAtividade {
         manipulador.fecharArquivoEscrita();
     }
 
-    public Atividade getAtividadePorId(int id) {
-        ArrayList<Atividade> atividades = getTodasAtividades();
+    public Atividade getPorId(int id) {
+        ArrayList<Atividade> atividades = getTodos();
         for (Atividade a : atividades) {
             if (id == a.getId()) {
                 return a;
             }
         }
         return null; // Caso não encontre o ID do usuário
+    }
+
+    //Usar apenas na persistência da inscrição
+    public Atividade getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        Atividade Atividade = new Atividade();
+        return Atividade;
     }
    
 }

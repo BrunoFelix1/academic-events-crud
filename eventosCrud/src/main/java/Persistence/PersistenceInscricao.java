@@ -1,10 +1,13 @@
 package Persistence;
 
 import java.util.ArrayList;
+
+import Interfaces.iPersistenciaControlador;
 import Models.Inscricao;
 
 
-public class PersistenceInscricao {
+
+public class PersistenceInscricao implements iPersistenciaControlador<Inscricao> {
     //Instanciando manipulador e adicionando o path da tabela de Inscrições
     private String pathInscricao = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Inscrições.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathInscricao);
@@ -17,7 +20,7 @@ public class PersistenceInscricao {
     }
 
     //Retorna uma lista de todas as Inscricoes no momento
-    public ArrayList<Inscricao> getTodasInscricoes() {
+    public ArrayList<Inscricao> getTodos() {
         Inscricao inscricaoDaVez = new Inscricao();
         String linha;
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
@@ -40,15 +43,15 @@ public class PersistenceInscricao {
     }
 
     //Adiciona uma Inscricao na tabela
-    public void addInscricao(Inscricao inscricao) {
+    public void add(Inscricao inscricao) {
         String linha = inscricaoToCSV(inscricao);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteInscricao (Inscricao inscricao) {
+    public void delete (Inscricao inscricao) {
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        inscricoes = getTodasInscricoes();
+        inscricoes = getTodos();
         for (int i = 0; i < inscricoes.size(); i++){
             if (inscricao.getIdEvento() == inscricoes.get(i).getIdEvento() &&
             inscricao.getIdUsuario() == inscricoes.get(i).getIdUsuario() &&
@@ -67,9 +70,9 @@ public class PersistenceInscricao {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateInscricao (Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
+    public void update (Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        inscricoes = getTodasInscricoes();
+        inscricoes = getTodos();
         for (int i = 0; i < inscricoes.size(); i++){
             if (inscricaoAntiga.getIdEvento() == inscricoes.get(i).getIdEvento() &&
             inscricaoAntiga.getIdUsuario() == inscricoes.get(i).getIdUsuario() &&
@@ -92,17 +95,23 @@ public class PersistenceInscricao {
         manipulador.fecharArquivoEscrita();
     }
 
-    public Inscricao getInscricaoPorId(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
-    ArrayList<Inscricao> inscricoes = getTodasInscricoes();
-    for (Inscricao i : inscricoes) {
-        if (idUsuario == i.getIdUsuario() &&
-            idEvento == i.getIdEvento() &&
-            idSubEvento == i.getIdSecao() &&
-            idSecao == i.getIdSecao() &&
-            idTrilha == i.getIdTrilha()) {
-            return i;
-        }
+    public Inscricao getPorId(int id) {
+        Inscricao inscricao = new Inscricao();
+        return inscricao;
     }
-    return null; // Caso não encontre o ID da Inscrição
+
+        //Usar apenas na persistência da inscrição
+    public Inscricao getPorIdInscricao(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha){
+        ArrayList<Inscricao> inscricoes = getTodos();
+        for (Inscricao i : inscricoes) {
+            if (idUsuario == i.getIdUsuario() &&
+                idEvento == i.getIdEvento() &&
+                idSubEvento == i.getIdSecao() &&
+                idSecao == i.getIdSecao() &&
+                idTrilha == i.getIdTrilha()) {
+                return i;
+            }
+        }
+        return null; // Caso não encontre o ID da Inscrição
     }
 }

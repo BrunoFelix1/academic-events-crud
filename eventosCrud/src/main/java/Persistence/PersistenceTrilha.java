@@ -1,10 +1,12 @@
 package Persistence;
 
 import java.util.ArrayList;
+
+import Interfaces.iPersistenciaControlador;
 import Models.Trilha;
 
 
-public class PersistenceTrilha {
+public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
     //Instanciando manipulador e adicionando o path da tabela de Trilhas
     private String pathTrilha = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Trilhas.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathTrilha);
@@ -16,7 +18,7 @@ public class PersistenceTrilha {
     }
 
     //Retorna uma lista de todos as Trilhas no momento
-    public ArrayList<Trilha> getTodasTrilhas() {
+    public ArrayList<Trilha> getTodos() {
         Trilha trilhaDaVez = new Trilha();
         String linha;
         ArrayList<Trilha> trilhas = new ArrayList<>();
@@ -37,15 +39,15 @@ public class PersistenceTrilha {
     }
 
     //Adiciona uma Trilha na tabela
-    public void addTrilha(Trilha trilha) {
+    public void add(Trilha trilha) {
         String linha = TrilhaToCSV(trilha);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteTrilha (Trilha trilha) {
+    public void delete (Trilha trilha) {
         ArrayList<Trilha> trilhas = new ArrayList<>();
-        trilhas = getTodasTrilhas();
+        trilhas = getTodos();
         for (int i = 0; i < trilhas.size(); i++){
             if (trilha.getId() == trilhas.get(i).getId()){
                 trilhas.remove(i);
@@ -60,9 +62,9 @@ public class PersistenceTrilha {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateTrilha (Trilha trilhaAntiga, Trilha trilhaNova) {
+    public void update (Trilha trilhaAntiga, Trilha trilhaNova) {
         ArrayList<Trilha> trilhas = new ArrayList<>();
-        trilhas = getTodasTrilhas();
+        trilhas = getTodos();
         for (int i = 0; i < trilhas.size(); i++){
             if (trilhaAntiga.getId() == trilhas.get(i).getId()) {
                 trilhas.get(i).setIdSecao(trilhaNova.getIdSecao());
@@ -78,14 +80,20 @@ public class PersistenceTrilha {
         manipulador.fecharArquivoEscrita();
     }
 
-        public Trilha getTrilhaPorId(int id) {
-        ArrayList<Trilha> trilhas = getTodasTrilhas();
+        public Trilha getPorId(int id) {
+        ArrayList<Trilha> trilhas = getTodos();
         for (Trilha t : trilhas) {
             if (id == t.getId()) {
                 return t;
             }
         }
         return null; // Caso não encontre o ID da trilha
+    }
+
+    //Usar apenas na persistência da inscrição
+    public Trilha getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        Trilha Trilha = new Trilha();
+        return Trilha;
     }
 
 

@@ -1,10 +1,13 @@
 package Persistence;
 
 import java.util.ArrayList;
+
+import Interfaces.iPersistenciaControlador;
 import Models.Secao;
 
 
-public class PersistenceSecao {
+
+public class PersistenceSecao implements iPersistenciaControlador<Secao> {
     //Instanciando manipulador e adicionando o path da tabela de Seções
     private String pathSecao = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Seções.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSecao);
@@ -17,7 +20,7 @@ public class PersistenceSecao {
     }
 
     //Retorna uma lista de todas as secoes no momento
-    public ArrayList<Secao> getTodasSecoes() {
+    public ArrayList<Secao> getTodos() {
         Secao secaoDaVez = new Secao();
         String linha;
         ArrayList<Secao> secoes = new ArrayList<>();
@@ -40,15 +43,15 @@ public class PersistenceSecao {
     }
 
     //Adiciona uma Secao na tabela
-    public void addSecao(Secao secao) {
+    public void add(Secao secao) {
         String linha = SecaoToCSV(secao);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
     }
 
-    public void deleteSecao (Secao secao) {
+    public void delete (Secao secao) {
         ArrayList<Secao> secoes = new ArrayList<>();
-        secoes = getTodasSecoes();
+        secoes = getTodos();
         for (int i = 0; i < secoes.size(); i++){
             if (secao.getId() == secoes.get(i).getId()){
                 secoes.remove(i);
@@ -63,9 +66,9 @@ public class PersistenceSecao {
         manipulador.fecharArquivoEscrita();
     }
 
-    public void updateSecao (Secao secaoAntiga, Secao secaoNova) {
+    public void update (Secao secaoAntiga, Secao secaoNova) {
         ArrayList<Secao> secoes = new ArrayList<>();
-        secoes = getTodasSecoes();
+        secoes = getTodos();
         for (int i = 0; i < secoes.size(); i++){
             if (secaoAntiga.getId() == secoes.get(i).getId()) {
                 secoes.get(i).setId_evento(secaoNova.getId_evento());
@@ -83,13 +86,19 @@ public class PersistenceSecao {
         manipulador.fecharArquivoEscrita();
     }
 
-    public Secao getSecaoPorId(int id) {
-        ArrayList<Secao> secoes = getTodasSecoes();
+    public Secao getPorId(int id) {
+        ArrayList<Secao> secoes = getTodos();
         for (Secao s : secoes) {
             if (id == s.getId()) {
                 return s;
             }
         }
         return null; // Caso não encontre o ID da Seção
+    }
+
+    //Usar apenas na persistência da inscrição
+    public Secao getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
+        Secao Secao = new Secao();
+        return Secao;
     }
 }
