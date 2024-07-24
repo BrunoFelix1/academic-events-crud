@@ -91,4 +91,18 @@ public class PersistenceInscricao {
         }
         manipulador.fecharArquivoEscrita();
     }
+
+    public Inscricao getInscricaoPorId(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
+    ArrayList<Inscricao> inscricoes = getTodasInscricoes();
+    for (Inscricao i : inscricoes) {
+        if (idUsuario == i.getIdUsuario() &&
+            idEvento == i.getIdEvento() &&
+            idSubEvento == i.getIdSecao() &&
+            idSecao == i.getIdSecao() &&
+            idTrilha == i.getIdTrilha()) {
+            return i;
+        }
+    }
+    return null; // Caso não encontre o ID da Inscrição
+    }
 }

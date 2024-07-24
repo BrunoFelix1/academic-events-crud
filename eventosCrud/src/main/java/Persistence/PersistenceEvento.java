@@ -83,6 +83,14 @@ public class PersistenceEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-
+    public Evento getEventoPorId(int id) {
+        ArrayList<Evento> eventos = getTodosEventos();
+        for (Evento e : eventos) {
+            if (id == e.getId()) {
+                return e;
+            }
+        }
+        return null; // Caso não encontre o ID do Evento
+    }
    
 }

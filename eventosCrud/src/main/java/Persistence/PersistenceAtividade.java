@@ -19,7 +19,7 @@ public class PersistenceAtividade {
     }
 
     //Retorna uma lista de todos os atividades no momento
-    public ArrayList<Atividade> getTodosatividades() {
+    public ArrayList<Atividade> getTodasAtividades() {
         Atividade atividadeDaVez = new Atividade();
         String linha;
         ArrayList<Atividade> atividades = new ArrayList<>();
@@ -50,7 +50,7 @@ public class PersistenceAtividade {
 
     public void deleteatividade (Atividade atividade) {
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodosatividades();
+        atividades = getTodasAtividades();
         for (int i = 0; i < atividades.size(); i++){
             if (atividade.getId() == atividades.get(i).getId()){
                 atividades.remove(i);
@@ -67,7 +67,7 @@ public class PersistenceAtividade {
 
     public void updateatividade (Atividade atividadeAntiga, Atividade atividadeNova) {
         ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodosatividades();
+        atividades = getTodasAtividades();
         for (int i = 0; i < atividades.size(); i++){
             if (atividadeAntiga.getId() == atividades.get(i).getId()) {
                 atividades.get(i).setTipoSubmissao(atividadeNova.getTipoSubmissao());
@@ -85,6 +85,14 @@ public class PersistenceAtividade {
         manipulador.fecharArquivoEscrita();
     }
 
-
+    public Atividade getAtividadePorId(int id) {
+        ArrayList<Atividade> atividades = getTodasAtividades();
+        for (Atividade a : atividades) {
+            if (id == a.getId()) {
+                return a;
+            }
+        }
+        return null; // Caso não encontre o ID do usuário
+    }
    
 }

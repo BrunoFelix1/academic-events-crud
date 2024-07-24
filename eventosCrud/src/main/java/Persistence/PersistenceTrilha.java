@@ -78,6 +78,16 @@ public class PersistenceTrilha {
         manipulador.fecharArquivoEscrita();
     }
 
+        public Trilha getTrilhaPorId(int id) {
+        ArrayList<Trilha> trilhas = getTodasTrilhas();
+        for (Trilha t : trilhas) {
+            if (id == t.getId()) {
+                return t;
+            }
+        }
+        return null; // Caso não encontre o ID da trilha
+    }
+
 
    
 }

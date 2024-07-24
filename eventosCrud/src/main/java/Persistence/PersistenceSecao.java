@@ -82,4 +82,14 @@ public class PersistenceSecao {
         }
         manipulador.fecharArquivoEscrita();
     }
+
+    public Secao getSecaoPorId(int id) {
+        ArrayList<Secao> secoes = getTodasSecoes();
+        for (Secao s : secoes) {
+            if (id == s.getId()) {
+                return s;
+            }
+        }
+        return null; // Caso não encontre o ID da Seção
+    }
 }

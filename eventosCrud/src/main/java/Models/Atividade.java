@@ -6,16 +6,14 @@ public class Atividade {
     private TipoDeAtividade tipoSubmissao;
     private String autor;
     private String resumo;
-    private Trilha trilha;
     private int idTrilha;
     
     
-    public Atividade(int id, TipoDeAtividade tipoSubmissao, String autor, String resumo, Trilha trilha, int idTrilha) {
+    public Atividade(int id, TipoDeAtividade tipoSubmissao, String autor, String resumo, int idTrilha) {
         this.id = id;
         this.tipoSubmissao = tipoSubmissao;
         this.autor = autor;
         this.resumo = resumo;
-        this.trilha = trilha;
         this.idTrilha = idTrilha;
     }
     
@@ -63,11 +61,4 @@ public class Atividade {
         this.resumo = resumo;
     }
 
-    public Trilha getTrilha() {
-        return trilha;
-    }
-
-    public void setTrilha(Trilha trilha) {
-        this.trilha = trilha;
-    }
 }

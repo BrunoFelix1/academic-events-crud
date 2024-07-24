@@ -85,6 +85,14 @@ public class PersistenceSubEvento {
         manipulador.fecharArquivoEscrita();
     }
 
-
+    public SubEvento getSubEventoPorId(int id) {
+        ArrayList<SubEvento> subEventos = getTodosSubEventos();
+        for (SubEvento s : subEventos) {
+            if (id == s.getId()) {
+                return s;
+            }
+        }
+        return null; // Caso não encontre o ID do SubEvento
+    }    
    
 }
