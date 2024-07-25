@@ -1,10 +1,13 @@
 package UI;
 
+import Controllers.UsuarioController;
+import Models.Usuario;
+import Exception.UsuarioNaoEncontradoException;
 import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UsuarioNaoEncontradoException {
         Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
@@ -16,7 +19,7 @@ public class MenuPrincipal {
 
             System.out.print("Escolha uma opção: ");
             int opcao = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Limpa o buffer do scanner
 
             switch (opcao) {
                 case 1:
@@ -37,26 +40,27 @@ public class MenuPrincipal {
         scanner.close();
     }
 
-    private static void login(Scanner scanner) {
+    private static void login(Scanner scanner) throws UsuarioNaoEncontradoException {
         System.out.print("Digite seu usuário: ");
-        String usuario = scanner.nextLine();
+        String login = scanner.nextLine();
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
 
-        // Simulação de verificação de tipo de usuário
-        String tipoUsuario = verificarTipoUsuario(usuario, senha);
+        // verificação de tipo de usuário
+        UsuarioController usuarioController = new UsuarioController();
+        Usuario usuario = usuarioController.AutenticarUsuario(login, senha);
 
         System.out.println("Login realizado com sucesso como " + usuario);
 
-        switch (tipoUsuario) {
-            case "admin":
-                MenuAdministrador.mostrarMenuAdmin(scanner, usuario);
+        switch (usuario.getTipoDeUsuario()) {
+            case ADMINISTRADOR:
+                MenuAdministrador.mostrarMenuAdmin(usuario);
                 break;
-            case "palestrante":
-                MenuPalestrante.mostrarMenuPalestrante(scanner, usuario);
+            case PALESTRANTE:
+                MenuPalestrante.mostrarMenuPalestrante(usuario);
                 break;
-            case "usuario":
-                MenuUsuario.mostrarMenuUsuario(scanner, usuario);
+            case COMUM:
+                MenuUsuario.mostrarMenuUsuario(usuario);
                 break;
             default:
                 System.out.println("Tipo de usuário desconhecido.");
@@ -78,22 +82,12 @@ public class MenuPrincipal {
         System.out.print("Digite sua instituição: ");
         String instituicao = scanner.nextLine();
 
+        // Aqui, você adicionaria a lógica para registrar o novo usuário com as informações coletadas
         System.out.println("Usuário " + novoUsuario + " cadastrado com sucesso!");
         System.out.println("Informações cadastradas:");
         System.out.println("CPF: " + cpf);
         System.out.println("Nome: " + nome);
         System.out.println("Idade: " + idade);
         System.out.println("Instituição: " + instituicao);
-    }
-
-    private static String verificarTipoUsuario(String usuario, String senha) {
-        // Simulação de verificação de tipo de usuário
-        if ("admin".equals(usuario) && "admin123".equals(senha)) {
-            return "admin";
-        } else if ("palestrante".equals(usuario) && "palestrante123".equals(senha)) {
-            return "palestrante";
-        } else {
-            return "usuario";
-        }
     }
 }

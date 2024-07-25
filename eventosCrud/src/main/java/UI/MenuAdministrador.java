@@ -1,10 +1,14 @@
 package UI;
 
+import Models.Usuario;
+
 import java.util.Scanner;
 
 public class MenuAdministrador {
 
-    public static void mostrarMenuAdmin(Scanner scanner, String usuario) {
+    public static void mostrarMenuAdmin(Usuario u) {
+        Usuario usuario;
+        Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
         while (!sair) {
