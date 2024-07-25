@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Evento;
+import Models.Usuario;
 import Persistence.PersistenceEvento;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class EventoController {
     }
 
     public void CadastrarEvento(Evento evento){
+        List<Evento> lista = eventoP.getTodos();
+        evento.setId(lista.size()+1);
         Evento e = eventoP.getPorId(evento.getId());
         if (e != null ){
             eventoP.add(evento);

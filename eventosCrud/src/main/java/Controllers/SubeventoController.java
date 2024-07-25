@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Secao;
 import Models.SubEvento;
+import Models.Usuario;
 import Persistence.PersistenceSubEvento;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class SubeventoController {
         return listasubEvento;
     }
     public void CadastrarSubEvento(SubEvento subEvento){
+        List<SubEvento> lista = subEventoP.getTodos();
+        subEvento.setId(lista.size() +1);
         SubEvento s = subEventoP.getPorId(subEvento.getId());
         if (s != null ){
             subEventoP.add(subEvento);

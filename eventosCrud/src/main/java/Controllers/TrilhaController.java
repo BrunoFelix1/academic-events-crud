@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Models.SubEvento;
 import Models.Trilha;
+import Models.Usuario;
 import Persistence.PersistenceTrilha;
 
 public class TrilhaController {
@@ -18,6 +19,8 @@ public class TrilhaController {
         return listaTrilhas;
     }
     public void CadastrarTrilha(Trilha trilha){
+        List<Trilha> lista = trilhaP.getTodos();
+        trilha.setId(lista.size()+1);
         Trilha t = trilhaP.getPorId(trilha.getId());
         if (t != null ){
             trilhaP.add(trilha);

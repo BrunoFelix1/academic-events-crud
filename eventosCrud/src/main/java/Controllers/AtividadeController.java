@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Atividade;
+import Models.Usuario;
 import Persistence.PersistenceAtividade;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class AtividadeController {
     }
 
     public void CadastrarAtividade(Atividade atividade){
+        List<Atividade> lista = atividadeP.getTodos();
+        atividade.setId(lista.size() +1);
         Atividade e = atividadeP.getPorId(atividade.getId());
         if (e != null ){
             atividadeP.add(atividade);

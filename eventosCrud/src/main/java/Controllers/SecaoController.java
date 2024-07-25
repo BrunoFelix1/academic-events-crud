@@ -2,6 +2,7 @@ package Controllers;
 
 import Models.Evento;
 import Models.Secao;
+import Models.Usuario;
 import Persistence.PersistenceSecao;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class SecaoController {
         return listaSecao;
     }
     public void CadastrarSecao(Secao Secao){
+        List<Secao> lista = secaoP.getTodos();
+        Secao.setId(lista.size()+1);
         Secao e = secaoP.getPorId(Secao.getId());
         if (e != null ){
             secaoP.add(Secao);

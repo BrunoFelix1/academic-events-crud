@@ -24,6 +24,8 @@ public class UsuarioController  {
 
 
     public void cadastrarUsuario(Usuario usuario) {
+        List<Usuario> lista = usuarioP.getTodos();
+        usuario.setId(lista.size()+1);
         boolean cpfCorreto = usuario.ValidarCPF();
         if (cpfCorreto) {
             Object o = usuarioP.getPorId(usuario.getId());
