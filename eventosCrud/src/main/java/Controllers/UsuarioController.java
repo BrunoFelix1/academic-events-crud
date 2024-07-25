@@ -1,12 +1,17 @@
 package Controllers;
 
+import Models.Evento;
+import Models.Inscricao;
 import Models.Trilha;
 import Models.Usuario;
+import Persistence.PersistenceEvento;
 import Persistence.PersistenceInscricao;
 import Persistence.PersistenceTrilha;
 import Persistence.PersistenceUsuario;
 import java.util.List;
 import Exception.UsuarioNaoEncontradoException;
+import UI.CancelarInscricao;
+
 public class UsuarioController  {
 
     private PersistenceUsuario usuarioP = new PersistenceUsuario();
@@ -55,24 +60,57 @@ public class UsuarioController  {
 
     public boolean EmitirCertificado(Usuario usuario, String nomeTrilha){
         PersistenceTrilha trilhaP = new PersistenceTrilha();
-        List<Trilha> listaTrilha = trilhaP.getTodos();
-        for ( Trilha trilha : listaTrilha ){
-            if ( trilha.getNome() == nomeTrilha ){
-                // chamar método pra ver se ele tá inscrito na trilha
-                PersistenceInscricao inscricaoP = new PersistenceInscricao();
-                boolean resultado = inscricaoP.estaInscritoEmTrilha(usuario.getId(), trilha.getId());
-                return resultado;
-            }
-        }
-        return false;
+        Trilha trilha = trilhaP.getPorNome(nomeTrilha);
+        // chamar método pra ver se ele tá inscrito na trilha
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        boolean resultado = inscricaoP.estaInscritoEmTrilha(usuario.getId(), trilha.getId());
+        return resultado;
     }
 
-    public void InscricaoEvento(){
+    public void InscricaoEvento(Usuario usuario, String nomeDoEvento){
+        PersistenceEvento eventoP = new PersistenceEvento();
+        Evento evento = eventoP.getPorNome(nomeDoEvento);
+
+        Inscricao novaInscricao = new Inscricao();
+        novaInscricao.setIdUsuario(usuario.getId());
+        novaInscricao.setIdEvento(evento.getId());
+
+        // Adiciona a inscrição
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        inscricaoP.add(novaInscricao);
+    }
+
+    public void InscricaoTrilha(Usuario usuario, String nomeDaTrilha){
+        PersistenceTrilha trilhaP = new PersistenceTrilha();
+        Trilha trilha = trilhaP.getPorNome(nomeDaTrilha);
+
+        Inscricao novaInscricao = new Inscricao();
+        novaInscricao.setIdUsuario(usuario.getId());
+        novaInscricao.setIdTrilha(trilha.getId());
+
+        // Adiciona a inscrição
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        inscricaoP.add(novaInscricao);
 
     }
 
-    public void InscricaoTrilha(){
+    public void CancelarInscriçãoEvento(Usuario usuario, String nomeEvento){
+        PersistenceEvento eventoP = new PersistenceEvento();
+        Evento evento = eventoP.getPorNome(nomeEvento);
 
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        Inscricao inscricao = new Inscricao();
+        inscricao = inscricaoP.getPorIdInscricaoEvento(usuario.getId(),evento.getId());
+        inscricaoP.delete(inscricao);
     }
 
+    public void CancelarInscriçãoTrilha(Usuario usuario, String nomeTrilha){
+        PersistenceTrilha trilhaP = new PersistenceTrilha();
+        Trilha trilha = trilhaP.getPorNome(nomeTrilha);
+
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        Inscricao inscricao = new Inscricao();
+        inscricao = inscricaoP.getPorIdInscricaoTrilha(usuario.getId(),trilha.getId());
+        inscricaoP.delete(inscricao);
+    }
 }

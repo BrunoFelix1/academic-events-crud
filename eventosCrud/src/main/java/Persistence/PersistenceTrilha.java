@@ -1,6 +1,7 @@
 package Persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Interfaces.iPersistenciaControlador;
 import Models.Trilha;
@@ -80,13 +81,23 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
         manipulador.fecharArquivoEscrita();
     }
 
-        public Trilha getPorId(int id) {
+    public Trilha getPorNome(String nome) {
         ArrayList<Trilha> trilhas = getTodos();
         for (Trilha t : trilhas) {
-            if (id == t.getId()) {
+            if (nome == t.getNome()) {
                 return t;
             }
         }
+        return null;
+    }
+
+    public Trilha getPorId(int id) {
+    ArrayList<Trilha> trilhas = getTodos();
+    for (Trilha t : trilhas) {
+        if (id == t.getId()) {
+            return t;
+        }
+    }
         return null; // Caso não encontre o ID da trilha
     }
 
@@ -97,5 +108,5 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
     }
 
 
-   
+
 }

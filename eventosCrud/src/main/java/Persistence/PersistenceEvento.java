@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Interfaces.iPersistenciaControlador;
 import Models.Evento;
-
+import Models.Trilha;
 
 
 public class PersistenceEvento implements iPersistenciaControlador<Evento> {
@@ -84,6 +84,16 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
             manipulador.escreverNoArquivo(eventoToCSV(u));
         }
         manipulador.fecharArquivoEscrita();
+    }
+
+    public Evento getPorNome(String nome) {
+        ArrayList<Evento> eventos = getTodos();
+        for (Evento e : eventos) {
+            if (nome == e.getTitulo()) {
+                return e;
+            }
+        }
+        return null; // Caso não encontre o ID do Evento
     }
 
     public Evento getPorId(int id) {

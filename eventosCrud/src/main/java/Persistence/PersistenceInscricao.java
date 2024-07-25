@@ -115,6 +115,28 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
         return null; // Caso não encontre o ID da Inscrição
     }
 
+    public Inscricao getPorIdInscricaoEvento(int idUsuario, int idEvento){
+        ArrayList<Inscricao> inscricoes = getTodos();
+        for (Inscricao i : inscricoes) {
+            if (idUsuario == i.getIdUsuario() &&
+                    idEvento == i.getIdEvento() ) {
+                return i;
+            }
+        }
+        return null; // Caso não encontre o ID da Inscrição
+    }
+    public Inscricao getPorIdInscricaoTrilha(int idUsuario, int idTrilha){
+        ArrayList<Inscricao> inscricoes = getTodos();
+        for (Inscricao i : inscricoes) {
+            if (idUsuario == i.getIdUsuario() &&
+                    idTrilha == i.getIdTrilha() ) {
+                return i;
+            }
+        }
+        return null; // Caso não encontre o ID da Inscrição
+    }
+
+
     // Método para verificar se o usuário está inscrito em uma trilha
     public boolean estaInscritoEmTrilha(int idUsuario, int idTrilha) {
         ArrayList<Inscricao> inscricoes = getTodos();
