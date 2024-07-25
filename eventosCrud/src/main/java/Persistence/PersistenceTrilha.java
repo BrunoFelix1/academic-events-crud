@@ -1,8 +1,6 @@
 package Persistence;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import Interfaces.iPersistenciaControlador;
 import Models.Trilha;
 

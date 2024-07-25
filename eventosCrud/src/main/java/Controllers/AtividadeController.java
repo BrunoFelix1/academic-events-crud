@@ -1,21 +1,21 @@
 package Controllers;
 
 import Models.Atividade;
-import Models.Usuario;
 import Persistence.PersistenceAtividade;
 import Interfaces.iControladorUI;
+import Interfaces.iPersistenciaControlador;
 
 import java.util.List;
 
 public class AtividadeController implements iControladorUI<Atividade>{
-    private PersistenceAtividade atividadeP = new PersistenceAtividade();
+    private iPersistenciaControlador<Atividade> atividadeP = new PersistenceAtividade();
 
-    public List<Atividade> ListarAtividades(){
+    public List<Atividade> listar(){
         List<Atividade> listaAtividade =  atividadeP.getTodos();
         return listaAtividade;
     }
 
-    public void CadastrarAtividade(Atividade atividade){
+    public void cadastrar(Atividade atividade){
         List<Atividade> lista = atividadeP.getTodos();
         atividade.setId(lista.size() +1);
         Atividade e = atividadeP.getPorId(atividade.getId());
@@ -24,12 +24,12 @@ public class AtividadeController implements iControladorUI<Atividade>{
         }
     }
 
-    public void AtualizarAtividade(Atividade atividade){
+    public void atualizar(Atividade atividade){
         Atividade atividadeAntiga = atividadeP.getPorId(atividade.getId());
         atividadeP.update(atividadeAntiga, atividade);
     }
 
-    public boolean DeletarAtividade(int id){
+    public boolean deletar(int id){
         Atividade atividade = atividadeP.getPorId(id);
         if( atividade !=null ){
             atividadeP.delete(atividade);
@@ -40,29 +40,4 @@ public class AtividadeController implements iControladorUI<Atividade>{
             return false;
         }
     }
-
-    @Override
-    public List<Atividade> listar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listar'");
-    }
-
-    @Override
-    public void cadastrar(Atividade objeto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrar'");
-    }
-
-    @Override
-    public void atualizar(Atividade objeto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
-    }
-
-    @Override
-    public boolean deletar(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
-    }
-
 }

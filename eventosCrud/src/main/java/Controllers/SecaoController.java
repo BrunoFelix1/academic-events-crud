@@ -1,20 +1,20 @@
 package Controllers;
 
-import Models.Evento;
 import Models.Secao;
-import Models.Usuario;
 import Persistence.PersistenceSecao;
-
 import java.util.List;
+import Interfaces.iControladorUI;
+import Interfaces.iPersistenciaControlador;
 
-public class SecaoController {
-    private PersistenceSecao secaoP = new PersistenceSecao();
+public class SecaoController implements iControladorUI<Secao> {
+    private iPersistenciaControlador<Secao> secaoP = new PersistenceSecao();
 
-    public List<Secao> ListarSecao(){
+    public List<Secao> listar(){
         List<Secao> listaSecao =  secaoP.getTodos();
         return listaSecao;
     }
-    public void CadastrarSecao(Secao Secao){
+
+    public void cadastrar(Secao Secao){
         List<Secao> lista = secaoP.getTodos();
         Secao.setId(lista.size()+1);
         Secao e = secaoP.getPorId(Secao.getId());
@@ -22,11 +22,13 @@ public class SecaoController {
             secaoP.add(Secao);
         }
     }
-    public void AtualizarSecao(Secao secao){
+
+    public void atualizar(Secao secao){
         Secao secaoAntiga = secaoP.getPorId(secao.getId());
         secaoP.update(secaoAntiga, secao);
     }
-    public boolean DeletarSecao(int id){
+    
+    public boolean deletar(int id){
         Secao secao = secaoP.getPorId(id);
         if( secao !=null ){
             secaoP.delete(secao);

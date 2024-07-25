@@ -1,20 +1,20 @@
 package Controllers;
 
 import Models.Evento;
-import Models.Usuario;
 import Persistence.PersistenceEvento;
-
 import java.util.List;
+import Interfaces.iControladorUI;
+import Interfaces.iPersistenciaControlador;
 
-public class EventoController {
-    private PersistenceEvento eventoP = new PersistenceEvento();
+public class EventoController implements iControladorUI<Evento> {
+    private iPersistenciaControlador<Evento> eventoP = new PersistenceEvento();
 
-    public List<Evento> ListarEventos(){
+    public List<Evento> listar(){
         List<Evento> listaEvento =  eventoP.getTodos();
         return listaEvento;
     }
 
-    public void CadastrarEvento(Evento evento){
+    public void cadastrar(Evento evento){
         List<Evento> lista = eventoP.getTodos();
         evento.setId(lista.size()+1);
         Evento e = eventoP.getPorId(evento.getId());
@@ -23,11 +23,12 @@ public class EventoController {
         }
     }
 
-    public void AtualizarEvento(Evento evento){
+    public void atualizar(Evento evento){
         Evento eventoAntigo = eventoP.getPorId(evento.getId());
         eventoP.update(eventoAntigo, evento);
     }
-    public boolean DeletarEvento(int id){
+
+    public boolean deletar(int id){
         Evento evento = eventoP.getPorId(id);
         if( evento !=null ){
             eventoP.delete(evento);
@@ -38,5 +39,4 @@ public class EventoController {
             return false;
         }
     }
-
 }

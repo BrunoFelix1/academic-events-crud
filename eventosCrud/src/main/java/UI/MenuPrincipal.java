@@ -3,6 +3,8 @@ package UI;
 import Controllers.UsuarioController;
 import Models.Usuario;
 import Exception.UsuarioNaoEncontradoException;
+import Interfaces.iControladorUI;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -47,7 +49,7 @@ public class MenuPrincipal {
         String senha = scanner.nextLine();
 
         // verificação de tipo de usuário
-        UsuarioController usuarioController = new UsuarioController();
+        iControladorUI<Usuario> usuarioController = new UsuarioController();
         Usuario usuario = usuarioController.AutenticarUsuario(login, senha);
 
         System.out.println("Login realizado com sucesso como " + usuario);
@@ -84,7 +86,7 @@ public class MenuPrincipal {
         usuario.setInstituicao(scanner.nextLine());
 
         UsuarioController usuarioController = new UsuarioController();
-        usuarioController.cadastrarUsuario(usuario);
+        usuarioController.cadastrar(usuario);
 
         System.out.println("Usuário cadastrado com sucesso!");
 

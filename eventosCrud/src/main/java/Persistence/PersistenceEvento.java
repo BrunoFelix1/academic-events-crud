@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import Interfaces.iPersistenciaControlador;
 import Models.Evento;
-import Models.Trilha;
 
 
 public class PersistenceEvento implements iPersistenciaControlador<Evento> {

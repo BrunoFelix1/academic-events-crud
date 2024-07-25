@@ -10,11 +10,13 @@ import Persistence.PersistenceTrilha;
 import Persistence.PersistenceUsuario;
 import java.util.List;
 import Exception.UsuarioNaoEncontradoException;
-import UI.CancelarInscricao;
+import Interfaces.iControladorUI;
+import Interfaces.iPersistenciaControlador;
 
-public class UsuarioController  {
 
-    private PersistenceUsuario usuarioP = new PersistenceUsuario();
+public class UsuarioController implements iControladorUI<Usuario>  {
+
+    private iPersistenciaControlador<Usuario> usuarioP = new PersistenceUsuario();
 
     public Usuario AutenticarUsuario(String login, String senha) throws UsuarioNaoEncontradoException{
         List<Usuario> usuarioList = usuarioP.getTodos();
@@ -27,8 +29,12 @@ public class UsuarioController  {
 
     }
 
+    public List<Usuario> listar(){
+        List<Usuario> listaUsuario =  usuarioP.getTodos();
+        return listaUsuario;
+    }
 
-    public void cadastrarUsuario(Usuario usuario) {
+    public void cadastrar(Usuario usuario) {
         List<Usuario> lista = usuarioP.getTodos();
         usuario.setId(lista.size()+1);
         boolean cpfCorreto = usuario.ValidarCPF();
@@ -44,12 +50,12 @@ public class UsuarioController  {
         }
     }
 
-    public void AtualizarUsuario(Usuario usuarioNovo) {
+    public void atualizar(Usuario usuarioNovo) {
         Usuario usuarioAntigo = usuarioP.getPorId(usuarioNovo.getId());
         usuarioP.update(usuarioAntigo, usuarioNovo);
     }
 
-    public boolean DeletarUsuario(int id) {
+    public boolean deletar(int id) {
         Usuario usuario = usuarioP.getPorId(id);
         if ( usuario!= null) {
             usuarioP.delete(usuario);
