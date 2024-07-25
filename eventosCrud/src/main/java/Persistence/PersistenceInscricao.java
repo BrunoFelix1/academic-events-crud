@@ -114,4 +114,15 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
         }
         return null; // Caso não encontre o ID da Inscrição
     }
+
+    // Método para verificar se o usuário está inscrito em uma trilha
+    public boolean estaInscritoEmTrilha(int idUsuario, int idTrilha) {
+        ArrayList<Inscricao> inscricoes = getTodos();
+        for (Inscricao inscricao : inscricoes) {
+            if (inscricao.getIdUsuario() == idUsuario && inscricao.getIdTrilha() == idTrilha) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

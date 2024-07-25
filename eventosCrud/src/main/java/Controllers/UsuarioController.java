@@ -1,6 +1,9 @@
 package Controllers;
 
+import Models.Trilha;
 import Models.Usuario;
+import Persistence.PersistenceInscricao;
+import Persistence.PersistenceTrilha;
 import Persistence.PersistenceUsuario;
 import java.util.List;
 import Exception.UsuarioNaoEncontradoException;
@@ -45,7 +48,29 @@ public class UsuarioController  {
             usuarioP.delete(usuario);
             return true;
         }
-        else { return false;}
+        else { return false; }
     }
 
+    public boolean EmitirCertificado(Usuario usuario, String nomeTrilha){
+        PersistenceTrilha trilhaP = new PersistenceTrilha();
+        List<Trilha> listaTrilha = trilhaP.getTodos();
+        for ( Trilha trilha : listaTrilha ){
+            if ( trilha.getNome() == nomeTrilha ){
+                // chamar método pra ver se ele tá inscrito na trilha
+                PersistenceInscricao inscricaoP = new PersistenceInscricao();
+                boolean resultado = inscricaoP.estaInscritoEmTrilha(usuario.getId(), trilha.getId());
+                return resultado;
+            }
+        }
+        return false;
+    }
+
+    public void InscricaoEvento(){
+
+    }
+
+    public void InscricaoTrilha(){
+
+    }
+    
 }
