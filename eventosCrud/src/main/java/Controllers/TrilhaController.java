@@ -12,7 +12,7 @@ public class TrilhaController {
 
     protected void cadastrarTrilha(Trilha trilha) {
 
-        ArrayList<Trilha> trilhas = trilhaT.getTodasTrilhas();
+        ArrayList<Trilha> trilhas = trilhaT.getTodos();
         boolean trilhaExistente = false;
         for (Trilha t : trilhas) {
             if (t.getId() == trilha.getId()) {
@@ -23,13 +23,13 @@ public class TrilhaController {
         if (trilhaExistente) {
             System.out.println("Trilha com ID " + trilha.getId() + " já existe.");
         } else {
-            trilhaT.addTrilha(trilha);
+            trilhaT.add(trilha);
             System.out.println("Trilha cadastrada com sucesso.");
         }
     }
 
     protected void listarTrilhas() {
-        ArrayList<Trilha> trilhas = trilhaT.getTodasTrilhas();
+        ArrayList<Trilha> trilhas = trilhaT.getTodos();
         if (trilhas.isEmpty()) {
             System.out.println("Nenhuma trilha cadastrada.");
         } else {
@@ -45,12 +45,12 @@ public class TrilhaController {
     protected void deletarTrilha() {
         System.out.println("Digite o ID da trilha que deseja excluir:");
         int id = scanner.nextInt();
-        ArrayList<Trilha> trilhas = trilhaT.getTodosSubEventos();
+        ArrayList<Trilha> trilhas = trilhaT.getTodos();
         boolean trilhaExistente = false;
         for (Trilha t : trilhas) {
             if (t.getId() == id) {
                 trilhaExistente = true;
-                trilhaT.deleteTrilha(t);
+                trilhaT.delete(t);
                 System.out.println("Trilha com ID " + id + " excluída com sucesso.");
                 break;
             }
@@ -59,9 +59,10 @@ public class TrilhaController {
             System.out.println("Trilha com ID " + id + " não encontrada.");
         }
     }
+
+    public void AtualizarTrilha(Trilha trilha){
+        Trilha antigaTrilha = trilhaT.getPorId(trilha.getId());
+        trilhaT.update(antigaTrilha,trilha);
+    }
 }
-// 1. Adicionar trilha Já implementado
-    // 2. Listar trilha  Já implementado
-    // 3. Atualizar trilha 
-    // 4. Deletar trilha  Já implementado
-    // 5. Voltar
+

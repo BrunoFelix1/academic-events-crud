@@ -1,5 +1,7 @@
 package Controllers;
 
-public class SecaoControler {
+import Persistence.PersistenceSecao;
 
+public class SecaoController {
+    private PersistenceSecao secaoP = new PersistenceSecao();
 }
