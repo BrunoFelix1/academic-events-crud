@@ -6,9 +6,8 @@ import java.util.Scanner;
 
 public class MenuAdministrador {
 
-    public static void mostrarMenuAdmin(Usuario u) {
+    public static void mostrarMenuAdmin(Usuario u, Scanner scanner) {
         Usuario usuario;
-        Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
         while (!sair) {

@@ -87,6 +87,14 @@ public class Usuario {
         return this.senha;
     }
 
+    public String setLogin(String s){
+        return this.login;
+    }
+
+    public String setSenha(String s){
+        return this.senha;
+    }
+
     public boolean ValidarCPF(){
         String cpf = this.CPF;
         cpf = cpf.replaceAll("[^0-9]", "");

@@ -6,9 +6,8 @@ import java.util.Scanner;
 
 public class MenuPalestrante {
 
-    public static void mostrarMenuPalestrante(Usuario u) {
+    public static void mostrarMenuPalestrante(Usuario u, Scanner scanner) {
         Usuario usuario = u;
-        Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
         while (!sair) {

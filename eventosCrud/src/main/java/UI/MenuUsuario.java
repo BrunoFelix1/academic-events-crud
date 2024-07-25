@@ -7,9 +7,8 @@ import java.util.Scanner;
 
 public class MenuUsuario {
 
-    public static void mostrarMenuUsuario(Usuario u) {
+    public static void mostrarMenuUsuario(Usuario u, Scanner scanner) {
         Usuario usuario = u;
-        Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
         while (!sair) {

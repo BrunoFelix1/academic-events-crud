@@ -54,13 +54,13 @@ public class MenuPrincipal {
 
         switch (usuario.getTipoDeUsuario()) {
             case ADMINISTRADOR:
-                MenuAdministrador.mostrarMenuAdmin(usuario);
+                MenuAdministrador.mostrarMenuAdmin(usuario, scanner);
                 break;
             case PALESTRANTE:
-                MenuPalestrante.mostrarMenuPalestrante(usuario);
+                MenuPalestrante.mostrarMenuPalestrante(usuario, scanner);
                 break;
             case COMUM:
-                MenuUsuario.mostrarMenuUsuario(usuario);
+                MenuUsuario.mostrarMenuUsuario(usuario, scanner);
                 break;
             default:
                 System.out.println("Tipo de usuário desconhecido.");
@@ -68,26 +68,25 @@ public class MenuPrincipal {
     }
 
     private static void cadastro(Scanner scanner) {
+        Usuario usuario = new Usuario();
         System.out.print("Digite seu novo usuário: ");
-        String novoUsuario = scanner.nextLine();
+        usuario.setLogin(scanner.nextLine());
         System.out.print("Digite sua nova senha: ");
-        String novaSenha = scanner.nextLine();
+        usuario.setSenha(scanner.nextLine());
         System.out.print("Digite seu CPF: ");
-        String cpf = scanner.nextLine();
+        usuario.setCPF(scanner.nextLine());
         System.out.print("Digite seu nome: ");
-        String nome = scanner.nextLine();
+        usuario.setNome(scanner.nextLine());
         System.out.print("Digite sua idade: ");
-        int idade = scanner.nextInt();
-        scanner.nextLine(); // Limpa o buffer do scanner
+        usuario.setIdade(Integer.parseInt(scanner.nextLine()));
+        scanner.nextLine();
         System.out.print("Digite sua instituição: ");
-        String instituicao = scanner.nextLine();
+        usuario.setInstituicao(scanner.nextLine());
 
-        // Aqui, você adicionaria a lógica para registrar o novo usuário com as informações coletadas
-        System.out.println("Usuário " + novoUsuario + " cadastrado com sucesso!");
-        System.out.println("Informações cadastradas:");
-        System.out.println("CPF: " + cpf);
-        System.out.println("Nome: " + nome);
-        System.out.println("Idade: " + idade);
-        System.out.println("Instituição: " + instituicao);
+        UsuarioController usuarioController = new UsuarioController();
+        usuarioController.cadastrarUsuario(usuario);
+
+        System.out.println("Usuário cadastrado com sucesso!");
+
     }
 }
