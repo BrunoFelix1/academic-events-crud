@@ -72,5 +72,5 @@ public class UsuarioController  {
     public void InscricaoTrilha(){
 
     }
-    
+
 }
