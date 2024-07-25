@@ -79,8 +79,17 @@ public class Usuario {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 
-    public static boolean ValidarCPF(){
-        this.CPF = this.CPF.replaceAll("[^0-9]", "");
+    public String getLogin(){
+        return this.login;
+    }
+
+    public String getSenha(){
+        return this.senha;
+    }
+
+    public boolean ValidarCPF(){
+        String cpf = this.CPF;
+        cpf = cpf.replaceAll("[^0-9]", "");
 
         // Verifica se o CPF possui 11 dígitos
         if (cpf.length() != 11)
