@@ -7,7 +7,7 @@ import Models.Trilha;
 
 public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
     //Instanciando manipulador e adicionando o path da tabela de Trilhas
-    private String pathTrilha = "C:\\Users\\ytalo\\Downloads\\Trilhas.txt";
+    private String pathTrilha = "C:\\Users\\71109791488\\Downloads\\Trilhas.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathTrilha);
 
     //Retorna um objeto Trilha em formato de linha String
@@ -18,11 +18,12 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
 
     //Retorna uma lista de todos as Trilhas no momento
     public ArrayList<Trilha> getTodos() {
-        Trilha trilhaDaVez = new Trilha();
+
         String linha;
         ArrayList<Trilha> trilhas = new ArrayList<>();
         manipulador.abrirArquivoParaLeitura();
         while ((linha = manipulador.lerLinhaArquivo()) != null){
+            Trilha trilhaDaVez = new Trilha();
             //Desconsiderando cabeçalho
             if (linha.contains("id")){
                 continue;
@@ -83,7 +84,7 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
     public Trilha getPorNome(String nome) {
         ArrayList<Trilha> trilhas = getTodos();
         for (Trilha t : trilhas) {
-            if (nome == t.getNome()) {
+            if (nome.equals(t.getNome())) {
                 return t;
             }
         }

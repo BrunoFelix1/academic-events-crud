@@ -9,7 +9,7 @@ import Models.SubEvento;
 
 public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento> {
     //Instanciando manipulador e adicionando o path da tabela de SubEventos
-    private String pathSubEvento = "C:\\Users\\ytalo\\Downloads\\SubEventos.txt";
+    private String pathSubEvento = "C:\\Users\\71109791488\\Downloads\\SubEventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);
 
     //Retorna um objeto SubEvento em formato de linha String
@@ -21,11 +21,11 @@ public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento>
 
     //Retorna uma lista de todos os SubEventos no momento
     public ArrayList<SubEvento> getTodos() {
-        SubEvento subEventoDaVez = new SubEvento();
         String linha;
         ArrayList<SubEvento> subEventos = new ArrayList<>();
         manipulador.abrirArquivoParaLeitura();
         while ((linha = manipulador.lerLinhaArquivo()) != null){
+            SubEvento subEventoDaVez = new SubEvento();
             //Desconsiderando cabeçalho
             if (linha.contains("id")){
                 continue;

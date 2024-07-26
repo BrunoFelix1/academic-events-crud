@@ -9,7 +9,7 @@ import Models.Atividade;
 
 public class PersistenceAtividade implements iPersistenciaControlador<Atividade>{
     //Instanciando manipulador e adicionando o path da tabela de atividades
-    private String pathAtividade = "C:\\Users\\ytalo\\Downloads\\Atividades.txt";
+    private String pathAtividade = "C:\\Users\\71109791488\\Downloads\\Atividades.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathAtividade);
 
     //Retorna um objeto atividade em formato de linha String
@@ -21,7 +21,6 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
 
     //Retorna uma lista de todos os atividades no momento
     public ArrayList<Atividade> getTodos() {
-        Atividade atividadeDaVez = new Atividade();
         String linha;
         ArrayList<Atividade> atividades = new ArrayList<>();
         manipulador.abrirArquivoParaLeitura();
@@ -31,6 +30,7 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
                 continue;
             }
             String dados [] = linha.split(",");
+            Atividade atividadeDaVez = new Atividade();
             atividadeDaVez.setId(Integer.parseInt(dados[0]));
             atividadeDaVez.setTipoSubmissao(TipoDeAtividade.valueOf(dados[1]));
             atividadeDaVez.setAutor(dados[2]);
@@ -59,7 +59,7 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,tipoDeAtividade,autor,resumo,id_trilha");
         for (Atividade u : atividades){
             manipulador.escreverNoArquivo(atividadeToCSV(u));
@@ -79,7 +79,7 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,tipoDeAtividade,autor,resumo,id_trilha");
         for (Atividade u : atividades) {
             manipulador.escreverNoArquivo(atividadeToCSV(u));

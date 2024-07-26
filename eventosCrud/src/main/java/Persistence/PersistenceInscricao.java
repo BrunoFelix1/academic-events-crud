@@ -9,7 +9,7 @@ import Models.Inscricao;
 
 public class PersistenceInscricao implements iPersistenciaControlador<Inscricao> {
     //Instanciando manipulador e adicionando o path da tabela de Inscrições
-    private String pathInscricao = "C:\\Users\\ytalo\\Downloads\\Inscrições.txt";
+    private String pathInscricao = "C:\\Users\\71109791488\\Downloads\\Inscrições.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathInscricao);
 
     //Retorna um objeto Inscricao em formato de linha String
@@ -21,12 +21,12 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
 
     //Retorna uma lista de todas as Inscricoes no momento
     public ArrayList<Inscricao> getTodos() {
-        Inscricao inscricaoDaVez = new Inscricao();
         String linha;
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
         manipulador.abrirArquivoParaLeitura();
         while ((linha = manipulador.lerLinhaArquivo()) != null){
             //Desconsiderando cabeçalho
+            Inscricao inscricaoDaVez = new Inscricao();
             if (linha.contains("id")){
                 continue;
             }
@@ -63,7 +63,7 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("usuario_id,evento_id,subevento_id,secao_id,trilha_id");
         for (Inscricao u : inscricoes){
             manipulador.escreverNoArquivo(inscricaoToCSV(u));
@@ -88,7 +88,7 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("usuario_id,evento_id,subevento_id,secao_id,trilha_id");
         for (Inscricao u : inscricoes) {
             manipulador.escreverNoArquivo(inscricaoToCSV(u));

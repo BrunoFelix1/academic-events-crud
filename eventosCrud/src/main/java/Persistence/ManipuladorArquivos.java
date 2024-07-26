@@ -70,6 +70,17 @@ public class ManipuladorArquivos {
         }
     }
 
+    public void abrirArquivoParaEscrita(int inteiro) {
+        try {
+            arquivo = new File(path);
+            fileWriter = new FileWriter(arquivo);
+            bufferedWriter = new BufferedWriter(fileWriter);
+        } catch (IOException e) {
+            System.out.println("Erro ao abrir o arquivo para escrita: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public void escreverNoArquivoPorUltimo(String conteudo) {
         try {
             if (bufferedWriter != null) {

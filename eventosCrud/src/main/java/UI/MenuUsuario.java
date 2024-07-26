@@ -13,6 +13,8 @@ import Models.SubEvento;
 import Models.Secao;
 import Models.Inscricao;
 import Models.Usuario;
+import Persistence.PersistenceEvento;
+import Persistence.PersistenceTrilha;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class MenuUsuario {
             System.out.println("5. Participar de Evento");
             System.out.println("6. Participar de Trilha");
             System.out.println("7. Listar Inscrições");
-            System.out.println("8. Cancelar Inscrição de Trilha");
+            System.out.println("8. Cancelar Inscrição");
             System.out.println("9. Emitir Certificado de Trilha");
             System.out.println("10. Sair");
 
@@ -72,14 +74,14 @@ public class MenuUsuario {
                     List<Secao> secoes = secaoController.listar();
                     System.out.println("Seções disponíveis:");
                     for (Secao s : secoes) {
-                        System.out.println("Nome da seção: " + s.getNome() + ", Horario" + s.getHorario() +", Local" + s.getLocal() + ", Id do Subevento: " + s.getId_subEvento()+ ", Id do Evento: " + s.getId_evento());
+                        System.out.println("Nome da seção: " + s.getNome() + ", Horario: " + s.getHorario() +", Local" + s.getLocal() + ", Id do Subevento: " + s.getId_subEvento()+ ", Id do Evento: " + s.getId_evento());
                     }
                     break;
                 case 5:
                     System.out.println("Digite o nome do EVENTO que gostaria de participar: ");
                     String nomeEvento = scanner.next();
                     usuarioController.InscricaoEvento(u, nomeEvento);
-                    System.out.println("Inscrição realizada.");
+
                     break;
                 case 6:
                     System.out.println("Digite o nome da TRILHA que gostaria de participar: ");
@@ -88,13 +90,21 @@ public class MenuUsuario {
                     break;
                 case 7:
                     ArrayList<Inscricao> listaInscricoes = usuarioController.listaInscricoes(u.getId());
-                    System.out.println("Você está inscrito nos eventos :");
+                    PersistenceEvento eventoP = new PersistenceEvento();
                     for (Inscricao i : listaInscricoes) {
-                        System.out.println(i.getIdEvento());
+                        if (i.getIdEvento() != 0){
+                            System.out.println("Você está inscrito no evento :");
+                            Evento evento =  eventoP.getPorId(i.getIdEvento());
+                            System.out.println(evento.getTitulo());
+                        }
                     }
-                    System.out.println("Você está inscrito nas trilhas :");
+                    PersistenceTrilha trilhaP = new PersistenceTrilha();
                     for (Inscricao i : listaInscricoes) {
-                        System.out.println(i.getIdTrilha());
+                        if ( i.getIdTrilha() !=0 ){
+                            System.out.println("Você está inscrito na trilha :");
+                            Trilha trilha = trilhaP.getPorId(i.getIdTrilha());
+                            System.out.println(trilha.getNome());
+                        }
                     }
                     break;
                 case 8:
@@ -102,11 +112,11 @@ public class MenuUsuario {
                     int i = scanner.nextInt();
                     if (i == 1) {
                         System.out.println("Qual o nome do evento que você quer remover?");
-                        String nomeEventoRemover = scanner.nextLine();
+                        String nomeEventoRemover = scanner.next();
                         usuarioController.CancelarInscriçãoEvento(u, nomeEventoRemover);
                     } else if (i == 2) {
                         System.out.println("Qual o nome da trilha que você quer remover?");
-                        String nomeTrilhaRemover = scanner.nextLine();
+                        String nomeTrilhaRemover = scanner.next();
                         usuarioController.CancelarInscriçãoTrilha(u, nomeTrilhaRemover);
                     } else {
                         System.out.println("Opção inválida");
@@ -118,7 +128,7 @@ public class MenuUsuario {
 
                     boolean estaInscrito = usuarioController.EmitirCertificado(u, nomeTrilhaCertificado);
                     if (estaInscrito) {
-                        System.out.println("Inscrição removida.");
+                        System.out.println("Certificado emitido!");
                     } else {
                         System.out.println("Você não está inscrito nessa trilha");
                     }

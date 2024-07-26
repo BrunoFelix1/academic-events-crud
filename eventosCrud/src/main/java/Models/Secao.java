@@ -10,12 +10,13 @@ public class Secao {
     private String nome;
     
     //Construtor
-    public Secao(int id, int id_evento, int id_subEvento, String local, String horario) {
+    public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome) {
         this.id = id;
         this.id_evento = id_evento;
         this.id_subEvento = id_subEvento;
         this.local = local;
         this.horario = horario;
+        this.nome = nome;
     }
 
     public Secao(){}
@@ -54,7 +55,7 @@ public class Secao {
     public String getNome() {
         return this.nome;
     }
-    public void setNome(String Nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 

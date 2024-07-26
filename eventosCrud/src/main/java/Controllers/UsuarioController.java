@@ -73,20 +73,29 @@ public class UsuarioController implements iUsuarioUI {
         // chamar método pra ver se ele tá inscrito na trilha
         PersistenceInscricao inscricaoP = new PersistenceInscricao();
         boolean resultado = inscricaoP.estaInscritoEmTrilha(usuario.getId(), trilha.getId());
+        if ( resultado ){
+            System.out.println("Este certificado é validado pelo MEC em todo o território brasileiro\nUsuário: " + usuario.getNome() + ", está inscrito na trilha: " + trilha.getNome());
+
+        }
         return resultado;
     }
 
     public void InscricaoEvento(Usuario usuario, String nomeDoEvento){
         PersistenceEvento eventoP = new PersistenceEvento();
         Evento evento = eventoP.getPorNome(nomeDoEvento);
+        //if( evento != null ){
+            Inscricao novaInscricao = new Inscricao();
+            novaInscricao.setIdUsuario(usuario.getId());
+            novaInscricao.setIdEvento(evento.getId());
 
-        Inscricao novaInscricao = new Inscricao();
-        novaInscricao.setIdUsuario(usuario.getId());
-        novaInscricao.setIdEvento(evento.getId());
-
-        // Adiciona a inscrição
-        PersistenceInscricao inscricaoP = new PersistenceInscricao();
-        inscricaoP.add(novaInscricao);
+            // Adiciona a inscrição
+            PersistenceInscricao inscricaoP = new PersistenceInscricao();
+            inscricaoP.add(novaInscricao);
+            System.out.println("Inscrição realizada.");
+       // }
+       // else {
+        //    System.out.println("Evento não encontrado");
+       // }
     }
 
     public void InscricaoTrilha(Usuario usuario, String nomeDaTrilha){
@@ -106,7 +115,6 @@ public class UsuarioController implements iUsuarioUI {
     public void CancelarInscriçãoEvento(Usuario usuario, String nomeEvento){
         PersistenceEvento eventoP = new PersistenceEvento();
         Evento evento = eventoP.getPorNome(nomeEvento);
-
         PersistenceInscricao inscricaoP = new PersistenceInscricao();
         Inscricao inscricao = new Inscricao();
         inscricao = inscricaoP.getPorIdInscricaoEvento(usuario.getId(),evento.getId());

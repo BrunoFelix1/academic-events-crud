@@ -18,10 +18,10 @@ public class AtividadeController implements iControladorUI<Atividade>{
     public void cadastrar(Atividade atividade){
         List<Atividade> lista = atividadeP.getTodos();
         atividade.setId(lista.size() +1);
-        Atividade e = atividadeP.getPorId(atividade.getId());
-        if (e != null ){
+       // Atividade e = atividadeP.getPorId(atividade.getId());
+       // if (e != null ){
             atividadeP.add(atividade);
-        }
+        //}
     }
 
     public void atualizar(Atividade atividade){
