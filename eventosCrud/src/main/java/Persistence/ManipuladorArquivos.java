@@ -62,7 +62,7 @@ public class ManipuladorArquivos {
     public void abrirArquivoParaEscrita() {
         try {
             arquivo = new File(path);
-            fileWriter = new FileWriter(arquivo);
+            fileWriter = new FileWriter(arquivo, true);
             bufferedWriter = new BufferedWriter(fileWriter);
         } catch (IOException e) {
             System.out.println("Erro ao abrir o arquivo para escrita: " + e.getMessage());
@@ -73,8 +73,8 @@ public class ManipuladorArquivos {
     public void escreverNoArquivoPorUltimo(String conteudo) {
         try {
             if (bufferedWriter != null) {
-                bufferedWriter.write(conteudo);
                 bufferedWriter.newLine();
+                bufferedWriter.write(conteudo);
             }
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo: " + e.getMessage());

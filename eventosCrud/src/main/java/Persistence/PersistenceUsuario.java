@@ -47,6 +47,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
         String linha = usuarioToCSV(usuario);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Usuario usuario) {

@@ -47,6 +47,7 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
         String linha = atividadeToCSV(atividade);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Atividade atividade) {

@@ -46,6 +46,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
         String linha = eventoToCSV(evento);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Evento evento) {

@@ -42,6 +42,7 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
         String linha = TrilhaToCSV(trilha);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Trilha trilha) {

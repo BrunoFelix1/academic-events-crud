@@ -47,6 +47,7 @@ public class PersistenceInscricao implements iPersistenciaControlador<Inscricao>
         String linha = inscricaoToCSV(inscricao);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Inscricao inscricao) {

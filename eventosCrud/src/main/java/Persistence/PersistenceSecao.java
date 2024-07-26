@@ -47,6 +47,7 @@ public class PersistenceSecao implements iPersistenciaControlador<Secao> {
         String linha = SecaoToCSV(secao);
         manipulador.abrirArquivoParaEscrita();
         manipulador.escreverNoArquivoPorUltimo(linha);
+        manipulador.fecharArquivoEscrita();
     }
 
     public void delete (Secao secao) {

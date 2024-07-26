@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    public static void main(String[] args) throws UsuarioNaoEncontradoException {
+    public void iniciarSistema() throws UsuarioNaoEncontradoException {
         Scanner scanner = new Scanner(System.in);
         boolean sair = false;
 
@@ -81,7 +81,6 @@ public class MenuPrincipal {
         usuario.setNome(scanner.nextLine());
         System.out.print("Digite sua idade: ");
         usuario.setIdade(Integer.parseInt(scanner.nextLine()));
-        scanner.nextLine();
         System.out.print("Digite sua instituição: ");
         usuario.setInstituicao(scanner.nextLine());
 

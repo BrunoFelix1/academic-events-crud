@@ -40,7 +40,7 @@ public class UsuarioController implements iControladorUI<Usuario>  {
         boolean cpfCorreto = usuario.ValidarCPF();
         if (cpfCorreto) {
             Object o = usuarioP.getPorId(usuario.getId());
-            if (o.getClass() != Usuario.class) {
+            if (o == null) {
                 usuarioP.add(usuario);
             } else {
                 System.out.println("Usuário já cadastrado.");
