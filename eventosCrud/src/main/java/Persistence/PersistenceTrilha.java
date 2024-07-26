@@ -55,7 +55,7 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,secao_id,nome");
         for (Trilha u : trilhas){
             manipulador.escreverNoArquivo(TrilhaToCSV(u));
@@ -73,7 +73,7 @@ public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,secao_id,nome");
         for (Trilha u : trilhas) {
             manipulador.escreverNoArquivo(TrilhaToCSV(u));

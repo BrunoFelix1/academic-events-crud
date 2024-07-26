@@ -18,9 +18,9 @@ public class SecaoController implements iControladorUI<Secao> {
         List<Secao> lista = secaoP.getTodos();
         Secao.setId(lista.size()+1);
         Secao e = secaoP.getPorId(Secao.getId());
-        if (e != null ){
+        //if (e != null ){
             secaoP.add(Secao);
-        }
+        //}
     }
 
     public void atualizar(Secao secao){

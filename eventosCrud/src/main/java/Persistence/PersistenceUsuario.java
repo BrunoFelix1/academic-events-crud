@@ -13,7 +13,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
 
     //Retorna um objeto Usuario em formato de linha String
     private String usuarioToCSV(Usuario usuario){
-        String linha = usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
+        String linha ="\n" + usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
         usuario.getIdade()+ "," + usuario.getInstituicao()+ "," +usuario.getTipoDeUsuario() + "," +usuario.getLogin()+ ","+usuario.getSenha();
         return linha;
     }
@@ -72,7 +72,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,cpf,nome,idade,instituicao,tipoDeUsuario");
         for (Usuario u : usuarios){
             manipulador.escreverNoArquivo(usuarioToCSV(u));
@@ -93,7 +93,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,cpf,nome,idade,instituicao,tipoDeUsuario");
         for (Usuario u : usuarios) {
             manipulador.escreverNoArquivo(usuarioToCSV(u));

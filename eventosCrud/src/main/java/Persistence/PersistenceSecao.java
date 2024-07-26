@@ -61,7 +61,7 @@ public class PersistenceSecao implements iPersistenciaControlador<Secao> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
         for (Secao u : secoes){
             manipulador.escreverNoArquivo(SecaoToCSV(u));
@@ -82,7 +82,7 @@ public class PersistenceSecao implements iPersistenciaControlador<Secao> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
         for (Secao u : secoes) {
             manipulador.escreverNoArquivo(SecaoToCSV(u));

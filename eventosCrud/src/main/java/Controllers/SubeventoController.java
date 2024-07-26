@@ -17,9 +17,9 @@ public class SubeventoController implements iControladorUI<SubEvento> {
         List<SubEvento> lista = subEventoP.getTodos();
         subEvento.setId(lista.size() +1);
         SubEvento s = subEventoP.getPorId(subEvento.getId());
-        if (s != null ){
+        //if (s != null ){
             subEventoP.add(subEvento);
-        }
+        //}
     }
 
     public void atualizar(SubEvento subEvento){

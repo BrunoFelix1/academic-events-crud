@@ -17,10 +17,10 @@ public class EventoController implements iControladorUI<Evento> {
     public void cadastrar(Evento evento){
         List<Evento> lista = eventoP.getTodos();
         evento.setId(lista.size()+1);
-        Evento e = eventoP.getPorId(evento.getId());
-        if (e != null ){
+        //Evento e = eventoP.getPorId(evento.getId());
+        //if (e != null ){
             eventoP.add(evento);
-        }
+        //}
     }
 
     public void atualizar(Evento evento){

@@ -13,8 +13,8 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
 
     //Retorna um objeto Evento em formato de linha String
     private String eventoToCSV(Evento evento){
-        String linha = evento.getId() + "," + evento.getTitulo()+ "," + evento.getHorario() + "," +
-        evento.getLocal()+ "," + evento.getDescricao();
+        String linha = evento.getId() + "," + evento.getTitulo()+ "," + evento.getLocal() + "," +
+        evento.getHorario()+ "," + evento.getDescricao();
         return linha;
     }
 
@@ -59,7 +59,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,titulo,local,horario,descricao");
         for (Evento u : eventos){
             manipulador.escreverNoArquivo(eventoToCSV(u));
@@ -79,7 +79,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,titulo,local,horario,descricao");
         for (Evento u : eventos) {
             manipulador.escreverNoArquivo(eventoToCSV(u));

@@ -19,9 +19,9 @@ public class TrilhaController implements iControladorUI<Trilha> {
         List<Trilha> lista = trilhaP.getTodos();
         trilha.setId(lista.size()+1);
         Trilha t = trilhaP.getPorId(trilha.getId());
-        if (t != null ){
+        //if (t != null ){
             trilhaP.add(trilha);
-        }
+        //}
     }
 
     public void atualizar(Trilha trilha){

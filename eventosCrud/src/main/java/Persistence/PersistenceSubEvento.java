@@ -60,7 +60,7 @@ public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
         for (SubEvento u : subEventos){
             manipulador.escreverNoArquivo(SubEventoToCSV(u));
@@ -81,7 +81,7 @@ public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento>
                 break;
             }
         }
-        manipulador.abrirArquivoParaEscrita();
+        manipulador.abrirArquivoParaEscrita(1);
         manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
         for (SubEvento u : subEventos) {
             manipulador.escreverNoArquivo(SubEventoToCSV(u));
