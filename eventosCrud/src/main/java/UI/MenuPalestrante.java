@@ -1,15 +1,19 @@
 package UI;
 
+import Controllers.AtividadeController;
+import Interfaces.iControladorUI;
+import Models.Atividade;
 import Models.Usuario;
-
+import Enum.TipoDeAtividade;
 import java.util.Scanner;
 
 public class MenuPalestrante {
 
     public static void mostrarMenuPalestrante(Usuario u, Scanner scanner) {
         Usuario usuario = u;
-        boolean sair = false;
+        iControladorUI<Atividade> atividadeController = new AtividadeController();
 
+        boolean sair = false;
         while (!sair) {
             System.out.println("Escolha uma das opções:");
             System.out.println("1. Submeter Atividade");
@@ -24,16 +28,51 @@ public class MenuPalestrante {
 
             switch (opcao) {
                 case 1:
-                    // Implementar a lógica de submeter atividade
+                    Atividade atividade = new Atividade();
+                    System.out.print("Tipo de Submissão (PALESTRA, WORKSHOP, ARTIGO): ");
+                    TipoDeAtividade tipo = TipoDeAtividade.valueOf(scanner.nextLine().toUpperCase());
+                    atividade.setTipoSubmissao(tipo);
+                    System.out.print("Resumo: ");
+                    atividade.setResumo(scanner.nextLine());
+                    System.out.print("Id da trilha que a atividade estará relacionada: ");
+                    atividade.setIdTrilha(Integer.parseInt(scanner.nextLine()));
+                    atividade.setAutor(usuario.getNome());
+                    atividade.setId(0);
+
+                    atividadeController.cadastrar(atividade);
+                    System.out.println("Atividade cadastrada com sucesso!");
                     break;
                 case 2:
-                    // Implementar a lógica de apagar atividade
+                    System.out.println("Qual atividade você gostaria de remover?");
+                    int id = scanner.nextInt();
+                    if (atividadeController.deletar(id)){
+                        System.out.println("Atividade removida.");
+                    }
+                    else { System.out.println("Atividade não encontrada");}
                     break;
                 case 3:
-                    // Implementar a lógica de atualizar atividade
+                    Atividade atividadeAtualizada = new Atividade();
+                    System.out.print("Id da atividade que deseja atualizar: ");
+                    atividadeAtualizada.setId(Integer.parseInt(scanner.nextLine()));
+                    System.out.print("Tipo de Submissão (PALESTRA, WORKSHOP, ARTIGO): ");
+                    TipoDeAtividade tipoNovo = TipoDeAtividade.valueOf(scanner.nextLine().toUpperCase());
+                    atividadeAtualizada.setTipoSubmissao(tipoNovo);
+                    System.out.print("Resumo: ");
+                    atividadeAtualizada.setResumo(scanner.nextLine());
+                    System.out.print("Id da trilha que a atividade estará relacionada: ");
+                    atividadeAtualizada.setIdTrilha(Integer.parseInt(scanner.nextLine()));
+                    atividadeAtualizada.setAutor(usuario.getNome());
+
+
+                    atividadeController.atualizar(atividadeAtualizada);
                     break;
                 case 4:
-                    // Implementar a lógica de listar atividades
+                    System.out.println("Atividades disponíveis:");
+                    for (Atividade a : atividadeController.listar()) {
+                        System.out.println("ID: " + a.getId() + ", Tipo: " + a.getTipoSubmissao() +
+                                ", Autor: " + a.getAutor() + ", Resumo: " + a.getResumo() +
+                                ", ID Trilha: " + a.getIdTrilha());
+                    }
                     break;
                 case 5:
                     System.out.println("Saindo...");
