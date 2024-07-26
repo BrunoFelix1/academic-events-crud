@@ -24,6 +24,7 @@ UI\CadastrarEvento.class
 Models\Atividade.class
 Models\Secao.class
 Persistence\PersistenceInscricao.class
+Interfaces\iUsuarioUI.class
 UI\ParticiparEvento.class
 UI\CancelarInscricao.class
 Controllers\SecaoController.class

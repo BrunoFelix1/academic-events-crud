@@ -1,8 +1,5 @@
 package Models;
 
-
-
-
 public class SubEvento {
     private int id;
     private int idEvento;

@@ -1,13 +1,23 @@
 package UI;
 
+import Controllers.EventoController;
+import Controllers.TrilhaController;
+import Controllers.SubeventoController;
+import Controllers.SecaoController;
+import Interfaces.iControladorUI;
+import Models.Evento;
+import Models.Trilha;
+import Models.SubEvento;
+import Models.Secao;
 import Models.Usuario;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuAdministrador {
 
     public static void mostrarMenuAdmin(Usuario u, Scanner scanner) {
-        Usuario usuario;
+        Usuario usuario = u;
         boolean sair = false;
 
         while (!sair) {
@@ -46,6 +56,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarEventos(Scanner scanner) {
+        iControladorUI<Evento> eventoController = new EventoController();
         boolean sair = false;
 
         while (!sair) {
@@ -62,16 +73,50 @@ public class MenuAdministrador {
 
             switch (opcao) {
                 case 1:
-                    CadastrarEvento.cadastrarEvento(scanner);
+                    Evento ev = new Evento();
+                    ev.setId(1);
+                    System.out.println("Informe o título do novo evento:");
+                    ev.setTitulo(scanner.nextLine());
+                    System.out.println("Informe o local do evento:");
+                    ev.setLocal(scanner.nextLine());
+                    System.out.println("Informe o horario do evento:");
+                    ev.setHorario(scanner.nextLine());
+                    System.out.println("Descrição do evento:");
+                    ev.setDescricao(scanner.nextLine());
+
+                    eventoController.cadastrar(ev);
+                    System.out.println("Evento cadastrado com sucesso!");
                     break;
                 case 2:
-                    CadastrarEvento.listarEventos(scanner);
+                    List<Evento> eventos = eventoController.listar();
+                    System.out.println("Eventos disponíveis:");
+                    for (Evento e : eventos) {
+                        System.out.println("Nome do evento: " + e.getTitulo() + ", Descrição: " + e.getDescricao() + ", Horário: " + e.getHorario() + ", Local:" + e.getLocal());
+                    }
                     break;
                 case 3:
-                    CadastrarEvento.atualizarEvento(scanner);
+                    Evento NovoEv = new Evento();
+                    System.out.println("Informe o ID do evento que deseja atualizar:");
+                    NovoEv.setId(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Informe o título do novo evento:");
+                    NovoEv.setTitulo(scanner.nextLine());
+                    System.out.println("Informe o local do evento:");
+                    NovoEv.setLocal(scanner.nextLine());
+                    System.out.println("Informe o horario do evento:");
+                    NovoEv.setHorario(scanner.nextLine());
+                    System.out.println("Descrição do evento:");
+                    NovoEv.setDescricao(scanner.nextLine());
+
+                    eventoController.atualizar(NovoEv);
+                    System.out.println("Evento atualizado com sucesso!");
                     break;
                 case 4:
-                    CadastrarEvento.deletarEvento(scanner);
+                    System.out.println("Qual o id do Evento que deseja remover?");
+                    int idEvento = scanner.nextInt();
+                    if (eventoController.deletar(idEvento)){
+                        System.out.println("Evento removido.");
+                    }
+                    else { System.out.println("Evento não encontrado.");}
                     break;
                 case 5:
                     sair = true;
@@ -83,6 +128,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarSubeventos(Scanner scanner) {
+        iControladorUI<SubEvento> subeventoController = new SubeventoController();
         boolean sair = false;
 
         while (!sair) {
@@ -99,16 +145,54 @@ public class MenuAdministrador {
 
             switch (opcao) {
                 case 1:
-                    // Implementar a lógica de adicionar subevento
+                    SubEvento subev = new SubEvento();
+                    subev.setId(1);
+                    System.out.println("Informe o nome do novo SubEvento:");
+                    subev.setTitulo(scanner.nextLine());
+                    System.out.println("Informe o local do Subevento:");
+                    subev.setLocal(scanner.nextLine());
+                    System.out.println("Informe o horario do Subevento:");
+                    subev.setHorario(scanner.nextLine());
+                    System.out.println("Descrição do Subevento:");
+                    subev.setDescricao(scanner.nextLine());
+                    System.out.println("A qual evento este SubEvento está relacionado? (digite apenas o ID): ");
+                    subev.setIdEvento(Integer.parseInt(scanner.nextLine()));
+
+                    subeventoController.cadastrar(subev);
+                    System.out.println("Subvento cadastrado com sucesso!");
                     break;
                 case 2:
-                    // Implementar a lógica de listar subeventos
+                    List<SubEvento> subeventos = subeventoController.listar();
+                    System.out.println("Subeventos disponíveis:");
+                    for (SubEvento s : subeventos) {
+                        System.out.println("Nome do subevento: " + s.getTitulo() + ", Descrição: " + s.getDescricao() +", Local: " + s.getLocal() + ", Id do Evento: " + s.getIdEvento());
+                    }
                     break;
                 case 3:
-                    // Implementar a lógica de atualizar subevento
+                    SubEvento NovoSubev = new SubEvento();
+                    System.out.println("Informe o ID do SubEvento que deseja atualizar:");
+                    NovoSubev.setId(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Informe o nome do novo SubEvento:");
+                    NovoSubev.setTitulo(scanner.nextLine());
+                    System.out.println("Informe o local do Subevento:");
+                    NovoSubev.setLocal(scanner.nextLine());
+                    System.out.println("Informe o horario do Subevento:");
+                    NovoSubev.setHorario(scanner.nextLine());
+                    System.out.println("Descrição do Subevento:");
+                    NovoSubev.setDescricao(scanner.nextLine());
+                    System.out.println("A qual evento este SubEvento está relacionado? (digite apenas o ID): ");
+                    NovoSubev.setIdEvento(Integer.parseInt(scanner.nextLine()));
+
+                    subeventoController.atualizar(NovoSubev);
+                    System.out.println("Subvento atualizado com sucesso!");
                     break;
                 case 4:
-                    // Implementar a lógica de deletar subevento
+                    System.out.println("Qual o id do Subevento que deseja remover?");
+                    int idSubevento = scanner.nextInt();
+                    if (subeventoController.deletar(idSubevento)){
+                        System.out.println("Subevento removido.");
+                    }
+                    else { System.out.println("Subevento não encontrado.");}
                     break;
                 case 5:
                     sair = true;
@@ -120,6 +204,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarSecoes(Scanner scanner) {
+        iControladorUI<Secao> secaoController = new SecaoController();
         boolean sair = false;
 
         while (!sair) {
@@ -136,16 +221,52 @@ public class MenuAdministrador {
 
             switch (opcao) {
                 case 1:
-                    // Implementar a lógica de adicionar seção
+                    Secao secao = new Secao();
+                    secao.setId(0);
+                    System.out.println("Informe o nome da Sessão: ");
+                    secao.setNome(scanner.nextLine());
+                    System.out.println("Informe local que a sessão acontecerá: ");
+                    secao.setLocal(scanner.nextLine());
+                    System.out.println("Informe horario que da sessão: ");
+                    secao.setHorario(scanner.nextLine());
+                    System.out.println("Qual o id do EVENTO que a sessão está relacionada: ");
+                    secao.setId_evento(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Qual o id do Subevento que a sessão está relacionada: ");
+                    secao.setId_subEvento(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Sessão cadastrada.");
+                    secaoController.cadastrar(secao);
                     break;
                 case 2:
-                    // Implementar a lógica de listar seções
+                    List<Secao> secoes = secaoController.listar();
+                    System.out.println("Seções disponíveis:");
+                    for (Secao s : secoes) {
+                        System.out.println("Nome da seção: " + s.getNome() + ", Local: " + s.getLocal() + ", Horario: " + s.getHorario() + ", ID do subevento"+s.getId_subEvento()+", ID do evento:"+s.getId_evento());
+                    }
                     break;
                 case 3:
-                    // Implementar a lógica de atualizar seção
+                    Secao NovaSecao = new Secao();
+                    System.out.println("Informe o ID da sessão que deseja atualizar: ");
+                    NovaSecao.setId(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Informe o nome da Sessão: ");
+                    NovaSecao.setNome(scanner.nextLine());
+                    System.out.println("Informe local que a sessão acontecerá: ");
+                    NovaSecao.setLocal(scanner.nextLine());
+                    System.out.println("Informe horario que da sessão: ");
+                    NovaSecao.setHorario(scanner.nextLine());
+                    System.out.println("Qual o id do EVENTO que a sessão está relacionada: ");
+                    NovaSecao.setId_evento(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Qual o id do Subevento que a sessão está relacionada: ");
+                    NovaSecao.setId_subEvento(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Sessão atualizada.");
+                    secaoController.atualizar(NovaSecao);
                     break;
                 case 4:
-                    // Implementar a lógica de deletar seção
+                    System.out.println("Qual o id da seção que deseja remover?");
+                    int idSecao= scanner.nextInt();
+                    if (secaoController.deletar(idSecao)){
+                        System.out.println("Seção removida.");
+                    }
+                    else { System.out.println("Seção não encontrada.");}
                     break;
                 case 5:
                     sair = true;
@@ -157,6 +278,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarTrilhas(Scanner scanner) {
+        iControladorUI<Trilha> trilhaController = new TrilhaController();
         boolean sair = false;
 
         while (!sair) {
@@ -173,16 +295,40 @@ public class MenuAdministrador {
 
             switch (opcao) {
                 case 1:
-                    // Implementar a lógica de adicionar trilha
+                    Trilha t = new Trilha();
+                    t.setId(0);
+                    System.out.println("Informe o nome da trilha: ");
+                    t.setNome(scanner.nextLine());
+                    System.out.println("Informe o id da seção em que a trilha vai acontecer:");
+                    t.setIdSecao(Integer.parseInt(scanner.nextLine()));
+                    trilhaController.cadastrar(t);
+                    System.out.println("Trilha cadastrada.");
                     break;
                 case 2:
-                    // Implementar a lógica de listar trilhas
+                    List<Trilha> trilhas = trilhaController.listar();
+                    System.out.println("Trilhas disponíveis:");
+                    for (Trilha trilha : trilhas) {
+                        System.out.println("Nome da trilha: " + trilha.getNome() + ", Acontecerá na sessão: " + trilha.getIdSecao());
+                    }
                     break;
                 case 3:
-                    // Implementar a lógica de atualizar trilha
+                    Trilha novaTrilha = new Trilha();
+                    System.out.println("Informe o ID da trilha que deseja atualizar: ");
+                    novaTrilha.setNome(scanner.nextLine());
+                    System.out.println("Informe o nome da trilha: ");
+                    novaTrilha.setNome(scanner.nextLine());
+                    System.out.println("Informe o id da seção em que a trilha vai acontecer:");
+                    novaTrilha.setIdSecao(Integer.parseInt(scanner.nextLine()));
+                    trilhaController.atualizar(novaTrilha);
+                    System.out.println("Trilha atualizada.");
                     break;
                 case 4:
-                    // Implementar a lógica de deletar trilha
+                    System.out.println("Qual o id da trilha que deseja remover?");
+                    int idtrilha= scanner.nextInt();
+                    if (trilhaController.deletar(idtrilha)){
+                        System.out.println("Trilha removida.");
+                    }
+                    else { System.out.println("Trilha não encontrada.");}
                     break;
                 case 5:
                     sair = true;
@@ -193,4 +339,3 @@ public class MenuAdministrador {
         }
     }
 }
-
