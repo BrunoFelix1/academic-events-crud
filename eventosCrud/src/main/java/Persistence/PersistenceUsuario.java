@@ -13,7 +13,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
 
     //Retorna um objeto Usuario em formato de linha String
     private String usuarioToCSV(Usuario usuario){
-        String linha ="\n" + usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
+        String linha ="\n" +usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
         usuario.getIdade()+ "," + usuario.getInstituicao()+ "," +usuario.getTipoDeUsuario() + "," +usuario.getLogin()+ ","+usuario.getSenha();
         return linha;
     }
