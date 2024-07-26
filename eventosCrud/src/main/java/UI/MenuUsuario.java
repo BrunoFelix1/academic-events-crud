@@ -22,7 +22,7 @@ public class MenuUsuario {
         iUsuarioUI usuarioController = new UsuarioController();
         Usuario usuario = u;
         boolean sair = false;
-
+        System.out.println("============================================");
         while (!sair) {
             System.out.println("Escolha uma das opções:");
             System.out.println("1. Listar Eventos");
@@ -47,8 +47,9 @@ public class MenuUsuario {
                     break;
                 case 2:
                     System.out.println("Digite o nome do EVENTO que gostaria de participar: ");
-                    String nomeEvento = scanner.nextLine();
+                    String nomeEvento = scanner.next();
                     usuarioController.InscricaoEvento(u,nomeEvento);
+                    System.out.println("Inscrição realizada.");
                     break;
                 case 3:
                     System.out.println("Digite o nome da TRILHA que gostaria de participar: ");

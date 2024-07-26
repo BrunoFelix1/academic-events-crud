@@ -20,7 +20,6 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
 
     //Retorna uma lista de todos os eventos no momento
     public ArrayList<Evento> getTodos() {
-        Evento eventoDaVez = new Evento();
         String linha;
         ArrayList<Evento> eventos = new ArrayList<>();
         manipulador.abrirArquivoParaLeitura();
@@ -30,6 +29,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
                 continue;
             }
             String dados [] = linha.split(",");
+            Evento eventoDaVez = new Evento(); // Cria um novo objeto Evento a cada iteração
             eventoDaVez.setId(Integer.parseInt(dados[0]));
             eventoDaVez.setTitulo(dados[1]);
             eventoDaVez.setLocal(dados[2]);
@@ -40,6 +40,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
         manipulador.fecharArquivoParaLeitura();
         return eventos;
     }
+
 
     //Adiciona um Evento na tabela
     public void add(Evento evento) {
@@ -89,7 +90,7 @@ public class PersistenceEvento implements iPersistenciaControlador<Evento> {
     public Evento getPorNome(String nome) {
         ArrayList<Evento> eventos = getTodos();
         for (Evento e : eventos) {
-            if (nome == e.getTitulo()) {
+            if (nome.equals(e.getTitulo())) {
                 return e;
             }
         }

@@ -123,7 +123,7 @@ public class UsuarioController implements iUsuarioUI {
         inscricaoP.delete(inscricao);
     }
 
-    @Override
+
     public ArrayList<Inscricao> listaInscricoes(int idUsuario) {
         PersistenceInscricao inscricaoP = new PersistenceInscricao();
         List<Inscricao> lista = inscricaoP.getTodos();
