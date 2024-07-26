@@ -9,7 +9,7 @@ import Models.Atividade;
 
 public class PersistenceAtividade implements iPersistenciaControlador<Atividade>{
     //Instanciando manipulador e adicionando o path da tabela de atividades
-    private String pathAtividade = "C:\\Users\\PC TESTE\\Desktop\\Docs para P2\\Atividades.txt";
+    private String pathAtividade = "C:\\Users\\ytalo\\Downloads\\Atividades.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathAtividade);
 
     //Retorna um objeto atividade em formato de linha String

@@ -1,10 +1,16 @@
 package UI;
 
 import Controllers.UsuarioController;
+import Interfaces.iUsuarioUI;
 import Models.Usuario;
 import Exception.UsuarioNaoEncontradoException;
 import Interfaces.iControladorUI;
+import Enum.TipoDeUsuario;
 
+import Persistence.PersistenceUsuario;
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -48,11 +54,10 @@ public class MenuPrincipal {
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
 
-        // verificação de tipo de usuário
-        iControladorUI<Usuario> usuarioController = new UsuarioController();
+        iUsuarioUI usuarioController = new UsuarioController();
         Usuario usuario = usuarioController.AutenticarUsuario(login, senha);
 
-        System.out.println("Login realizado com sucesso como " + usuario);
+        System.out.println("Login realizado com sucesso como " + usuario.getNome());
 
         switch (usuario.getTipoDeUsuario()) {
             case ADMINISTRADOR:
@@ -71,20 +76,30 @@ public class MenuPrincipal {
 
     private static void cadastro(Scanner scanner) {
         Usuario usuario = new Usuario();
+        usuario.setId(1);
         System.out.print("Digite seu novo usuário: ");
         usuario.setLogin(scanner.nextLine());
+
         System.out.print("Digite sua nova senha: ");
         usuario.setSenha(scanner.nextLine());
+
         System.out.print("Digite seu CPF: ");
         usuario.setCPF(scanner.nextLine());
+
         System.out.print("Digite seu nome: ");
         usuario.setNome(scanner.nextLine());
+
         System.out.print("Digite sua idade: ");
         usuario.setIdade(Integer.parseInt(scanner.nextLine()));
+
         System.out.print("Digite sua instituição: ");
         usuario.setInstituicao(scanner.nextLine());
 
-        UsuarioController usuarioController = new UsuarioController();
+        System.out.print("Digite o tipo de usuário ( COMUM, PALESTRANTE): ");
+        TipoDeUsuario tipo = TipoDeUsuario.valueOf(scanner.nextLine().toUpperCase());
+        usuario.setTipoDeUsuario(tipo);
+
+        iUsuarioUI usuarioController = new UsuarioController();
         usuarioController.cadastrar(usuario);
 
         System.out.println("Usuário cadastrado com sucesso!");

@@ -19,6 +19,7 @@ public class Usuario {
         this.idade = idade;
         this.instituicao = instituicao;
         this.tipoDeUsuario = tipoDeUsuario;
+        
     }
 
     public Usuario () {}
@@ -87,12 +88,12 @@ public class Usuario {
         return this.senha;
     }
 
-    public String setLogin(String s){
-        return this.login;
+    public void setLogin(String s){
+        this.login = s;
     }
 
-    public String setSenha(String s){
-        return this.senha;
+    public void setSenha(String a){
+        this.senha = a;
     }
 
     public boolean ValidarCPF(){
