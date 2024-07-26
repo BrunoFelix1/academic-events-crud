@@ -7,6 +7,7 @@ public class Secao {
     private int id_subEvento;
     private String local;
     private String horario;
+    private String nome;
     
     //Construtor
     public Secao(int id, int id_evento, int id_subEvento, String local, String horario) {
@@ -49,6 +50,12 @@ public class Secao {
     }
     public void setHorario(String horario) {
         this.horario = horario;
+    }
+    public String getNome() {
+        return this.nome;
+    }
+    public void setNome(String Nome) {
+        this.nome = nome;
     }
 
 
