@@ -8,7 +8,7 @@ import Models.Evento;
 
 public class PersistenceEvento implements iPersistenciaControlador<Evento> {
     //Instanciando manipulador e adicionando o path da tabela de eventos
-    private String pathEvento = "C:\\Users\\71109791488\\Downloads\\Eventos.txt";
+    private String pathEvento = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Eventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathEvento);
 
     //Retorna um objeto Evento em formato de linha String

@@ -9,7 +9,7 @@ import Models.SubEvento;
 
 public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento> {
     //Instanciando manipulador e adicionando o path da tabela de SubEventos
-    private String pathSubEvento = "C:\\Users\\71109791488\\Downloads\\SubEventos.txt";
+    private String pathSubEvento = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\SubEventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);
 
     //Retorna um objeto SubEvento em formato de linha String

@@ -8,7 +8,7 @@ import Models.Usuario;
 
 public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
     //Instanciando manipulador e adicionando o path da tabela de usuários
-    private String pathUsuario = "C:\\Users\\71109791488\\Downloads\\Usuarios.txt";
+    private String pathUsuario = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Usuarios.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathUsuario);
 
     //Retorna um objeto Usuario em formato de linha String
