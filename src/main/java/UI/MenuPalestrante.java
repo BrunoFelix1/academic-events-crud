@@ -4,7 +4,6 @@ import Controllers.AtividadeController;
 import Interfaces.iControladorUI;
 import Models.Atividade;
 import Models.Usuario;
-import Enum.TipoDeAtividade;
 import java.util.Scanner;
 
 public class MenuPalestrante {
@@ -30,8 +29,7 @@ public class MenuPalestrante {
                 case 1:
                     Atividade atividade = new Atividade();
                     System.out.print("Tipo de Submissão (PALESTRA, WORKSHOP, ARTIGO): ");
-                    TipoDeAtividade tipo = TipoDeAtividade.valueOf(scanner.nextLine().toUpperCase());
-                    atividade.setTipoSubmissao(tipo);
+                    atividade.setTipoSubmissao(scanner.nextLine());
                     System.out.print("Resumo: ");
                     atividade.setResumo(scanner.nextLine());
                     System.out.print("Id da trilha que a atividade estará relacionada: ");
@@ -54,9 +52,8 @@ public class MenuPalestrante {
                     Atividade atividadeAtualizada = new Atividade();
                     System.out.print("Id da atividade que deseja atualizar: ");
                     atividadeAtualizada.setId(Integer.parseInt(scanner.nextLine()));
-                    System.out.print("Tipo de Submissão (PALESTRA, WORKSHOP, ARTIGO): ");
-                    TipoDeAtividade tipoNovo = TipoDeAtividade.valueOf(scanner.nextLine().toUpperCase());
-                    atividadeAtualizada.setTipoSubmissao(tipoNovo);
+                    System.out.print("Tipo de Submissão: ");
+                    atividadeAtualizada.setTipoSubmissao(scanner.nextLine());
                     System.out.print("Resumo: ");
                     atividadeAtualizada.setResumo(scanner.nextLine());
                     System.out.print("Id da trilha que a atividade estará relacionada: ");

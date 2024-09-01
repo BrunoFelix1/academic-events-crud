@@ -17,7 +17,6 @@ import java.util.Scanner;
 public class MenuAdministrador {
 
     public static void mostrarMenuAdmin(Usuario u, Scanner scanner) {
-        Usuario usuario = u;
         boolean sair = false;
 
         while (!sair) {

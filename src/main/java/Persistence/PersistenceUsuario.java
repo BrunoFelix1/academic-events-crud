@@ -1,7 +1,6 @@
 package Persistence;
 
 import java.util.ArrayList;
-import Enum.TipoDeUsuario;
 import Interfaces.iPersistenciaControlador;
 import Models.Usuario;
 
@@ -39,7 +38,7 @@ public class PersistenceUsuario implements iPersistenciaControlador<Usuario> {
                     usuarioDaVez.setNome(dados[2].trim());
                     usuarioDaVez.setIdade(Integer.parseInt(dados[3].trim()));
                     usuarioDaVez.setInstituicao(dados[4].trim());
-                    usuarioDaVez.setTipoDeUsuario(TipoDeUsuario.valueOf(dados[5].trim().toUpperCase()));
+                    usuarioDaVez.setTipoDeUsuario(dados[5].trim());
                     usuarioDaVez.setLogin(dados[6].trim());
                     usuarioDaVez.setSenha(dados[7].trim());
                     usuarios.add(usuarioDaVez);

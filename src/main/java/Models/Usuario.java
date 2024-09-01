@@ -1,18 +1,16 @@
 package Models;
 
-import Enum.TipoDeUsuario;
-
 public class Usuario {
     private int id;
     private String CPF;
     private String nome;
     private int idade;
     private String instituicao;
-    private TipoDeUsuario tipoDeUsuario;
+    private String tipoDeUsuario;
     private String login;
     private String senha;
 
-    public Usuario(int id, String CPF, String nome, int idade, String instituicao, TipoDeUsuario tipoDeUsuario) {
+    public Usuario(int id, String CPF, String nome, int idade, String instituicao, String tipoDeUsuario) {
         this.id = id;
         this.CPF = CPF;
         this.nome = nome;
@@ -72,11 +70,11 @@ public class Usuario {
         this.instituicao = instituicao;
     }
 
-    public TipoDeUsuario getTipoDeUsuario() {
+    public String getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 
-    public void setTipoDeUsuario(TipoDeUsuario tipoDeUsuario) {
+    public void setTipoDeUsuario(String tipoDeUsuario) {
         this.tipoDeUsuario = tipoDeUsuario;
     }
 

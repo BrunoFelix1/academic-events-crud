@@ -1,8 +1,6 @@
 package Persistence;
 
 import java.util.ArrayList;
-
-import Enum.TipoDeAtividade;
 import Interfaces.iPersistenciaControlador;
 import Models.Atividade;
 
@@ -32,7 +30,7 @@ public class PersistenceAtividade implements iPersistenciaControlador<Atividade>
             String dados [] = linha.split(",");
             Atividade atividadeDaVez = new Atividade();
             atividadeDaVez.setId(Integer.parseInt(dados[0]));
-            atividadeDaVez.setTipoSubmissao(TipoDeAtividade.valueOf(dados[1]));
+            atividadeDaVez.setTipoSubmissao(dados[1]);
             atividadeDaVez.setAutor(dados[2]);
             atividadeDaVez.setResumo(dados[3]);
             atividadeDaVez.setIdTrilha(Integer.parseInt(dados[4]));

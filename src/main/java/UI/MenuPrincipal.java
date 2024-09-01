@@ -4,13 +4,6 @@ import Controllers.UsuarioController;
 import Interfaces.iUsuarioUI;
 import Models.Usuario;
 import Exception.UsuarioNaoEncontradoException;
-import Interfaces.iControladorUI;
-import Enum.TipoDeUsuario;
-
-import Persistence.PersistenceUsuario;
-
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -60,13 +53,13 @@ public class MenuPrincipal {
         System.out.println("Login realizado com sucesso como " + usuario.getNome());
 
         switch (usuario.getTipoDeUsuario()) {
-            case ADMINISTRADOR:
+            case "ADMINISTRADOR":
                 MenuAdministrador.mostrarMenuAdmin(usuario, scanner);
                 break;
-            case PALESTRANTE:
+            case "PALESTRANTE":
                 MenuPalestrante.mostrarMenuPalestrante(usuario, scanner);
                 break;
-            case COMUM:
+            case "COMUM":
                 MenuUsuario.mostrarMenuUsuario(usuario, scanner);
                 break;
             default:
@@ -96,8 +89,7 @@ public class MenuPrincipal {
         usuario.setInstituicao(scanner.nextLine());
 
         System.out.print("Digite o tipo de usuário ( COMUM, PALESTRANTE): ");
-        TipoDeUsuario tipo = TipoDeUsuario.valueOf(scanner.nextLine().toUpperCase());
-        usuario.setTipoDeUsuario(tipo);
+        usuario.setTipoDeUsuario(scanner.nextLine());
 
         iUsuarioUI usuarioController = new UsuarioController();
         usuarioController.cadastrar(usuario);

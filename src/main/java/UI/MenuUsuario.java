@@ -28,7 +28,6 @@ public class MenuUsuario {
         iControladorUI<SubEvento> subeventoController = new SubeventoController();
         iControladorUI<Secao> secaoController = new SecaoController();
         iUsuarioUI usuarioController = new UsuarioController();
-        Usuario usuario = u;
         boolean sair = false;
 
         while (!sair) {
