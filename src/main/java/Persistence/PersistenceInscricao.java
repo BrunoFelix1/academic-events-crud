@@ -1,7 +1,6 @@
 package Persistence;
 
 import java.util.ArrayList;
-
 import Interfaces.iPersistenciaControlador;
 import Models.Inscricao;
 

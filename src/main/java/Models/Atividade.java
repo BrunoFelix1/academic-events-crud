@@ -1,15 +1,14 @@
 package Models;
-import Enum.TipoDeAtividade;
 public class Atividade {
 
     private int id;
-    private TipoDeAtividade tipoSubmissao;
+    private String tipoSubmissao;
     private String autor;
     private String resumo;
     private int idTrilha;
     
     
-    public Atividade(int id, TipoDeAtividade tipoSubmissao, String autor, String resumo, int idTrilha) {
+    public Atividade(int id, String tipoSubmissao, String autor, String resumo, int idTrilha) {
         this.id = id;
         this.tipoSubmissao = tipoSubmissao;
         this.autor = autor;
@@ -37,11 +36,11 @@ public class Atividade {
         this.id = id;
     }
     
-    public TipoDeAtividade getTipoSubmissao() {
+    public String getTipoSubmissao() {
         return tipoSubmissao;
     }
     
-    public void setTipoSubmissao(TipoDeAtividade tipoSubmissao) {
+    public void setTipoSubmissao(String tipoSubmissao) {
         this.tipoSubmissao = tipoSubmissao;
     }
 

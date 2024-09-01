@@ -63,7 +63,6 @@ public class CadastrarEvento {
     }
 
     public static void listarEventos(Scanner scanner) {
-        // TODO: Implementar lógica para listar eventos
         System.out.println("=== Listar Eventos ===");
         // Exemplo de eventos
         System.out.println("1. Evento 1");
@@ -72,7 +71,6 @@ public class CadastrarEvento {
     }
 
     public static void atualizarEvento(Scanner scanner) {
-        // TODO: Implementar lógica para atualizar evento
         System.out.println("=== Atualizar Evento ===");
         System.out.print("Digite o ID do evento: ");
         String idEvento = scanner.nextLine();
@@ -82,7 +80,6 @@ public class CadastrarEvento {
     }
 
     public static void deletarEvento(Scanner scanner) {
-        // TODO: Implementar lógica para deletar evento
         System.out.println("=== Deletar Evento ===");
         System.out.print("Digite o ID do evento: ");
         String idEvento = scanner.nextLine();
