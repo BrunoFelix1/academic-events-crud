@@ -13,7 +13,6 @@ import Persistence.PersistenceUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import Exception.UsuarioNaoEncontradoException;
-import Interfaces.iControladorUI;
 import Interfaces.iPersistenciaControlador;
 
 
@@ -36,7 +35,7 @@ public class UsuarioController implements iUsuarioUI {
         return listaUsuario;
     }
 
-    public void cadastrar(Usuario usuario) {
+    public boolean cadastrar(Usuario usuario) {
         List<Usuario> lista = usuarioP.getTodos();
         usuario.setId(lista.size()+1);
         boolean cpfCorreto = usuario.ValidarCPF();
@@ -44,11 +43,14 @@ public class UsuarioController implements iUsuarioUI {
             Object o = usuarioP.getPorId(usuario.getId());
             if (o == null) {
                 usuarioP.add(usuario);
+                return true;
             } else {
                 System.out.println("Usuário já cadastrado.");
+                return false;
             }
         } else {
             System.out.println("CPF inválido.");
+            return false;
         }
     }
 

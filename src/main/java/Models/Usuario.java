@@ -82,7 +82,7 @@ public class Usuario {
             this.tipoDeUsuario = tipoDeUsuario;
         }
         else {
-            throw new IllegalArgumentException("Tipo de usuário inválido, digite novamente.\n");
+            this.tipoDeUsuario = "ERRADO";
         }
     }
 

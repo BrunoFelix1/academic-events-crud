@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface iUsuarioUI {
     Usuario AutenticarUsuario(String login, String senha) throws UsuarioNaoEncontradoException;
-    void cadastrar(Usuario usuario);
+    boolean cadastrar(Usuario usuario);
     List<Usuario> listar();
     void atualizar(Usuario usuarioNovo);
     boolean deletar(int id);

@@ -113,19 +113,24 @@ public class MenuPrincipal {
 
         boolean tipoConferido = false;
         while (tipoConferido == false){
-            try {
-                System.out.print("Digite o tipo de usuário (COMUM, PALESTRANTE): ");
-                usuario.setTipoDeUsuario(scanner.nextLine());
+            System.out.print("Digite o tipo de usuário (COMUM, PALESTRANTE): ");
+            usuario.setTipoDeUsuario(scanner.nextLine());
+            if (usuario.getTipoDeUsuario().equalsIgnoreCase("COMUM") || usuario.getTipoDeUsuario().equalsIgnoreCase("PALESTRANTE")){
                 tipoConferido = true;
-            } catch (IllegalArgumentException e) {
+            }
+            else{
                 System.out.print("O tipo de usuário desejado é inválido, tente novamente.\n");
             }
         }
 
         iUsuarioUI usuarioController = new UsuarioController();
-        usuarioController.cadastrar(usuario);
-
-        System.out.println("Usuário cadastrado com sucesso!");
+        boolean verificadorCadastro = usuarioController.cadastrar(usuario);
+        if (verificadorCadastro == true){
+            System.out.println("Usuário cadastrado com sucesso!");
+        }
+        else {
+            System.out.println("O usuário não foi cadastrado! Houve um erro nas informações passadas, tente novamente.");
+        }
 
     }
 }
