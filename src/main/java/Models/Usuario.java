@@ -71,15 +71,18 @@ public class Usuario {
     }
 
     public String getTipoDeUsuario() {
-        return tipoDeUsuario.toUpperCase();
+        return tipoDeUsuario;
     }
 
     public void setTipoDeUsuario(String tipoDeUsuario) {
         if (tipoDeUsuario.equalsIgnoreCase("COMUM")){
-            this.tipoDeUsuario = tipoDeUsuario;
+            this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
         }
         else if (tipoDeUsuario.equalsIgnoreCase("PALESTRANTE")){
-            this.tipoDeUsuario = tipoDeUsuario;
+            this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
+        }
+        else if (tipoDeUsuario.equalsIgnoreCase("ADMINISTRADOR")){
+            this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
         }
         else {
             this.tipoDeUsuario = "ERRADO";

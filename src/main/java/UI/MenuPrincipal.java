@@ -63,22 +63,22 @@ public class MenuPrincipal {
             }
         }
 
-        System.out.println("Login realizado com sucesso como " + usuario.getNome());
+        System.out.println("Login realizado com sucesso como " + usuario.getNome() + " - " + usuario.getTipoDeUsuario());
 
-        switch (usuario.getTipoDeUsuario()) {
-            case "ADMINISTRADOR":
-                MenuAdministrador.mostrarMenuAdmin(usuario, scanner);
-                break;
-            case "PALESTRANTE":
-                MenuPalestrante.mostrarMenuPalestrante(usuario, scanner);
-                break;
-            case "COMUM":
-                MenuUsuario.mostrarMenuUsuario(usuario, scanner);
-                break;
-            default:
-                System.out.println("Tipo de usuário desconhecido.");
+        if (usuario.getTipoDeUsuario().equalsIgnoreCase("ADMINISTRADOR")){
+            MenuAdministrador.mostrarMenuAdmin(usuario, scanner);
+        }
+        else if (usuario.getTipoDeUsuario().equalsIgnoreCase("PALESTRANTE")){
+            MenuPalestrante.mostrarMenuPalestrante(usuario, scanner);
+        }
+        else if (usuario.getTipoDeUsuario().equalsIgnoreCase("COMUM")){
+            MenuUsuario.mostrarMenuUsuario(usuario, scanner);
+        }
+        else {
+            System.out.println("Tipo de usuário desconhecido.");
         }
     }
+
 
     private static void cadastro(Scanner scanner) {
         Usuario usuario = new Usuario();
