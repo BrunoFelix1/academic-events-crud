@@ -83,6 +83,7 @@ public class MenuPrincipal {
     private static void cadastro(Scanner scanner) {
         Usuario usuario = new Usuario();
         usuario.setId(1);
+
         System.out.print("Digite seu novo usuário: ");
         usuario.setLogin(scanner.nextLine());
 
@@ -95,8 +96,16 @@ public class MenuPrincipal {
         System.out.print("Digite seu nome: ");
         usuario.setNome(scanner.nextLine());
 
-        System.out.print("Digite sua idade: ");
-        usuario.setIdade(Integer.parseInt(scanner.nextLine()));
+        boolean idadeConferida = false;
+        while (idadeConferida == false) {
+            System.out.print("Digite sua idade: ");
+            try {
+                int idade = Integer.parseInt(scanner.nextLine());
+                usuario.setIdade(idade);
+            } catch (NumberFormatException e) {
+                System.out.print("Sua idade está inválida, insira novamente.\n");
+            }
+        }
 
         System.out.print("Digite sua instituição: ");
         usuario.setInstituicao(scanner.nextLine());

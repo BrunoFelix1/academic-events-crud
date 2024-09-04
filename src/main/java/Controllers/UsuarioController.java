@@ -28,7 +28,7 @@ public class UsuarioController implements iUsuarioUI {
                 return user;
             }
         }
-        throw new UsuarioNaoEncontradoException("Usuário não encontrado ou credenciais inválidas");
+        throw new UsuarioNaoEncontradoException("Usuário não encontrado ou credenciais inválidas, por favor tente novamente.");
     }
 
     public List<Usuario> listar(){
