@@ -102,6 +102,7 @@ public class MenuPrincipal {
             try {
                 int idade = Integer.parseInt(scanner.nextLine());
                 usuario.setIdade(idade);
+                idadeConferida = true;
             } catch (NumberFormatException e) {
                 System.out.print("Sua idade está inválida, insira novamente.\n");
             }
@@ -110,8 +111,16 @@ public class MenuPrincipal {
         System.out.print("Digite sua instituição: ");
         usuario.setInstituicao(scanner.nextLine());
 
-        System.out.print("Digite o tipo de usuário ( COMUM, PALESTRANTE): ");
-        usuario.setTipoDeUsuario(scanner.nextLine());
+        boolean tipoConferido = false;
+        while (tipoConferido == false){
+            try {
+                System.out.print("Digite o tipo de usuário (COMUM, PALESTRANTE): ");
+                usuario.setTipoDeUsuario(scanner.nextLine());
+                tipoConferido = true;
+            } catch (IllegalArgumentException e) {
+                System.out.print("O tipo de usuário desejado é inválido, tente novamente.\n");
+            }
+        }
 
         iUsuarioUI usuarioController = new UsuarioController();
         usuarioController.cadastrar(usuario);

@@ -71,11 +71,19 @@ public class Usuario {
     }
 
     public String getTipoDeUsuario() {
-        return tipoDeUsuario;
+        return tipoDeUsuario.toUpperCase();
     }
 
     public void setTipoDeUsuario(String tipoDeUsuario) {
-        this.tipoDeUsuario = tipoDeUsuario;
+        if (tipoDeUsuario.equalsIgnoreCase("COMUM")){
+            this.tipoDeUsuario = tipoDeUsuario;
+        }
+        else if (tipoDeUsuario.equalsIgnoreCase("PALESTRANTE")){
+            this.tipoDeUsuario = tipoDeUsuario;
+        }
+        else {
+            throw new IllegalArgumentException("Tipo de usuário inválido, digite novamente.\n");
+        }
     }
 
     public String getLogin(){
