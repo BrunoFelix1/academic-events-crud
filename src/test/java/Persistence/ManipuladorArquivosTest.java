@@ -1,20 +1,20 @@
 package Persistence;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.After;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ManipuladorArquivosTest {
 
     private ManipuladorArquivos manipuladorArquivos;
     private String testFilePath = "testFile.txt";
 
-    @Before
+    @BeforeEach
     public void setUp() {
         manipuladorArquivos = new ManipuladorArquivos(testFilePath);
     }
@@ -80,7 +80,7 @@ public class ManipuladorArquivosTest {
     }
 
     // Limpeza do arquivo após os testes
-    @After
+    @AfterEach
     public void tearDown() {
         File arquivo = new File(testFilePath);
         if (arquivo.exists()) {

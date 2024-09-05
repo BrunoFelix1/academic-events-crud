@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Persistence.ManipuladorArquivosTest" time="0.312" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Persistence.ManipuladorArquivosTest" time="0.353" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\test-classes;C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\classes;C:\Users\PC TESTE\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\PC TESTE\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.class.path" value="C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\test-classes;C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\classes;C:\Users\PC TESTE\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.3\junit-jupiter-api-5.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\PC TESTE\.m2\repository\org\junit\platform\junit-platform-commons\1.9.3\junit-platform-commons-1.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\PC TESTE\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.3\junit-jupiter-engine-5.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\junit\platform\junit-platform-engine\1.9.3\junit-platform-engine-1.9.3.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
-    <property name="sun.java.command" value="C:\Users\PCTEST~1\AppData\Local\Temp\surefire10599056472445302101\surefirebooter17810789229718157856.jar C:\Users\PC TESTE\AppData\Local\Temp\surefire10599056472445302101 2024-09-04T22-48-12_164-jvmRun1 surefire8781358337368375559tmp surefire_03526169340547334192tmp"/>
+    <property name="sun.java.command" value="C:\Users\PCTEST~1\AppData\Local\Temp\surefire374433987677136481\surefirebooter11771583207531046049.jar C:\Users\PC TESTE\AppData\Local\Temp\surefire374433987677136481 2024-09-05T10-20-01_011-jvmRun1 surefire2315549337224029418tmp surefire_03407237587372072437tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\test-classes;C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\classes;C:\Users\PC TESTE\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\PC TESTE\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\test-classes;C:\Users\PC TESTE\Desktop\P2P3\Projeto\target\classes;C:\Users\PC TESTE\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.3\junit-jupiter-api-5.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\PC TESTE\.m2\repository\org\junit\platform\junit-platform-commons\1.9.3\junit-platform-commons-1.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\PC TESTE\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.3\junit-jupiter-engine-5.9.3.jar;C:\Users\PC TESTE\.m2\repository\org\junit\platform\junit-platform-engine\1.9.3\junit-platform-engine-1.9.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\PC TESTE"/>
     <property name="user.language" value="pt"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\PCTEST~1\AppData\Local\Temp\surefire10599056472445302101\surefirebooter17810789229718157856.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\PCTEST~1\AppData\Local\Temp\surefire374433987677136481\surefirebooter11771583207531046049.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.3+7-LTS-152"/>
@@ -58,10 +58,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testEscreverNoArquivo" classname="Persistence.ManipuladorArquivosTest" time="0.045"/>
+  <testcase name="testEscreverNoArquivo" classname="Persistence.ManipuladorArquivosTest" time="0.1"/>
   <testcase name="testAbrirArquivoParaEscrita" classname="Persistence.ManipuladorArquivosTest" time="0"/>
-  <testcase name="testSetAndGetPath" classname="Persistence.ManipuladorArquivosTest" time="0"/>
-  <testcase name="testEscreverNoArquivoPorUltimo" classname="Persistence.ManipuladorArquivosTest" time="0.004"/>
-  <testcase name="testLerLinhaArquivo" classname="Persistence.ManipuladorArquivosTest" time="0.004"/>
-  <testcase name="testAbrirArquivoParaLeituraArquivoNaoExistente" classname="Persistence.ManipuladorArquivosTest" time="0.145"/>
+  <testcase name="testSetAndGetPath" classname="Persistence.ManipuladorArquivosTest" time="0.015"/>
+  <testcase name="testEscreverNoArquivoPorUltimo" classname="Persistence.ManipuladorArquivosTest" time="0.016"/>
+  <testcase name="testLerLinhaArquivo" classname="Persistence.ManipuladorArquivosTest" time="0"/>
+  <testcase name="testAbrirArquivoParaLeituraArquivoNaoExistente" classname="Persistence.ManipuladorArquivosTest" time="0.204"/>
 </testsuite>

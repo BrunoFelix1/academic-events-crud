@@ -1,24 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Persistence.PersistenceAtividadeTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 0.003 s <<< FAILURE! - in Persistence.PersistenceAtividadeTest
-testGetPorId(Persistence.PersistenceAtividadeTest)  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException
-	at Persistence.PersistenceAtividadeTest.testGetPorId(PersistenceAtividadeTest.java:141)
-
-testGetTodos(Persistence.PersistenceAtividadeTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at Persistence.PersistenceAtividadeTest.testGetTodos(PersistenceAtividadeTest.java:69)
-
-testDeleteAtividade(Persistence.PersistenceAtividadeTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at Persistence.PersistenceAtividadeTest.testDeleteAtividade(PersistenceAtividadeTest.java:87)
-
-testAddAtividade(Persistence.PersistenceAtividadeTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at Persistence.PersistenceAtividadeTest.testAddAtividade(PersistenceAtividadeTest.java:44)
-
-testUpdateAtividade(Persistence.PersistenceAtividadeTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException
-	at Persistence.PersistenceAtividadeTest.testUpdateAtividade(PersistenceAtividadeTest.java:106)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in Persistence.PersistenceAtividadeTest

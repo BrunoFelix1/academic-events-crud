@@ -84,8 +84,8 @@ public class ManipuladorArquivos {
     public void escreverNoArquivoPorUltimo(String conteudo) {
         try {
             if (bufferedWriter != null) {
-                bufferedWriter.newLine();
                 bufferedWriter.write(conteudo);
+                bufferedWriter.newLine();
             }
         } catch (IOException e) {
             System.out.println("Erro ao escrever no arquivo: " + e.getMessage());
