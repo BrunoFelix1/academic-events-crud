@@ -41,7 +41,6 @@ public class PersistenceAtividadeTest {
             if (atividade.getId() == atividade1.getId()){
                 teste = true;
             }
-            System.out.println(atividade.getId());
         }
         assertTrue(teste, "A atividade deveria estar presente na lista.");
     }
@@ -58,7 +57,7 @@ public class PersistenceAtividadeTest {
     public void testUpdateAtividade() {
         persistenceAtividade.add(atividade1);
         persistenceAtividade.update(atividade1, atividade2);
-        Atividade atividadeAtualizada = persistenceAtividade.getPorId(atividade1.getId());
+        Atividade atividadeAtualizada = persistenceAtividade.getTodos().getLast();
         assertEquals("Palestra", atividadeAtualizada.getTipoSubmissao(), "O tipo de submissão deveria ter sido atualizado.");
         assertEquals("Autor 2", atividadeAtualizada.getAutor(), "O autor deveria ter sido atualizado.");
     }
@@ -79,6 +78,7 @@ public class PersistenceAtividadeTest {
         //Lembrar que a quantidade ali embaixo depende da quantidade de pessoas atualmente cadastradas
         assertEquals(4, atividades.size(), "Deveriam existir 4 atividades na lista.");
     }
+
     @AfterEach
     public void tearDown(){
         persistenceAtividade.delete(atividade1);
