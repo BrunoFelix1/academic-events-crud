@@ -1,0 +1,4 @@
+Controllers\AppTest.class
+Persistence\ManipuladorArquivosTest.class
+UI\AppTest.class
+Persistence\PersistenceAtividadeTest.class
