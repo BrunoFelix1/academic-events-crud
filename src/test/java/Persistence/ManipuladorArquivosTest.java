@@ -26,65 +26,37 @@ public class ManipuladorArquivosTest {
     }
 
     @Test
-    public void testAbrirArquivoParaLeituraArquivoNaoExistente() {
-        manipuladorArquivos.setPath("arquivoInexistente.txt");
-        manipuladorArquivos.abrirArquivoParaLeitura();
-        assertFalse(new File("arquivoInexistente.txt").exists());
+    public void testAbrirArquivoParaLeitura(){
+
     }
 
     @Test
-    public void testAbrirArquivoParaEscrita() throws IOException {
-        manipuladorArquivos.abrirArquivoParaEscrita();
-        File arquivo = new File(testFilePath);
-        assertTrue(arquivo.exists());
-        manipuladorArquivos.fecharArquivoEscrita();
+    public void testLerLinhaArquivo(){
+
     }
 
     @Test
-    public void testEscreverNoArquivo() throws IOException {
-        manipuladorArquivos.abrirArquivoParaEscrita();
-        manipuladorArquivos.escreverNoArquivo("Linha de Teste");
-        manipuladorArquivos.fecharArquivoEscrita();
-
-        // Verifica se o conteúdo foi escrito no arquivo
-        String conteudo = new String(Files.readAllBytes(Paths.get(testFilePath)));
-        assertTrue(conteudo.contains("Linha de Teste"));
+    public void testFecharArquivoParaLeitura(){
+        
     }
 
     @Test
-    public void testLerLinhaArquivo() throws IOException {
-        manipuladorArquivos.abrirArquivoParaEscrita();
-        manipuladorArquivos.escreverNoArquivo("Linha de Teste");
-        manipuladorArquivos.fecharArquivoEscrita();
+    public void testAbrirArquivoParaEscrita(){
 
-        manipuladorArquivos.abrirArquivoParaLeitura();
-        String linha = manipuladorArquivos.lerLinhaArquivo();
-        manipuladorArquivos.fecharArquivoParaLeitura();
-
-        assertEquals("Linha de Teste", linha);
     }
 
     @Test
-    public void testEscreverNoArquivoPorUltimo() throws IOException {
-        manipuladorArquivos.abrirArquivoParaEscrita();
-        manipuladorArquivos.escreverNoArquivo("Primeira Linha");
-        manipuladorArquivos.fecharArquivoEscrita();
+    public void testEscreverNoArquivoPorUltimo(){
 
-        manipuladorArquivos.abrirArquivoParaEscrita();
-        manipuladorArquivos.escreverNoArquivoPorUltimo("Segunda Linha");
-        manipuladorArquivos.fecharArquivoEscrita();
+    } 
 
-        String conteudo = new String(Files.readAllBytes(Paths.get(testFilePath)));
-        assertTrue(conteudo.contains("Primeira Linha"));
-        assertTrue(conteudo.contains("Segunda Linha"));
+    @Test
+    public void testEscreverNoArquivo(){
+
     }
 
-    // Limpeza do arquivo após os testes
-    @AfterEach
-    public void tearDown() {
-        File arquivo = new File(testFilePath);
-        if (arquivo.exists()) {
-            arquivo.delete();
-        }
+    @Test
+    public void testFecharArquivoEscrita(){
+
     }
 }

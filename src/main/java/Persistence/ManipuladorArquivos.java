@@ -62,6 +62,7 @@ public class ManipuladorArquivos {
     public void abrirArquivoParaEscrita() {
         try {
             arquivo = new File(path);
+            //Se deixar true ele vai escrever no final do arquivo
             fileWriter = new FileWriter(arquivo, true);
             bufferedWriter = new BufferedWriter(fileWriter);
         } catch (IOException e) {
@@ -71,6 +72,7 @@ public class ManipuladorArquivos {
     }
 
     public void abrirArquivoParaEscrita(int inteiro) {
+        //Esse daqui vai reescrever o arquivo quando for escrever
         try {
             arquivo = new File(path);
             fileWriter = new FileWriter(arquivo);
