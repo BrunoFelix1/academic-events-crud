@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuUsuario {
+    private static UsuarioController usuarioController = new UsuarioController() ;
+    public static void mostrarMenuUsuario(Usuario user, Scanner scanner) {
 
-    public static void mostrarMenuUsuario(Usuario u, Scanner scanner) {
-        iControladorUI<Evento> eventoController = new EventoController();
         iControladorUI<Trilha> trilhaController = new TrilhaController();
-        iControladorUI<SubEvento> subeventoController = new SubeventoController();
-        iControladorUI<Secao> secaoController = new SecaoController();
+
+
         iUsuarioUI usuarioController = new UsuarioController();
         boolean sair = false;
 
@@ -49,89 +49,23 @@ public class MenuUsuario {
 
             switch (opcao) {
                 case 1:
-                    List<Evento> eventos = eventoController.listar();
-                    System.out.println("Eventos disponíveis:");
-                    for (Evento e : eventos) {
-                        System.out.println("Nome do evento: " + e.getTitulo() + ", Descrição: " + e.getDescricao() + ", Horário: " + e.getHorario() + ", Local:" + e.getLocal());
-                    }
-                    break;
+                    ListarEventos();
                 case 2:
-                    List<Trilha> trilhas = trilhaController.listar();
-                    System.out.println("Trilhas disponíveis:");
-                    for (Trilha t : trilhas) {
-                        System.out.println("Nome da trilha: " + t.getNome() + ", Descrição: ");
-                    }
-                    break;
+                    ListarTrilhas();
                 case 3:
-                    List<SubEvento> subeventos = subeventoController.listar();
-                    System.out.println("Subeventos disponíveis:");
-                    for (SubEvento s : subeventos) {
-                        System.out.println("Nome do subevento: " + s.getTitulo() + ", Descrição: " + s.getDescricao() + ", Id do Evento: " + s.getIdEvento());
-                    }
-                    break;
+                    ListarSubEvento();
                 case 4:
-                    List<Secao> secoes = secaoController.listar();
-                    System.out.println("Seções disponíveis:");
-                    for (Secao s : secoes) {
-                        System.out.println("Nome da seção: " + s.getNome() + ", Horario: " + s.getHorario() +", Local" + s.getLocal() + ", Id do Subevento: " + s.getId_subEvento()+ ", Id do Evento: " + s.getId_evento());
-                    }
-                    break;
+                    ListarSecoes();
                 case 5:
-                    System.out.println("Digite o nome do EVENTO que gostaria de participar: ");
-                    String nomeEvento = scanner.next();
-                    usuarioController.InscricaoEvento(u, nomeEvento);
-
-                    break;
+                    ParticiparEvento(user,scanner);
                 case 6:
-                    System.out.println("Digite o nome da TRILHA que gostaria de participar: ");
-                    String nomeTrilha = scanner.nextLine();
-                    usuarioController.InscricaoTrilha(u, nomeTrilha);
-                    break;
+                    ParticiparTrilha(user,scanner);
                 case 7:
-                    ArrayList<Inscricao> listaInscricoes = usuarioController.listaInscricoes(u.getId());
-                    PersistenceEvento eventoP = new PersistenceEvento();
-                    for (Inscricao i : listaInscricoes) {
-                        if (i.getIdEvento() != 0){
-                            System.out.println("Você está inscrito no evento :");
-                            Evento evento =  eventoP.getPorId(i.getIdEvento());
-                            System.out.println(evento.getTitulo());
-                        }
-                    }
-                    PersistenceTrilha trilhaP = new PersistenceTrilha();
-                    for (Inscricao i : listaInscricoes) {
-                        if ( i.getIdTrilha() !=0 ){
-                            System.out.println("Você está inscrito na trilha :");
-                            Trilha trilha = trilhaP.getPorId(i.getIdTrilha());
-                            System.out.println(trilha.getNome());
-                        }
-                    }
-                    break;
+                    ListarInscricoesUsuario(user);
                 case 8:
-                    System.out.println("Você gostaria de cancelar a inscrição em um Evento (1) ou Trilha (2)?");
-                    int i = scanner.nextInt();
-                    if (i == 1) {
-                        System.out.println("Qual o nome do evento que você quer remover?");
-                        String nomeEventoRemover = scanner.next();
-                        usuarioController.CancelarInscriçãoEvento(u, nomeEventoRemover);
-                    } else if (i == 2) {
-                        System.out.println("Qual o nome da trilha que você quer remover?");
-                        String nomeTrilhaRemover = scanner.next();
-                        usuarioController.CancelarInscriçãoTrilha(u, nomeTrilhaRemover);
-                    } else {
-                        System.out.println("Opção inválida");
-                    }
-                    break;
+                    CancelarInscricao(user, scanner);
                 case 9:
-                    System.out.println("De qual trilha você quer emitir o certificado?");
-                    String nomeTrilhaCertificado = scanner.nextLine();
-
-                    boolean estaInscrito = usuarioController.EmitirCertificado(u, nomeTrilhaCertificado);
-                    if (estaInscrito) {
-                        System.out.println("Certificado emitido!");
-                    } else {
-                        System.out.println("Você não está inscrito nessa trilha");
-                    }
-                    break;
+                    EmitirCertificado(user,scanner);
                 case 10:
                     System.out.println("Saindo...");
                     sair = true;
@@ -139,6 +73,94 @@ public class MenuUsuario {
                 default:
                     System.out.println("Opção inválida. Por favor, tente novamente.");
             }
+        }
+    }
+    private static void ListarEventos() {
+        iControladorUI<Evento> eventoController = new EventoController();
+        List<Evento> eventos = eventoController.listar();
+        System.out.println("Eventos disponíveis:");
+        for (Evento e : eventos) {
+            System.out.println("Nome do evento: " + e.getTitulo() + ", Descrição: " + e.getDescricao() + ", Horário: " + e.getHorario() + ", Local:" + e.getLocal());
+        }
+    }
+    private static void ListarTrilhas() {
+        iControladorUI<Trilha> trilhaController = new TrilhaController();
+        List<Trilha> trilhas = trilhaController.listar();
+        System.out.println("Trilhas disponíveis:");
+        for (Trilha t : trilhas) {
+            System.out.println("Nome da trilha: " + t.getNome() + ", Descrição: ");
+        }
+    }
+    private static void ListarSubEvento() {
+        iControladorUI<SubEvento> subeventoController = new SubeventoController();
+        List<SubEvento> subeventos = subeventoController.listar();
+        System.out.println("Subeventos disponíveis:");
+        for (SubEvento s : subeventos) {
+            System.out.println("Nome do subevento: " + s.getTitulo() + ", Descrição: " + s.getDescricao() + ", Id do Evento: " + s.getIdEvento());
+        }
+    }
+    private static void ListarSecoes() {
+        iControladorUI<Secao> secaoController = new SecaoController();
+        List<Secao> secoes = secaoController.listar();
+        System.out.println("Seções disponíveis:");
+        for (Secao s : secoes) {
+            System.out.println("Nome da seção: " + s.getNome() + ", Horario: " + s.getHorario() + ", Local" + s.getLocal() + ", Id do Subevento: " + s.getId_subEvento() + ", Id do Evento: " + s.getId_evento());
+        }
+    }
+    private static void ParticiparEvento(Usuario u, Scanner scanner) {
+        ListarEventos();
+        System.out.println("Digite o nome do EVENTO que gostaria de participar: ");
+        String nomeEvento = scanner.next();
+        usuarioController.InscricaoEvento(u, nomeEvento);
+    }
+    private static void ParticiparTrilha(Usuario user, Scanner scanner){
+        System.out.println("Digite o nome da TRILHA que gostaria de participar: ");
+        String nomeTrilha = scanner.nextLine();
+        usuarioController.InscricaoTrilha(user, nomeTrilha);
+    }
+    private static void ListarInscricoesUsuario(Usuario user) {
+        ArrayList<Inscricao> listaInscricoes = usuarioController.listaInscricoes(user.getId());
+        PersistenceEvento eventoP = new PersistenceEvento();
+        for (Inscricao i : listaInscricoes) {
+            if (i.getIdEvento() != 0) {
+                System.out.println("Você está inscrito no evento :");
+                Evento evento = eventoP.getPorId(i.getIdEvento());
+                System.out.println(evento.getTitulo());
+            }
+        }
+        PersistenceTrilha trilhaP = new PersistenceTrilha();
+        for (Inscricao i : listaInscricoes) {
+            if (i.getIdTrilha() != 0) {
+                System.out.println("Você está inscrito na trilha :");
+                Trilha trilha = trilhaP.getPorId(i.getIdTrilha());
+                System.out.println(trilha.getNome());
+            }
+        }
+    }
+    private static void CancelarInscricao(Usuario user, Scanner scanner){
+        System.out.println("Você gostaria de cancelar a inscrição em um Evento (1) ou Trilha (2)?");
+        int i = scanner.nextInt();
+        if (i == 1) {
+            System.out.println("Qual o nome do evento que você quer remover?");
+            String nomeEventoRemover = scanner.next();
+            usuarioController.CancelarInscriçãoEvento(user, nomeEventoRemover);
+        } else if (i == 2) {
+            System.out.println("Qual o nome da trilha que você quer remover?");
+            String nomeTrilhaRemover = scanner.next();
+            usuarioController.CancelarInscriçãoTrilha(user, nomeTrilhaRemover);
+        } else {
+            System.out.println("Opção inválida");
+        }
+    }
+    private static void EmitirCertificado(Usuario user, Scanner scanner){
+        System.out.println("De qual trilha você quer emitir o certificado?");
+        String nomeTrilhaCertificado = scanner.nextLine();
+
+        boolean estaInscrito = usuarioController.EmitirCertificado(user, nomeTrilhaCertificado);
+        if (estaInscrito) {
+            System.out.println("Certificado emitido!");
+        } else {
+            System.out.println("Você não está inscrito nessa trilha");
         }
     }
 }

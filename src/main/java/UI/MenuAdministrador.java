@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MenuAdministrador {
-
+    private static final String EscolhaPadrao  ="Escolha uma opção: ";
+    private static final String OpcaoInvalida = "Opção inválida. Por favor, tente novamente.";
     public static void mostrarMenuAdmin(Usuario u, Scanner scanner) {
         boolean sair = false;
 
@@ -27,7 +28,7 @@ public class MenuAdministrador {
             System.out.println("4. Gerenciar Trilhas");
             System.out.println("5. Sair");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print(EscolhaPadrao);
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer do scanner
 
@@ -49,7 +50,7 @@ public class MenuAdministrador {
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    System.out.println(OpcaoInvalida);
             }
         }
     }
@@ -66,7 +67,7 @@ public class MenuAdministrador {
             System.out.println("4. Deletar Evento");
             System.out.println("5. Voltar");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print(EscolhaPadrao);
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer do scanner
 
@@ -121,7 +122,7 @@ public class MenuAdministrador {
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    System.out.println(OpcaoInvalida);
             }
         }
     }
@@ -138,7 +139,7 @@ public class MenuAdministrador {
             System.out.println("4. Deletar Subevento");
             System.out.println("5. Voltar");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print(EscolhaPadrao);
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer do scanner
 
@@ -197,7 +198,7 @@ public class MenuAdministrador {
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    System.out.println(OpcaoInvalida);
             }
         }
     }
@@ -214,7 +215,7 @@ public class MenuAdministrador {
             System.out.println("4. Deletar Seção");
             System.out.println("5. Voltar");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print(EscolhaPadrao);
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer do scanner
 
@@ -271,7 +272,7 @@ public class MenuAdministrador {
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    System.out.println(OpcaoInvalida);
             }
         }
     }
@@ -288,7 +289,7 @@ public class MenuAdministrador {
             System.out.println("4. Deletar Trilha");
             System.out.println("5. Voltar");
 
-            System.out.print("Escolha uma opção: ");
+            System.out.print(EscolhaPadrao);
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpa o buffer do scanner
 
@@ -333,7 +334,7 @@ public class MenuAdministrador {
                     sair = true;
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    System.out.println(OpcaoInvalida);
             }
         }
     }
