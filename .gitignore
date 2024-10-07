@@ -1,4 +1,3 @@
-target/eventosCrud-1.0-SNAPSHOT.jar
-target/maven-archiver/
-.idea/
-target/sonar/
+.vscode
+/target
+
