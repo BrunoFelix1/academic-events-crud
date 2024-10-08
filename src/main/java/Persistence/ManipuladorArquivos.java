@@ -10,13 +10,63 @@ public class ManipuladorArquivos {
     private BufferedReader bufferedReader;
     private FileWriter fileWriter;
     private BufferedWriter bufferedWriter;
+    
+    public FileReader getFileReader() {
+        return fileReader;
+    }
+    
+    public void setFileReader(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
 
+    public BufferedReader getBufferedReader() {
+        return bufferedReader;
+    }
+    
+    public void setBufferedReader(BufferedReader bufferedReader) {
+        this.bufferedReader = bufferedReader;
+    }
+    
+    public FileWriter getFileWriter() {
+        return fileWriter;
+    }
+    
+    public void setFileWriter(FileWriter fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+    
+    public BufferedWriter getBufferedWriter() {
+        return bufferedWriter;
+    }
+    
+    public void setBufferedWriter(BufferedWriter bufferedWriter) {
+        this.bufferedWriter = bufferedWriter;
+    }
+    
+    public File getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(File arquivo) {
+        this.arquivo = arquivo;
+    }
     //CONSTRUTORES DA CLASSE
     public ManipuladorArquivos(String path) {
         this.path = path;
+        this.arquivo = null;
+        this.fileReader = null;
+        this.bufferedReader = null;
+        this.fileWriter = null;
+        this.bufferedWriter = null;
     }
 
-    public ManipuladorArquivos(){}
+    public ManipuladorArquivos(){
+        this.arquivo = null;
+        this.fileReader = null;
+        this.bufferedReader = null;
+        this.fileWriter = null;
+        this.bufferedWriter = null;
+    }
 
 
     //ACESSORES
