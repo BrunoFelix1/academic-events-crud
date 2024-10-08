@@ -39,7 +39,7 @@ ControladorUsuário
 ControladorAdmin
 ControladorPalestrante
 
-Interfaces:
+interfaces:
 U.I/Controlador
 Controlador/Persistência
 	

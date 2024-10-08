@@ -1,2 +1,2 @@
-Controllers\AppTest.class
-UI\AppTest.class
+ui\AppTest.class
+controllers\AppTest.class
