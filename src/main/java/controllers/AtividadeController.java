@@ -11,17 +11,13 @@ public class AtividadeController implements iControladorUI<Atividade>{
     private iPersistenciaControlador<Atividade> atividadeP = new PersistenceAtividade();
 
     public List<Atividade> listar(){
-        List<Atividade> listaAtividade =  atividadeP.getTodos();
-        return listaAtividade;
+        return  atividadeP.getTodos();
     }
 
     public void cadastrar(Atividade atividade){
         List<Atividade> lista = atividadeP.getTodos();
         atividade.setId(lista.size() +1);
-       // Atividade e = atividadeP.getPorId(atividade.getId());
-       // if (e != null ){
             atividadeP.add(atividade);
-        //}
     }
 
     public void atualizar(Atividade atividade){

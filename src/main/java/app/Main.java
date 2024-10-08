@@ -1,3 +1,5 @@
+package app;
+
 import exception.UsuarioNaoEncontradoException;
 import ui.MenuPrincipal;
 //LEMBRE DE TROCAR O PATH DOS ARQUIVOS

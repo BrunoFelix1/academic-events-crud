@@ -10,17 +10,13 @@ public class SecaoController implements iControladorUI<Secao> {
     private iPersistenciaControlador<Secao> secaoP = new PersistenceSecao();
 
     public List<Secao> listar(){
-        List<Secao> listaSecao =  secaoP.getTodos();
-        return listaSecao;
+        return secaoP.getTodos();
     }
 
-    public void cadastrar(Secao Secao){
+    public void cadastrar(Secao secao){
         List<Secao> lista = secaoP.getTodos();
-        Secao.setId(lista.size()+1);
-        Secao e = secaoP.getPorId(Secao.getId());
-        //if (e != null ){
-            secaoP.add(Secao);
-        //}
+        secao.setId(lista.size()+1);
+        secaoP.add(secao);
     }
 
     public void atualizar(Secao secao){

@@ -5,12 +5,12 @@ models\Inscricao.class
 ui\MenuAdministrador.class
 ui\CadastrarEvento.class
 ui\MenuPrincipal.class
+app\Main.class
 controllers\SecaoController.class
 interfaces\iPersistenciaControlador.class
 persistence\PersistenceAtividade.class
 persistence\PersistenceTrilha.class
 models\Trilha.class
-Main.class
 interfaces\iControladorUI.class
 persistence\ManipuladorArquivos.class
 persistence\PersistenceSecao.class
