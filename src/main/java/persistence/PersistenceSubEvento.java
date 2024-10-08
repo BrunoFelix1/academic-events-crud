@@ -1,12 +1,12 @@
 package persistence;
 
 import java.util.ArrayList;
-import interfaces.iPersistenciaControlador;
+import interfaces.IPersistenciaControlador;
 import models.SubEvento;
 
 
 
-public class PersistenceSubEvento implements iPersistenciaControlador<SubEvento> {
+public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento> {
     //Instanciando manipulador e adicionando o path da tabela de SubEventos
     private String pathSubEvento = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\SubEventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);

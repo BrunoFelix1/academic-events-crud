@@ -13,14 +13,14 @@ C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Secao.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\EventoController.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\exception\UsuarioNaoEncontradoException.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\iUsuarioUI.java
+C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IUsuarioUI.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuPalestrante.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuAdministrador.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\iControladorUI.java
+C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IControladorUI.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\CadastrarEvento.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceTrilha.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceUsuario.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\iPersistenciaControlador.java
+C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IPersistenciaControlador.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\CancelarInscricao.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\EmitirCertificado.java
 C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\SubeventoController.java

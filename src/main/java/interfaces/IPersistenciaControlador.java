@@ -3,7 +3,7 @@ package interfaces;
 
 import java.util.ArrayList;
 
-public interface iPersistenciaControlador<E>{
+public interface IPersistenciaControlador<E>{
      ArrayList<E> getTodos();
      void add(E entidade);
      void delete(E entidade);

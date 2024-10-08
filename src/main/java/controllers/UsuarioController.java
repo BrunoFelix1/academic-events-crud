@@ -1,6 +1,6 @@
 package controllers;
 
-import interfaces.iUsuarioUI;
+import interfaces.IUsuarioUI;
 import models.Evento;
 import models.Inscricao;
 import models.Trilha;
@@ -13,12 +13,12 @@ import persistence.PersistenceUsuario;
 import java.util.ArrayList;
 import java.util.List;
 import exception.UsuarioNaoEncontradoException;
-import interfaces.iPersistenciaControlador;
+import interfaces.IPersistenciaControlador;
 
 
-public class UsuarioController implements iUsuarioUI {
+public class UsuarioController implements IUsuarioUI {
 
-    private iPersistenciaControlador<Usuario> usuarioP = new PersistenceUsuario();
+    private IPersistenciaControlador<Usuario> usuarioP = new PersistenceUsuario();
 
     public Usuario AutenticarUsuario(String login, String senha) throws UsuarioNaoEncontradoException{
         List<Usuario> usuarioList = usuarioP.getTodos();
@@ -109,7 +109,7 @@ public class UsuarioController implements iUsuarioUI {
         PersistenceEvento eventoP = new PersistenceEvento();
         Evento evento = eventoP.getPorNome(nomeEvento);
         PersistenceInscricao inscricaoP = new PersistenceInscricao();
-        Inscricao inscricao = new Inscricao();
+        Inscricao inscricao;
         inscricao = inscricaoP.getPorIdInscricaoEvento(usuario.getId(),evento.getId());
         inscricaoP.delete(inscricao);
     }
@@ -128,7 +128,7 @@ public class UsuarioController implements iUsuarioUI {
     public ArrayList<Inscricao> listaInscricoes(int idUsuario) {
         PersistenceInscricao inscricaoP = new PersistenceInscricao();
         List<Inscricao> lista = inscricaoP.getTodos();
-        ArrayList<Inscricao> listaPorUsuario = new ArrayList<Inscricao>();
+        ArrayList<Inscricao> listaPorUsuario = new ArrayList<>();
         for ( Inscricao i : lista ){
             if ( i.getIdUsuario() == idUsuario ){
                 listaPorUsuario.add(i);

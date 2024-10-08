@@ -1,12 +1,12 @@
 package persistence;
 
 import java.util.ArrayList;
-import interfaces.iPersistenciaControlador;
+import interfaces.IPersistenciaControlador;
 import models.Inscricao;
 
 
 
-public class PersistenceInscricao implements iPersistenciaControlador<Inscricao> {
+public class PersistenceInscricao implements IPersistenciaControlador<Inscricao> {
     //Instanciando manipulador e adicionando o path da tabela de Inscrições
     private String pathInscricao = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Inscrições.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathInscricao);

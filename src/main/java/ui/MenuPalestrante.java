@@ -1,7 +1,7 @@
 package ui;
 
 import controllers.AtividadeController;
-import interfaces.iControladorUI;
+import interfaces.IControladorUI;
 import models.Atividade;
 import models.Usuario;
 import java.util.Scanner;
@@ -10,7 +10,7 @@ public class MenuPalestrante {
 
     public static void mostrarMenuPalestrante(Usuario u, Scanner scanner) {
         Usuario usuario = u;
-        iControladorUI<Atividade> atividadeController = new AtividadeController();
+        IControladorUI<Atividade> atividadeController = new AtividadeController();
 
         boolean sair = false;
         while (!sair) {

@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-public interface iControladorUI<T> {
+public interface IControladorUI<T> {
     List<T> listar();
     void cadastrar(T objeto);
     void atualizar(T objeto);

@@ -1,12 +1,12 @@
 package persistence;
 
 import java.util.ArrayList;
-import interfaces.iPersistenciaControlador;
+import interfaces.IPersistenciaControlador;
 import models.Secao;
 
 
 
-public class PersistenceSecao implements iPersistenciaControlador<Secao> {
+public class PersistenceSecao implements IPersistenciaControlador<Secao> {
     //Instanciando manipulador e adicionando o path da tabela de Seções
     private String pathSecao = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Seções.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSecao);

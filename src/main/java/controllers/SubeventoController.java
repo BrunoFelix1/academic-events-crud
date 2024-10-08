@@ -3,9 +3,9 @@ package controllers;
 import models.SubEvento;
 import persistence.PersistenceSubEvento;
 import java.util.List;
-import interfaces.iControladorUI;
+import interfaces.IControladorUI;
 
-public class SubeventoController implements iControladorUI<SubEvento> {
+public class SubeventoController implements IControladorUI<SubEvento> {
     private PersistenceSubEvento subEventoP = new PersistenceSubEvento();
 
     public List<SubEvento> listar(){

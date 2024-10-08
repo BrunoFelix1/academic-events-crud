@@ -3,11 +3,11 @@ package controllers;
 import models.Evento;
 import persistence.PersistenceEvento;
 import java.util.List;
-import interfaces.iControladorUI;
-import interfaces.iPersistenciaControlador;
+import interfaces.IControladorUI;
+import interfaces.IPersistenciaControlador;
 
-public class EventoController implements iControladorUI<Evento> {
-    private iPersistenciaControlador<Evento> eventoP = new PersistenceEvento();
+public class EventoController implements IControladorUI<Evento> {
+    private IPersistenciaControlador<Evento> eventoP = new PersistenceEvento();
 
     public List<Evento> listar(){
         return eventoP.getTodos();

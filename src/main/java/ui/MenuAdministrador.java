@@ -4,7 +4,7 @@ import controllers.EventoController;
 import controllers.TrilhaController;
 import controllers.SubeventoController;
 import controllers.SecaoController;
-import interfaces.iControladorUI;
+import interfaces.IControladorUI;
 import models.Evento;
 import models.Trilha;
 import models.SubEvento;
@@ -58,7 +58,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarEventos(Scanner scanner) {
-        iControladorUI<Evento> eventoController = new EventoController();
+        IControladorUI<Evento> eventoController = new EventoController();
         boolean sair = false;
 
         while (!sair) {
@@ -130,7 +130,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarSubeventos(Scanner scanner) {
-        iControladorUI<SubEvento> subeventoController = new SubeventoController();
+        IControladorUI<SubEvento> subeventoController = new SubeventoController();
         boolean sair = false;
 
         while (!sair) {
@@ -206,7 +206,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarSecoes(Scanner scanner) {
-        iControladorUI<Secao> secaoController = new SecaoController();
+        IControladorUI<Secao> secaoController = new SecaoController();
         boolean sair = false;
 
         while (!sair) {
@@ -280,7 +280,7 @@ public class MenuAdministrador {
     }
 
     private static void gerenciarTrilhas(Scanner scanner) {
-        iControladorUI<Trilha> trilhaController = new TrilhaController();
+        IControladorUI<Trilha> trilhaController = new TrilhaController();
         boolean sair = false;
 
         while (!sair) {

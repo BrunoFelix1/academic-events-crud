@@ -1,7 +1,7 @@
 package ui;
 
 import controllers.UsuarioController;
-import interfaces.iUsuarioUI;
+import interfaces.IUsuarioUI;
 import models.Usuario;
 import exception.UsuarioNaoEncontradoException;
 import java.util.InputMismatchException;
@@ -48,7 +48,7 @@ public class MenuPrincipal {
 
     private static void login(Scanner scanner) throws UsuarioNaoEncontradoException {
         boolean autenticado = false;
-        iUsuarioUI usuarioController = new UsuarioController();
+        IUsuarioUI usuarioController = new UsuarioController();
         Usuario usuario = new Usuario();
         while (autenticado != true){
             try {
@@ -123,7 +123,7 @@ public class MenuPrincipal {
             }
         }
 
-        iUsuarioUI usuarioController = new UsuarioController();
+        IUsuarioUI usuarioController = new UsuarioController();
         boolean verificadorCadastro = usuarioController.cadastrar(usuario);
         if (verificadorCadastro == true){
             System.out.println("Usuário cadastrado com sucesso!");

@@ -7,7 +7,7 @@ import exception.UsuarioNaoEncontradoException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface iUsuarioUI {
+public interface IUsuarioUI {
     Usuario AutenticarUsuario(String login, String senha) throws UsuarioNaoEncontradoException;
     boolean cadastrar(Usuario usuario);
     List<Usuario> listar();

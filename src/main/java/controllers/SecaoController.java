@@ -3,11 +3,11 @@ package controllers;
 import models.Secao;
 import persistence.PersistenceSecao;
 import java.util.List;
-import interfaces.iControladorUI;
-import interfaces.iPersistenciaControlador;
+import interfaces.IControladorUI;
+import interfaces.IPersistenciaControlador;
 
-public class SecaoController implements iControladorUI<Secao> {
-    private iPersistenciaControlador<Secao> secaoP = new PersistenceSecao();
+public class SecaoController implements IControladorUI<Secao> {
+    private IPersistenciaControlador<Secao> secaoP = new PersistenceSecao();
 
     public List<Secao> listar(){
         return secaoP.getTodos();

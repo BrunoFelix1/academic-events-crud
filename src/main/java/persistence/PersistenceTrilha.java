@@ -1,11 +1,11 @@
 package persistence;
 
 import java.util.ArrayList;
-import interfaces.iPersistenciaControlador;
+import interfaces.IPersistenciaControlador;
 import models.Trilha;
 
 
-public class PersistenceTrilha implements iPersistenciaControlador<Trilha> {
+public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
     //Instanciando manipulador e adicionando o path da tabela de Trilhas
     private String pathTrilha = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Trilhas.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathTrilha);

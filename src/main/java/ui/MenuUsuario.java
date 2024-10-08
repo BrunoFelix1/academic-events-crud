@@ -5,8 +5,8 @@ import controllers.TrilhaController;
 import controllers.SubeventoController;
 import controllers.SecaoController;
 import controllers.UsuarioController;
-import interfaces.iControladorUI;
-import interfaces.iUsuarioUI;
+import interfaces.IControladorUI;
+import interfaces.IUsuarioUI;
 import models.Evento;
 import models.Trilha;
 import models.SubEvento;
@@ -26,10 +26,10 @@ public class MenuUsuario {
     private static final String DESCRICAO = "Descrição: ";
     public static void mostrarMenuUsuario(Usuario user, Scanner scanner) {
 
-        iControladorUI<Trilha> trilhaController = new TrilhaController();
+        IControladorUI<Trilha> trilhaController = new TrilhaController();
 
 
-        iUsuarioUI usuarioController = new UsuarioController();
+        IUsuarioUI usuarioController = new UsuarioController();
         boolean sair = false;
 
         while (!sair) {
@@ -87,7 +87,7 @@ public class MenuUsuario {
         }
     }
     private static void ListarEventos() {
-        iControladorUI<Evento> eventoController = new EventoController();
+        IControladorUI<Evento> eventoController = new EventoController();
         List<Evento> eventos = eventoController.listar();
         System.out.println("Eventos disponíveis:");
         for (Evento e : eventos) {
@@ -95,7 +95,7 @@ public class MenuUsuario {
         }
     }
     private static void ListarTrilhas() {
-        iControladorUI<Trilha> trilhaController = new TrilhaController();
+        IControladorUI<Trilha> trilhaController = new TrilhaController();
         List<Trilha> trilhas = trilhaController.listar();
         System.out.println("Trilhas disponíveis:");
         for (Trilha t : trilhas) {
@@ -103,7 +103,7 @@ public class MenuUsuario {
         }
     }
     private static void ListarSubEvento() {
-        iControladorUI<SubEvento> subeventoController = new SubeventoController();
+        IControladorUI<SubEvento> subeventoController = new SubeventoController();
         List<SubEvento> subeventos = subeventoController.listar();
         System.out.println("Subeventos disponíveis:");
         for (SubEvento s : subeventos) {
@@ -111,7 +111,7 @@ public class MenuUsuario {
         }
     }
     private static void ListarSecoes() {
-        iControladorUI<Secao> secaoController = new SecaoController();
+        IControladorUI<Secao> secaoController = new SecaoController();
         List<Secao> secoes = secaoController.listar();
         System.out.println("Seções disponíveis:");
         for (Secao s : secoes) {

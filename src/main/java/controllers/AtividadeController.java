@@ -2,13 +2,13 @@ package controllers;
 
 import models.Atividade;
 import persistence.PersistenceAtividade;
-import interfaces.iControladorUI;
-import interfaces.iPersistenciaControlador;
+import interfaces.IControladorUI;
+import interfaces.IPersistenciaControlador;
 
 import java.util.List;
 
-public class AtividadeController implements iControladorUI<Atividade>{
-    private iPersistenciaControlador<Atividade> atividadeP = new PersistenceAtividade();
+public class AtividadeController implements IControladorUI<Atividade> {
+    private IPersistenciaControlador<Atividade> atividadeP = new PersistenceAtividade();
 
     public List<Atividade> listar(){
         return  atividadeP.getTodos();

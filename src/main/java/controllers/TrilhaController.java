@@ -1,14 +1,14 @@
 package controllers;
 
 import java.util.List;
-import interfaces.iControladorUI;
-import interfaces.iPersistenciaControlador;
+import interfaces.IControladorUI;
+import interfaces.IPersistenciaControlador;
 import models.Trilha;
 import persistence.PersistenceTrilha;
 
-public class TrilhaController implements iControladorUI<Trilha> {
+public class TrilhaController implements IControladorUI<Trilha> {
 
-    private iPersistenciaControlador<Trilha> trilhaP = new PersistenceTrilha();
+    private IPersistenciaControlador<Trilha> trilhaP = new PersistenceTrilha();
 
     public List<Trilha> listar(){
         return trilhaP.getTodos();
