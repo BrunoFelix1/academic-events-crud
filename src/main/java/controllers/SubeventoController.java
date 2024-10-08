@@ -9,17 +9,14 @@ public class SubeventoController implements iControladorUI<SubEvento> {
     private PersistenceSubEvento subEventoP = new PersistenceSubEvento();
 
     public List<SubEvento> listar(){
-        List<SubEvento> listasubEvento =  subEventoP.getTodos();
-        return listasubEvento;
+        return subEventoP.getTodos();
     }
 
     public void cadastrar(SubEvento subEvento){
         List<SubEvento> lista = subEventoP.getTodos();
         subEvento.setId(lista.size() +1);
         SubEvento s = subEventoP.getPorId(subEvento.getId());
-        //if (s != null ){
             subEventoP.add(subEvento);
-        //}
     }
 
     public void atualizar(SubEvento subEvento){
