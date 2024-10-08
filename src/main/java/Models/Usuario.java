@@ -22,7 +22,7 @@ public class Usuario {
 
     public Usuario () {}
     public boolean Logar(String login, String senha){
-        if (this.login == login && this.senha==senha){
+        if (this.login.equals(login) && this.senha.equals(senha)){
             return true;
         }
         else { return false; }

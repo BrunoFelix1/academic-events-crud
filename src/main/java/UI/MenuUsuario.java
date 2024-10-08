@@ -50,22 +50,31 @@ public class MenuUsuario {
             switch (opcao) {
                 case 1:
                     ListarEventos();
+                    break;
                 case 2:
                     ListarTrilhas();
+                    break;
                 case 3:
                     ListarSubEvento();
+                    break;
                 case 4:
                     ListarSecoes();
+                    break;
                 case 5:
                     ParticiparEvento(user,scanner);
+                    break;
                 case 6:
                     ParticiparTrilha(user,scanner);
+                    break;
                 case 7:
                     ListarInscricoesUsuario(user);
+                    break;
                 case 8:
                     CancelarInscricao(user, scanner);
+                    break;
                 case 9:
                     EmitirCertificado(user,scanner);
+                    break;
                 case 10:
                     System.out.println("Saindo...");
                     sair = true;
