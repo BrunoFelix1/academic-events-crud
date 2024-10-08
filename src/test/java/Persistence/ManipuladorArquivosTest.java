@@ -3,6 +3,7 @@ package Persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ManipuladorArquivosTest {
 
     private ManipuladorArquivos manipuladorArquivos;
-    private String testFilePath = "testFile.txt";
+    private String mockFilePath = "mock/FileTest.txt";
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() {
-        manipuladorArquivos = new ManipuladorArquivos(testFilePath);
+        manipuladorArquivos = new ManipuladorArquivos(mockFilePath);
     }
 
     @Test
@@ -27,7 +28,10 @@ public class ManipuladorArquivosTest {
 
     @Test
     public void testAbrirArquivoParaLeitura(){
-
+        manipuladorArquivos.abrirArquivoParaLeitura();
+        assertNotEquals(null, manipuladorArquivos.getArquivo());
+        assertNotEquals(null, manipuladorArquivos.getFileReader());
+        assertNotEquals(null, manipuladorArquivos.getBufferedReader());
     }
 
     @Test
