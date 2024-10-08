@@ -31,8 +31,7 @@ public class UsuarioController implements iUsuarioUI {
     }
 
     public List<Usuario> listar(){
-        List<Usuario> listaUsuario =  usuarioP.getTodos();
-        return listaUsuario;
+        return usuarioP.getTodos();
     }
 
     public boolean cadastrar(Usuario usuario) {
@@ -84,19 +83,12 @@ public class UsuarioController implements iUsuarioUI {
     public void InscricaoEvento(Usuario usuario, String nomeDoEvento){
         PersistenceEvento eventoP = new PersistenceEvento();
         Evento evento = eventoP.getPorNome(nomeDoEvento);
-        //if( evento != null ){
-            Inscricao novaInscricao = new Inscricao();
-            novaInscricao.setIdUsuario(usuario.getId());
-            novaInscricao.setIdEvento(evento.getId());
-
-            // Adiciona a inscrição
-            PersistenceInscricao inscricaoP = new PersistenceInscricao();
-            inscricaoP.add(novaInscricao);
-            System.out.println("Inscrição realizada.");
-       // }
-       // else {
-        //    System.out.println("Evento não encontrado");
-       // }
+        Inscricao novaInscricao = new Inscricao();
+        novaInscricao.setIdUsuario(usuario.getId());
+        novaInscricao.setIdEvento(evento.getId());
+        PersistenceInscricao inscricaoP = new PersistenceInscricao();
+        inscricaoP.add(novaInscricao);
+        System.out.println("Inscrição realizada.");
     }
 
     public void InscricaoTrilha(Usuario usuario, String nomeDaTrilha){
