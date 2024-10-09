@@ -103,22 +103,29 @@ public class ManipuladorArquivos {
         }
     }
 
-    public void fecharArquivoParaLeitura() {
+    public boolean fecharArquivoParaLeitura() {
         try {
-            if (bufferedReader != null) bufferedReader.close();
+            if (bufferedReader != null) {
+                bufferedReader.close();
+                return true;
+            }
+            return false;   
         } catch (IOException e) {
             logger.log(Level.SEVERE, e, () -> "Erro ao fechar o arquivo de leitura: " + path);
+            return false;
         }
     }
 
-    public void abrirArquivoParaEscrita() {
+    public boolean abrirArquivoParaEscrita() {
         try {
             arquivo = new File(path);
             //Se deixar true ele vai escrever no final do arquivo
             fileWriter = new FileWriter(arquivo, true);
             bufferedWriter = new BufferedWriter(fileWriter);
+            return true;
         } catch (IOException e) {
             logger.log(Level.SEVERE, e, () -> "Erro ao abrir o arquivo para escrita: " + path);
+            return false;
         }
     }
 
@@ -155,11 +162,16 @@ public class ManipuladorArquivos {
         }
     }
 
-    public void fecharArquivoEscrita() {
+    public boolean fecharArquivoEscrita() {
         try {
-            if (bufferedWriter != null) bufferedWriter.close();
+            if (bufferedWriter != null){
+                bufferedWriter.close();
+                return true;
+            } 
+            return false;
         } catch (IOException e) {
             logger.log(Level.SEVERE, e, () -> "Erro ao fechar o arquivo de escrita: " + path);
+            return false;
         }
     }
 }

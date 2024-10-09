@@ -1,35 +1,35 @@
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\VisualizarInscricao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceInscricao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\app\Main.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\SecaoController.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Trilha.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Inscricao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceAtividade.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceSubEvento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Evento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Atividade.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Usuario.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceSecao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\Secao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\EventoController.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\exception\UsuarioNaoEncontradoException.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IUsuarioUI.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuPalestrante.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuAdministrador.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IControladorUI.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\CadastrarEvento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceTrilha.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceUsuario.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\interfaces\IPersistenciaControlador.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\CancelarInscricao.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\EmitirCertificado.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\SubeventoController.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuPrincipal.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\PersistenceEvento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\AtividadeController.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\persistence\ManipuladorArquivos.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\models\SubEvento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\UsuarioController.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\MenuUsuario.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\ui\ParticiparEvento.java
-C:\Users\15524376470\Desktop\academic-events-crud\academic-events-crud\src\main\java\controllers\TrilhaController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\TrilhaController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\VisualizarInscricao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceAtividade.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceInscricao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\interfaces\IPersistenciaControlador.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceSubEvento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\interfaces\IUsuarioUI.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\UsuarioController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceUsuario.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\SecaoController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\CancelarInscricao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\ManipuladorArquivos.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\MenuPrincipal.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Usuario.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\CadastrarEvento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\interfaces\IControladorUI.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\ParticiparEvento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Atividade.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Inscricao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Secao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\MenuPalestrante.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\AtividadeController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\app\Main.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceTrilha.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\MenuAdministrador.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\MenuUsuario.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\SubeventoController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Evento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceEvento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\persistence\PersistenceSecao.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\ui\EmitirCertificado.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\SubEvento.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\models\Trilha.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\controllers\EventoController.java
+C:\Users\PC TESTE\Desktop\P2P3\Projeto\src\main\java\exception\UsuarioNaoEncontradoException.java

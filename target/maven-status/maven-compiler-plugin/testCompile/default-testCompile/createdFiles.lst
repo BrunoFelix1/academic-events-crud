@@ -1,2 +1,3 @@
 ui\AppTest.class
 controllers\AppTest.class
+persistence\ManipuladorArquivosTest.class
