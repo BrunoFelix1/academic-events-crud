@@ -122,6 +122,4 @@ public class PersistenceUsuarioTest {
         verify(mockManipuladorArquivos).escreverNoArquivo(linhaUsuario2);
         verify(mockManipuladorArquivos).fecharArquivoEscrita();
     }
-
-
 }

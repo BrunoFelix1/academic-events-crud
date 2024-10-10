@@ -13,6 +13,7 @@ persistence\PersistenceTrilha.class
 models\Trilha.class
 persistence\ManipuladorArquivos.class
 persistence\PersistenceSecao.class
+app\Main$1.class
 controllers\EventoController.class
 interfaces\IUsuarioUI.class
 persistence\PersistenceSubEvento.class
