@@ -1,3 +1,2 @@
-ui\AppTest.class
-controllers\AppTest.class
 persistence\ManipuladorArquivosTest.class
+persistence\PersistenceUsuarioTest.class

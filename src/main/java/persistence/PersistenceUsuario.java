@@ -10,8 +10,12 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
     private String pathUsuario = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Usuarios.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathUsuario);
 
+    public void setManipulador(ManipuladorArquivos manipulador) {
+        this.manipulador = manipulador;
+    }
+
     //Retorna um objeto Usuario em formato de linha String
-    private String usuarioToCSV(Usuario usuario){
+    public String usuarioToCSV(Usuario usuario){
         String linha = usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
         usuario.getIdade()+ "," + usuario.getInstituicao()+ "," +usuario.getTipoDeUsuario() + "," +usuario.getLogin()+ ","+usuario.getSenha();
         return linha;
@@ -24,13 +28,13 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
         manipulador.abrirArquivoParaLeitura();
         while ((linha = manipulador.lerLinhaArquivo()) != null) {
             // Desconsiderando cabeçalho
-            if (linha.contains("id")) {
+            if (linha.contains("id,cpf,nome,idade,instituicao,tipo_usuario,login,senha")) {
                 continue;
             }
             String[] dados = linha.split(",");
 
             // Verifica se a linha possui o número correto de campos
-            if (dados.length >= 7) {
+            if (dados.length >= 8) {
                 try {
                     Usuario usuarioDaVez = new Usuario(); // Cria uma nova instância para cada linha
                     usuarioDaVez.setId(Integer.parseInt(dados[0].trim()));
@@ -89,6 +93,8 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
                 usuarios.get(i).setIdade(usuarioNovo.getIdade());
                 usuarios.get(i).setInstituicao(usuarioNovo.getInstituicao());
                 usuarios.get(i).setTipoDeUsuario(usuarioNovo.getTipoDeUsuario());
+                usuarios.get(i).setLogin(usuarioNovo.getLogin());
+                usuarios.get(i).setSenha(usuarioNovo.getSenha());
                 break;
             }
         }

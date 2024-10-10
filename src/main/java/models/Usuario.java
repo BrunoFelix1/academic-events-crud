@@ -10,14 +10,15 @@ public class Usuario {
     private String login;
     private String senha;
 
-    public Usuario(int id, String CPF, String nome, int idade, String instituicao, String tipoDeUsuario) {
+    public Usuario(int id, String CPF, String nome, int idade, String instituicao, String tipoDeUsuario, String login, String senha) {
         this.id = id;
         this.CPF = CPF;
         this.nome = nome;
         this.idade = idade;
         this.instituicao = instituicao;
         this.tipoDeUsuario = tipoDeUsuario;
-        
+        this.login = login;
+        this.senha = senha;
     }
 
     public Usuario () {}
