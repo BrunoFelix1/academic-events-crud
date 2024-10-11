@@ -56,11 +56,11 @@
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" textFill="#2c1477" />
             <Line endX="648.0" layoutX="38.0" layoutY="58.0" startX="-100.0" />
             <Line endX="76.5" endY="325.0" layoutX="97.0" layoutY="72.0" startX="76.5" startY="-68.0" />
-            <Button layoutX="29.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar Evento" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Listar Eventos" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Deletar Evento" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Atualizar Evento" textFill="#2c1477" />
-            <Text fill="#537eda" layoutX="246.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Você está gerenciando um evento. Selecione o que deseja fazer." textAlignment="CENTER" wrappingWidth="369.884765625">
+            <Button layoutX="29.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar Trilha" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Listar Trilhas" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Deletar Trilha" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Atualizar Trilha" textFill="#2c1477" />
+            <Text fill="#537eda" layoutX="246.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Você está gerenciando uma Trilha. Selecione o que deseja fazer." textAlignment="CENTER" wrappingWidth="369.884765625">
                <font>
                   <Font size="25.0" />
                </font>
