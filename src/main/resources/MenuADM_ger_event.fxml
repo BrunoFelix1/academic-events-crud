@@ -47,7 +47,7 @@
     <MenuBar VBox.vgrow="NEVER" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="413.0" layoutX="-17.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" width="707.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="413.0" layoutX="-8.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="707.0" />
             <Label graphicTextGap="10.0" layoutX="312.0" text="Menu ADM" textFill="#9a89b4">
                <font>
                   <Font name="System Bold" size="36.0" />
@@ -56,13 +56,13 @@
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" textFill="#2c1477" />
             <Line endX="648.0" layoutX="38.0" layoutY="58.0" startX="-100.0" />
             <Line endX="76.5" endY="325.0" layoutX="97.0" layoutY="72.0" startX="76.5" startY="-68.0" />
-            <Button layoutX="29.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Gerenciar evento" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Gerenciar trilha" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Gerenciar subevento" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Gerenciar sessão" textFill="#2c1477" />
-            <Text fill="#537eda" layoutX="243.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selecione umas das opcoes ao lado para continuar :)" textAlignment="CENTER" wrappingWidth="353.884765625">
+            <Button layoutX="29.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar Evento" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar sessão" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar Trilha" textFill="#2c1477" />
+            <Button layoutX="29.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Adicionar Subevento" textFill="#2c1477" />
+            <Text fill="#537eda" layoutX="246.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Você está gerenciando um evento. Selecione o que deseja modificar." textAlignment="CENTER" wrappingWidth="369.884765625">
                <font>
-                  <Font size="18.0" />
+                  <Font size="25.0" />
                </font>
             </Text>
          </children>
