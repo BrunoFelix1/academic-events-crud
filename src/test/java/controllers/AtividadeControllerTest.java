@@ -1,6 +1,5 @@
-package Controllers;
+package controllers;
 
-import controllers.AtividadeController;
 import interfaces.IPersistenciaControlador;
 import models.Atividade;
 import org.junit.jupiter.api.BeforeEach;
