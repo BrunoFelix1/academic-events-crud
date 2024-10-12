@@ -1,0 +1,5 @@
+id,secao_id,nome
+1,1,Trilha de Networking
+2,2,Trilha de Blockchain
+3,3,Trilha de IA
+4,4,Trilha de Machine Learning

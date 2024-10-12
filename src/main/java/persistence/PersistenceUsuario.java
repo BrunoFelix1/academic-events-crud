@@ -7,7 +7,7 @@ import models.Usuario;
 
 public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
     //Instanciando manipulador e adicionando o path da tabela de usuários
-    private String pathUsuario = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Usuarios.txt";
+    private String pathUsuario = "src\\main\\resources\\database\\Usuarios.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathUsuario);
 
     public void setManipulador(ManipuladorArquivos manipulador) {

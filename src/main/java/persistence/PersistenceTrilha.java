@@ -7,7 +7,7 @@ import models.Trilha;
 
 public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
     //Instanciando manipulador e adicionando o path da tabela de Trilhas
-    private String pathTrilha = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Trilhas.txt";
+    private String pathTrilha = "src\\main\\resources\\database\\Trilhas.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathTrilha);
 
     //Retorna um objeto Trilha em formato de linha String
