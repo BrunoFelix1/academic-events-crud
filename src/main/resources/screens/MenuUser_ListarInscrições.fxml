@@ -59,7 +59,7 @@
           <AnchorPane layoutX="24.0" layoutY="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
             <SplitPane dividerPositions="0.2923640167364017" prefHeight="400.0" prefWidth="640.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="181.0" style="-fx-background-color: #e8d5b5;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="181.0" style="-fx-background-color: #fffade;">
                      <children>
                         <Button layoutX="46.0" layoutY="31.0" mnemonicParsing="false" text="Listar Eventos" textFill="#2c1477" />
                         <Button layoutX="50.0" layoutY="65.0" mnemonicParsing="false" text="Listar Trilhas" textFill="#2c1477" />
@@ -72,7 +72,7 @@
                         <Button layoutX="13.0" layoutY="295.0" mnemonicParsing="false" text="Emitir Certificado de Trilha" textFill="#2c1477" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #e8d5b5;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #fffade;">
                      <children>
                         <ScrollPane layoutX="56.0" layoutY="87.0" prefHeight="276.0" prefWidth="333.0">
                           <content>

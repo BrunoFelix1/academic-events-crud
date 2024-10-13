@@ -79,7 +79,7 @@ public class TelaLoginController {
         String senha = txtSenha.getText();
         UsuarioController usuarioController = new UsuarioController();
         try {
-            Usuario usuarioAutenticado = usuarioController.AutenticarUsuario(usuario, senha); // Tá trocado aqui TODO DESTROCAR BOTÕES
+            Usuario usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario); // Tá trocado aqui TODO DESTROCAR BOTÕES
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());
