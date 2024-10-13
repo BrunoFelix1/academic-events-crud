@@ -1,4 +1,4 @@
-package screencontrollers;
+package screenscontrollers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
