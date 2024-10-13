@@ -63,7 +63,7 @@
                         <Button fx:id="botaoListarEventos" layoutX="46.0" layoutY="31.0" mnemonicParsing="false" onAction="#irParaTelaListarEventos" text="Listar Eventos" textFill="#2c1477" />
                         <Button fx:id="botaoListarTrilhas" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" onAction="#irParaTelaListarTrilhas" text="Listar Trilhas" textFill="#2c1477" />
                         <Button fx:id="botaoListarSubEventos" layoutX="36.0" layoutY="102.0" mnemonicParsing="false" onAction="#irParaTelaListarSubEventos" text="Listar SubEventos" textFill="#2c1477" />
-                        <Button fx:id="botaoListarSeções" layoutX="49.0" layoutY="140.0" mnemonicParsing="false" onAction="#irParaTelaListarSecoes" text="Listar Seções" textFill="#2c1477" />
+                        <Button fx:id="botaoListarSecoes" layoutX="49.0" layoutY="140.0" mnemonicParsing="false" onAction="#irParaTelaListarSecoes" text="Listar Seções" textFill="#2c1477" />
                         <Button fx:id="botaoParticiparDeEvento" layoutX="29.0" layoutY="219.0" mnemonicParsing="false" onAction="#irParaTelaParticiparDeEvento" text="Participar De Evento" textFill="#2c1477" />
                         <Button fx:id="botaoParticiparDeTrilha" layoutX="33.0" layoutY="257.0" mnemonicParsing="false" onAction="#irParaTelaParticiparDeTrilha" text="Participar De Trilha" textFill="#2c1477" />
                         <Button fx:id="botaoListarInscricoes" layoutX="41.0" layoutY="178.0" mnemonicParsing="false" onAction="#irParaTelaListarInscricoes" text="Listar Inscrições" textFill="#2c1477" />
