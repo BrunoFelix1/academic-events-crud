@@ -1,4 +1,4 @@
-package screenscontrollers;
+package screencontrollers;
 
 import controllers.UsuarioController;
 import exception.UsuarioNaoEncontradoException;
