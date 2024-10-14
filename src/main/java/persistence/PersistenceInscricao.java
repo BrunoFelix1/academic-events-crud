@@ -8,7 +8,7 @@ import models.Inscricao;
 
 public class PersistenceInscricao implements IPersistenciaControlador<Inscricao> {
     //Instanciando manipulador e adicionando o path da tabela de Inscrições
-    private String pathInscricao = "C:\\Users\\PC TESTE\\Desktop\\P2P3\\Inscrições.txt";
+    private String pathInscricao = "src\\main\\resources\\database\\Inscrições.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathInscricao);
 
     //Retorna um objeto Inscricao em formato de linha String

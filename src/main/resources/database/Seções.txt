@@ -1,0 +1,5 @@
+id,evento_id,subevento_id,local,horario
+1,1,,Sala de Networking,12:00
+2,,1,Sala 103,13:00
+3,,2,Sala 104,14:00
+4,,3,Laboratório 2,17:00

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenscontrollers.TelaInicialController">
+   <children>
+      <MenuBar VBox.vgrow="NEVER" />
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="401.0" stroke="BLACK" strokeType="INSIDE" width="641.0" />
+            <Button fx:id="btnLogin" layoutX="274.0" layoutY="170.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="25.0" prefWidth="92.0" text="Login" textFill="#2c1477">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label graphicTextGap="10.0" layoutX="17.0" layoutY="26.0" text="Bem-vindo ao Sistema de Gerenciamento de Eventos!" textFill="#9a89b4">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Accordion layoutX="305.0" layoutY="86.0" />
+            <Button fx:id="btnSair" layoutX="273.0" layoutY="247.0" mnemonicParsing="false" onAction="#onSair" prefHeight="30.0" prefWidth="92.0" text="Sair" textFill="#2c1477">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCadastrar" layoutX="273.0" layoutY="209.0" mnemonicParsing="false" onAction="#onCadastrar" prefHeight="30.0" prefWidth="92.0" text="Cadastro" textFill="#2c1477">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Line endX="539.0" layoutX="101.0" layoutY="77.0" startX="-100.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="42.0" layoutX="152.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" width="340.0" />
+            <Label layoutX="168.0" layoutY="116.0" text="Selecione uma opção para continuar" textFill="#09829d">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
