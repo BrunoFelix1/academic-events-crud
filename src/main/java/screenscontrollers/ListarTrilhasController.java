@@ -29,13 +29,13 @@ public class ListarTrilhasController extends MenuUsuarioController {
         for (Trilha trilha : trilhas) {
             // Criando os Labels para cada atributo do trilha
             Label idLabel = new Label("ID: " + trilha.getId());
-            Label idSecaoLabel = new Label("ID Seção: " + trilha.getIdSecao());
             Label nomeLabel = new Label("Nome: " + trilha.getNome());
+            Label idSecaoLabel = new Label("ID Seção: " + trilha.getIdSecao());
             
             // Estilizando os Labels
             idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");
-            idSecaoLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-            nomeLabel.setStyle("-fx-font-size: 12px;");
+            idSecaoLabel.setStyle("-fx-font-size: 12px;");
+            nomeLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
             
             // Adicionando os Labels ao VBox para um único trilha
