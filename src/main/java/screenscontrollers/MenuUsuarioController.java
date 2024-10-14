@@ -23,7 +23,7 @@ public class MenuUsuarioController {
     private Button botaoListarInscricoes;
 
     @FXML
-    private Button botaoListarSeções;
+    private Button botaoListarSecoes;
 
     @FXML
     private Button botaoListarSubEventos;
@@ -105,7 +105,7 @@ void irParaTelaCancelarInscricao() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuUser_ListarSecoes.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) botaoListarSeções.getScene().getWindow();
+            Stage stage = (Stage) botaoListarSecoes.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
