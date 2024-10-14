@@ -1,6 +1,7 @@
 package screenscontrollers;
 import java.io.IOException;
 
+import context.UserContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -178,6 +179,7 @@ void irParaTelaCancelarInscricao() {
     @FXML
     void voltarParaMenuPrincipal() {
         try {
+            UserContext.getInstance().setInstance(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();

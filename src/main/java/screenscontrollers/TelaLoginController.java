@@ -14,7 +14,10 @@ import models.Usuario;
 
 import java.io.IOException;
 
+import context.UserContext;
+
 public class TelaLoginController {
+    public Usuario usuarioAutenticado;
 
     @FXML
     private Button btnVoltar;
@@ -48,6 +51,10 @@ public class TelaLoginController {
                 Pane newScene = loader.load();
                 Stage stage = (Stage) btnLogin.getScene().getWindow();
                 stage.setScene(new Scene(newScene));
+
+                // Armazenando o usuário autenticado na classe de contexto
+                UserContext.getInstance().setUsuario(usuarioAutenticado);
+
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,7 +86,7 @@ public class TelaLoginController {
         String senha = txtSenha.getText();
         UsuarioController usuarioController = new UsuarioController();
         try {
-            Usuario usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario); // Tá trocado aqui TODO DESTROCAR BOTÕES
+            usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario); // Tá trocado aqui TODO DESTROCAR BOTÕES
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());
