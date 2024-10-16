@@ -35,7 +35,7 @@ public class TelaLoginController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
             Pane newScene = loader.load();
-            Stage stage = (Stage) btnVoltar.getScene().getWindow(); // Alterado para btnVoltar
+            Stage stage = (Stage) btnVoltar.getScene().getWindow();
             stage.setScene(new Scene(newScene));
             stage.show();
         } catch (IOException e) {

@@ -35,23 +35,29 @@ public class UsuarioController implements IUsuarioUI {
     }
 
     public boolean cadastrar(Usuario usuario) {
-        List<Usuario> lista = usuarioP.getTodos();
-        usuario.setId(lista.size()+1);
-        boolean cpfCorreto = usuario.ValidarCPF();
-        if (cpfCorreto) {
-            Object o = usuarioP.getPorId(usuario.getId());
-            if (o == null) {
-                usuarioP.add(usuario);
-                return true;
-            } else {
-                System.out.println("Usuário já cadastrado.");
+        List<Usuario> lista = usuarioP.getTodos(); // Recupere a lista diretamente do banco
+        for (Usuario user : lista) {
+            if (user.getLogin().equals(usuario.getLogin())) {
+                System.out.println("Usuário já cadastrado com este login.");
                 return false;
             }
+            if (user.getCPF().equals(usuario.getCPF())) {
+                System.out.println("Usuário já cadastrado com este CPF.");
+                return false;
+            }
+        }
+        int novoId = lista.size() + 1;
+        usuario.setId(novoId);
+        boolean cpfCorreto = usuario.ValidarCPF();
+        if (cpfCorreto) {
+            usuarioP.add(usuario);
+            return true;
         } else {
             System.out.println("CPF inválido.");
             return false;
         }
     }
+
 
     public void atualizar(Usuario usuarioNovo) {
         Usuario usuarioAntigo = usuarioP.getPorId(usuarioNovo.getId());
