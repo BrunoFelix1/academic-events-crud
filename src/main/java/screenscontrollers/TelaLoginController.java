@@ -5,10 +5,10 @@ import exception.UsuarioNaoEncontradoException;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
-
 import context.UserContext;
 
 public class TelaLoginController implements IControladorTelas {
@@ -23,21 +23,17 @@ public class TelaLoginController implements IControladorTelas {
     @FXML
     private TextField txtUsuario;
     @FXML
-    private TextField txtSenha;
+    private PasswordField txtSenha;
 
     @FXML
     private void onVoltar() {
-        Stage stage = (Stage) btnVoltar.getScene().getWindow();
-        mostrarTela("/screens/tela_inicial.fxml", stage);
+        mostrarTela("/screens/tela_inicial.fxml", (Stage) btnVoltar.getScene().getWindow());
     }
 
     @FXML
     private void onLogin() {
         if (onBtnLogin()) {
-            Stage stage = (Stage) btnLogin.getScene().getWindow();
-            mostrarTela("/screens/MenuUsuario.fxml", stage);
-
-            // Armazenando o usuário autenticado na classe de contexto
+            mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
             UserContext.getInstance().setUsuario(usuarioAutenticado);
         } else {
             exibirAlerta("Usuário ou senha inválidos.");
@@ -46,8 +42,7 @@ public class TelaLoginController implements IControladorTelas {
 
     @FXML
     private void onCadastrar() {
-        Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-        mostrarTela("/screens/tela_cadastro.fxml", stage);
+        mostrarTela("/screens/tela_cadastro.fxml", (Stage) btnCadastrar.getScene().getWindow());
     }
 
     private boolean onBtnLogin() {
@@ -55,7 +50,7 @@ public class TelaLoginController implements IControladorTelas {
         String senha = txtSenha.getText();
         UsuarioController usuarioController = new UsuarioController();
         try {
-            usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario);
+            usuarioAutenticado = usuarioController.AutenticarUsuario(usuario, senha);
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());

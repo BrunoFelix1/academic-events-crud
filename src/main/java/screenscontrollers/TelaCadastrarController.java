@@ -35,7 +35,6 @@ public class TelaCadastrarController implements IControladorTelas {
 
     @FXML
     private void onVoltar() {
-        // Obtendo o Stage a partir do botão btnVoltar e chamando o método da interface
         Stage stage = (Stage) btnVoltar.getScene().getWindow();
         mostrarTela("/screens/tela_inicial.fxml", stage);
     }
