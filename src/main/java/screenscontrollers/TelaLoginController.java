@@ -2,21 +2,16 @@ package screenscontrollers;
 
 import controllers.UsuarioController;
 import exception.UsuarioNaoEncontradoException;
+import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.Usuario;
 
-import java.io.IOException;
-
 import context.UserContext;
 
-public class TelaLoginController {
+public class TelaLoginController implements IControladorTelas {
     public Usuario usuarioAutenticado;
 
     @FXML
@@ -32,53 +27,27 @@ public class TelaLoginController {
 
     @FXML
     private void onVoltar() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
-            Pane newScene = loader.load();
-            Stage stage = (Stage) btnVoltar.getScene().getWindow();
-            stage.setScene(new Scene(newScene));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        mostrarTela("/screens/tela_inicial.fxml", stage);
     }
 
     @FXML
     private void onLogin() {
         if (onBtnLogin()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuUsuario.fxml"));
-                Pane newScene = loader.load();
-                Stage stage = (Stage) btnLogin.getScene().getWindow();
-                stage.setScene(new Scene(newScene));
+            Stage stage = (Stage) btnLogin.getScene().getWindow();
+            mostrarTela("/screens/MenuUsuario.fxml", stage);
 
-                // Armazenando o usuário autenticado na classe de contexto
-                UserContext.getInstance().setUsuario(usuarioAutenticado);
-
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Armazenando o usuário autenticado na classe de contexto
+            UserContext.getInstance().setUsuario(usuarioAutenticado);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro de Login");
-            alert.setHeaderText(null);
-            alert.setContentText("Usuário ou senha inválidos.");
-            alert.showAndWait();
+            exibirAlerta("Usuário ou senha inválidos.");
         }
     }
 
     @FXML
     private void onCadastrar() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_cadastro.fxml"));
-            Pane newScene = loader.load();
-            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-            stage.setScene(new Scene(newScene));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Stage stage = (Stage) btnCadastrar.getScene().getWindow();
+        mostrarTela("/screens/tela_cadastro.fxml", stage);
     }
 
     private boolean onBtnLogin() {
@@ -86,7 +55,7 @@ public class TelaLoginController {
         String senha = txtSenha.getText();
         UsuarioController usuarioController = new UsuarioController();
         try {
-            usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario); // Tá trocado aqui TODO DESTROCAR BOTÕES
+            usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario);
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());

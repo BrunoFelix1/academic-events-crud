@@ -1,21 +1,16 @@
 package screenscontrollers;
 
 import controllers.UsuarioController;
-import exception.UsuarioNaoEncontradoException;
+import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.Usuario;
 
-import java.io.IOException;
 import java.util.List;
 
-public class TelaCadastrarController {
+public class TelaCadastrarController implements IControladorTelas {
 
     private UsuarioController usuarioP = new UsuarioController();
 
@@ -40,19 +35,9 @@ public class TelaCadastrarController {
 
     @FXML
     private void onVoltar() {
-        mostrarTela("/screens/tela_inicial.fxml");
-    }
-
-    private void mostrarTela(String caminhoTela) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoTela));
-            Pane newScene = loader.load();
-            Stage stage = (Stage) btnVoltar.getScene().getWindow();
-            stage.setScene(new Scene(newScene));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Obtendo o Stage a partir do botão btnVoltar e chamando o método da interface
+        Stage stage = (Stage) btnVoltar.getScene().getWindow();
+        mostrarTela("/screens/tela_inicial.fxml", stage);
     }
 
     @FXML
@@ -84,7 +69,8 @@ public class TelaCadastrarController {
             return;
         }
         if (usuarioP.cadastrar(usuarioCadastrado)) {
-            mostrarTela("/screens/MenuUsuario.fxml");
+            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
+            mostrarTela("/screens/MenuUsuario.fxml", stage);
         } else {
             exibirAlerta("Digite um CPF válido.");
         }
@@ -110,20 +96,11 @@ public class TelaCadastrarController {
     }
 
     private boolean checarIdade(int idade) {
-        return idade>0 && idade<=100;
+        return idade > 0 && idade <= 100;
     }
 
     private boolean checarTipoUsuario(String tipoUsuario) {
         return tipoUsuario.equalsIgnoreCase("COMUM") || tipoUsuario.equalsIgnoreCase("PALESTRANTE");
-    }
-
-
-    private void exibirAlerta(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro");
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
-        alert.showAndWait();
     }
 
     @FXML
