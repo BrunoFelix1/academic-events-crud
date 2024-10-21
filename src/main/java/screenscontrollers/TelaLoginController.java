@@ -33,8 +33,16 @@ public class TelaLoginController implements IControladorTelas {
     @FXML
     private void onLogin() {
         if (onBtnLogin()) {
-            mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
             UserContext.getInstance().setUsuario(usuarioAutenticado);
+            if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("COMUM")){
+                mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
+            }
+            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("ADMINISTRADOR")){
+                mostrarTela("/screens/MenuADM.fxml", (Stage) btnLogin.getScene().getWindow());
+            }
+            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("PALESTRANTE")){
+                mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnLogin.getScene().getWindow());
+            }
         } else {
             exibirAlerta("Usuário ou senha inválidos.");
         }
