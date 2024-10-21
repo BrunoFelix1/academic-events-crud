@@ -79,42 +79,37 @@
                               <Font name="Arial Black" size="21.0" />
                            </font>
                         </Text>
-                        <Button layoutX="168.0" layoutY="333.0" mnemonicParsing="false" text="Cancelar Inscrição" textFill="#2c1477" />
-                        <TextField layoutX="73.0" layoutY="194.0" prefHeight="25.0" prefWidth="72.0" />
+                        <Button layoutX="168.0" layoutY="333.0" mnemonicParsing="false" onAction="#cancelarInscricao" text="Cancelar Inscrição" textFill="#2c1477" />
+                        <TextField fx:id="idEvento" layoutX="135.0" layoutY="180.0" prefHeight="25.0" prefWidth="72.0" />
                         <Text fill="#7b7485" layoutX="135.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qual Inscrição Deseja Cancelar?">
                            <font>
                               <Font name="Arial Black" size="10.0" />
                            </font>
                         </Text>
-                        <Text fill="#7b7485" layoutX="83.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Evento">
+                        <Text fill="#7b7485" layoutX="145.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Evento">
                            <font>
                               <Font name="Arial Black" size="10.0" />
                            </font>
                         </Text>
-                        <Text fill="#7b7485" layoutX="304.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Usuário">
+                        <Text fill="#7b7485" layoutX="239.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id SubEvento">
                            <font>
                               <Font name="Arial Black" size="10.0" />
                            </font>
                         </Text>
-                        <Text fill="#7b7485" layoutX="177.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id SubEvento">
+                        <Text fill="#7b7485" layoutX="147.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Seção">
                            <font>
                               <Font name="Arial Black" size="10.0" />
                            </font>
                         </Text>
-                        <Text fill="#7b7485" layoutX="85.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Seção">
+                        <Text fill="#7b7485" layoutX="252.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Trilha">
                            <font>
                               <Font name="Arial Black" size="10.0" />
                            </font>
                         </Text>
-                        <Text fill="#7b7485" layoutX="190.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id Trilha">
-                           <font>
-                              <Font name="Arial Black" size="10.0" />
-                           </font>
-                        </Text>
-                        <TextField layoutX="177.0" layoutY="194.0" prefHeight="25.0" prefWidth="72.0" />
-                        <TextField layoutX="296.0" layoutY="194.0" prefHeight="25.0" prefWidth="72.0" />
-                        <TextField layoutX="73.0" layoutY="262.0" prefHeight="25.0" prefWidth="72.0" />
-                        <TextField layoutX="177.0" layoutY="262.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="idTrilha" layoutX="239.0" layoutY="180.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="idSecao" layoutX="135.0" layoutY="248.0" prefHeight="25.0" prefWidth="72.0" />
+                        <TextField fx:id="idSubEvento" layoutX="239.0" layoutY="248.0" prefHeight="25.0" prefWidth="72.0" />
+                        <Text fx:id="textoMensagem" fill="#7b7485" layoutX="93.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
                      </children>
                   </AnchorPane>
               </items>
