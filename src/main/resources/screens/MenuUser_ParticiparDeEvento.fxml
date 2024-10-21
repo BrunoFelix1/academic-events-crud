@@ -86,10 +86,8 @@
                                   <Font name="Arial Black" size="10.0" />
                               </font>
                           </Text>
-                          
                           <!-- Aqui vai o componente textoMensagem para exibir feedback -->
                           <Text fx:id="textoMensagem" fill="#7b7485" layoutX="93.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-
                       </children>
                   </AnchorPane>
               </items>
