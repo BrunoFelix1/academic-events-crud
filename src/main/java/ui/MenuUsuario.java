@@ -6,7 +6,6 @@ import controllers.SubeventoController;
 import controllers.SecaoController;
 import controllers.UsuarioController;
 import interfaces.IControladorUI;
-import interfaces.IUsuarioUI;
 import models.Evento;
 import models.Trilha;
 import models.SubEvento;
@@ -26,10 +25,6 @@ public class MenuUsuario {
     private static final String DESCRICAO = "Descrição: ";
     public static void mostrarMenuUsuario(Usuario user, Scanner scanner) {
 
-        IControladorUI<Trilha> trilhaController = new TrilhaController();
-
-
-        IUsuarioUI usuarioController = new UsuarioController();
         boolean sair = false;
 
         while (!sair) {

@@ -3,6 +3,7 @@ package persistence;
 import java.util.ArrayList;
 import interfaces.IPersistenciaControlador;
 import models.Inscricao;
+import models.Usuario;
 
 
 
@@ -36,6 +37,31 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
             inscricaoDaVez.setIdSecao(Integer.parseInt(dados[3]));
             inscricaoDaVez.setIdTrilha(Integer.parseInt(dados[4]));
             inscricoes.add(inscricaoDaVez);
+        }
+        manipulador.fecharArquivoParaLeitura();
+        return inscricoes;
+    }
+
+    //Retorna uma lista de todas as Inscricoes no momento
+    public ArrayList<Inscricao> getTodos(Usuario usuario) {
+        String linha;
+        ArrayList<Inscricao> inscricoes = new ArrayList<>();
+        manipulador.abrirArquivoParaLeitura();
+        while ((linha = manipulador.lerLinhaArquivo()) != null){
+            //Desconsiderando cabeçalho
+            Inscricao inscricaoDaVez = new Inscricao();
+            if (linha.contains("id")){
+                continue;
+            }
+            String dados [] = linha.split(",");
+            inscricaoDaVez.setIdUsuario(Integer.parseInt(dados[0]));
+            inscricaoDaVez.setIdEvento(Integer.parseInt(dados[1]));
+            inscricaoDaVez.setIdSubEvento(Integer.parseInt(dados[2]));
+            inscricaoDaVez.setIdSecao(Integer.parseInt(dados[3]));
+            inscricaoDaVez.setIdTrilha(Integer.parseInt(dados[4]));
+            if (inscricaoDaVez.getIdUsuario() == usuario.getId()){
+                inscricoes.add(inscricaoDaVez);
+            }
         }
         manipulador.fecharArquivoParaLeitura();
         return inscricoes;

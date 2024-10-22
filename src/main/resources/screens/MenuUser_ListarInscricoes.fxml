@@ -42,11 +42,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenscontrollers.ListarInscricoesController">
   <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Voltar" textFill="#2c1477" />
+          <Button fx:id="botaoVoltar" mnemonicParsing="false" onAction="#voltarParaMenuPrincipal" text="Sair" textFill="#2c1477" />
         </items>
       </ToolBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -61,22 +61,25 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="181.0" style="-fx-background-color: #fffade;">
                      <children>
-                        <Button layoutX="46.0" layoutY="31.0" mnemonicParsing="false" text="Listar Eventos" textFill="#2c1477" />
-                        <Button layoutX="50.0" layoutY="65.0" mnemonicParsing="false" text="Listar Trilhas" textFill="#2c1477" />
-                        <Button layoutX="36.0" layoutY="102.0" mnemonicParsing="false" text="Listar SubEventos" textFill="#2c1477" />
-                        <Button layoutX="49.0" layoutY="140.0" mnemonicParsing="false" text="Listar Seções" textFill="#2c1477" />
-                        <Button layoutX="29.0" layoutY="219.0" mnemonicParsing="false" text="Participar De Evento" textFill="#2c1477" />
-                        <Button layoutX="33.0" layoutY="257.0" mnemonicParsing="false" text="Participar De Trilha" textFill="#2c1477" />
-                        <Button layoutX="41.0" layoutY="178.0" mnemonicParsing="false" text="Listar Inscrições" textFill="#2c1477" />
-                        <Button layoutX="35.0" layoutY="332.0" mnemonicParsing="false" text="Cancelar Inscrição" textFill="#2c1477" />
-                        <Button layoutX="13.0" layoutY="295.0" mnemonicParsing="false" text="Emitir Certificado de Trilha" textFill="#2c1477" />
+                        <Button fx:id="botaoListarEventos" layoutX="46.0" layoutY="31.0" mnemonicParsing="false" onAction="#irParaTelaListarEventos" text="Listar Eventos" textFill="#2c1477" />
+                        <Button fx:id="botaoListarTrilhas" layoutX="50.0" layoutY="65.0" mnemonicParsing="false" onAction="#irParaTelaListarTrilhas" text="Listar Trilhas" textFill="#2c1477" />
+                        <Button fx:id="botaoListarSubEventos" layoutX="36.0" layoutY="102.0" mnemonicParsing="false" onAction="#irParaTelaListarSubEventos" text="Listar SubEventos" textFill="#2c1477" />
+                        <Button fx:id="botaoListarSecoes" layoutX="49.0" layoutY="140.0" mnemonicParsing="false" onAction="#irParaTelaListarSecoes" text="Listar Seções" textFill="#2c1477" />
+                        <Button fx:id="botaoParticiparDeEvento" layoutX="29.0" layoutY="219.0" mnemonicParsing="false" onAction="#irParaTelaParticiparDeEvento" text="Participar De Evento" textFill="#2c1477" />
+                        <Button fx:id="botaoParticiparDeTrilha" layoutX="33.0" layoutY="257.0" mnemonicParsing="false" onAction="#irParaTelaParticiparDeTrilha" text="Participar De Trilha" textFill="#2c1477" />
+                        <Button fx:id="botaoListarInscricoes" layoutX="41.0" layoutY="178.0" mnemonicParsing="false" onAction="#irParaTelaListarInscricoes" text="Listar Inscrições" textFill="#2c1477" />
+                        <Button fx:id="botaoCancelarInscricao" layoutX="35.0" layoutY="332.0" mnemonicParsing="false" onAction="#irParaTelaCancelarInscricao" text="Cancelar Inscrição" textFill="#2c1477" />
+                        <Button fx:id="botaoEmitirCertificadoDeTrilha" layoutX="13.0" layoutY="295.0" mnemonicParsing="false" onAction="#irParaTelaEmitirCertificadoDeTrilha" text="Emitir Certificado de Trilha" textFill="#2c1477" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #fffade;">
                      <children>
-                        <ScrollPane layoutX="56.0" layoutY="87.0" prefHeight="276.0" prefWidth="333.0">
+                        <ScrollPane fx:id="scrollPane" layoutX="56.0" layoutY="87.0" prefHeight="276.0" prefWidth="333.0">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="291.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="291.0">
+                                 <children>
+                                    <VBox layoutX="5.0" layoutY="-1.0" prefHeight="276.0" prefWidth="291.0" />
+                                 </children></AnchorPane>
                           </content>
                         </ScrollPane>
                         <Text fill="#7b7485" layoutX="127.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suas Inscrições ">

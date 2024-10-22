@@ -11,8 +11,12 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
     private String pathSubEvento = "src\\main\\resources\\database\\SubEventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);
 
+    public void setManipulador(ManipuladorArquivos manipulador) {
+        this.manipulador = manipulador;
+    }
+
     //Retorna um objeto SubEvento em formato de linha String
-    private String SubEventoToCSV(SubEvento subEvento){
+    public String SubEventoToCSV(SubEvento subEvento){
         String linha = subEvento.getId() + "," + subEvento.getIdEvento()+ "," + subEvento.getTitulo() + "," +
         subEvento.getLocal()+ "," + subEvento.getHorario() + "," + subEvento.getDescricao();
         return linha;

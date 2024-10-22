@@ -1,6 +1,7 @@
 package screenscontrollers;
 import java.io.IOException;
 
+import context.UserContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +24,7 @@ public class MenuUsuarioController {
     private Button botaoListarInscricoes;
 
     @FXML
-    private Button botaoListarSeções;
+    private Button botaoListarSecoes;
 
     @FXML
     private Button botaoListarSubEventos;
@@ -105,7 +106,7 @@ void irParaTelaCancelarInscricao() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuUser_ListarSecoes.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) botaoListarSeções.getScene().getWindow();
+            Stage stage = (Stage) botaoListarSecoes.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -178,6 +179,7 @@ void irParaTelaCancelarInscricao() {
     @FXML
     void voltarParaMenuPrincipal() {
         try {
+            UserContext.getInstance().setInstance(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();

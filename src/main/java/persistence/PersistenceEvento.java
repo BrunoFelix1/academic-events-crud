@@ -10,8 +10,12 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
     private String pathEvento = "src\\main\\resources\\database\\Eventos.txt";
     private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathEvento);
 
+    public void setManipulador(ManipuladorArquivos manipulador) {
+        this.manipulador = manipulador;
+    }
+    
     //Retorna um objeto Evento em formato de linha String
-    private String eventoToCSV(Evento evento){
+    public String eventoToCSV(Evento evento){
         String linha = evento.getId() + "," + evento.getTitulo()+ "," + evento.getLocal() + "," +
         evento.getHorario()+ "," + evento.getDescricao();
         return linha;
@@ -111,6 +115,8 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
         Evento Evento = new Evento();
         return Evento;
     }
+
+
 
 
    

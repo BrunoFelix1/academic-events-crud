@@ -1,103 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <MenuBar VBox.vgrow="NEVER" />
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="406.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="643.0" />
-            <Button layoutX="289.0" layoutY="327.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Cadastrar" textFill="#2c1477" />
-            <Label layoutX="153.0" layoutY="85.0" text="Usuário" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label layoutX="164.0" layoutY="158.0" text="Senha" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField layoutX="214.0" layoutY="158.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua senha" />
-            <TextField layoutX="214.0" layoutY="86.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu nome de usuário" />
-            <Label graphicTextGap="10.0" layoutX="237.0" layoutY="5.0" text="CADASTRO" textFill="#9a89b4">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Label layoutX="180.0" layoutY="123.0" text="CPF" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField layoutX="214.0" layoutY="123.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu CPF" />
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" textFill="#2c1477" />
-            <Line endX="536.0" endY="-11.0" layoutX="106.0" layoutY="70.0" startX="-106.0" startY="-11.0" />
-            <Label layoutX="164.0" layoutY="192.0" text="Nome" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField layoutX="214.0" layoutY="192.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu nome" />
-            <TextField layoutX="214.0" layoutY="226.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua idade" />
-            <Label layoutX="167.0" layoutY="226.0" text="Idade" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField layoutX="213.0" layoutY="259.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua instituição" />
-            <Label layoutX="136.0" layoutY="258.0" text="Instituição" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <TextField layoutX="213.0" layoutY="293.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira o tipo de usuário(COMUM, PALESTRANTE)">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-            <Label layoutX="98.0" layoutY="292.0" text="Tipo de usuário" textFill="#09829d">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-         </children>
-    </AnchorPane>
-  </children>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenscontrollers.TelaCadastrarController">
+    <children>
+        <MenuBar VBox.vgrow="NEVER" />
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="406.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="643.0" />
+                <Button fx:id="btnCadastrar" layoutX="289.0" layoutY="327.0" mnemonicParsing="false" onAction="#onCadastrar" prefHeight="25.0" prefWidth="92.0" text="Cadastrar" textFill="#2c1477" />
+                <Label layoutX="153.0" layoutY="85.0" text="Usuário" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="164.0" layoutY="158.0" text="Senha" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtSenha" layoutX="214.0" layoutY="158.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua senha" onKeyReleased="#onKeyReleased"/>
+                <TextField fx:id="txtUsuario" layoutX="214.0" layoutY="86.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu nome de usuário" onKeyReleased="#onKeyReleased"/>
+                <Label graphicTextGap="10.0" layoutX="237.0" layoutY="5.0" text="CADASTRO" textFill="#9a89b4">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                </Label>
+                <Label layoutX="180.0" layoutY="123.0" text="CPF" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtCPF" layoutX="214.0" layoutY="123.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu CPF" onKeyReleased="#onKeyReleased"/>
+                <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onVoltar" text="Voltar" textFill="#2c1477" />
+                <Line endX="536.0" endY="-11.0" layoutX="106.0" layoutY="70.0" startX="-106.0" startY="-11.0" />
+                <Label layoutX="164.0" layoutY="192.0" text="Nome" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtNome" layoutX="214.0" layoutY="192.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira seu nome" onKeyReleased="#onKeyReleased"/>
+                <TextField fx:id="txtIdade" layoutX="214.0" layoutY="226.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua idade" onKeyReleased="#onKeyReleased"/>
+                <Label layoutX="167.0" layoutY="226.0" text="Idade" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtInstituicao" layoutX="213.0" layoutY="259.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira sua instituição" onKeyReleased="#onKeyReleased"/>
+                <Label layoutX="136.0" layoutY="258.0" text="Instituição" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtTipoDeUsuario" layoutX="213.0" layoutY="293.0" prefHeight="25.0" prefWidth="247.0" promptText="Insira o tipo de usuário(COMUM, PALESTRANTE)" onKeyReleased="#onKeyReleased">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </TextField>
+                <Label layoutX="98.0" layoutY="292.0" text="Tipo de usuário" textFill="#09829d">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

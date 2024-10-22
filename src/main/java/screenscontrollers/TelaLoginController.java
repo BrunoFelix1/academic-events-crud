@@ -2,19 +2,17 @@ package screenscontrollers;
 
 import controllers.UsuarioController;
 import exception.UsuarioNaoEncontradoException;
+import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.Usuario;
+import context.UserContext;
 
-import java.io.IOException;
-
-public class TelaLoginController {
+public class TelaLoginController implements IControladorTelas {
+    public Usuario usuarioAutenticado;
 
     @FXML
     private Button btnVoltar;
@@ -25,53 +23,34 @@ public class TelaLoginController {
     @FXML
     private TextField txtUsuario;
     @FXML
-    private TextField txtSenha;
+    private PasswordField txtSenha;
 
     @FXML
     private void onVoltar() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
-            Pane newScene = loader.load();
-            Stage stage = (Stage) btnVoltar.getScene().getWindow(); // Alterado para btnVoltar
-            stage.setScene(new Scene(newScene));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mostrarTela("/screens/tela_inicial.fxml", (Stage) btnVoltar.getScene().getWindow());
     }
 
     @FXML
     private void onLogin() {
         if (onBtnLogin()) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuUsuario.fxml"));
-                Pane newScene = loader.load();
-                Stage stage = (Stage) btnLogin.getScene().getWindow();
-                stage.setScene(new Scene(newScene));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+            UserContext.getInstance().setUsuario(usuarioAutenticado);
+            if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("COMUM")){
+                mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
+            }
+            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("ADMINISTRADOR")){
+                mostrarTela("/screens/MenuADM.fxml", (Stage) btnLogin.getScene().getWindow());
+            }
+            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("PALESTRANTE")){
+                mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnLogin.getScene().getWindow());
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro de Login");
-            alert.setHeaderText(null);
-            alert.setContentText("Usuário ou senha inválidos.");
-            alert.showAndWait();
+            exibirAlerta("Usuário ou senha inválidos.");
         }
     }
 
     @FXML
     private void onCadastrar() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_cadastro.fxml"));
-            Pane newScene = loader.load();
-            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-            stage.setScene(new Scene(newScene));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mostrarTela("/screens/tela_cadastro.fxml", (Stage) btnCadastrar.getScene().getWindow());
     }
 
     private boolean onBtnLogin() {
@@ -79,7 +58,7 @@ public class TelaLoginController {
         String senha = txtSenha.getText();
         UsuarioController usuarioController = new UsuarioController();
         try {
-            Usuario usuarioAutenticado = usuarioController.AutenticarUsuario(senha, usuario); // Tá trocado aqui TODO DESTROCAR BOTÕES
+            usuarioAutenticado = usuarioController.AutenticarUsuario(usuario, senha);
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());
