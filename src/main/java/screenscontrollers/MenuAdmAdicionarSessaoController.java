@@ -9,8 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Secao;
+import persistence.PersistenceSecao;
 
-public class MenuADM_AdicionarSessaoController {
+public class MenuAdmAdicionarSessaoController {
 
     @FXML
     private Button botaoVoltar;
@@ -44,6 +46,8 @@ public class MenuADM_AdicionarSessaoController {
 
     @FXML
     private TextField subEventoRelacionadoField;
+
+    private PersistenceSecao persistence = new PersistenceSecao();
 
     @FXML
     void voltarParaGerenciarSessao() {
@@ -99,16 +103,18 @@ public class MenuADM_AdicionarSessaoController {
 
     @FXML
     void salvarSessao() {
-        // Implementar lógica para salvar a nova sessão
         String nomeSessao = nomeSessaoField.getText();
         String localSessao = localSessaoField.getText();
         String horarioSessao = horarioSessaoField.getText();
-        String eventoRelacionado = eventoRelacionadoField.getText();
-        String subEventoRelacionado = subEventoRelacionadoField.getText();
+        int idEventoRelacionado = Integer.parseInt(eventoRelacionadoField.getText());
+        int idSubEventoRelacionado = Integer.parseInt(subEventoRelacionadoField.getText());
+        int idSecao = persistence.getTodos().size()+1;
 
-        // Código para salvar a sessão no sistema
+        Secao novaSecao = new Secao(idSecao, idEventoRelacionado, idSubEventoRelacionado, localSessao, horarioSessao, nomeSessao);
 
-        // Exibir mensagem de sucesso ou limpar os campos
+        persistence.add(novaSecao);
+
+
         nomeSessaoField.clear();
         localSessaoField.clear();
         horarioSessaoField.clear();

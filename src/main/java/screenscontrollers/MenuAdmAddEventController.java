@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Evento;
+import persistence.PersistenceEvento;
 
 public class MenuAdmAddEventController extends MenuAdmGerEventController {
     @FXML 
@@ -29,6 +31,8 @@ public class MenuAdmAddEventController extends MenuAdmGerEventController {
     @FXML
     private TextField descricaoEventoField;
 
+    private PersistenceEvento persistence = new PersistenceEvento();
+
     @FXML
     void voltarParaGerenciarEvento() {
         try {
@@ -44,15 +48,18 @@ public class MenuAdmAddEventController extends MenuAdmGerEventController {
 
     @FXML
     void salvarEvento() {
-        // Implementar lógica para salvar o evento
         String nomeEvento = nomeEventoField.getText();
         String localEvento = localEventoField.getText();
         String horarioEvento = horarioEventoField.getText();
         String descricaoEvento = descricaoEventoField.getText();
+        int idEvento = persistence.getTodos().size()+1;
 
-        // Código para salvar o evento no sistema
 
-        // Após salvar, você pode mostrar uma mensagem de sucesso ou limpar os campos
+
+        Evento novoEvento = new Evento(idEvento, nomeEvento, localEvento, horarioEvento, descricaoEvento);
+        persistence.add(novoEvento);
+
+
         nomeEventoField.clear();
         localEventoField.clear();
         horarioEventoField.clear();
