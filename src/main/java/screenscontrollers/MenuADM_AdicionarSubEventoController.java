@@ -1,9 +1,11 @@
 package screenscontrollers;
 
+import controllers.SubeventoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.SubEvento;
 
 public class MenuADM_AdicionarSubEventoController extends BaseSubEventoController {
 
@@ -71,9 +73,11 @@ public class MenuADM_AdicionarSubEventoController extends BaseSubEventoControlle
         String local = localSubEventoField.getText();
         String descricao = descricaoSubEventoField.getText();
         String horario = horarioSubEventoField.getText();
-        String eventoAssociado = eventoAssociadoField.getText();
+        int eventoAssociado = Integer.parseInt(eventoAssociadoField.getText());
 
         // Código para salvar o subevento no sistema
+        SubeventoController subEventoController = new SubeventoController();
+        subEventoController.cadastrar(new SubEvento(1,eventoAssociado,nome, local, horario,descricao));
 
         // Exibir mensagem de sucesso ou limpar os campos
         nomeSubEventoField.clear();

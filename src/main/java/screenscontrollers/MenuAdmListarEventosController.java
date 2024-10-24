@@ -1,7 +1,9 @@
 package screenscontrollers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import controllers.EventoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import models.Evento;
 
 public class MenuAdmListarEventosController {
 
@@ -35,6 +38,9 @@ public class MenuAdmListarEventosController {
         // Carregar os eventos e exibi-los no textAreaEventos
         // Exemplo:
         // textAreaEventos.setText("Evento 1\nEvento 2\nEvento 3");
+        EventoController eventoc = new EventoController();
+        ArrayList<Evento> eventos = (ArrayList<Evento>) eventoc.listar();
+
     }
 
     @FXML
