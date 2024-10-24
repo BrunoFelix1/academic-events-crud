@@ -17,7 +17,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      # Set up JDK 21
+      # Seta a JDK 21
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -40,3 +40,14 @@ jobs:
       # Testes unitários
       - name: Run unit tests
         run: mvn test
+
+      # SonarCloud Scan
+      - name: SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn verify sonar:sonar \
+          -Dsonar.projectKey=BrunoFelix1_academic-events-crud \
+          -Dsonar.organization=brunofelix1 \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
