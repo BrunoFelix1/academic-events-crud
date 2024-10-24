@@ -2,6 +2,7 @@ package screenscontrollers;
 
 import java.io.IOException;
 
+import controllers.EventoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,7 +92,8 @@ public class MenuAdmDeletarEventoController {
         String nomeEvento = nomeEventoField.getText();
 
         // Código para deletar o evento do sistema
-
+        EventoController eventoc = new EventoController();
+        eventoc.deletar(Integer.parseInt(nomeEvento));
         // Exibir mensagem de sucesso ou limpar o campo
         nomeEventoField.clear();
     }
