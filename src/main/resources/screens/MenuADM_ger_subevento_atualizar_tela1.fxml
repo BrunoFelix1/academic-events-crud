@@ -17,7 +17,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="screenscontrollers.MenuADM_DeletarSubEventoController">
+      fx:controller="screenscontrollers.MenuADM_AtualizarSubEventoTela1Controller">
     <children>
         <MenuBar VBox.vgrow="NEVER" />
         <AnchorPane prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -46,13 +46,13 @@
                         onAction="#irParaTelaListarSubEventos" />
                 <Button fx:id="botaoAtualizarSubEvento" layoutX="29.0"
                         layoutY="168.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Atualizar SubEvento" textFill="#2c1477"
-                        onAction="#irParaTelaAtualizarSubEvento" />
+                        text="Atualizar SubEvento" textFill="#2c1477" />
                 <Button fx:id="botaoDeletarSubEvento" layoutX="29.0"
                         layoutY="210.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Deletar Subevento" textFill="#2c1477" />
+                        text="Deletar Subevento" textFill="#2c1477"
+                        onAction="#irParaTelaDeletarSubEvento" />
                 <Text fill="#537eda" layoutX="248.0" layoutY="119.0"
-                      text="Digite o nome do subevento que você deseja deletar:"
+                      text="Digite o nome do subevento que você quer atualizar"
                       wrappingWidth="353.884765625">
                     <font>
                         <Font size="18.0" />
@@ -64,8 +64,8 @@
                     </font>
                 </Text>
                 <TextField fx:id="nomeSubEventoField" layoutX="344.0" layoutY="168.0" />
-                <Button fx:id="botaoDeletar" layoutX="480.0" layoutY="200.0"
-                        text="Deletar" onAction="#deletarSubEvento" />
+                <Button fx:id="botaoProximo" layoutX="480.0" layoutY="200.0"
+                        text="Próximo" onAction="#irParaTelaAtualizarSubEvento2" />
             </children>
         </AnchorPane>
     </children>
