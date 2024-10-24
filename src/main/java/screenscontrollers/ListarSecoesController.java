@@ -10,6 +10,9 @@ import models.Secao;
 import persistence.PersistenceSecao;
 
 public class ListarSecoesController extends MenuUsuarioController {
+    
+    private String fonteRepetida = "-fx-font-size: 12px;";
+
     @FXML
     private ScrollPane scrollPane;
 
@@ -38,9 +41,9 @@ public class ListarSecoesController extends MenuUsuarioController {
             idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");
             nomeLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
             subEventoIdLabel.setStyle("-fx-font-size: 14px;");
-            localLabel.setStyle("-fx-font-size: 12px;");
-            horarioLabel.setStyle("-fx-font-size: 12px;");
-            eventoIdLabel.setStyle("-fx-font-size: 12px;");
+            localLabel.setStyle(fonteRepetida);
+            horarioLabel.setStyle(fonteRepetida);
+            eventoIdLabel.setStyle(fonteRepetida);
 
             // Adicionando os Labels ao VBox para uma única seção
             VBox secaoBox = new VBox(5); // Espaçamento entre os atributos de uma seção
