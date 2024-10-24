@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuADM_AtualizarEventoTela2Controller {
+public class MenuAdmAtualizarEventoTela1Controller {
 
     @FXML
     private Button botaoVoltar;
@@ -28,31 +28,15 @@ public class MenuADM_AtualizarEventoTela2Controller {
     private Button botaoDeletarEvento;
 
     @FXML
-    private Button botaoSalvarAlteracoes;
+    private Button botaoProximo;
 
     @FXML
-    private TextField tituloEventoField;
+    private TextField nomeEventoField;
 
     @FXML
-    private TextField localEventoField;
-
-    @FXML
-    private TextField horarioEventoField;
-
-    @FXML
-    private TextField descricaoEventoField;
-
-    private String nomeEvento;
-
-    public void setNomeEvento(String nomeEvento) {
-        this.nomeEvento = nomeEvento;
-        // Carregar os dados atuais do evento e preencher os campos
-    }
-
-    @FXML
-    void voltarParaTelaAnterior() {
+    void voltarParaGerenciarEvento() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela1.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -102,15 +86,20 @@ public class MenuADM_AtualizarEventoTela2Controller {
     }
 
     @FXML
-    void salvarAlteracoes() {
-        // Implementar lógica para salvar as alterações do evento
-        String tituloAtualizado = tituloEventoField.getText();
-        String localAtualizado = localEventoField.getText();
-        String horarioAtualizado = horarioEventoField.getText();
-        String descricaoAtualizada = descricaoEventoField.getText();
+    void irParaTelaAtualizarEvento2() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela2.fxml"));
+            Parent root = loader.load();
 
-        // Código para atualizar o evento no sistema
+            // Passar o nome do evento para a próxima tela (opcional)
+            MenuAdmAtualizarEventoTela2Controller controller = loader.getController();
+            controller.setNomeEvento(nomeEventoField.getText());
 
-        // Exibir mensagem de sucesso ou redirecionar para outra tela
+            Stage stage = (Stage) botaoProximo.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

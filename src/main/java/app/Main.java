@@ -6,23 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/screens/tela_inicial.fxml")); // Lembre-se de ajustar o caminho correto do seu FXML
+        Parent root = FXMLLoader.load(getClass().getResource("/screens/tela_inicial.fxml")); // Ajuste o caminho correto do FXML
         Scene scene = new Scene(root);
         primaryStage.setTitle("Sistema de Cadastro De Eventos");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args); // Inicia a aplicação JavaFX
-        // MenuPrincipal menu = new MenuPrincipal();
-        // try{
-        //     menu.iniciarSistema();
-        // } catch (UsuarioNaoEncontradoException e) {}
     }
 }

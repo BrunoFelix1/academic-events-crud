@@ -1,6 +1,5 @@
-package Controllers;
+package controllers;
 
-import controllers.EventoController;
 import models.Evento;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class EventoControllerTest {
+class EventoControllerTest {
 
     @Mock
     private IPersistenciaControlador<Evento> persistenciaMockEvento;
@@ -30,7 +29,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void testeListarEventos() {
+    void testeListarEventos() {
         // Mockando a lista de eventos retornada pela persistência
         Evento evento1 = new Evento(1, "Super", "Armazem", "15:30", "Super palestra");
         Evento evento2 = new Evento(2, "JCE", "Armazem", "15:10", "JCE palestra");
@@ -51,7 +50,7 @@ public class EventoControllerTest {
 
 
     @Test
-    public void testeCadastrarEvento() {
+    void testeCadastrarEvento() {
         // Mockando a lista de eventos existente
         Evento evento1 = new Evento(1, "Super", "Armazem", "15:30", "Super palestra");
         when(persistenciaMockEvento.getTodos()).thenReturn(new ArrayList<>(Arrays.asList(evento1)));
@@ -71,7 +70,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void testeAtualizarEvento() {
+    void testeAtualizarEvento() {
         // Mockando um evento existente
         Evento eventoExistente = new Evento(1, "Super", "Armazem", "15:30", "Super palestra");
         when(persistenciaMockEvento.getPorId(1)).thenReturn(eventoExistente);
@@ -90,7 +89,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void testeDeletarEvento() {
+    void testeDeletarEvento() {
         // Mockando um evento existente
         Evento eventoExistente = new Evento(1, "Super", "Armazem", "15:30", "Super palestra");
         when(persistenciaMockEvento.getPorId(1)).thenReturn(eventoExistente);
@@ -107,7 +106,7 @@ public class EventoControllerTest {
     }
 
     @Test
-    public void testeDeletarEventoNaoEncontrado() {
+    void testeDeletarEventoNaoEncontrado() {
         // Mockando um retorno nulo para um evento que não existe
         when(persistenciaMockEvento.getPorId(1)).thenReturn(null);
 

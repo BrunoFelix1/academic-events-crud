@@ -7,10 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-public class MenuADM_AtualizarEventoTela1Controller {
+public class MenuAdmListarEventosController {
 
     @FXML
     private Button botaoVoltar;
@@ -28,10 +28,14 @@ public class MenuADM_AtualizarEventoTela1Controller {
     private Button botaoDeletarEvento;
 
     @FXML
-    private Button botaoProximo;
+    private TextArea textAreaEventos;
 
     @FXML
-    private TextField nomeEventoField;
+    public void initialize() {
+        // Carregar os eventos e exibi-los no textAreaEventos
+        // Exemplo:
+        // textAreaEventos.setText("Evento 1\nEvento 2\nEvento 3");
+    }
 
     @FXML
     void voltarParaGerenciarEvento() {
@@ -60,11 +64,11 @@ public class MenuADM_AtualizarEventoTela1Controller {
     }
 
     @FXML
-    void irParaTelaListarEventos() {
+    void irParaTelaAtualizarEvento() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_listarevent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela1.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) botaoListarEventos.getScene().getWindow();
+            Stage stage = (Stage) botaoAtualizarEvento.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -78,24 +82,6 @@ public class MenuADM_AtualizarEventoTela1Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_deletar.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoDeletarEvento.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaAtualizarEvento2() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela2.fxml"));
-            Parent root = loader.load();
-
-            // Passar o nome do evento para a próxima tela (opcional)
-            MenuADM_AtualizarEventoTela2Controller controller = loader.getController();
-            controller.setNomeEvento(nomeEventoField.getText());
-
-            Stage stage = (Stage) botaoProximo.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

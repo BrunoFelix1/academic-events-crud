@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuADM_AddEventController {
+public class MenuAdmAtualizarEventoTela2Controller {
 
     @FXML
     private Button botaoVoltar;
@@ -28,10 +28,10 @@ public class MenuADM_AddEventController {
     private Button botaoDeletarEvento;
 
     @FXML
-    private Button botaoSalvarEvento;
+    private Button botaoSalvarAlteracoes;
 
     @FXML
-    private TextField nomeEventoField;
+    private TextField tituloEventoField;
 
     @FXML
     private TextField localEventoField;
@@ -42,12 +42,32 @@ public class MenuADM_AddEventController {
     @FXML
     private TextField descricaoEventoField;
 
+    private String nomeEvento;
+
+    public void setNomeEvento(String nomeEvento) {
+        this.nomeEvento = nomeEvento;
+        // Carregar os dados atuais do evento e preencher os campos
+    }
+
     @FXML
-    void voltarParaGerenciarEvento() {
+    void voltarParaTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela1.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void irParaTelaAdicionarEvento() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AddEvent.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) botaoAdicionarEvento.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
@@ -69,19 +89,6 @@ public class MenuADM_AddEventController {
     }
 
     @FXML
-    void irParaTelaAtualizarEvento() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela1.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoAtualizarEvento.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     void irParaTelaDeletarEvento() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_deletar.fxml"));
@@ -95,19 +102,15 @@ public class MenuADM_AddEventController {
     }
 
     @FXML
-    void salvarEvento() {
-        // Implementar lógica para salvar o evento
-        String nomeEvento = nomeEventoField.getText();
-        String localEvento = localEventoField.getText();
-        String horarioEvento = horarioEventoField.getText();
-        String descricaoEvento = descricaoEventoField.getText();
+    void salvarAlteracoes() {
+        // Implementar lógica para salvar as alterações do evento
+        String tituloAtualizado = tituloEventoField.getText();
+        String localAtualizado = localEventoField.getText();
+        String horarioAtualizado = horarioEventoField.getText();
+        String descricaoAtualizada = descricaoEventoField.getText();
 
-        // Código para salvar o evento no sistema
+        // Código para atualizar o evento no sistema
 
-        // Após salvar, você pode mostrar uma mensagem de sucesso ou limpar os campos
-        nomeEventoField.clear();
-        localEventoField.clear();
-        horarioEventoField.clear();
-        descricaoEventoField.clear();
+        // Exibir mensagem de sucesso ou redirecionar para outra tela
     }
 }

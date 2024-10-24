@@ -1,6 +1,5 @@
-package Controllers;
+package controllers;
 
-import controllers.AtividadeController;
 import interfaces.IPersistenciaControlador;
 import models.Atividade;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AtividadeControllerTest {
+class AtividadeControllerTest {
 
     @Mock
     private IPersistenciaControlador<Atividade> persistenciaMock;
@@ -30,7 +29,7 @@ public class AtividadeControllerTest {
     }
 
     @Test
-    public void testListar() {
+    void testListar() {
         // Dados simulados
         Atividade atividade1 = new Atividade(1, "Atividade 1", "Descrição 1", "Meio ambiente", 5);
         Atividade atividade2 = new Atividade(2, "Atividade 2", "Descrição 2", "High tecs", 2);
@@ -49,7 +48,7 @@ public class AtividadeControllerTest {
     }
 
     @Test
-    public void testCadastrar() {
+    void testCadastrar() {
         // Dados simulados
         Atividade novaAtividade = new Atividade(0, "Palestra", "Descrição Nova", "vida nova", 2);
         ArrayList<Atividade> atividadesExistentes = new ArrayList<>(Arrays.asList(
@@ -69,7 +68,7 @@ public class AtividadeControllerTest {
     }
 
     @Test
-    public void testAtualizar() {
+    void testAtualizar() {
         // Dados simulados
         Atividade atividadeAntiga = new Atividade(1, "Atividade 1", "Descrição Antiga", "Antigo", 2);
         Atividade atividadeAtualizada = new Atividade(1, "Atividade 1 Atualizada", "Descrição Atualizada", "Atualizado", 3);
@@ -86,7 +85,7 @@ public class AtividadeControllerTest {
     }
 
     @Test
-    public void testDeletar_Sucesso() {
+    void testDeletar_Sucesso() {
         // Dados simulados
         Atividade atividade = new Atividade(1, "Atividade 1", "Descrição 1", "Resumo 1", 1);
 
@@ -103,7 +102,7 @@ public class AtividadeControllerTest {
     }
 
     @Test
-    public void testDeletar_Falha() {
+    void testDeletar_Falha() {
         // Simulando comportamento do mock para retornar null quando a atividade não é encontrada
         when(persistenciaMock.getPorId(1)).thenReturn(null);
 
