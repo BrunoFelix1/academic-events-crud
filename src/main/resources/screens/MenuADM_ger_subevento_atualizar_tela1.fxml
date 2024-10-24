@@ -17,7 +17,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="screenscontrollers.MenuADM_AtualizarSubEventoTela2Controller">
+      fx:controller="screenscontrollers.MenuADM_AtualizarSubEventoTela1Controller">
     <children>
         <MenuBar VBox.vgrow="NEVER" />
         <AnchorPane prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
@@ -31,7 +31,7 @@
                     </font>
                 </Label>
                 <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="14.0"
-                        text="Voltar" textFill="#2c1477" onAction="#voltarParaTelaAnterior" />
+                        text="Voltar" textFill="#2c1477" onAction="#voltarParaGerenciarSubEvento" />
                 <Line endX="648.0" layoutX="38.0" layoutY="58.0"
                       startX="-100.0" />
                 <Line endX="76.5" endY="325.0" layoutX="97.0"
@@ -52,7 +52,7 @@
                         text="Deletar Subevento" textFill="#2c1477"
                         onAction="#irParaTelaDeletarSubEvento" />
                 <Text fill="#537eda" layoutX="248.0" layoutY="119.0"
-                      text="Atualize com as novas informações abaixo:"
+                      text="Digite o nome do subevento que você quer atualizar"
                       wrappingWidth="353.884765625">
                     <font>
                         <Font size="18.0" />
@@ -64,32 +64,8 @@
                     </font>
                 </Text>
                 <TextField fx:id="nomeSubEventoField" layoutX="344.0" layoutY="168.0" />
-                <Text fill="#537eda" layoutX="258.0" layoutY="221.0" text="Local">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="localSubEventoField" layoutX="344.0" layoutY="204.0" />
-                <Text fill="#537eda" layoutX="258.0" layoutY="258.0" text="Descrição">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="descricaoSubEventoField" layoutX="344.0" layoutY="240.0" />
-                <Text fill="#537eda" layoutX="258.0" layoutY="298.0" text="Horário">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="horarioSubEventoField" layoutX="344.0" layoutY="281.0" />
-                <Text fill="#537eda" layoutX="258.0" layoutY="338.0" text="Evento Associado">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Text>
-                <TextField fx:id="eventoAssociadoField" layoutX="344.0" layoutY="321.0" />
-                <Button fx:id="botaoSalvarAlteracoes" layoutX="480.0" layoutY="360.0"
-                        text="Salvar Alterações" onAction="#salvarAlteracoes" />
+                <Button fx:id="botaoProximo" layoutX="480.0" layoutY="200.0"
+                        text="Próximo" onAction="#irParaTelaAtualizarSubEvento2" />
             </children>
         </AnchorPane>
     </children>
