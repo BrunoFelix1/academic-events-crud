@@ -49,7 +49,7 @@ public class TelaCadastrarController implements IControladorTelas {
         usuarioCadastrado.setNome(txtNome.getText());
         usuarioCadastrado.setInstituicao(txtInstituicao.getText());
         usuarioCadastrado.setTipoDeUsuario(txtTipoDeUsuario.getText());
-
+        
         if (checarUsuario(usuarioCadastrado.getLogin())) {
             exibirAlerta("Esse nome de usuário já existe.");
             return;
@@ -58,22 +58,23 @@ public class TelaCadastrarController implements IControladorTelas {
             exibirAlerta("Esse CPF já foi cadastrado.");
             return;
         }
-        if (!(checarTipoUsuario(usuarioCadastrado.getTipoDeUsuario()))) {
+        if (!checarTipoUsuario(usuarioCadastrado.getTipoDeUsuario())) {
             exibirAlerta("Digite um tipo de usuário disponível.");
             return;
         }
-
-        if(!checarIdade(usuarioCadastrado.getIdade())) {
+        if (!checarIdade(usuarioCadastrado.getIdade())) {
             exibirAlerta("Digite uma idade válida.");
             return;
         }
+
         if (usuarioP.cadastrar(usuarioCadastrado)) {
             Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-            mostrarTela("/screens/MenuUsuario.fxml", stage);
+            verificarTela(usuarioCadastrado, stage);
         } else {
             exibirAlerta("Digite um CPF válido.");
         }
     }
+
 
     @FXML
     public void initialize() {
@@ -83,6 +84,17 @@ public class TelaCadastrarController implements IControladorTelas {
             }
         });
     }
+
+    private void verificarTela(Usuario usuario, Stage stage) {
+        if (usuario.getTipoDeUsuario().equalsIgnoreCase("COMUM")) {
+            mostrarTela("/screens/MenuUsuario.fxml", stage);
+        } else if (usuario.getTipoDeUsuario().equalsIgnoreCase("PALESTRANTE")) {
+            mostrarTela("/screens/Menu_Palestrante.fxml", stage);
+        } else {
+            exibirAlerta("Erro inesperado no tipo de usuário.");
+        }
+    }
+
 
     private boolean checarUsuario(String usuario) {
         List<Usuario> lista = usuarioP.listar();
