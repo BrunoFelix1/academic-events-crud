@@ -4,23 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.SubEvento;
+import persistence.PersistenceSubEvento;
 
-public class MenuADM_AdicionarSubEventoController extends BaseSubEventoController {
+public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
     private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarSubEvento;
-
-    @FXML
-    private Button botaoListarSubEventos;
-
-    @FXML
-    private Button botaoAtualizarSubEvento;
-
-    @FXML
-    private Button botaoDeletarSubEvento;
 
     @FXML
     private Button botaoSalvarSubEvento;
@@ -40,28 +30,12 @@ public class MenuADM_AdicionarSubEventoController extends BaseSubEventoControlle
     @FXML
     private TextField eventoAssociadoField;
 
+    private PersistenceSubEvento persistence = new PersistenceSubEvento();
+
     @FXML
     void voltarParaGerenciarSubEvento() {
         Stage stage = (Stage) botaoVoltar.getScene().getWindow();
         irParaTelaGerenciarSubEvento(stage);
-    }
-
-    @FXML
-    void irParaTelaListarSubEventos() {
-        Stage stage = (Stage) botaoListarSubEventos.getScene().getWindow();
-        irParaTelaListarSubEventos(stage);
-    }
-
-    @FXML
-    void irParaTelaAtualizarSubEvento() {
-        Stage stage = (Stage) botaoAtualizarSubEvento.getScene().getWindow();
-        irParaTelaAtualizarSubEventoTela1(stage);
-    }
-
-    @FXML
-    void irParaTelaDeletarSubEvento() {
-        Stage stage = (Stage) botaoDeletarSubEvento.getScene().getWindow();
-        irParaTelaDeletarSubEvento(stage);
     }
 
     @FXML
@@ -71,11 +45,14 @@ public class MenuADM_AdicionarSubEventoController extends BaseSubEventoControlle
         String local = localSubEventoField.getText();
         String descricao = descricaoSubEventoField.getText();
         String horario = horarioSubEventoField.getText();
-        String eventoAssociado = eventoAssociadoField.getText();
+        int eventoId = Integer.parseInt(eventoAssociadoField.getText());
+        int subeventoId = persistence.getTodos().size() + 1;
 
-        // Código para salvar o subevento no sistema
+        SubEvento novoSubEvento = new SubEvento(subeventoId, eventoId, nome, local, horario, descricao);
+        persistence.add(novoSubEvento);
 
-        // Exibir mensagem de sucesso ou limpar os campos
+
+
         nomeSubEventoField.clear();
         localSubEventoField.clear();
         descricaoSubEventoField.clear();

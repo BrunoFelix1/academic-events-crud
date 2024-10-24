@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuADM_AtualizarSubEventoTela1Controller extends BaseSubEventoController {
+public class MenuAdmAtualizarSubEventoTela1Controller extends BaseSubEventoController {
 
     @FXML
     private Button botaoVoltar;

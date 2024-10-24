@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuADM_DeletarSubEventoController extends BaseSubEventoController {
+public class MenuAdmDeletarSubEventoController extends BaseSubEventoController {
 
     @FXML
     private Button botaoVoltar;

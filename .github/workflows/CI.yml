@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '21'
-          distribution: 'temurin' # Options: zulu, adopt, temurin, microsoft
+          distribution: 'temurin' 
           
       # Limpa o cache das dependências Maven
       - name: Cache Maven packages
