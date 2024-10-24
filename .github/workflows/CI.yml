@@ -42,6 +42,7 @@ jobs:
         run: mvn test
 
       # SonarCloud Scan
+      # Usamos o Sonar pelo CD/CI pois desliguei a análise automatica do SonarCloud
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
