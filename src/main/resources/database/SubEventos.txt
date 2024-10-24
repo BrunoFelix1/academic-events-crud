@@ -3,4 +3,3 @@ id,evento_id,titulo,local,horario,descricao
 2,1,Painel de Discussão: Futuro da IA,Sala 102,11:30,Um painel com especialistas discutindo o futuro da IA.
 3,2,Laboratório de Machine Learning,Laboratório 1,15:30,Um laboratório hands-on sobre machine learning.
 4,2,Debate Ético sobre IA,Sala 202,16:30,Debate sobre as implicações éticas da IA na sociedade.
-5,1,Engenharia social,Criatvio,12:00,debate ao vivo
