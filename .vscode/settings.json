@@ -1,4 +1,8 @@
 {
     "java.debug.settings.onBuildFailureProceed": true,
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "brunofelix1",
+        "projectKey": "BrunoFelix1_academic-events-crud"
+    }
 }

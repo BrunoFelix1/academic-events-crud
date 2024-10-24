@@ -1,14 +1,9 @@
 package screenscontrollers;
 
-import controllers.UsuarioController;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Usuario;
-
-import java.util.List;
 
 public class MenuPalestranteController implements IControladorTelas {
 
@@ -23,30 +18,33 @@ public class MenuPalestranteController implements IControladorTelas {
     @FXML
     private Button btnApagarAtividade;
 
-    @FXML
-    private void onSair() {
-        Stage stage = (Stage) btnSair.getScene().getWindow();
-        mostrarTela("/screens/tela_inicial.fxml", stage);
-    }
-    @FXML
-    private void onListarAtividade() {
-        Stage stage = (Stage) btnListarAtividades.getScene().getWindow();
-        mostrarTela("/screens/Menu_Palestrante_ListarAtividades.fxml", stage);
-    }
-    @FXML
-    private void onApagarAtividade() {
-        Stage stage = (Stage) btnApagarAtividade.getScene().getWindow();
-        mostrarTela("/screens/Menu_Palestrante_ApagarAtividade.fxml", stage);
-    }
-    @FXML
-    private void onSubmeterAtividade() {
-        Stage stage = (Stage) btnSubmeterAtividade.getScene().getWindow();
-        mostrarTela("/screens/Menu_Palestrante_SubmeterAtividade.fxml", stage);
-    }
-    @FXML
-    private void onAtualizarAtividade() {
-        Stage stage = (Stage) btnAtualizarAtividade.getScene().getWindow();
-        mostrarTela("/screens/Menu_Palestrante_AtualizarAtividade.fxml", stage);
+    private void trocarTela(String caminho, Button botao) {
+        Stage stage = (Stage) botao.getScene().getWindow();
+        mostrarTela(caminho, stage);
     }
 
+    @FXML
+    private void onSair() {
+        trocarTela("/screens/tela_inicial.fxml", btnSair);
+    }
+
+    @FXML
+    private void onListarAtividade() {
+        trocarTela("/screens/Menu_Palestrante_ListarAtividades.fxml", btnListarAtividades);
+    }
+
+    @FXML
+    private void onApagarAtividade() {
+        trocarTela("/screens/Menu_Palestrante_ApagarAtividade.fxml", btnApagarAtividade);
+    }
+
+    @FXML
+    private void onSubmeterAtividade() {
+        trocarTela("/screens/Menu_Palestrante_SubmeterAtividade.fxml", btnSubmeterAtividade);
+    }
+
+    @FXML
+    private void onAtualizarAtividade() {
+        trocarTela("/screens/Menu_Palestrante_AtualizarAtividade.fxml", btnAtualizarAtividade);
+    }
 }
