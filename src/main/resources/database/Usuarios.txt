@@ -2,5 +2,3 @@ id,cpf,nome,idade,instituicao,tipoDeUsuario,login,senha
 1,140.401.604-02,nome2,22,UPE,ADMINISTRADOR,nome2,456
 2,140.401.604-03,nome3,23,UPE,COMUM,nome3,789
 
-3,15524376470,ed,33,upe,PALESTRANTE,ed,123
-4,84579196449,ed,77,jhkm,PALESTRANTE,edhujk,123
