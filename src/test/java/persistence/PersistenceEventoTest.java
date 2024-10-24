@@ -8,7 +8,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import models.Evento;
 
-public class PersistenceEventoTest {
+class PersistenceEventoTest {
     private PersistenceEvento persistenceEvento;
     ManipuladorArquivos mockManipuladorArquivos = mock(ManipuladorArquivos.class);
 
@@ -19,7 +19,7 @@ public class PersistenceEventoTest {
     }
 
     @Test
-    public void testEventoToCSV() {
+    void testEventoToCSV() {
         String linhaEsperada = "1,Conferência,Auditório,2024-10-21 10:00,Descrição da conferência";
         Evento mockEvento = mock(Evento.class);
 
@@ -33,7 +33,7 @@ public class PersistenceEventoTest {
     }
 
     @Test
-    public void testGetTodos() {
+    void testGetTodos() {
         when(mockManipuladorArquivos.lerLinhaArquivo())
             .thenReturn("id,titulo,local,horario,descricao")
             .thenReturn("1,Workshop,Sala A,2024-11-15 14:00,Um workshop sobre tecnologia")
@@ -50,7 +50,7 @@ public class PersistenceEventoTest {
     }
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         Evento evento = new Evento(1, "Seminário", "Sala A", "2024-12-01 09:00", "Seminário sobre inovação");
         String linhaEsperada = "1,Seminário,Sala A,2024-12-01 09:00,Seminário sobre inovação";
 
@@ -62,7 +62,7 @@ public class PersistenceEventoTest {
     }
 
     @Test
-    public void testDeleteEvento() {
+    void testDeleteEvento() {
         PersistenceEvento persistenceEventoSpy = spy(new PersistenceEvento());
         persistenceEventoSpy.setManipulador(mockManipuladorArquivos);
         Evento evento1 = new Evento(1, "Workshop", "Sala A", "2024-11-15 14:00", "Workshop sobre tecnologia");
@@ -90,7 +90,7 @@ public class PersistenceEventoTest {
     }
 
     @Test
-    public void testUpdateEvento() {
+    void testUpdateEvento() {
         Evento eventoAntigo = new Evento(1, "Workshop", "Sala A", "2024-11-15 14:00", "Workshop sobre tecnologia");
         Evento eventoNovo = new Evento(1, "Conferência", "Auditório", "2024-12-01 10:00", "Conferência anual");
         Evento evento2 = new Evento(2, "Seminário", "Sala B", "2024-12-01 09:00", "Seminário de final de ano");
