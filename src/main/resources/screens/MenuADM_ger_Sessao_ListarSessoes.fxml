@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  [Comentários de licença permanecem inalterados]
--->
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -19,45 +16,59 @@
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="screenscontrollers.MenuAdmListarSessoesController">
     <children>
+        <!-- Barra de Menu -->
         <MenuBar VBox.vgrow="NEVER" />
+
+        <!-- Layout principal da tela -->
         <AnchorPane prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
+                <!-- Fundo retangular -->
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade"
                            height="413.0" layoutX="-17.0" layoutY="-6.0"
                            stroke="BLACK" width="707.0" />
+
+                <!-- Título principal -->
                 <Label layoutX="312.0" text="Menu ADM" textFill="#9a89b4">
                     <font>
                         <Font name="System Bold" size="36.0" />
                     </font>
                 </Label>
+
+                <!-- Botão Voltar -->
                 <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="14.0"
                         text="Voltar" textFill="#2c1477" onAction="#voltarParaGerenciarSessao" />
+
+                <!-- Linha de separação -->
                 <Line endX="648.0" layoutX="38.0" layoutY="58.0"
                       startX="-100.0" />
-                <Line endX="76.5" endY="325.0" layoutX="97.0"
-                      layoutY="72.0" startX="76.5" startY="-68.0" />
-                <Button fx:id="botaoAdicionarSessao" layoutX="29.0"
-                        layoutY="87.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Adicionar Sessao" textFill="#2c1477"
-                        onAction="#irParaTelaAdicionarSessao" />
-                <Button fx:id="botaoListarSessoes" layoutX="29.0"
-                        layoutY="131.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Listar Sessoes" textFill="#2c1477" />
-                <Button fx:id="botaoAtualizarSessao" layoutX="29.0"
-                        layoutY="168.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Atualizar sessão" textFill="#2c1477"
-                        onAction="#irParaTelaAtualizarSessao" />
-                <Button fx:id="botaoDeletarSessao" layoutX="29.0"
-                        layoutY="210.0" prefHeight="25.0" prefWidth="130.0"
-                        text="Deletar Sessão" textFill="#2c1477"
-                        onAction="#irParaTelaDeletarSessao" />
+
+                <!-- Botões de controle de sessão -->
+                <Button fx:id="botaoAdicionarSessao" layoutX="29.0" layoutY="87.0"
+                        prefHeight="25.0" prefWidth="130.0" text="Adicionar Sessão"
+                        textFill="#2c1477" onAction="#irParaTelaAdicionarSessao" />
+
+                <Button fx:id="botaoListarSessoes" layoutX="29.0" layoutY="131.0"
+                        prefHeight="25.0" prefWidth="130.0" text="Listar Sessões"
+                        textFill="#2c1477"  />
+
+                <Button fx:id="botaoAtualizarSessao" layoutX="29.0" layoutY="168.0"
+                        prefHeight="25.0" prefWidth="130.0" text="Atualizar Sessão"
+                        textFill="#2c1477" onAction="#irParaTelaAtualizarSessao" />
+
+                <Button fx:id="botaoDeletarSessao" layoutX="29.0" layoutY="210.0"
+                        prefHeight="25.0" prefWidth="130.0" text="Deletar Sessão"
+                        textFill="#2c1477" onAction="#irParaTelaDeletarSessao" />
+
+                <!-- Título da lista de sessões -->
                 <Text fill="#537eda" layoutX="239.0" layoutY="105.0"
                       text="Lista De Sessões Ativas:" wrappingWidth="353.884765625">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Text>
-                <ListView fx:id="listViewSessoes" layoutX="316.0" layoutY="135.0"
+
+                <!-- TextArea para inserir informações da sessão -->
+                <TextArea fx:id="textAreaSecao" layoutX="325.0" layoutY="149.0"
                           prefHeight="200.0" prefWidth="200.0" />
             </children>
         </AnchorPane>

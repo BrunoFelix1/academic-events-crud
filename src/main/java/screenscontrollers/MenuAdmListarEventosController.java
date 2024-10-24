@@ -1,7 +1,9 @@
 package screenscontrollers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import controllers.EventoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import models.Evento;
+import models.SubEvento;
 
 public class MenuAdmListarEventosController {
 
@@ -35,6 +39,22 @@ public class MenuAdmListarEventosController {
         // Carregar os eventos e exibi-los no textAreaEventos
         // Exemplo:
         // textAreaEventos.setText("Evento 1\nEvento 2\nEvento 3");
+        EventoController eventoc = new EventoController();
+        ArrayList<Evento> eventos = (ArrayList<Evento>) eventoc.listar();
+        StringBuilder sb = new StringBuilder();
+
+        // Itera sobre os subeventos e adiciona ao StringBuilder
+        for (Evento evento : eventos) {
+            sb.append("ID: ").append(evento.getId()).append("\n")
+                    .append("Nome: ").append(evento.getTitulo()).append("\n")
+                    .append("Local: ").append(evento.getLocal()).append("\n")
+                    .append("Horário: ").append(evento.getHorario()).append("\n")
+                    .append("Descrição: ").append(evento.getDescricao()).append("\n")
+                    .append("----------------------------\n");
+        }
+
+
+        textAreaEventos.setText(sb.toString());
     }
 
     @FXML

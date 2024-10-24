@@ -2,6 +2,7 @@ package screenscontrollers;
 
 import java.io.IOException;
 
+import controllers.SecaoController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,7 +92,9 @@ public class MenuAdmDeletarSessaoController {
         String idSessao = idSessaoField.getText();
 
         // Código para deletar a sessão do sistema
-
+        SecaoController secaoController = new SecaoController();
+        int id = Integer.parseInt(idSessao);
+        secaoController.deletar(id);
         // Exibir mensagem de sucesso ou limpar o campo
         idSessaoField.clear();
     }
