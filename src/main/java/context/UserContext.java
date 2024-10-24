@@ -17,8 +17,8 @@ public class UserContext {
         return instance;
     }
 
-    public void setInstance(boolean cancelarUsuario) {
-        if (cancelarUsuario == true){
+    public static void setInstance(boolean cancelarUsuario) {
+        if (cancelarUsuario){
             instance = null;
         }
     }
