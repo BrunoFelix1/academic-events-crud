@@ -49,7 +49,7 @@ public class TelaCadastrarController implements IControladorTelas {
         usuarioCadastrado.setNome(txtNome.getText());
         usuarioCadastrado.setInstituicao(txtInstituicao.getText());
         usuarioCadastrado.setTipoDeUsuario(txtTipoDeUsuario.getText());
-        
+
         if (checarUsuario(usuarioCadastrado.getLogin())) {
             exibirAlerta("Esse nome de usuário já existe.");
             return;
