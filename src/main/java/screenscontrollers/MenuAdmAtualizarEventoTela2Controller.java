@@ -10,22 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuAdmAtualizarEventoTela2Controller {
+public class MenuAdmAtualizarEventoTela2Controller extends MenuAdmGerEventController{
 
     @FXML
     private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarEvento;
-
-    @FXML
-    private Button botaoListarEventos;
-
-    @FXML
-    private Button botaoAtualizarEvento;
-
-    @FXML
-    private Button botaoDeletarEvento;
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -55,45 +43,6 @@ public class MenuAdmAtualizarEventoTela2Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela1.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaAdicionarEvento() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AddEvent.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoAdicionarEvento.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaListarEventos() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_listarevent.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoListarEventos.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaDeletarEvento() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_deletar.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoDeletarEvento.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
