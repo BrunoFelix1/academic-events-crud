@@ -17,43 +17,37 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="413.0" layoutX="-8.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="707.0" />
-            <Label graphicTextGap="10.0" layoutX="270.0" layoutY="4.0" text="Menu Palestrante" textFill="#9a89b4">
+            <Label graphicTextGap="10.0" layoutX="186.0" text="Menu Palestrante" textFill="#9a89b4">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Button layoutX="70.0" layoutY="245.0" mnemonicParsing="false" text="Sair" textFill="#2c1477" />
             <Line endX="648.0" layoutX="38.0" layoutY="58.0" startX="-100.0" />
-            <Line endX="76.5" endY="325.0" layoutX="97.0" layoutY="72.0" startX="76.5" startY="-68.0" />
-            <Button layoutX="29.0" layoutY="87.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Submeter Atividade" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Apagar Atividade" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Listar Atividades" textFill="#2c1477" />
-            <Button layoutX="29.0" layoutY="168.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Atualizar Atividade" textFill="#2c1477" />
-            <Text fill="#537eda" layoutX="238.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Você está submetendo um evento" textAlignment="CENTER" wrappingWidth="369.884765625">
+            <Text fill="#537eda" layoutX="150.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Você está submetendo um evento" textAlignment="CENTER" wrappingWidth="369.884765625">
                <font>
                   <Font size="25.0" />
                </font>
             </Text>
-            <TextField layoutX="335.0" layoutY="181.0" prefHeight="25.0" prefWidth="168.0" promptText="Palestra, workshop ou Artigo" />
-            <TextField layoutX="335.0" layoutY="223.0" prefHeight="25.0" prefWidth="168.0" />
-            <TextField layoutX="335.0" layoutY="271.0" prefHeight="25.0" prefWidth="168.0" />
-            <Text fill="#2d65d7" layoutX="205.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de submissão:" textAlignment="CENTER" wrappingWidth="130.0">
+            <TextField fx:id="tpSub" layoutX="316.0" layoutY="180.0" prefHeight="25.0" prefWidth="168.0" promptText="Palestra, workshop ou Artigo" />
+            <TextField fx:id="resumo" layoutX="316.0" layoutY="222.0" prefHeight="25.0" prefWidth="168.0" />
+            <TextField fx:id="idTrilha" layoutX="316.0" layoutY="271.0" prefHeight="25.0" prefWidth="168.0" />
+            <Text fill="#2d65d7" layoutX="169.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de submissão:" textAlignment="CENTER" wrappingWidth="130.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Text fill="#2d65d7" layoutX="182.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faça um resumo sobre:" textAlignment="CENTER" wrappingWidth="168.0">
+            <Text fill="#2d65d7" layoutX="150.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Faça um resumo sobre:" textAlignment="CENTER" wrappingWidth="168.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Text fill="#2d65d7" layoutX="182.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id da trilha relacionada:" textAlignment="CENTER" wrappingWidth="158.0">
+            <Text fill="#2d65d7" layoutX="155.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Id da trilha relacionada:" textAlignment="CENTER" wrappingWidth="158.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button layoutX="514.0" layoutY="339.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Confirmar" textFill="#2c1477" />
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" textFill="#2c1477" />
+            <Button fx:id="btnVoltar" layoutX="520.0" layoutY="339.0" mnemonicParsing="false" onAction="#onConfirmar" prefHeight="25.0" prefWidth="130.0" text="Confirmar" textFill="#2c1477" />
+            <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onVoltar" text="Voltar" textFill="#2c1477" />
          </children>
     </AnchorPane>
   </children>

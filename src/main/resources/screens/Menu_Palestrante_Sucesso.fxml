@@ -10,19 +10,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenscontrollers.MenuPalestranteApagarAtividadeErroController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenscontrollers.MenuPalestranteSucessoController">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fffade" height="413.0" layoutX="-8.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="707.0" />
-            <Label graphicTextGap="10.0" layoutX="197.0" layoutY="13.0" text="Menu Palestrante" textFill="#9a89b4">
+            <Label graphicTextGap="10.0" layoutX="201.0" text="Menu Palestrante" textFill="#9a89b4">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
             <Line endX="648.0" layoutX="38.0" layoutY="58.0" startX="-100.0" />
-            <Text fill="#537eda" layoutX="161.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Atividade não encontrada" textAlignment="CENTER" wrappingWidth="369.884765625">
+            <Text fill="#537eda" layoutX="161.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sucesso" textAlignment="CENTER" wrappingWidth="369.884765625">
                <font>
                   <Font size="25.0" />
                </font>
