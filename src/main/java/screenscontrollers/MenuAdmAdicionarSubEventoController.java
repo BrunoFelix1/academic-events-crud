@@ -52,7 +52,6 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
         persistence.add(novoSubEvento);
 
 
-
         nomeSubEventoField.clear();
         localSubEventoField.clear();
         descricaoSubEventoField.clear();

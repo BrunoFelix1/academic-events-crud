@@ -1,9 +1,11 @@
 package screenscontrollers;
 
+import controllers.TrilhaController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Trilha;
 
 public class MenuADM_AdicionarTrilhaController extends BaseTrilhaController {
 
@@ -65,11 +67,11 @@ public class MenuADM_AdicionarTrilhaController extends BaseTrilhaController {
     void salvarTrilha() {
         // Implementar lógica para salvar a nova trilha
         String nomeTrilha = nomeTrilhaField.getText();
-        String localTrilha = localTrilhaField.getText();
-        String horarioTrilha = horarioTrilhaField.getText();
         String sessaoRelacionada = sessaoRelacionadaField.getText();
-
+        int sessaoRelacionadaInt = Integer.parseInt(sessaoRelacionada);
         // Código para salvar a trilha no sistema
+        TrilhaController trilhaController = new TrilhaController();
+        trilhaController.cadastrar(new Trilha(1,sessaoRelacionadaInt, nomeTrilha));
 
         // Exibir mensagem de sucesso ou limpar os campos
         nomeTrilhaField.clear();
