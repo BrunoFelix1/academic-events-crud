@@ -1,6 +1,5 @@
 package app;
 
-import database.MongoDBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,8 +19,5 @@ public class Main extends Application {
         primaryStage.setTitle("Sistema de Cadastro De Eventos");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // Teste pra ver se o db tá conectando da forma certa
-        MongoDBConnection.IniciarConexao();
     }
 }
