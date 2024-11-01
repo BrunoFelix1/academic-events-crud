@@ -7,22 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Trilha;
 
-public class MenuADM_AtualizarTrilhaController extends BaseTrilhaController {
-
-    @FXML
-    private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarTrilha;
-
-    @FXML
-    private Button botaoListarTrilhas;
-
-    @FXML
-    private Button botaoAtualizarTrilha;
-
-    @FXML
-    private Button botaoDeletarTrilha;
+public class MenuADM_AtualizarTrilhaController extends MenuADM_GerenciarTrilhaController {
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -41,30 +26,6 @@ public class MenuADM_AtualizarTrilhaController extends BaseTrilhaController {
 
     @FXML
     private TextField sessaoRelacionadaField;
-
-    @FXML
-    void voltarParaGerenciarTrilha() {
-        Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-        irParaTelaGerenciarTrilha(stage);
-    }
-
-    @FXML
-    void irParaTelaAdicionarTrilha() {
-        Stage stage = (Stage) botaoAdicionarTrilha.getScene().getWindow();
-        irParaTelaAdicionarTrilha(stage);
-    }
-
-    @FXML
-    void irParaTelaListarTrilhas() {
-        Stage stage = (Stage) botaoListarTrilhas.getScene().getWindow();
-        irParaTelaListarTrilhas(stage);
-    }
-
-    @FXML
-    void irParaTelaDeletarTrilha() {
-        Stage stage = (Stage) botaoDeletarTrilha.getScene().getWindow();
-        irParaTelaDeletarTrilha(stage);
-    }
 
     @FXML
     void salvarAlteracoes() {
