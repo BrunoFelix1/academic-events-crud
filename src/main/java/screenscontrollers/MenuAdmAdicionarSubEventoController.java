@@ -10,9 +10,6 @@ import persistence.PersistenceSubEvento;
 public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
-    private Button botaoVoltar;
-
-    @FXML
     private Button botaoSalvarSubEvento;
 
     @FXML
@@ -31,12 +28,6 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
     private TextField eventoAssociadoField;
 
     private PersistenceSubEvento persistence = new PersistenceSubEvento();
-
-    @FXML
-    void voltarParaGerenciarSubEvento() {
-        Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-        irParaTelaGerenciarSubEvento(stage);
-    }
 
     @FXML
     void salvarSubEvento() {

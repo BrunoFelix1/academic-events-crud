@@ -17,22 +17,7 @@ import javafx.stage.Stage;
 import models.Secao;
 import models.SubEvento;
 
-public class MenuAdmListarSessoesController {
-
-    @FXML
-    private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarSessao;
-
-    @FXML
-    private Button botaoListarSessoes;
-
-    @FXML
-    private Button botaoAtualizarSessao;
-
-    @FXML
-    private Button botaoDeletarSessao;
+public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
 
     @FXML
     private ListView<String> listViewSessoes;
@@ -60,57 +45,5 @@ public class MenuAdmListarSessoesController {
         // Define o conteúdo formatado no campo de texto
         textAreaSecao.setText(sb.toString());
 
-    }
-
-    @FXML
-    void voltarParaGerenciarSessao() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_Sessao.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaAdicionarSessao() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_Sessao_Adicionar_Sessao.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoAdicionarSessao.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaAtualizarSessao() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_Sessao_Atualizar_Sessao.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoAtualizarSessao.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void irParaTelaDeletarSessao() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_Sessao_Deletar.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoDeletarSessao.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

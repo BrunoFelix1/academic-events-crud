@@ -36,7 +36,7 @@
 
                 <!-- Botão Voltar -->
                 <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="14.0"
-                        text="Voltar" textFill="#2c1477" onAction="#voltarParaGerenciarSessao" />
+                        text="Voltar" textFill="#2c1477" onAction="#voltarParaMenuADM" />
 
                 <!-- Linha de separação -->
                 <Line endX="648.0" layoutX="38.0" layoutY="58.0"

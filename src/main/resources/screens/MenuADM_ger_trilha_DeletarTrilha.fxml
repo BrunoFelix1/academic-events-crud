@@ -28,7 +28,7 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Label>
-            <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="14.0" text="Voltar" textFill="#2c1477" onAction="#voltarParaGerenciarTrilha" />
+            <Button fx:id="botaoVoltar" layoutX="14.0" layoutY="14.0" text="Voltar" textFill="#2c1477" onAction="#voltarParaMenuADM" />
             <Line endX="648.0" layoutX="38.0" layoutY="58.0" startX="-100.0" />
             <Line endX="76.5" endY="325.0" layoutX="97.0" layoutY="72.0" startX="76.5" startY="-68.0" />
             <Button fx:id="botaoAdicionarTrilha" layoutX="29.0" layoutY="91.0" prefHeight="25.0" prefWidth="130.0" text="Adicionar Trilha" textFill="#2c1477" onAction="#irParaTelaAdicionarTrilha" />

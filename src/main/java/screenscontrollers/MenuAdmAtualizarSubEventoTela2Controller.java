@@ -5,22 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class MenuAdmAtualizarSubEventoTela2Controller extends BaseSubEventoController {
-
-    @FXML
-    private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarSubEvento;
-
-    @FXML
-    private Button botaoListarSubEventos;
-
-    @FXML
-    private Button botaoAtualizarSubEvento;
-
-    @FXML
-    private Button botaoDeletarSubEvento;
+public class MenuAdmAtualizarSubEventoTela2Controller extends MenuAdmGerenciarSubEventoController {
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -40,29 +25,6 @@ public class MenuAdmAtualizarSubEventoTela2Controller extends BaseSubEventoContr
     @FXML
     private TextField eventoAssociadoField;
 
-    @FXML
-    void voltarParaTelaAnterior() {
-        Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-        irParaTelaAtualizarSubEventoTela1(stage);
-    }
-
-    @FXML
-    void irParaTelaAdicionarSubEvento() {
-        Stage stage = (Stage) botaoAdicionarSubEvento.getScene().getWindow();
-        irParaTelaAdicionarSubEvento(stage);
-    }
-
-    @FXML
-    void irParaTelaListarSubEventos() {
-        Stage stage = (Stage) botaoListarSubEventos.getScene().getWindow();
-        irParaTelaListarSubEventos(stage);
-    }
-
-    @FXML
-    void irParaTelaDeletarSubEvento() {
-        Stage stage = (Stage) botaoDeletarSubEvento.getScene().getWindow();
-        irParaTelaDeletarSubEvento(stage);
-    }
 
     @FXML
     void salvarAlteracoes() {

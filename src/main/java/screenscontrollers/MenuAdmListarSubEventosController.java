@@ -9,22 +9,7 @@ import models.SubEvento;
 
 import java.util.ArrayList;
 
-public class MenuAdmListarSubEventosController extends BaseSubEventoController {
-
-    @FXML
-    private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarSubEvento;
-
-    @FXML
-    private Button botaoListarSubEventos;
-
-    @FXML
-    private Button botaoAtualizarSubEvento;
-
-    @FXML
-    private Button botaoDeletarSubEvento;
+public class MenuAdmListarSubEventosController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
     private TextArea textAreaSubEventos;
@@ -52,30 +37,5 @@ public class MenuAdmListarSubEventosController extends BaseSubEventoController {
 
         // Define o conteúdo formatado no campo de texto
         textAreaSubEventos.setText(sb.toString());
-    }
-
-
-    @FXML
-    void voltarParaGerenciarSubEvento() {
-        Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-        irParaTelaGerenciarSubEvento(stage);
-    }
-
-    @FXML
-    void irParaTelaAdicionarSubEvento() {
-        Stage stage = (Stage) botaoAdicionarSubEvento.getScene().getWindow();
-        irParaTelaAdicionarSubEvento(stage);
-    }
-
-    @FXML
-    void irParaTelaAtualizarSubEvento() {
-        Stage stage = (Stage) botaoAtualizarSubEvento.getScene().getWindow();
-        irParaTelaAtualizarSubEventoTela1(stage);
-    }
-
-    @FXML
-    void irParaTelaDeletarSubEvento() {
-        Stage stage = (Stage) botaoDeletarSubEvento.getScene().getWindow();
-        irParaTelaDeletarSubEvento(stage);
     }
 }
