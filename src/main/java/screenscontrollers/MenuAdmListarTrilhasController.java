@@ -7,7 +7,7 @@ import models.Trilha;
 
 import java.util.ArrayList;
 
-public class MenuADM_ListarTrilhasController extends MenuADM_GerenciarTrilhaController {
+public class MenuAdmListarTrilhasController extends MenuAdmGerenciarTrilhaController {
     @FXML
     private TextArea textAreaTrilhas;
 

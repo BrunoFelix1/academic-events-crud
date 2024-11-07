@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Trilha;
 
-public class MenuADM_AtualizarTrilhaController extends MenuADM_GerenciarTrilhaController {
+public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
 
     @FXML
     private Button botaoSalvarAlteracoes;

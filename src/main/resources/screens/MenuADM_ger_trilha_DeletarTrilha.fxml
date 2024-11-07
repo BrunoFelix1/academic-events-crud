@@ -17,7 +17,7 @@
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="screenscontrollers.MenuADM_DeletarTrilhaController">
+      fx:controller="screenscontrollers.MenuAdmDeletarTrilhaController">
   <children>
     <MenuBar VBox.vgrow="NEVER" />
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

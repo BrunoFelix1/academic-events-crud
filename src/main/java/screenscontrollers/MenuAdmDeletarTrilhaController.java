@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class MenuADM_DeletarTrilhaController extends MenuADM_GerenciarTrilhaController {
+public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
     @FXML
     private Button botaoDeletar;
 
