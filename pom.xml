@@ -32,9 +32,15 @@
         <artifactId>mockito-core</artifactId>
         <version>5.4.0</version>
         <scope>test</scope>
-    </dependency>    
+    </dependency>
+      <dependency>
+          <groupId>com.microsoft.sqlserver</groupId>
+          <artifactId>mssql-jdbc</artifactId>
+          <version>12.8.1.jre11</version>
+  </dependency>
 
-    <!-- JUnit 5 Engine -->
+
+      <!-- JUnit 5 Engine -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
