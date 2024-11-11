@@ -179,7 +179,7 @@ void irParaTelaCancelarInscricao() {
     @FXML
     void voltarParaMenuPrincipal() {
         try {
-            UserContext.getInstance().setInstance(true);
+            UserContext.setInstance(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();

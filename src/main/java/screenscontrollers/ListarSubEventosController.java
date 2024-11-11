@@ -10,6 +10,9 @@ import models.SubEvento;
 import persistence.PersistenceSubEvento;
 
 public class ListarSubEventosController extends MenuUsuarioController {
+    
+    private String fonteRepetida = "-fx-font-size: 12px";
+    
     @FXML
     private ScrollPane scrollPane;
 
@@ -37,10 +40,10 @@ public class ListarSubEventosController extends MenuUsuarioController {
             // Estilizando os Labels
             idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");
             tituloLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-            eventoIdLabel.setStyle("-fx-font-size: 12px;");
-            localLabel.setStyle("-fx-font-size: 12px;");
-            horarioLabel.setStyle("-fx-font-size: 12px;");
-            descricaoLabel.setStyle("-fx-font-size: 12px;");
+            eventoIdLabel.setStyle(fonteRepetida);
+            localLabel.setStyle(fonteRepetida);
+            horarioLabel.setStyle(fonteRepetida);
+            descricaoLabel.setStyle(fonteRepetida);
             
             // Adicionando os Labels ao VBox para um único subevento
             VBox subEventoBox = new VBox(5); // Espaçamento entre os atributos de um subevento

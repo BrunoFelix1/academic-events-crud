@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class MenuADM_GerenciarSubEventoController extends BaseSubEventoController {
+public class MenuAdmGerenciarSubEventoController extends BaseSubEventoController {
 
     @FXML
     private Button botaoVoltar;

@@ -32,9 +32,15 @@
         <artifactId>mockito-core</artifactId>
         <version>5.4.0</version>
         <scope>test</scope>
-    </dependency>    
+    </dependency>
+      <dependency>
+          <groupId>com.microsoft.sqlserver</groupId>
+          <artifactId>mssql-jdbc</artifactId>
+          <version>12.8.1.jre11</version>
+  </dependency>
 
-    <!-- JUnit 5 Engine -->
+
+      <!-- JUnit 5 Engine -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
@@ -108,13 +114,36 @@
         <!-- Maven Surefire Plugin for running tests -->
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
+          <version>3.0.0-M9</version>
         </plugin>
 
         <!-- Maven Jar Plugin -->
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>app.Main</mainClass> 
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+
+        <!-- Plugin para adicionar as dependências no .jar -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.4</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
         </plugin>
 
         <!-- Maven Install Plugin -->
@@ -155,6 +184,46 @@
             <configuration>
                 <mainClass>app.Main</mainClass> <!-- Altere para o caminho da sua classe principal -->
             </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.12</version>
+          <configuration>
+              <skip>false</skip>
+              <rules>
+                <rule>
+                    <element>CLASS</element>
+                    <excludes>
+                      <exclude>*Test</exclude>
+                    </excludes>
+                </rule>
+              </rules>
+          </configuration>
+          <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                    <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>prepare-package</phase>
+                <goals>
+                    <goal>report</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                </configuration>
+              </execution>
+              <execution>
+                <id>check</id>
+                <goals>
+                    <goal>check</goal>
+                </goals>
+              </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

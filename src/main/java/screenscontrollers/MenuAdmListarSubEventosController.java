@@ -1,58 +1,41 @@
 package screenscontrollers;
 
+import controllers.SubeventoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import models.SubEvento;
 
-public class MenuADM_ListarSubEventosController extends BaseSubEventoController {
+import java.util.ArrayList;
 
-    @FXML
-    private Button botaoVoltar;
-
-    @FXML
-    private Button botaoAdicionarSubEvento;
-
-    @FXML
-    private Button botaoListarSubEventos;
-
-    @FXML
-    private Button botaoAtualizarSubEvento;
-
-    @FXML
-    private Button botaoDeletarSubEvento;
+public class MenuAdmListarSubEventosController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
     private TextArea textAreaSubEventos;
 
     @FXML
     public void initialize() {
-        // Carregar os subeventos e exibi-los no textAreaSubEventos
-        // Exemplo:
-        // textAreaSubEventos.setText("SubEvento 1\nSubEvento 2\nSubEvento 3");
-    }
+        // Instancia o controlador de subeventos
+        SubeventoController subeventoController = new SubeventoController();
 
-    @FXML
-    void voltarParaGerenciarSubEvento() {
-        Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-        irParaTelaGerenciarSubEvento(stage);
-    }
+        // Obtém a lista de subeventos
+        ArrayList<SubEvento> subeventos = (ArrayList<SubEvento>) subeventoController.listar();
 
-    @FXML
-    void irParaTelaAdicionarSubEvento() {
-        Stage stage = (Stage) botaoAdicionarSubEvento.getScene().getWindow();
-        irParaTelaAdicionarSubEvento(stage);
-    }
+        // StringBuilder para formatar a exibição dos subeventos
+        StringBuilder sb = new StringBuilder();
 
-    @FXML
-    void irParaTelaAtualizarSubEvento() {
-        Stage stage = (Stage) botaoAtualizarSubEvento.getScene().getWindow();
-        irParaTelaAtualizarSubEventoTela1(stage);
-    }
+        // Itera sobre os subeventos e adiciona ao StringBuilder
+        for (SubEvento subevento : subeventos) {
+            sb.append("ID: ").append(subevento.getId()).append("\n")
+                    .append("Nome: ").append(subevento.getTitulo()).append("\n")
+                    .append("Local: ").append(subevento.getLocal()).append("\n")
+                    .append("Horário: ").append(subevento.getHorario()).append("\n")
+                    .append("Descrição: ").append(subevento.getDescricao()).append("\n")
+                    .append("----------------------------\n");
+        }
 
-    @FXML
-    void irParaTelaDeletarSubEvento() {
-        Stage stage = (Stage) botaoDeletarSubEvento.getScene().getWindow();
-        irParaTelaDeletarSubEvento(stage);
+        // Define o conteúdo formatado no campo de texto
+        textAreaSubEventos.setText(sb.toString());
     }
 }

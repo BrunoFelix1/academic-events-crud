@@ -11,6 +11,9 @@ import models.Evento;
 import persistence.PersistenceEvento;
 
 public class ListarEventosController extends MenuUsuarioController {
+    
+    private String fonteRepetida = "-fx-font-size: 12px;";
+
     @FXML
     private ScrollPane scrollPane;
 
@@ -37,9 +40,9 @@ public class ListarEventosController extends MenuUsuarioController {
             // Estilizando os Labels
             idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");
             tituloLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-            localLabel.setStyle("-fx-font-size: 12px;");
-            horarioLabel.setStyle("-fx-font-size: 12px;");
-            descricaoLabel.setStyle("-fx-font-size: 12px;");
+            localLabel.setStyle(fonteRepetida);
+            horarioLabel.setStyle(fonteRepetida);
+            descricaoLabel.setStyle(fonteRepetida);
             
             // Adicionando os Labels ao VBox para um único evento
             VBox eventoBox = new VBox(5); // Espaçamento entre os atributos de um evento

@@ -3,3 +3,4 @@ id,secao_id,nome
 2,2,Trilha de Blockchain
 3,3,Trilha de IA
 4,4,Trilha de Machine Learning
+5,1,Trilha para remover

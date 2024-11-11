@@ -13,26 +13,10 @@ import javafx.stage.Stage;
 public class MenuAdmAtualizarEventoTela1Controller extends MenuAdmGerEventController {
 
     @FXML
-    private Button botaoVoltar;
-
-    @FXML
     private Button botaoProximo;
 
     @FXML
     private TextField nomeEventoField;
-
-    @FXML
-    void voltarParaGerenciarEvento() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) botaoVoltar.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     void irParaTelaAtualizarEvento2() {
