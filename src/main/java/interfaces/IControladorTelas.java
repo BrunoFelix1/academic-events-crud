@@ -27,4 +27,12 @@ public interface IControladorTelas {
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
+
+    default void exibirAlertaSucesso(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso");
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
 }

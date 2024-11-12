@@ -18,25 +18,28 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
     @FXML
     private TextField idTXT;
 
-    private void trocarTela(String caminho, Button botao) {
-        Stage stage = (Stage) botao.getScene().getWindow();
-        mostrarTela(caminho, stage);
-    }
-
     @FXML
     private void onVoltar() {
-        trocarTela("/screens/Menu_Palestrante.fxml", btnVoltar);
+        mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnVoltar.getScene().getWindow());
     }
 
     @FXML
     private void onConfirmar() {
-        String idSessao = idTXT.getText();
-
-        // Código para deletar a sessão do sistema
-        AtividadeController atividadeController = new AtividadeController();
-        int id = Integer.parseInt(idSessao);
-        atividadeController.deletar(id);
-
-        trocarTela("/screens/Menu_Palestrante_Sucesso.fxml", btnVoltar);
+        try {
+            String idSessao = idTXT.getText();
+            AtividadeController atividadeController = new AtividadeController();
+            int id = Integer.parseInt(idSessao);
+            boolean sucesso = atividadeController.deletar(id);
+            if (sucesso) {
+                exibirAlertaSucesso("Atividade deletada com sucesso.");
+            } else {
+                exibirAlerta("Erro ao excluir atividade.");
+            }
+        } catch (NumberFormatException e) {
+            exibirAlerta("Erro: O ID informado não é válido.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            exibirAlerta("Erro ao excluir atividade.");
+        }
     }
 }

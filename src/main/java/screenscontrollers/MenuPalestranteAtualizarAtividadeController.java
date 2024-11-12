@@ -21,34 +21,29 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
     private Button Confirmar;
 
     @FXML
-    private TextField idAt;
+    private TextField idAtividade;
 
     @FXML
-    private TextField tipoSub;
+    private TextField tipoSubmissao;
 
     @FXML
-    private TextField resumo;
+    private TextField atvResumo;
 
     @FXML
     private TextField idTrilha;
 
-    private void trocarTela(String caminho, Button botao) {
-        Stage stage = (Stage) botao.getScene().getWindow();
-        mostrarTela(caminho, stage);
-    }
-
     @FXML
     private void onVoltar() {
-        trocarTela("/screens/Menu_Palestrante.fxml", btnVoltar);
+        mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnVoltar.getScene().getWindow());
     }
 
     @FXML
     private void onConfirmar() {
         // Implementar lógica para salvar as alterações do evento
-        String idAtividade = idAt.getText();
-        String tpSub = tipoSub.getText();
-        String res = resumo.getText();
-        String idTri = idTrilha.getText();
+       // String idAtividade = idAt.getText();
+       // String tpSub = tipoSub.getText();
+       // String res = resumo.getText();
+       // String idTri = idTrilha.getText();
 
     }
 }

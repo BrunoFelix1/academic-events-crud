@@ -107,7 +107,7 @@ public class TelaCadastrarController implements IControladorTelas {
     }
 
     private boolean checarIdade(int idade) {
-        return idade > 0 && idade <= 100;
+        return idade > 0 && idade <= 130;
     }
 
     private boolean checarTipoUsuario(String tipoUsuario) {
