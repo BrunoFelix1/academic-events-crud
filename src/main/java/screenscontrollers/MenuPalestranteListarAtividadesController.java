@@ -4,53 +4,68 @@ import controllers.AtividadeController;
 import controllers.EventoController;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Atividade;
-import models.Evento;
+import persistence.PersistenceAtividade;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MenuPalestranteListarAtividadesController implements IControladorTelas {
-    @FXML
-    private TextArea box;
+
     @FXML
     private Button btnVoltar;
+    @FXML
+    private ScrollPane scrollPane;
 
-    private void trocarTela(String caminho, Button botao) {
-        Stage stage = (Stage) botao.getScene().getWindow();
-        mostrarTela(caminho, stage);
-    }
+    private String fonteRepetida = "-fx-font-size: 12px;";
 
     @FXML
     private void onVoltar() {
-        trocarTela("/screens/Menu_Palestrante.fxml", btnVoltar);
+        mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnVoltar.getScene().getWindow());
     }
 
-
     @FXML
-    public void on() {
-        // Carregar os eventos e exibi-los no textAreaEventos
-        // Exemplo:
-        // textAreaEventos.setText("Evento 1\nEvento 2\nEvento 3");
-        AtividadeController atividadec = new AtividadeController();
-        ArrayList<Atividade> atividades = (ArrayList<Atividade>)atividadec.listar();
-        StringBuilder sb = new StringBuilder();
+    public void initialize() {
+        // Carregar as atividades a partir da persistência
+        PersistenceAtividade persistenceAtividade = new PersistenceAtividade();
+        List<Atividade> atividades = persistenceAtividade.getTodos(); // Aqui deve vir sua lógica de persistência
+        populateScrollPane(atividades); // Preencher o ScrollPane com as atividades
+    }
 
-        // Itera sobre os subeventos e adiciona ao StringBuilder
+    public void populateScrollPane(List<Atividade> atividades) {
+        VBox vbox = new VBox(10); // Adiciona espaçamento entre os eventos
+        vbox.setPadding(new Insets(10, 10, 10, 10)); // Define padding ao redor do VBox
+        vbox.setStyle("-fx-background-color: #fffade;");
+
         for (Atividade atividade : atividades) {
-            sb.append("ID: ").append(atividade.getId()).append("\n")
-                    .append("Nome: ").append(atividade.getResumo()).append("\n")
-                    .append("Local: ").append(atividade.getAutor()).append("\n")
-                    .append("Horário: ").append(atividade.getTipoSubmissao()).append("\n")
-                    .append("Descrição: ").append(atividade.getIdTrilha()).append("\n")
-                    .append("Descrição: ").append(atividade.getClass()).append("\n")
 
-                    .append("----------------------------\n");
+            Label idLabel = new Label("ID da Trilha associada: " + atividade.getIdTrilha());
+            Label tituloLabel = new Label("ID: " + atividade.getId());
+            Label localLabel = new Label("Tipo de Submissão: " + atividade.getTipoSubmissao());
+            Label horarioLabel = new Label("Autor: " + atividade.getAutor());
+            Label descricaoLabel = new Label("Resumo: " + atividade.getResumo());
+
+            // Estilizando os Labels
+            idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");
+            tituloLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+            localLabel.setStyle(fonteRepetida);
+            horarioLabel.setStyle(fonteRepetida);
+            descricaoLabel.setStyle(fonteRepetida);
+
+            // Adicionando os Labels ao VBox para um único evento
+            VBox eventoBox = new VBox(5); // Espaçamento entre os atributos de um evento
+            eventoBox.getChildren().addAll(idLabel, tituloLabel, localLabel, horarioLabel, descricaoLabel);
+            eventoBox.setPadding(new Insets(5, 5, 5, 5)); // Define padding ao redor de cada evento
+            eventoBox.setStyle("-fx-border-color: #7b7485; -fx-border-width: 1px; -fx-background-color: #e8e4fa;");
+            vbox.getChildren().add(eventoBox);
         }
 
-
-        box.setText(sb.toString());
+        // Adiciona o VBox (contendo as atividades) ao ScrollPane
+        scrollPane.setContent(vbox);
     }
 }
