@@ -22,33 +22,27 @@
                   <Font size="25.0" />
                </font>
             </Text>
-            <TextField fx:id="tipoSubmissao" layoutX="303.0" layoutY="217.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" promptText="Palestra, workshop ou Artigo" />
-            <TextField fx:id="idAtividade" layoutX="303.0" layoutY="181.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
+            <TextField fx:id="tipoSubmissao" layoutX="303.0" layoutY="180.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" promptText="Palestra, workshop ou Artigo" />
             <TextField fx:id="idTrilha" layoutX="303.0" layoutY="145.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
             <Text fill="#2d65d7" layoutX="169.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Da trilha associada:" textAlignment="CENTER" wrappingWidth="130.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Text fill="#2d65d7" layoutX="151.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID da atividade:" textAlignment="CENTER" wrappingWidth="168.0">
+            <Text fill="#2d65d7" layoutX="155.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de submissão:" textAlignment="CENTER" wrappingWidth="158.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Text fill="#2d65d7" layoutX="155.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de submissão:" textAlignment="CENTER" wrappingWidth="158.0">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Text>
-            <Button fx:id="btnConfirmar" layoutX="322.0" layoutY="319.0" mnemonicParsing="false" onAction="#onConfirmar" prefHeight="25.0" prefWidth="130.0" text="Confirmar" textFill="#2c1477" />
+            <Button fx:id="btnConfirmar" layoutX="322.0" layoutY="288.0" mnemonicParsing="false" onAction="#onConfirmar" prefHeight="25.0" prefWidth="130.0" text="Confirmar" textFill="#2c1477" />
             <Button fx:id="btnVoltar" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onVoltar" text="Voltar" textFill="#2c1477" />
-            <TextField fx:id="autorAtv" layoutX="305.0" layoutY="250.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
-            <TextField fx:id="resumoAtv" layoutX="305.0" layoutY="283.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
-            <Label layoutX="181.0" layoutY="253.0" text="Autor da atividade:" textFill="#2d65d7">
+            <TextField fx:id="autorAtv" layoutX="305.0" layoutY="214.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
+            <TextField fx:id="resumoAtv" layoutX="305.0" layoutY="250.0" onKeyReleased="#onKeyReleased" prefHeight="25.0" prefWidth="168.0" />
+            <Label layoutX="181.0" layoutY="217.0" text="Autor da atividade:" textFill="#2d65d7">
                <font>
                   <Font size="13.0" />
                </font></Label>
-            <Label layoutX="174.0" layoutY="285.0" text="Resumo da atividade:" textFill="#2d65d7">
+            <Label layoutX="174.0" layoutY="253.0" text="Resumo da atividade:" textFill="#2d65d7">
                <font>
                   <Font size="13.0" />
                </font>

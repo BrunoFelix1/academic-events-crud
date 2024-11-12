@@ -19,8 +19,6 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
     @FXML
     private TextField idTrilha;
     @FXML
-    private TextField idAtividade;
-    @FXML
     private TextField tipoSubmissao;
     @FXML
     private TextField autorAtv;
@@ -36,7 +34,6 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
     private void onKeyReleased() {
         boolean camposPreenchidos =
                 !idTrilha.getText().isEmpty() &&
-                        !idAtividade.getText().isEmpty() &&
                         !tipoSubmissao.getText().isEmpty() &&
                         !autorAtv.getText().isEmpty() &&
                         !resumoAtv.getText().isEmpty();
@@ -49,7 +46,6 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
             PersistenceAtividade atividadeP = new PersistenceAtividade();
             Atividade novaAtividade = new Atividade();
             novaAtividade.setIdTrilha(Integer.parseInt(idTrilha.getText()));
-            novaAtividade.setId(Integer.parseInt(idAtividade.getText()));
             novaAtividade.setTipoSubmissao(tipoSubmissao.getText());
             novaAtividade.setAutor(autorAtv.getText());
             novaAtividade.setResumo(resumoAtv.getText());
