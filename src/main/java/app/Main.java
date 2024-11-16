@@ -10,13 +10,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static void main(String[] args) {
-        ConexaoSQLServer conectar = new ConexaoSQLServer();
-        conectar.Conectar();
         launch(args);
 
     }
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {

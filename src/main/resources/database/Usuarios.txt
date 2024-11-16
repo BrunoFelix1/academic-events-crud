@@ -3,3 +3,4 @@ id,cpf,nome,idade,instituicao,tipoDeUsuario,login,senha
 2,140.401.604-03,nome3,23,UPE,COMUM,nome3,789
 3,140.401.604-04,gvs,23,UPE,PALESTRANTE,gvs,024
 4,15524376470,Edson,19,UPE,PALESTRANTE,Edson,123
+5,71109791488,italo,14,upe,COMUM,adm1,123
