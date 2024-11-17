@@ -127,7 +127,8 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
 
     @Override
     public Inscricao getPorId(int id) {
-
+        // Nao sei oq isso faz
+        return null;
     }
 
     public Inscricao getPorId(int idUsuario, int idEvento) {
