@@ -2,12 +2,11 @@ package controllers;
 
 import models.Atividade;
 import persistence.PersistenceAtividade;
-import interfaces.IControladorUI;
 import interfaces.IPersistenciaControlador;
 
 import java.util.List;
 
-public class AtividadeController implements IControladorUI<Atividade> {
+public class AtividadeController {
     private IPersistenciaControlador<Atividade> atividadeP = new PersistenceAtividade();
 
     public List<Atividade> listar(){

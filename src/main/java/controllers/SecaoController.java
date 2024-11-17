@@ -3,30 +3,30 @@ package controllers;
 import models.Secao;
 import persistence.PersistenceSecao;
 import java.util.List;
-import interfaces.IControladorUI;
 import interfaces.IPersistenciaControlador;
 
-public class SecaoController implements IControladorUI<Secao> {
+public class SecaoController implements IController<Secao> {
     private IPersistenciaControlador<Secao> secaoP = new PersistenceSecao();
 
     public List<Secao> listar(){
         return secaoP.getTodos();
     }
 
-    public void cadastrar(Secao secao){
+    public Secao cadastrar(Secao secao){
         List<Secao> lista = secaoP.getTodos();
         secao.setId(lista.size()+1);
         secaoP.add(secao);
+        return secao;
     }
 
-    public void atualizar(Secao secao){
-        Secao secaoAntiga = secaoP.getPorId(secao.getId());
-        secaoP.update(secaoAntiga, secao);
+    public Secao atualizar(Secao secaoAntiga, Secao secaoNova){
+        secaoP.update(secaoAntiga, secaoNova);
+        return secaoNova;
     }
     
-    public boolean deletar(int id){
-        Secao secao = secaoP.getPorId(id);
-        if( secao !=null ){
+    public boolean deletar(int secaoId){
+        Secao secao = secaoP.getPorId(secaoId);
+        if( secao != null ){
             secaoP.delete(secao);
             return true;
         }
@@ -34,5 +34,11 @@ public class SecaoController implements IControladorUI<Secao> {
             System.out.println("Sessão não encontrada.");
             return false;
         }
+    }
+
+    @Override
+    public boolean deletar(Secao entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
     }
 }

@@ -3,28 +3,28 @@ package controllers;
 import models.SubEvento;
 import persistence.PersistenceSubEvento;
 import java.util.List;
-import interfaces.IControladorUI;
 
-public class SubeventoController implements IControladorUI<SubEvento> {
+public class SubeventoController implements IController<SubEvento> {
     private PersistenceSubEvento subEventoP = new PersistenceSubEvento();
 
     public List<SubEvento> listar(){
         return subEventoP.getTodos();
     }
 
-    public void cadastrar(SubEvento subEvento){
+    public SubEvento cadastrar(SubEvento subEvento){
         List<SubEvento> lista = subEventoP.getTodos();
         subEvento.setId(lista.size() +1);
             subEventoP.add(subEvento);
+            return subEvento;
     }
 
-    public void atualizar(SubEvento subEvento){
-        SubEvento subEventoAntigo = subEventoP.getPorId(subEvento.getId());
-        subEventoP.update(subEventoAntigo, subEvento);
+    public SubEvento atualizar(SubEvento subEventoAntigo, SubEvento subEventoNovo){
+        subEventoP.update(subEventoAntigo, subEventoNovo);
+        return subEventoNovo;
     }
     
-    public boolean deletar(int id){
-        SubEvento subEvento = subEventoP.getPorId(id);
+    public boolean deletar(int idSubEvento){
+        SubEvento subEvento = subEventoP.getPorId(idSubEvento);
         if( subEvento !=null ){
             subEventoP.delete(subEvento);
             return true;
@@ -34,4 +34,11 @@ public class SubeventoController implements IControladorUI<SubEvento> {
             return false;
         }
     }
+
+    @Override
+    public boolean deletar(SubEvento entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    }
+
 }

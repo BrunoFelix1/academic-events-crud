@@ -1,6 +1,5 @@
 package controllers;
 
-import interfaces.IUsuarioUI;
 import models.Evento;
 import models.Inscricao;
 import models.Trilha;
@@ -16,7 +15,7 @@ import exception.UsuarioNaoEncontradoException;
 import interfaces.IPersistenciaControlador;
 
 
-public class UsuarioController implements IUsuarioUI {
+public class UsuarioController {
 
     private IPersistenciaControlador<Usuario> usuarioP = new PersistenceUsuario();
 
@@ -59,13 +58,12 @@ public class UsuarioController implements IUsuarioUI {
     }
 
 
-    public void atualizar(Usuario usuarioNovo) {
-        Usuario usuarioAntigo = usuarioP.getPorId(usuarioNovo.getId());
+    public Usuario atualizar(Usuario usuarioAntigo, Usuario usuarioNovo) {
         usuarioP.update(usuarioAntigo, usuarioNovo);
+        return usuarioNovo;
     }
 
-    public boolean deletar(int id) {
-        Usuario usuario = usuarioP.getPorId(id);
+    public boolean deletar(Usuario usuario) {
         if ( usuario!= null) {
             usuarioP.delete(usuario);
             return true;
