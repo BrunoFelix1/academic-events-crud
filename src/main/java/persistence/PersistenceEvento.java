@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PersistenceEvento implements IPersistenciaControlador<Evento> {
 
-    // SQL Queries
+    // SQL Consultas
     private static final String SQL_GET_ALL = "SELECT id, titulo, local, horario, descricao FROM Evento";
     private static final String SQL_INSERT = "INSERT INTO Evento (titulo, local, horario, descricao) VALUES (?, ?, ?, ?)";
     private static final String SQL_DELETE = "DELETE FROM Evento WHERE id = ?";
