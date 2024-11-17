@@ -1,112 +1,142 @@
 package persistence;
 
-import java.util.ArrayList;
+import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.Trilha;
 
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
-    //Instanciando manipulador e adicionando o path da tabela de Trilhas
-    private String pathTrilha = "src\\main\\resources\\database\\Trilhas.txt";
-    private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathTrilha);
 
-    //Retorna um objeto Trilha em formato de linha String
-    private String TrilhaToCSV(Trilha trilha){
-        String linha = trilha.getId() + "," + trilha.getIdSecao()+ "," + trilha.getNome();
-        return linha;
+    // SQL Consultas
+    private static final String SQL_GET_ALL = "SELECT id, secao_id, nome FROM Trilha";
+    private static final String SQL_INSERT = "INSERT INTO Trilha (secao_id, nome) VALUES (?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM Trilha WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE Trilha SET secao_id = ?, nome = ? WHERE id = ?";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM Trilha WHERE id = ?";
+    private static final String SQL_GET_BY_NOME = "SELECT * FROM Trilha WHERE nome = ?";
+
+    // Conversão de ResultSet para Objeto Trilha
+    private Trilha mapResultSetToTrilha(ResultSet resultSet) throws SQLException {
+        Trilha trilha = new Trilha();
+        trilha.setId(resultSet.getInt("id"));
+        trilha.setIdSecao(resultSet.getInt("secao_id"));
+        trilha.setNome(resultSet.getString("nome"));
+        return trilha;
     }
 
-    //Retorna uma lista de todos as Trilhas no momento
+    @Override
     public ArrayList<Trilha> getTodos() {
-
-        String linha;
         ArrayList<Trilha> trilhas = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null){
-            Trilha trilhaDaVez = new Trilha();
-            //Desconsiderando cabeçalho
-            if (linha.contains("id")){
-                continue;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_ALL);
+             ResultSet resultSet = stmt.executeQuery()) {
+
+            while (resultSet.next()) {
+                trilhas.add(mapResultSetToTrilha(resultSet));
             }
-            String dados [] = linha.split(",");
-            trilhaDaVez.setId(Integer.parseInt(dados[0]));
-            trilhaDaVez.setIdSecao(Integer.parseInt(dados[1]));
-            trilhaDaVez.setNome(dados[2]);
-            trilhas.add(trilhaDaVez);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as trilhas: " + e.getMessage(), e);
         }
-        manipulador.fecharArquivoParaLeitura();
         return trilhas;
     }
 
-    //Adiciona uma Trilha na tabela
+    @Override
     public void add(Trilha trilha) {
-        String linha = TrilhaToCSV(trilha);
-        manipulador.abrirArquivoParaEscrita();
-        manipulador.escreverNoArquivoPorUltimo(linha);
-        manipulador.fecharArquivoEscrita();
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
+
+            stmt.setInt(1, trilha.getIdSecao());
+            stmt.setString(2, trilha.getNome());
+            stmt.executeUpdate();
+
+            System.out.println("Trilha adicionada com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar trilha: " + e.getMessage(), e);
+        }
     }
 
-    public void delete (Trilha trilha) {
-        ArrayList<Trilha> trilhas = new ArrayList<>();
-        trilhas = getTodos();
-        for (int i = 0; i < trilhas.size(); i++){
-            if (trilha.getId() == trilhas.get(i).getId()){
-                trilhas.remove(i);
-                break;
+    @Override
+    public void delete(Trilha trilha) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            stmt.setInt(1, trilha.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Trilha deletada com sucesso!");
+            } else {
+                System.out.println("Nenhuma trilha encontrada com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar trilha: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,secao_id,nome");
-        for (Trilha u : trilhas){
-            manipulador.escreverNoArquivo(TrilhaToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
-    public void update (Trilha trilhaAntiga, Trilha trilhaNova) {
-        ArrayList<Trilha> trilhas = new ArrayList<>();
-        trilhas = getTodos();
-        for (int i = 0; i < trilhas.size(); i++){
-            if (trilhaAntiga.getId() == trilhas.get(i).getId()) {
-                trilhas.get(i).setIdSecao(trilhaNova.getIdSecao());
-                trilhas.get(i).setNome(trilhaNova.getNome());
-                break;
-            }
-        }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,secao_id,nome");
-        for (Trilha u : trilhas) {
-            manipulador.escreverNoArquivo(TrilhaToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
-    }
+    @Override
+    public void update(Trilha trilhaAntiga, Trilha trilhaNova) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
-    public Trilha getPorNome(String nome) {
-        ArrayList<Trilha> trilhas = getTodos();
-        for (Trilha t : trilhas) {
-            if (nome.equals(t.getNome())) {
-                return t;
+            stmt.setInt(1, trilhaNova.getIdSecao());
+            stmt.setString(2, trilhaNova.getNome());
+            stmt.setInt(3, trilhaAntiga.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Trilha atualizada com sucesso!");
+            } else {
+                System.out.println("Nenhuma trilha encontrada com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar trilha: " + e.getMessage(), e);
         }
-        return null;
     }
 
     public Trilha getPorId(int id) {
-    ArrayList<Trilha> trilhas = getTodos();
-    for (Trilha t : trilhas) {
-        if (id == t.getId()) {
-            return t;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_ID)) {
+
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToTrilha(resultSet);
+            } else {
+                System.out.println("Nenhuma trilha encontrada com o ID especificado.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar trilha por ID: " + e.getMessage(), e);
         }
     }
-        return null; // Caso não encontre o ID da trilha
+
+    //Isso ainda tá aqui vey ;-;
+    @Override
+    public Trilha getPorIdInscricao(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
+        return null;
     }
 
-    //Usar apenas na persistência da inscrição
-    public Trilha getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
-        Trilha Trilha = new Trilha();
-        return Trilha;
+    public Trilha getPorNome(String nome) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_NOME)) {
+
+            stmt.setString(1, nome);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToTrilha(resultSet);
+            } else {
+                System.out.println("Nenhuma trilha encontrada com o nome especificado.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar trilha por nome: " + e.getMessage(), e);
+        }
     }
-
-
-
 }

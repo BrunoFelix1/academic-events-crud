@@ -1,125 +1,157 @@
 package persistence;
 
-import java.util.ArrayList;
+import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.Usuario;
 
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
-    //Instanciando manipulador e adicionando o path da tabela de usuários
-    private String pathUsuario = "src\\main\\resources\\database\\Usuarios.txt";
-    private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathUsuario);
 
-    public void setManipulador(ManipuladorArquivos manipulador) {
-        this.manipulador = manipulador;
+    // Consultas SQL
+    private static final String SQL_GET_ALL = "SELECT id, CPF, nome, idade, instituicao, tipoDeUsuario, login, senha FROM Usuario";
+    private static final String SQL_INSERT = "INSERT INTO Usuario (CPF, nome, idade, instituicao, tipoDeUsuario, login, senha) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM Usuario WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE Usuario SET CPF = ?, nome = ?, idade = ?, instituicao = ?, tipoDeUsuario = ?, login = ?, senha = ? WHERE id = ?";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM Usuario WHERE id = ?";
+    private static final String SQL_GET_BY_LOGIN = "SELECT * FROM Usuario WHERE login = ?";
+
+    // Conversão de ResultSet para Objeto Usuario
+    private Usuario mapResultSetToUsuario(ResultSet resultSet) throws SQLException {
+        Usuario usuario = new Usuario();
+        usuario.setId(resultSet.getInt("id"));
+        usuario.setCPF(resultSet.getString("CPF"));
+        usuario.setNome(resultSet.getString("nome"));
+        usuario.setIdade(resultSet.getInt("idade"));
+        usuario.setInstituicao(resultSet.getString("instituicao"));
+        usuario.setTipoDeUsuario(resultSet.getString("tipoDeUsuario"));
+        usuario.setLogin(resultSet.getString("login"));
+        usuario.setSenha(resultSet.getString("senha"));
+        return usuario;
     }
 
-    //Retorna um objeto Usuario em formato de linha String
-    public String usuarioToCSV(Usuario usuario){
-        String linha = usuario.getId() + "," + usuario.getCPF()+ "," + usuario.getNome() + "," +
-        usuario.getIdade()+ "," + usuario.getInstituicao()+ "," +usuario.getTipoDeUsuario() + "," +usuario.getLogin()+ ","+usuario.getSenha();
-        return linha;
-    }
-
-    //Retorna uma lista de todos os usuários no momento
+    @Override
     public ArrayList<Usuario> getTodos() {
-        String linha;
         ArrayList<Usuario> usuarios = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null) {
-            // Desconsiderando cabeçalho
-            if (linha.contains("id,cpf,nome,idade,instituicao,tipo_usuario,login,senha")) {
-                continue;
-            }
-            String[] dados = linha.split(",");
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_ALL);
+             ResultSet resultSet = stmt.executeQuery()) {
 
-            // Verifica se a linha possui o número correto de campos
-            if (dados.length >= 8) {
-                try {
-                    Usuario usuarioDaVez = new Usuario(); // Cria uma nova instância para cada linha
-                    usuarioDaVez.setId(Integer.parseInt(dados[0].trim()));
-                    usuarioDaVez.setCPF(dados[1].trim());
-                    usuarioDaVez.setNome(dados[2].trim());
-                    usuarioDaVez.setIdade(Integer.parseInt(dados[3].trim()));
-                    usuarioDaVez.setInstituicao(dados[4].trim());
-                    usuarioDaVez.setTipoDeUsuario(dados[5].trim());
-                    usuarioDaVez.setLogin(dados[6].trim());
-                    usuarioDaVez.setSenha(dados[7].trim());
-                    usuarios.add(usuarioDaVez);
-                } catch (NumberFormatException e) {
-                    System.out.println("Erro ao converter número: " + e.getMessage());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Erro ao converter tipo de usuário: " + e.getMessage());
-                }
-            } else {
-                // System.out.println("Linha de dados inválida. Esperado pelo menos 8 elementos, mas recebeu " + dados.length);
+            while (resultSet.next()) {
+                usuarios.add(mapResultSetToUsuario(resultSet));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todos os usuários: " + e.getMessage(), e);
         }
-        manipulador.fecharArquivoParaLeitura();
         return usuarios;
     }
-    //Adiciona um Usuário na tabela
+
+    @Override
     public void add(Usuario usuario) {
-        String linha = usuarioToCSV(usuario);
-        manipulador.abrirArquivoParaEscrita();
-        manipulador.escreverNoArquivoPorUltimo(linha);
-        manipulador.fecharArquivoEscrita();
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
+
+            stmt.setString(1, usuario.getCPF());
+            stmt.setString(2, usuario.getNome());
+            stmt.setInt(3, usuario.getIdade());
+            stmt.setString(4, usuario.getInstituicao());
+            stmt.setString(5, usuario.getTipoDeUsuario());
+            stmt.setString(6, usuario.getLogin());
+            stmt.setString(7, usuario.getSenha());
+            stmt.executeUpdate();
+
+            System.out.println("Usuário adicionado com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar usuário: " + e.getMessage(), e);
+        }
     }
 
-    public void delete (Usuario usuario) {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        usuarios = getTodos();
-        for (int i = 0; i < usuarios.size(); i++){
-            if (usuario.getId() == usuarios.get(i).getId()){
-                usuarios.remove(i);
-                break;
+    @Override
+    public void delete(Usuario usuario) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            stmt.setInt(1, usuario.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Usuário deletado com sucesso!");
+            } else {
+                System.out.println("Nenhum usuário encontrado com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar usuário: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,cpf,nome,idade,instituicao,tipoDeUsuario");
-        for (Usuario u : usuarios){
-            manipulador.escreverNoArquivo(usuarioToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
-    public void update (Usuario usuarioAntigo, Usuario usuarioNovo) {
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        usuarios = getTodos();
-        for (int i = 0; i < usuarios.size(); i++){
-            if (usuarioAntigo.getId() == usuarios.get(i).getId()) {
-                usuarios.get(i).setCPF(usuarioNovo.getCPF());
-                usuarios.get(i).setNome(usuarioNovo.getNome());
-                usuarios.get(i).setIdade(usuarioNovo.getIdade());
-                usuarios.get(i).setInstituicao(usuarioNovo.getInstituicao());
-                usuarios.get(i).setTipoDeUsuario(usuarioNovo.getTipoDeUsuario());
-                usuarios.get(i).setLogin(usuarioNovo.getLogin());
-                usuarios.get(i).setSenha(usuarioNovo.getSenha());
-                break;
+    @Override
+    public void update(Usuario usuarioAntigo, Usuario usuarioNovo) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
+
+            stmt.setString(1, usuarioNovo.getCPF());
+            stmt.setString(2, usuarioNovo.getNome());
+            stmt.setInt(3, usuarioNovo.getIdade());
+            stmt.setString(4, usuarioNovo.getInstituicao());
+            stmt.setString(5, usuarioNovo.getTipoDeUsuario());
+            stmt.setString(6, usuarioNovo.getLogin());
+            stmt.setString(7, usuarioNovo.getSenha());
+            stmt.setInt(8, usuarioAntigo.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Usuário atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum usuário encontrado com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar usuário: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,cpf,nome,idade,instituicao,tipoDeUsuario");
-        for (Usuario u : usuarios) {
-            manipulador.escreverNoArquivo(usuarioToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
     public Usuario getPorId(int id) {
-        ArrayList<Usuario> usuarios = getTodos();
-        for (Usuario u : usuarios) {
-            if (id == u.getId()) {
-                return u;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_ID)) {
+
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToUsuario(resultSet);
+            } else {
+                System.out.println("Nenhum usuário encontrado com o ID especificado.");
+                return null;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar usuário por ID: " + e.getMessage(), e);
         }
-        return null; // Caso não encontre o Usuário
     }
-    
-    //Usar apenas na persistência da inscrição
-    public Usuario getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
-        Usuario usuario = new Usuario();
-        return usuario;
+
+    public Usuario getPorLogin(String login) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_LOGIN)) {
+
+            stmt.setString(1, login);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToUsuario(resultSet);
+            } else {
+                System.out.println("Nenhum usuário encontrado com o login especificado.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar usuário por login: " + e.getMessage(), e);
+        }
     }
-   
+
+    // Esta porr* nunca é  utilizada
+    @Override
+    public Usuario getPorIdInscricao(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
+        return null;
+    }
 }
