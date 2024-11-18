@@ -37,8 +37,14 @@ public class SecaoController implements IController<Secao> {
     }
 
     @Override
-    public boolean deletar(Secao entidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    public boolean deletar(Secao secao) {
+        if( secao !=null ){
+            secaoP.delete(secao);
+            return true;
+        }
+        else {
+            System.out.println("Seção não encontrada");
+            return false;
+        }
     }
 }

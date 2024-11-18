@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 import interfaces.IPersistenciaControlador;
+import models.SubEvento;
 import models.Trilha;
 import persistence.PersistenceTrilha;
 
@@ -44,9 +45,15 @@ public class TrilhaController implements IController<Trilha> {
     }
 
     @Override
-    public boolean deletar(Trilha entidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    public boolean deletar(Trilha Trilha) {
+        if( Trilha !=null ){
+            trilhaP.delete(Trilha);
+            return true;
+        }
+        else {
+            System.out.println("Trilha não encontrada");
+            return false;
+        }
     }
 }
 

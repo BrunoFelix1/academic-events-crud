@@ -1,6 +1,7 @@
 package controllers;
 
 import models.SubEvento;
+import models.SubEvento;
 import persistence.PersistenceSubEvento;
 import java.util.List;
 
@@ -36,9 +37,15 @@ public class SubeventoController implements IController<SubEvento> {
     }
 
     @Override
-    public boolean deletar(SubEvento entidade) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletar'");
+    public boolean deletar(SubEvento SubEvento) {
+        if( SubEvento !=null ){
+            subEventoP.delete(SubEvento);
+            return true;
+        }
+        else {
+            System.out.println("Subevento não encontrada");
+            return false;
+        }
     }
 
 }
