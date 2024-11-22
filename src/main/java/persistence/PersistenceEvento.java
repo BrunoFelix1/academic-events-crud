@@ -45,7 +45,7 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
     }
 
     @Override
-    public void add(Evento evento) {
+    public Evento add(Evento evento) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -56,6 +56,7 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
             stmt.executeUpdate();
 
             System.out.println("Evento adicionado com sucesso!");
+            return evento;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar evento: " + e.getMessage(), e);
@@ -63,7 +64,7 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
     }
 
     @Override
-    public void delete(Evento evento) {
+    public boolean delete(Evento evento) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -72,8 +73,10 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Evento deletado com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhum evento encontrado com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -82,7 +85,7 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
     }
 
     @Override
-    public void update(Evento eventoAntigo, Evento eventoNovo) {
+    public Evento update(Evento eventoAntigo, Evento eventoNovo) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -95,8 +98,10 @@ public class PersistenceEvento implements IPersistenciaControlador<Evento> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Evento atualizado com sucesso!");
+                return eventoNovo;
             } else {
                 System.out.println("Nenhum evento encontrado com o ID especificado.");
+                return eventoAntigo;
             }
 
         } catch (SQLException e) {

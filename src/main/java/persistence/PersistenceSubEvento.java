@@ -46,7 +46,7 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
     }
 
     @Override
-    public void add(SubEvento subEvento) {
+    public SubEvento add(SubEvento subEvento) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -58,6 +58,7 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
             stmt.executeUpdate();
 
             System.out.println("Subevento adicionado com sucesso!");
+            return subEvento;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar subevento: " + e.getMessage(), e);
@@ -65,7 +66,7 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
     }
 
     @Override
-    public void delete(SubEvento subEvento) {
+    public boolean delete(SubEvento subEvento) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -74,8 +75,10 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Subevento deletado com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhum subevento encontrado com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -84,7 +87,7 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
     }
 
     @Override
-    public void update(SubEvento subEventoAntigo, SubEvento subEventoNovo) {
+    public SubEvento update(SubEvento subEventoAntigo, SubEvento subEventoNovo) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -98,8 +101,10 @@ public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Subevento atualizado com sucesso!");
+                return subEventoNovo;
             } else {
                 System.out.println("Nenhum subevento encontrado com o ID especificado.");
+                return subEventoAntigo;
             }
 
         } catch (SQLException e) {

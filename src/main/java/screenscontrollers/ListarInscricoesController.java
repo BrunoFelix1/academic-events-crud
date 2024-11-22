@@ -19,9 +19,9 @@ public class ListarInscricoesController extends MenuUsuarioController {
     @FXML
     public void initialize() {
         // Obtendo o usuário do contexto
-        Usuario usuario = UserContext.getInstance().getUsuario();
+       // Usuario usuario = UserContext.getInstance().getUsuario();
         PersistenceInscricao persistenceInscricao = new PersistenceInscricao();
-        List<Inscricao> inscricoes = persistenceInscricao.getTodos(usuario); // Método para carregar as inscrições
+        List<Inscricao> inscricoes = persistenceInscricao.getTodos(); // Método para carregar as inscrições
         populateScrollPane(inscricoes); // Preencher o ScrollPane com as inscrições
     }
 

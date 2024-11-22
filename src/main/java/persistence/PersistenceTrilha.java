@@ -43,7 +43,7 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
     }
 
     @Override
-    public void add(Trilha trilha) {
+    public Trilha add(Trilha trilha) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -52,6 +52,7 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
             stmt.executeUpdate();
 
             System.out.println("Trilha adicionada com sucesso!");
+            return trilha;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar trilha: " + e.getMessage(), e);
@@ -59,7 +60,7 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
     }
 
     @Override
-    public void delete(Trilha trilha) {
+    public boolean delete(Trilha trilha) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -68,8 +69,10 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Trilha deletada com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhuma trilha encontrada com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -78,7 +81,7 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
     }
 
     @Override
-    public void update(Trilha trilhaAntiga, Trilha trilhaNova) {
+    public Trilha update(Trilha trilhaAntiga, Trilha trilhaNova) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -89,8 +92,10 @@ public class PersistenceTrilha implements IPersistenciaControlador<Trilha> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Trilha atualizada com sucesso!");
+                return trilhaNova;
             } else {
                 System.out.println("Nenhuma trilha encontrada com o ID especificado.");
+                return trilhaAntiga;
             }
 
         } catch (SQLException e) {

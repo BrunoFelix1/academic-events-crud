@@ -48,7 +48,13 @@ void tearDown() {
 
     @Test
     void addEventoTest() {
-        Evento evento = new Evento(999, "Evento Teste", "Local A", "2024-12-01 10:00", "Descrição teste");
+        Evento evento = new Evento();
+        evento.setTitulo("Evento Teste");
+        evento.setLocal("Local A");
+        evento.setHorario("13:00");
+        evento.setDescricao("Descrição Teste");
+
+
         int numeroEventos = eventoController.listar().size();
         Evento eventoAdicionado = eventoController.cadastrar(evento);
 
@@ -58,8 +64,17 @@ void tearDown() {
 
     @Test
     void listEventosTest() {
-        Evento evento1 = new Evento(999, "Evento 1", "Local A", "2024-12-02 11:00", "Descrição evento 1");
-        Evento evento2 = new Evento(1000, "Evento 2", "Local B", "2024-12-03 12:00", "Descrição evento 2");
+        Evento evento1 = new Evento();
+        evento1.setTitulo("Evento Teste1");
+        evento1.setLocal("Local A");
+        evento1.setHorario("13:00");
+        evento1.setDescricao("Descrição Teste1");
+
+        Evento evento2 = new Evento();
+        evento2.setTitulo("Evento Teste2");
+        evento2.setLocal("Local B");
+        evento2.setHorario("13:00");
+        evento2.setDescricao("Descrição Teste2");
 
         eventoController.cadastrar(evento1);
         eventoController.cadastrar(evento2);
@@ -70,8 +85,17 @@ void tearDown() {
 
     @Test
     void updateEventoTest() {
-        Evento eventoAntigo = new Evento(999, "Evento Original", "Local C", "2024-12-04 13:00", "Descrição original");
-        Evento eventoNovo = new Evento(999, "Evento Atualizado", "Local D", "2024-12-05 14:00", "Descrição atualizada");
+        Evento eventoAntigo = new Evento();
+        eventoAntigo.setTitulo("Evento Teste1");
+        eventoAntigo.setLocal("Local A");
+        eventoAntigo.setHorario("13:00");
+        eventoAntigo.setDescricao("Descrição Teste1");
+
+        Evento eventoNovo = new Evento();
+        eventoNovo.setTitulo("Evento Teste2");
+        eventoNovo.setLocal("Local B");
+        eventoNovo.setHorario("13:00");
+        eventoNovo.setDescricao("Descrição Teste2");
 
         eventoController.cadastrar(eventoAntigo);
         Evento eventoAtualizado = eventoController.atualizar(eventoAntigo, eventoNovo);
@@ -83,7 +107,11 @@ void tearDown() {
 
     @Test
     void deleteEventoTest() {
-        Evento evento = new Evento(999, "Evento Deletável", "Local E", "2024-12-06 15:00", "Descrição deletável");
+        Evento evento = new Evento();
+        evento.setTitulo("Evento Teste1");
+        evento.setLocal("Local A");
+        evento.setHorario("13:00");
+        evento.setDescricao("Descrição Teste1");
 
         eventoController.cadastrar(evento);
         eventoController.deletar(evento);

@@ -48,7 +48,7 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
     }
 
     @Override
-    public void add(Usuario usuario) {
+    public Usuario add(Usuario usuario) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -62,6 +62,7 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
             stmt.executeUpdate();
 
             System.out.println("Usuário adicionado com sucesso!");
+            return usuario;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar usuário: " + e.getMessage(), e);
@@ -69,7 +70,7 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
     }
 
     @Override
-    public void delete(Usuario usuario) {
+    public boolean delete(Usuario usuario) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -78,8 +79,10 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Usuário deletado com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhum usuário encontrado com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -88,7 +91,7 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
     }
 
     @Override
-    public void update(Usuario usuarioAntigo, Usuario usuarioNovo) {
+    public Usuario update(Usuario usuarioAntigo, Usuario usuarioNovo) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -104,8 +107,10 @@ public class PersistenceUsuario implements IPersistenciaControlador<Usuario> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Usuário atualizado com sucesso!");
+                return usuarioNovo;
             } else {
                 System.out.println("Nenhum usuário encontrado com o ID especificado.");
+                return usuarioAntigo;
             }
 
         } catch (SQLException e) {

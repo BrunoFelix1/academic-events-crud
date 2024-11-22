@@ -46,7 +46,7 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
     }
 
     @Override
-    public void add(Secao secao) {
+    public Secao add(Secao secao) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -58,6 +58,7 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
             stmt.executeUpdate();
 
             System.out.println("Seção adicionada com sucesso!");
+            return secao;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar seção: " + e.getMessage(), e);
@@ -65,7 +66,7 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
     }
 
     @Override
-    public void delete(Secao secao) {
+    public boolean delete(Secao secao) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -74,8 +75,10 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Seção deletada com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhuma seção encontrada com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -84,7 +87,7 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
     }
 
     @Override
-    public void update(Secao secaoAntiga, Secao secaoNova) {
+    public Secao update(Secao secaoAntiga, Secao secaoNova) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -98,8 +101,10 @@ public class PersistenceSecao implements IPersistenciaControlador<Secao> {
 
             if (linhasAfetadas > 0) {
                 System.out.println("Seção atualizada com sucesso!");
+                return secaoNova;
             } else {
                 System.out.println("Nenhuma seção encontrada com o ID especificado.");
+                return secaoAntiga;
             }
 
         } catch (SQLException e) {

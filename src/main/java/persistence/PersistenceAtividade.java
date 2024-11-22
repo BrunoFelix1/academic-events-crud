@@ -45,7 +45,7 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
     }
 
     @Override
-    public void add(Atividade atividade) {
+    public Atividade add(Atividade atividade) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -56,6 +56,7 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
             stmt.executeUpdate();
 
             System.out.println("Atividade adicionada com sucesso!");
+            return atividade;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar atividade: " + e.getMessage(), e);
@@ -63,7 +64,7 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
     }
 
     @Override
-    public void delete(Atividade atividade) {
+    public boolean delete(Atividade atividade) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -72,8 +73,10 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Atividade deletada com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhuma atividade encontrada com o ID especificado.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -82,7 +85,7 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
     }
 
     @Override
-    public void update(Atividade atividadeAntiga, Atividade atividadeNova) {
+    public Atividade update(Atividade atividadeAntiga, Atividade atividadeNova) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -95,8 +98,10 @@ public class PersistenceAtividade implements IPersistenciaControlador<Atividade>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Atividade atualizada com sucesso!");
+                return atividadeNova;
             } else {
                 System.out.println("Nenhuma atividade encontrada com o ID especificado.");
+                return atividadeAntiga;
             }
 
         } catch (SQLException e) {

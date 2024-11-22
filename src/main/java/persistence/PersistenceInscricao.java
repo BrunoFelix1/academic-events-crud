@@ -56,7 +56,7 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
 
 
     @Override
-    public void add(Inscricao inscricao) {
+    public Inscricao add(Inscricao inscricao) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
 
@@ -68,6 +68,7 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
             stmt.executeUpdate();
 
             System.out.println("Inscrição adicionada com sucesso!");
+            return inscricao;
 
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar inscrição: " + e.getMessage(), e);
@@ -75,7 +76,7 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
     }
 
     @Override
-    public void delete(Inscricao inscricao) {
+    public boolean delete(Inscricao inscricao) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
 
@@ -88,8 +89,10 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Inscrição deletada com sucesso!");
+                return true;
             } else {
                 System.out.println("Nenhuma inscrição encontrada com os dados especificados.");
+                return false;
             }
 
         } catch (SQLException e) {
@@ -98,7 +101,7 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
     }
 
     @Override
-    public void update(Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
+    public Inscricao update(Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
         try (Connection conexao = ConexaoSQLServer.Conectar();
              PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
 
@@ -116,8 +119,10 @@ public class PersistenceInscricao implements IPersistenciaControlador<Inscricao>
 
             if (linhasAfetadas > 0) {
                 System.out.println("Inscrição atualizada com sucesso!");
+                return inscricaoNova;
             } else {
                 System.out.println("Nenhuma inscrição encontrada com os dados especificados.");
+                return inscricaoAntiga;
             }
 
         } catch (SQLException e) {
