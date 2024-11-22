@@ -1,111 +1,151 @@
 package persistence;
 
-import java.util.ArrayList;
+import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.SubEvento;
 
-
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PersistenceSubEvento implements IPersistenciaControlador<SubEvento> {
-    //Instanciando manipulador e adicionando o path da tabela de SubEventos
-    private String pathSubEvento = "src\\main\\resources\\database\\SubEventos.txt";
-    private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathSubEvento);
 
-    public void setManipulador(ManipuladorArquivos manipulador) {
-        this.manipulador = manipulador;
+    // SQL Consultas
+    private static final String SQL_GET_ALL = "SELECT id, idEvento, titulo, local, horario, descricao FROM SubEvento";
+    private static final String SQL_INSERT = "INSERT INTO SubEvento (idEvento, titulo, local, horario, descricao) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM SubEvento WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE SubEvento SET idEvento = ?, titulo = ?, local = ?, horario = ?, descricao = ? WHERE id = ?";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM SubEvento WHERE id = ?";
+    private static final String SQL_GET_BY_NAME = "SELECT * FROM SubEvento WHERE titulo = ?";
+
+    // Conversão de ResultSet para Objeto SubEvento
+    private SubEvento mapResultSetToSubEvento(ResultSet resultSet) throws SQLException {
+        SubEvento subEvento = new SubEvento();
+        subEvento.setId(resultSet.getInt("id"));
+        subEvento.setIdEvento(resultSet.getInt("idEvento"));
+        subEvento.setTitulo(resultSet.getString("titulo"));
+        subEvento.setLocal(resultSet.getString("local"));
+        subEvento.setHorario(resultSet.getString("horario"));
+        subEvento.setDescricao(resultSet.getString("descricao"));
+        return subEvento;
     }
 
-    //Retorna um objeto SubEvento em formato de linha String
-    public String SubEventoToCSV(SubEvento subEvento){
-        String linha = subEvento.getId() + "," + subEvento.getIdEvento()+ "," + subEvento.getTitulo() + "," +
-        subEvento.getLocal()+ "," + subEvento.getHorario() + "," + subEvento.getDescricao();
-        return linha;
-    }
-
-    //Retorna uma lista de todos os SubEventos no momento
+    @Override
     public ArrayList<SubEvento> getTodos() {
-        String linha;
         ArrayList<SubEvento> subEventos = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null){
-            SubEvento subEventoDaVez = new SubEvento();
-            //Desconsiderando cabeçalho
-            if (linha.contains("id")){
-                continue;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_ALL);
+             ResultSet resultSet = stmt.executeQuery()) {
+
+            while (resultSet.next()) {
+                subEventos.add(mapResultSetToSubEvento(resultSet));
             }
-            String dados [] = linha.split(",");
-            subEventoDaVez.setId(Integer.parseInt(dados[0]));
-            subEventoDaVez.setIdEvento(Integer.parseInt(dados[1]));
-            subEventoDaVez.setTitulo(dados[2]);
-            subEventoDaVez.setLocal(dados[3]);
-            subEventoDaVez.setHorario(dados[4]);
-            subEventoDaVez.setDescricao(dados[5]);
-            subEventos.add(subEventoDaVez);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todos os subeventos: " + e.getMessage(), e);
         }
-        manipulador.fecharArquivoParaLeitura();
         return subEventos;
     }
 
-    //Adiciona um SubEvento na tabela
+    @Override
     public void add(SubEvento subEvento) {
-        String linha = SubEventoToCSV(subEvento);
-        manipulador.abrirArquivoParaEscrita();
-        manipulador.escreverNoArquivoPorUltimo(linha);
-        manipulador.fecharArquivoEscrita();
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
+
+            stmt.setInt(1, subEvento.getIdEvento());
+            stmt.setString(2, subEvento.getTitulo());
+            stmt.setString(3, subEvento.getLocal());
+            stmt.setString(4, subEvento.getHorario());
+            stmt.setString(5, subEvento.getDescricao());
+            stmt.executeUpdate();
+
+            System.out.println("Subevento adicionado com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar subevento: " + e.getMessage(), e);
+        }
     }
 
-    public void delete (SubEvento subEvento) {
-        ArrayList<SubEvento> subEventos = new ArrayList<>();
-        subEventos = getTodos();
-        for (int i = 0; i < subEventos.size(); i++){
-            if (subEvento.getId() == subEventos.get(i).getId()){
-                subEventos.remove(i);
-                break;
+    @Override
+    public void delete(SubEvento subEvento) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            stmt.setInt(1, subEvento.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Subevento deletado com sucesso!");
+            } else {
+                System.out.println("Nenhum subevento encontrado com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar subevento: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
-        for (SubEvento u : subEventos){
-            manipulador.escreverNoArquivo(SubEventoToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
-    public void update (SubEvento subEventoAntigo, SubEvento subEventoNovo) {
-        ArrayList<SubEvento> subEventos = new ArrayList<>();
-        subEventos = getTodos();
-        for (int i = 0; i < subEventos.size(); i++){
-            if (subEventoAntigo.getId() == subEventos.get(i).getId()) {
-                subEventos.get(i).setIdEvento(subEventoNovo.getIdEvento());
-                subEventos.get(i).setTitulo(subEventoNovo.getTitulo());
-                subEventos.get(i).setLocal(subEventoNovo.getLocal());
-                subEventos.get(i).setHorario(subEventoNovo.getHorario());
-                subEventos.get(i).setDescricao(subEventoNovo.getDescricao());
-                break;
+    @Override
+    public void update(SubEvento subEventoAntigo, SubEvento subEventoNovo) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
+
+            stmt.setInt(1, subEventoNovo.getIdEvento());
+            stmt.setString(2, subEventoNovo.getTitulo());
+            stmt.setString(3, subEventoNovo.getLocal());
+            stmt.setString(4, subEventoNovo.getHorario());
+            stmt.setString(5, subEventoNovo.getDescricao());
+            stmt.setInt(6, subEventoAntigo.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Subevento atualizado com sucesso!");
+            } else {
+                System.out.println("Nenhum subevento encontrado com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar subevento: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,evento_id,titulo,local,horario,descricao");
-        for (SubEvento u : subEventos) {
-            manipulador.escreverNoArquivo(SubEventoToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
     public SubEvento getPorId(int id) {
-        ArrayList<SubEvento> subEventos = getTodos();
-        for (SubEvento s : subEventos) {
-            if (id == s.getId()) {
-                return s;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_ID)) {
+
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToSubEvento(resultSet);
+            } else {
+                System.out.println("Nenhum subevento encontrado com o ID especificado.");
+                return null;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar subevento por ID: " + e.getMessage(), e);
         }
-        return null; // Caso não encontre o ID do SubEvento
-    }   
-    
-    //Usar apenas na persistência da inscrição
-    public SubEvento getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
-        SubEvento SubEvento = new SubEvento();
-        return SubEvento;
     }
-   
+
+    // Não sei oq essa função faz
+    @Override
+    public SubEvento getPorIdInscricao(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
+        return null;
+    }
+
+    public SubEvento getPorNome(String nome) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_NAME)) {
+
+            stmt.setString(1, nome);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToSubEvento(resultSet);
+            } else {
+                System.out.println("Nenhum subevento encontrado com o nome especificado.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar subevento por nome: " + e.getMessage(), e);
+        }
+    }
 }

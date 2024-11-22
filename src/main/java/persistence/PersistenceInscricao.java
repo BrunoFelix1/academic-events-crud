@@ -1,6 +1,12 @@
 package persistence;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.Inscricao;
 import models.Usuario;
@@ -8,122 +14,140 @@ import models.Usuario;
 
 
 public class PersistenceInscricao implements IPersistenciaControlador<Inscricao> {
-    //Instanciando manipulador e adicionando o path da tabela de Inscrições
-    private String pathInscricao = "src\\main\\resources\\database\\Inscrições.txt";
-    private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathInscricao);
+    private static final String SQL_GET_ALL = "SELECT idUsuario, idEvento, idSubevento,idSecao, idTrilha from inscricao";
+    private static final String SQL_INSERT = "INSERT INTO Inscricao (id_usuario, id_evento, id_subevento, id_secao, id_trilha) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM Inscricao WHERE id_usuario = ? AND id_evento = ? AND id_subevento = ? AND id_secao = ? AND id_trilha = ?";
+    private static final String SQL_UPDATE = "UPDATE Inscricao SET id_usuario = ?, id_evento = ?, id_subevento = ?, id_secao = ?, id_trilha = ? WHERE id_usuario = ? AND id_evento = ? AND id_subevento = ? AND id_secao = ? AND id_trilha = ?";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM Inscricao WHERE id_usuario = ? AND id_evento = ?";
 
-    //Retorna um objeto Inscricao em formato de linha String
-    private String inscricaoToCSV(Inscricao inscricao){
-        String linha = inscricao.getIdUsuario() + "," + inscricao.getIdEvento()+ "," + inscricao.getIdSubEvento() + "," +
-        inscricao.getIdSecao()+ "," + inscricao.getIdTrilha();
-        return linha;
+    private Inscricao mapearResultSet(ResultSet inscricao){
+        Inscricao inscricaoMapeada = new Inscricao();
+        try {
+            inscricaoMapeada.setIdUsuario(inscricao.getInt("idUsuario"));
+            inscricaoMapeada.setIdEvento(inscricao.getInt("idEvento"));
+            inscricaoMapeada.setIdSubEvento(inscricao.getInt("idSubEvento"));
+            inscricaoMapeada.setIdSecao(inscricao.getInt("idSecao"));
+            inscricaoMapeada.setIdTrilha(inscricao.getInt("idTrilha"));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return inscricaoMapeada;
     }
 
     //Retorna uma lista de todas as Inscricoes no momento
     public ArrayList<Inscricao> getTodos() {
-        String linha;
         ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null){
-            //Desconsiderando cabeçalho
-            Inscricao inscricaoDaVez = new Inscricao();
-            if (linha.contains("id")){
-                continue;
+
+        Connection conexao = ConexaoSQLServer.Conectar();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(SQL_GET_ALL);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+            Inscricao novaInscricao = mapearResultSet(rs);
+            inscricoes.add(novaInscricao);
             }
-            String dados [] = linha.split(",");
-            inscricaoDaVez.setIdUsuario(Integer.parseInt(dados[0]));
-            inscricaoDaVez.setIdEvento(Integer.parseInt(dados[1]));
-            inscricaoDaVez.setIdSubEvento(Integer.parseInt(dados[2]));
-            inscricaoDaVez.setIdSecao(Integer.parseInt(dados[3]));
-            inscricaoDaVez.setIdTrilha(Integer.parseInt(dados[4]));
-            inscricoes.add(inscricaoDaVez);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as inscrições: " + e.getMessage(), e);
         }
-        manipulador.fecharArquivoParaLeitura();
         return inscricoes;
     }
 
-    //Retorna uma lista de todas as Inscricoes no momento
-    public ArrayList<Inscricao> getTodos(Usuario usuario) {
-        String linha;
-        ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null){
-            //Desconsiderando cabeçalho
-            Inscricao inscricaoDaVez = new Inscricao();
-            if (linha.contains("id")){
-                continue;
-            }
-            String dados [] = linha.split(",");
-            inscricaoDaVez.setIdUsuario(Integer.parseInt(dados[0]));
-            inscricaoDaVez.setIdEvento(Integer.parseInt(dados[1]));
-            inscricaoDaVez.setIdSubEvento(Integer.parseInt(dados[2]));
-            inscricaoDaVez.setIdSecao(Integer.parseInt(dados[3]));
-            inscricaoDaVez.setIdTrilha(Integer.parseInt(dados[4]));
-            if (inscricaoDaVez.getIdUsuario() == usuario.getId()){
-                inscricoes.add(inscricaoDaVez);
-            }
-        }
-        manipulador.fecharArquivoParaLeitura();
-        return inscricoes;
-    }
 
-    //Adiciona uma Inscricao na tabela
+    @Override
     public void add(Inscricao inscricao) {
-        String linha = inscricaoToCSV(inscricao);
-        manipulador.abrirArquivoParaEscrita();
-        manipulador.escreverNoArquivoPorUltimo(linha);
-        manipulador.fecharArquivoEscrita();
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
+
+            stmt.setInt(1, inscricao.getIdUsuario());
+            stmt.setInt(2, inscricao.getIdEvento());
+            stmt.setInt(3, inscricao.getIdSubEvento());
+            stmt.setInt(4, inscricao.getIdSecao());
+            stmt.setInt(5, inscricao.getIdTrilha());
+            stmt.executeUpdate();
+
+            System.out.println("Inscrição adicionada com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar inscrição: " + e.getMessage(), e);
+        }
     }
 
-    public void delete (Inscricao inscricao) {
-        ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        inscricoes = getTodos();
-        for (int i = 0; i < inscricoes.size(); i++){
-            if (inscricao.getIdEvento() == inscricoes.get(i).getIdEvento() &&
-            inscricao.getIdUsuario() == inscricoes.get(i).getIdUsuario() &&
-            inscricao.getIdSubEvento() == inscricoes.get(i).getIdSubEvento() &&
-            inscricao.getIdSecao() == inscricoes.get(i).getIdSecao() &&
-            inscricao.getIdTrilha() == inscricoes.get(i).getIdTrilha()){
-                inscricoes.remove(i);
-                break;
+    @Override
+    public void delete(Inscricao inscricao) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            stmt.setInt(1, inscricao.getIdUsuario());
+            stmt.setInt(2, inscricao.getIdEvento());
+            stmt.setInt(3, inscricao.getIdSubEvento());
+            stmt.setInt(4, inscricao.getIdSecao());
+            stmt.setInt(5, inscricao.getIdTrilha());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Inscrição deletada com sucesso!");
+            } else {
+                System.out.println("Nenhuma inscrição encontrada com os dados especificados.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar inscrição: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("usuario_id,evento_id,subevento_id,secao_id,trilha_id");
-        for (Inscricao u : inscricoes){
-            manipulador.escreverNoArquivo(inscricaoToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
-    public void update (Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
-        ArrayList<Inscricao> inscricoes = new ArrayList<>();
-        inscricoes = getTodos();
-        for (int i = 0; i < inscricoes.size(); i++){
-            if (inscricaoAntiga.getIdEvento() == inscricoes.get(i).getIdEvento() &&
-            inscricaoAntiga.getIdUsuario() == inscricoes.get(i).getIdUsuario() &&
-            inscricaoAntiga.getIdSubEvento() == inscricoes.get(i).getIdSubEvento() &&
-            inscricaoAntiga.getIdSecao() == inscricoes.get(i).getIdSecao() &&
-            inscricaoAntiga.getIdTrilha() == inscricoes.get(i).getIdTrilha()){
-                inscricoes.get(i).setIdEvento(inscricaoNova.getIdEvento());
-                inscricoes.get(i).setIdUsuario(inscricaoNova.getIdUsuario());
-                inscricoes.get(i).setIdSubEvento(inscricaoNova.getIdSubEvento());
-                inscricoes.get(i).setIdSecao(inscricaoNova.getIdSecao());
-                inscricoes.get(i).setIdTrilha(inscricaoNova.getIdTrilha());
-                break;
+    @Override
+    public void update(Inscricao inscricaoAntiga, Inscricao inscricaoNova) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
+
+            stmt.setInt(1, inscricaoNova.getIdUsuario());
+            stmt.setInt(2, inscricaoNova.getIdEvento());
+            stmt.setInt(3, inscricaoNova.getIdSubEvento());
+            stmt.setInt(4, inscricaoNova.getIdSecao());
+            stmt.setInt(5, inscricaoNova.getIdTrilha());
+            stmt.setInt(6, inscricaoAntiga.getIdUsuario());
+            stmt.setInt(7, inscricaoAntiga.getIdEvento());
+            stmt.setInt(8, inscricaoAntiga.getIdSubEvento());
+            stmt.setInt(9, inscricaoAntiga.getIdSecao());
+            stmt.setInt(10, inscricaoAntiga.getIdTrilha());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Inscrição atualizada com sucesso!");
+            } else {
+                System.out.println("Nenhuma inscrição encontrada com os dados especificados.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar inscrição: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("usuario_id,evento_id,subevento_id,secao_id,trilha_id");
-        for (Inscricao u : inscricoes) {
-            manipulador.escreverNoArquivo(inscricaoToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
+    @Override
     public Inscricao getPorId(int id) {
-        Inscricao inscricao = new Inscricao();
-        return inscricao;
+        // Nao sei oq isso faz
+        return null;
+    }
+
+    public Inscricao getPorId(int idUsuario, int idEvento) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_ID)) {
+
+            stmt.setInt(1, idUsuario);
+            stmt.setInt(2, idEvento);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapearResultSet(resultSet);
+            } else {
+                System.out.println("Nenhuma inscrição encontrada com os dados especificados.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar inscrição por ID: " + e.getMessage(), e);
+        }
     }
 
         //Usar apenas na persistência da inscrição

@@ -1,104 +1,148 @@
 package persistence;
 
-import java.util.ArrayList;
+import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.Atividade;
 
+import java.sql.*;
+import java.util.ArrayList;
 
 public class PersistenceAtividade implements IPersistenciaControlador<Atividade> {
-    //Instanciando manipulador e adicionando o path da tabela de atividades
-    private String pathAtividade = "src\\main\\resources\\database\\Atividades.txt";
-    private ManipuladorArquivos manipulador = new ManipuladorArquivos(pathAtividade);
 
-    //Retorna um objeto atividade em formato de linha String
-    private String atividadeToCSV(Atividade atividade){
-        String linha = atividade.getId() + "," + atividade.getTipoSubmissao()+ "," + atividade.getAutor() + "," +
-        atividade.getResumo()+ "," + atividade.getIdTrilha();
-        return linha;
+    // SQL Consultas
+    private static final String SQL_GET_ALL = "SELECT id, tipoSubmissao, autor, resumo, idTrilha FROM Atividade";
+    private static final String SQL_INSERT = "INSERT INTO Atividade (tipoSubmissao, autor, resumo, idTrilha) VALUES (?, ?, ?, ?)";
+    private static final String SQL_DELETE = "DELETE FROM Atividade WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE Atividade SET tipoSubmissao = ?, autor = ?, resumo = ?, idTrilha = ? WHERE id = ?";
+    private static final String SQL_GET_BY_ID = "SELECT * FROM Atividade WHERE id = ?";
+    private static final String SQL_GET_BY_AUTOR = "SELECT * FROM Atividade WHERE autor = ?";
+
+    // Conversão de ResultSet para Objeto Atividade
+    private Atividade mapResultSetToAtividade(ResultSet resultSet) throws SQLException {
+        Atividade atividade = new Atividade();
+        atividade.setId(resultSet.getInt("id"));
+        atividade.setTipoSubmissao(resultSet.getString("tipoSubmissao"));
+        atividade.setAutor(resultSet.getString("autor"));
+        atividade.setResumo(resultSet.getString("resumo"));
+        atividade.setIdTrilha(resultSet.getInt("idTrilha"));
+        return atividade;
     }
 
-    //Retorna uma lista de todos os atividades no momento
+    @Override
     public ArrayList<Atividade> getTodos() {
-        String linha;
         ArrayList<Atividade> atividades = new ArrayList<>();
-        manipulador.abrirArquivoParaLeitura();
-        while ((linha = manipulador.lerLinhaArquivo()) != null){
-            //Desconsiderando cabeçalho
-            if (linha.contains("id")){
-                continue;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_ALL);
+             ResultSet resultSet = stmt.executeQuery()) {
+
+            while (resultSet.next()) {
+                atividades.add(mapResultSetToAtividade(resultSet));
             }
-            String dados [] = linha.split(",");
-            Atividade atividadeDaVez = new Atividade();
-            atividadeDaVez.setId(Integer.parseInt(dados[0]));
-            atividadeDaVez.setTipoSubmissao(dados[1]);
-            atividadeDaVez.setAutor(dados[2]);
-            atividadeDaVez.setResumo(dados[3]);
-            atividadeDaVez.setIdTrilha(Integer.parseInt(dados[4]));
-            atividades.add(atividadeDaVez);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar todas as atividades: " + e.getMessage(), e);
         }
-        manipulador.fecharArquivoParaLeitura();
         return atividades;
     }
 
-    //Adiciona um atividade na tabela
+    @Override
     public void add(Atividade atividade) {
-        String linha = atividadeToCSV(atividade);
-        manipulador.abrirArquivoParaEscrita();
-        manipulador.escreverNoArquivoPorUltimo(linha);
-        manipulador.fecharArquivoEscrita();
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_INSERT)) {
+
+            stmt.setString(1, atividade.getTipoSubmissao());
+            stmt.setString(2, atividade.getAutor());
+            stmt.setString(3, atividade.getResumo());
+            stmt.setInt(4, atividade.getIdTrilha());
+            stmt.executeUpdate();
+
+            System.out.println("Atividade adicionada com sucesso!");
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao adicionar atividade: " + e.getMessage(), e);
+        }
     }
 
-    public void delete (Atividade atividade) {
-        ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodos();
-        for (int i = 0; i < atividades.size(); i++){
-            if (atividade.getId() == atividades.get(i).getId()){
-                atividades.remove(i);
-                break;
+    @Override
+    public void delete(Atividade atividade) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_DELETE)) {
+
+            stmt.setInt(1, atividade.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Atividade deletada com sucesso!");
+            } else {
+                System.out.println("Nenhuma atividade encontrada com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao deletar atividade: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,tipoDeAtividade,autor,resumo,id_trilha");
-        for (Atividade u : atividades){
-            manipulador.escreverNoArquivo(atividadeToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
-    public void update (Atividade atividadeAntiga, Atividade atividadeNova) {
-        ArrayList<Atividade> atividades = new ArrayList<>();
-        atividades = getTodos();
-        for (int i = 0; i < atividades.size(); i++){
-            if (atividadeAntiga.getId() == atividades.get(i).getId()) {
-                atividades.get(i).setTipoSubmissao(atividadeNova.getTipoSubmissao());
-                atividades.get(i).setAutor(atividadeNova.getAutor());
-                atividades.get(i).setResumo(atividadeNova.getResumo());
-                atividades.get(i).setIdTrilha(atividadeNova.getIdTrilha());
-                break;
+    @Override
+    public void update(Atividade atividadeAntiga, Atividade atividadeNova) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_UPDATE)) {
+
+            stmt.setString(1, atividadeNova.getTipoSubmissao());
+            stmt.setString(2, atividadeNova.getAutor());
+            stmt.setString(3, atividadeNova.getResumo());
+            stmt.setInt(4, atividadeNova.getIdTrilha());
+            stmt.setInt(5, atividadeAntiga.getId());
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Atividade atualizada com sucesso!");
+            } else {
+                System.out.println("Nenhuma atividade encontrada com o ID especificado.");
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao atualizar atividade: " + e.getMessage(), e);
         }
-        manipulador.abrirArquivoParaEscrita(1);
-        manipulador.escreverNoArquivo("id,tipoDeAtividade,autor,resumo,id_trilha");
-        for (Atividade u : atividades) {
-            manipulador.escreverNoArquivo(atividadeToCSV(u));
-        }
-        manipulador.fecharArquivoEscrita();
     }
 
     public Atividade getPorId(int id) {
-        ArrayList<Atividade> atividades = getTodos();
-        for (Atividade a : atividades) {
-            if (id == a.getId()) {
-                return a;
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_ID)) {
+
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToAtividade(resultSet);
+            } else {
+                System.out.println("Nenhuma atividade encontrada com o ID especificado.");
+                return null;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar atividade por ID: " + e.getMessage(), e);
         }
-        return null; // Caso não encontre o ID do usuário
     }
 
-    //Usar apenas na persistência da inscrição
-    public Atividade getPorIdInscricao(int id, int id2, int id3, int id4, int id5){
-        Atividade Atividade = new Atividade();
-        return Atividade;
+    // Ainda nao sei oq faz
+    @Override
+    public Atividade getPorIdInscricao(int idUsuario, int idEvento, int idSubEvento, int idSecao, int idTrilha) {
+        return null;
     }
-   
+
+    public Atividade getPorAutor(String autor) {
+        try (Connection conexao = ConexaoSQLServer.Conectar();
+             PreparedStatement stmt = conexao.prepareStatement(SQL_GET_BY_AUTOR)) {
+
+            stmt.setString(1, autor);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return mapResultSetToAtividade(resultSet);
+            } else {
+                System.out.println("Nenhuma atividade encontrada com o autor especificado.");
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar atividade por autor: " + e.getMessage(), e);
+        }
+    }
 }
