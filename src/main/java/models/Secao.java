@@ -8,8 +8,19 @@ public class Secao {
     private String local;
     private String horario;
     private String nome;
+    private String descricao;
     
     //Construtor
+    public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome, String descricao) {
+        this.id = id;
+        this.id_evento = id_evento;
+        this.id_subEvento = id_subEvento;
+        this.local = local;
+        this.horario = horario;
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
     public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome) {
         this.id = id;
         this.id_evento = id_evento;
@@ -57,6 +68,12 @@ public class Secao {
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getDescricao() {
+        return this.descricao;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
 

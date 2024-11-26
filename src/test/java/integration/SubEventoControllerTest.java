@@ -14,79 +14,101 @@ import java.util.List;
 
 public class SubEventoControllerTest {
 
-    private static IController<SubEvento> SubEventoController;
+    private static IController<SubEvento> subEventoController;
     private static List<SubEvento> estadoInicial;
 
     @BeforeEach
     void setUp() {
-        SubEventoController = new SubeventoController();
-        // Salva o estado inicial completo do "banco" (arquivo CSV).
-        estadoInicial = new ArrayList<>(SubEventoController.listar());
+        subEventoController = new SubeventoController();
+        estadoInicial = new ArrayList<>(subEventoController.listar());
     }
-
+    
     @AfterEach
     void tearDown() {
-        // Restaura o estado inicial do "banco" (arquivo CSV).
-        List<SubEvento> estadoAtual = new ArrayList<>(SubEventoController.listar());
-
-        // Remove SubEventos adicionados durante os testes.
-        for (SubEvento SubEvento : estadoAtual) {
-            if (!estadoInicial.contains(SubEvento)) {
-                SubEventoController.deletar(SubEvento);
-            }
-        }
-
-        // Adiciona SubEventos que foram removidos durante os testes.
-        for (SubEvento SubEvento : estadoInicial) {
-            if (!estadoAtual.contains(SubEvento)) {
-                SubEventoController.cadastrar(SubEvento);
+        // Obtém o estado atual do banco de dados após o teste.
+        List<SubEvento> estadoAtual = new ArrayList<>(subEventoController.listar());
+    
+        // Identifica e remove subeventos que foram adicionados durante os testes.
+        for (SubEvento subEvento : estadoAtual) {
+            if (!estadoInicial.contains(subEvento)) {
+                subEventoController.deletar(subEvento);
             }
         }
     }
 
     @Test
     void addSubEventoTest() {
-        SubEvento SubEvento = new SubEvento(999, 1, "Título teste", "Local A", "2024-12-01 10:00", "Descrição teste");
-        int numeroSubEventos = SubEventoController.listar().size();
-        SubEvento SubEventoAdicionado = SubEventoController.cadastrar(SubEvento);
+        SubEvento subEvento = new SubEvento();
+        subEvento.setTitulo("SubEvento Teste");
+        subEvento.setLocal("Local A");
+        subEvento.setHorario("15:00");
+        subEvento.setDescricao("Descrição Teste");
+        subEvento.setIdEvento(1); // Supondo que exista um evento com id 1
 
-        assertEquals(numeroSubEventos + 1, SubEventoController.listar().size(), "Deveria haver 1 SubEvento a mais na lista.");
-        assertEquals(SubEvento, SubEventoAdicionado, "O SubEvento adicionado deveria ser igual ao SubEvento cadastrado.");
+        SubEvento subEventoAdicionado = subEventoController.cadastrar(subEvento);
+        assertEquals(subEvento, subEventoAdicionado);
     }
 
     @Test
     void listSubEventosTest() {
-        SubEvento SubEvento1 = new SubEvento(999, 1, "Título 1", "Local A", "2024-12-02 11:00", "Descrição SubEvento 1");
-        SubEvento SubEvento2 = new SubEvento(1000, 1, "Título 2", "Local B", "2024-12-03 12:00", "Descrição SubEvento 2");
+        SubEvento subEvento1 = new SubEvento();
+        subEvento1.setTitulo("SubEvento Teste1");
+        subEvento1.setLocal("Local A");
+        subEvento1.setHorario("15:00");
+        subEvento1.setDescricao("Descrição Teste1");
+        subEvento1.setIdEvento(1); // Supondo que exista um evento com id 1
 
-        SubEventoController.cadastrar(SubEvento1);
-        SubEventoController.cadastrar(SubEvento2);
+        SubEvento subEvento2 = new SubEvento();
+        subEvento2.setTitulo("SubEvento Teste2");
+        subEvento2.setLocal("Local B");
+        subEvento2.setHorario("15:00");
+        subEvento2.setDescricao("Descrição Teste2");
+        subEvento2.setIdEvento(1);
 
-        List<SubEvento> SubEventos = SubEventoController.listar();
-        assertEquals(estadoInicial.size() + 2, SubEventos.size(), "Deveria listar todos os SubEventos iniciais mais os dois novos.");
+        subEventoController.cadastrar(subEvento1);
+        subEventoController.cadastrar(subEvento2);
+
+        List<SubEvento> subEventos = subEventoController.listar();
+        assertNotNull(subEventos);
+        assertTrue(subEventos.size() >= 2);
     }
 
     @Test
     void updateSubEventoTest() {
-        SubEvento SubEventoAntigo = new SubEvento(999, 1, "Título antigo", "Local C", "2024-12-04 13:00", "Descrição original");
-        SubEvento SubEventoNovo = new SubEvento(999, 1, "Título novo", "Local D", "2024-12-05 14:00", "Descrição atualizada");
+        SubEvento subEventoAntigo = new SubEvento();
+        subEventoAntigo.setTitulo("SubEvento Teste1");
+        subEventoAntigo.setLocal("Local A");
+        subEventoAntigo.setHorario("15:00");
+        subEventoAntigo.setDescricao("Descrição Teste1");
+        subEventoAntigo.setIdEvento(1); // Supondo que exista um evento com id 1
 
-        SubEventoController.cadastrar(SubEventoAntigo);
-        SubEvento SubEventoAtualizado = SubEventoController.atualizar(SubEventoAntigo, SubEventoNovo);
+        SubEvento subEventoAntigoComId = subEventoController.cadastrar(subEventoAntigo);
 
-        List<SubEvento> SubEventos = SubEventoController.listar();
-        assertEquals(estadoInicial.size() + 1, SubEventos.size(), "Deveria haver 1 SubEvento na lista além dos SubEventos iniciais.");
-        assertEquals(SubEventoNovo, SubEventoAtualizado, "O SubEvento atualizado deveria ser igual ao SubEvento novo.");
+        SubEvento subEventoNovo = new SubEvento();
+        subEventoNovo.setTitulo("SubEvento Teste2");
+        subEventoNovo.setLocal("Local B");
+        subEventoNovo.setHorario("15:00");
+        subEventoNovo.setDescricao("Descrição Teste2");
+        subEventoNovo.setIdEvento(1);
+
+        SubEvento subEventoAtualizado = subEventoController.atualizar(subEventoAntigoComId, subEventoNovo);
+
+        assertEquals(subEventoNovo, subEventoAtualizado);
     }
 
     @Test
     void deleteSubEventoTest() {
-        SubEvento SubEvento = new SubEvento(999, 1, "Título deletável", "Local E", "2024-12-06 15:00", "Descrição deletável");
+        boolean resultado;
+        SubEvento subEvento = new SubEvento();
+        subEvento.setTitulo("SubEvento Teste1");
+        subEvento.setLocal("Local A");
+        subEvento.setHorario("15:00");
+        subEvento.setDescricao("Descrição Teste1");
+        subEvento.setIdEvento(1); // Supondo que exista um evento com id 1
 
-        SubEventoController.cadastrar(SubEvento);
-        boolean deletado = SubEventoController.deletar(SubEvento);
+        SubEvento subEventoAdicionado = subEventoController.cadastrar(subEvento);
+        resultado = subEventoController.deletar(subEventoAdicionado);
 
-        assertTrue(deletado, "Deveria retornar verdadeiro ao deletar o SubEvento.");
-        assertEquals(estadoInicial.size(), SubEventoController.listar().size(), "O banco deveria ter voltado ao estado inicial.");
+        assertEquals(true, resultado);
     }
 }

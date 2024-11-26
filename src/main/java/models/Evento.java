@@ -24,4 +24,6 @@ public class Evento extends SameEventSubEvent {
     public void setId(int id) {
         this.id = id;
     }
+
+    
 }

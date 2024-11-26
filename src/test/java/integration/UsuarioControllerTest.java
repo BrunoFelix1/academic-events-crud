@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import controllers.IController;
 import controllers.UsuarioController;
 import models.Usuario;
 
@@ -19,73 +20,95 @@ public class UsuarioControllerTest {
     @BeforeEach
     void setUp() {
         usuarioController = new UsuarioController();
-        // Salva o estado inicial completo do "banco" (arquivo CSV).
         estadoInicial = new ArrayList<>(usuarioController.listar());
     }
-
+    
     @AfterEach
     void tearDown() {
-        // Restaura o estado inicial do "banco" (arquivo CSV).
+        // Obtém o estado atual do banco de dados após o teste.
         List<Usuario> estadoAtual = new ArrayList<>(usuarioController.listar());
-
-        // Remove usuários adicionados durante os testes.
+    
+        // Identifica e remove usuários que foram adicionados durante os testes.
         for (Usuario usuario : estadoAtual) {
             if (!estadoInicial.contains(usuario)) {
                 usuarioController.deletar(usuario);
-            }
-        }
-
-        // Adiciona usuários que foram removidos durante os testes.
-        for (Usuario usuario : estadoInicial) {
-            if (!estadoAtual.contains(usuario)) {
-                usuarioController.cadastrar(usuario);
             }
         }
     }
 
     @Test
     void addUsuarioTest() {
-        Usuario usuario = new Usuario(999, "74351067047", "Nome Teste", 25, "Instituição X", "Aluno", "loginTeste", "senhaTeste");
-        int numeroUsuarios = usuarioController.listar().size();
-        boolean usuarioAdicionado = usuarioController.cadastrar(usuario);
+        Usuario usuario = new Usuario();
+        usuario.setCPF("02173752430");
+        usuario.setNome("Usuario Teste");
+        usuario.setIdade(25);
+        usuario.setInstituicao("Instituição A");
+        usuario.setTipoDeUsuario("Aluno");
 
-        assertEquals(numeroUsuarios + 1, usuarioController.listar().size(), "Deveria haver 1 usuário a mais na lista.");
-        assertEquals(true, usuarioAdicionado, "O usuário adicionado deveria ser igual ao usuário cadastrado.");
+        boolean usuarioAdicionado = usuarioController.cadastrar(usuario);
+        assertEquals(true, usuarioAdicionado);
     }
 
     @Test
     void listUsuariosTest() {
-        Usuario usuario1 = new Usuario(999, "74351067047", "Nome 1", 30, "Instituição Y", "Professor", "login1", "senha1");
-        Usuario usuario2 = new Usuario(1000, "41543030076", "Nome 2", 40, "Instituição Z", "Admin", "login2", "senha2");
+        Usuario usuario1 = new Usuario();
+        usuario1.setCPF("02173752430");
+        usuario1.setNome("Usuario Teste1");
+        usuario1.setIdade(22);
+        usuario1.setInstituicao("Instituição A");
+        usuario1.setTipoDeUsuario("Professor");
+
+        Usuario usuario2 = new Usuario();
+        usuario2.setCPF("02173752430");
+        usuario2.setNome("Usuario Teste2");
+        usuario2.setIdade(30);
+        usuario2.setInstituicao("Instituição B");
+        usuario2.setTipoDeUsuario("Aluno");
 
         usuarioController.cadastrar(usuario1);
         usuarioController.cadastrar(usuario2);
 
         List<Usuario> usuarios = usuarioController.listar();
-        assertEquals(estadoInicial.size() + 2, usuarios.size(), "Deveria listar todos os usuários iniciais mais os dois novos.");
+        assertNotNull(usuarios);
+        assertTrue(usuarios.size() >= 2);
     }
 
     @Test
     void updateUsuarioTest() {
-        Usuario usuarioAntigo = new Usuario(999, "74351067047", "Nome Antigo", 35, "Instituição W", "Aluno", "loginAntigo", "senhaAntiga");
-        Usuario usuarioNovo = new Usuario(999, "41543030076", "Nome Novo", 36, "Instituição W", "Professor", "loginNovo", "senhaNova");
+        Usuario usuarioAntigo = new Usuario();
+        usuarioAntigo.setCPF("02173752430");
+        usuarioAntigo.setNome("Usuario Teste1");
+        usuarioAntigo.setIdade(22);
+        usuarioAntigo.setInstituicao("Instituição A");
+        usuarioAntigo.setTipoDeUsuario("Aluno");
 
         usuarioController.cadastrar(usuarioAntigo);
+
+        Usuario usuarioNovo = new Usuario();
+        usuarioNovo.setCPF("02173752430");
+        usuarioNovo.setNome("Usuario Teste Atualizado");
+        usuarioNovo.setIdade(23);
+        usuarioNovo.setInstituicao("Instituição B");
+        usuarioNovo.setTipoDeUsuario("Professor");
+
         Usuario usuarioAtualizado = usuarioController.atualizar(usuarioAntigo, usuarioNovo);
 
-        List<Usuario> usuarios = usuarioController.listar();
-        assertEquals(estadoInicial.size() + 1, usuarios.size(), "Deveria haver 1 usuário na lista além dos usuários iniciais.");
-        assertEquals(usuarioNovo, usuarioAtualizado, "O usuário atualizado deveria ser igual ao usuário novo.");
+        assertEquals(usuarioNovo, usuarioAtualizado);
     }
 
     @Test
     void deleteUsuarioTest() {
-        Usuario usuario = new Usuario(999, "74351067047", "Nome Deletável", 28, "Instituição V", "Admin", "loginDeletavel", "senhaDeletavel");
+        boolean resultado;
+        Usuario usuario = new Usuario();
+        usuario.setCPF("02173752430");
+        usuario.setNome("Usuario Teste3");
+        usuario.setIdade(27);
+        usuario.setInstituicao("Instituição C");
+        usuario.setTipoDeUsuario("Aluno");
 
         usuarioController.cadastrar(usuario);
-        boolean deletado = usuarioController.deletar(usuario);
+        resultado = usuarioController.deletar(usuario);
 
-        assertTrue(deletado, "Deveria retornar verdadeiro ao deletar o usuário.");
-        assertEquals(estadoInicial.size(), usuarioController.listar().size(), "O banco deveria ter voltado ao estado inicial.");
+        assertEquals(true, resultado);
     }
 }

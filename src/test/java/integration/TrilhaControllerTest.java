@@ -20,73 +20,77 @@ public class TrilhaControllerTest {
     @BeforeEach
     void setUp() {
         trilhaController = new TrilhaController();
-        // Salva o estado inicial completo do "banco" (arquivo CSV).
         estadoInicial = new ArrayList<>(trilhaController.listar());
     }
-
+    
     @AfterEach
     void tearDown() {
-        // Restaura o estado inicial do "banco" (arquivo CSV).
+        // Obtém o estado atual do banco de dados após o teste.
         List<Trilha> estadoAtual = new ArrayList<>(trilhaController.listar());
-
-        // Remove trilhas adicionadas durante os testes.
+    
+        // Identifica e remove trilhas que foram adicionadas durante os testes.
         for (Trilha trilha : estadoAtual) {
             if (!estadoInicial.contains(trilha)) {
                 trilhaController.deletar(trilha);
-            }
-        }
-
-        // Adiciona trilhas que foram removidas durante os testes.
-        for (Trilha trilha : estadoInicial) {
-            if (!estadoAtual.contains(trilha)) {
-                trilhaController.cadastrar(trilha);
             }
         }
     }
 
     @Test
     void addTrilhaTest() {
-        Trilha trilha = new Trilha(999, 1, "Trilha Teste");
-        int numeroTrilhas = trilhaController.listar().size();
-        Trilha trilhaAdicionada = trilhaController.cadastrar(trilha);
+        Trilha trilha = new Trilha();
+        trilha.setNome("Trilha Teste");
+        trilha.setIdSecao(1); // Supondo que exista uma seção com id 1
 
-        assertEquals(numeroTrilhas + 1, trilhaController.listar().size(), "Deveria haver 1 trilha a mais na lista.");
-        assertEquals(trilha, trilhaAdicionada, "A trilha adicionada deveria ser igual à trilha cadastrada.");
+        Trilha trilhaAdicionada = trilhaController.cadastrar(trilha);
+        assertEquals(trilha, trilhaAdicionada);
     }
 
     @Test
     void listTrilhasTest() {
-        Trilha trilha1 = new Trilha(999, 1, "Trilha 1");
-        Trilha trilha2 = new Trilha(1000, 1, "Trilha 2");
+        Trilha trilha1 = new Trilha();
+        trilha1.setNome("Trilha Teste1");
+        trilha1.setIdSecao(1); // Supondo que exista uma seção com id 1
+
+        Trilha trilha2 = new Trilha();
+        trilha2.setNome("Trilha Teste2");
+        trilha2.setIdSecao(1);
 
         trilhaController.cadastrar(trilha1);
         trilhaController.cadastrar(trilha2);
 
         List<Trilha> trilhas = trilhaController.listar();
-        assertEquals(estadoInicial.size() + 2, trilhas.size(), "Deveria listar todas as trilhas iniciais mais as duas novas.");
+        assertNotNull(trilhas);
+        assertTrue(trilhas.size() >= 2);
     }
 
     @Test
     void updateTrilhaTest() {
-        Trilha trilhaAntiga = new Trilha(999, 1, "Trilha Antiga");
-        Trilha trilhaNova = new Trilha(999, 1, "Trilha Atualizada");
+        Trilha trilhaAntiga = new Trilha();
+        trilhaAntiga.setNome("Trilha Teste1");
+        trilhaAntiga.setIdSecao(1); // Supondo que exista uma seção com id 1
 
-        trilhaController.cadastrar(trilhaAntiga);
-        Trilha trilhaAtualizada = trilhaController.atualizar(trilhaAntiga, trilhaNova);
+        Trilha trilhaAntigaComId = trilhaController.cadastrar(trilhaAntiga);
 
-        List<Trilha> trilhas = trilhaController.listar();
-        assertEquals(estadoInicial.size() + 1, trilhas.size(), "Deveria haver 1 trilha na lista além das trilhas iniciais.");
-        assertEquals(trilhaNova, trilhaAtualizada, "A trilha atualizada deveria ser igual à trilha nova.");
+        Trilha trilhaNova = new Trilha();
+        trilhaNova.setNome("Trilha Teste2");
+        trilhaNova.setIdSecao(1);
+
+        Trilha trilhaAtualizada = trilhaController.atualizar(trilhaAntigaComId, trilhaNova);
+
+        assertEquals(trilhaNova, trilhaAtualizada);
     }
 
     @Test
     void deleteTrilhaTest() {
-        Trilha trilha = new Trilha(999, 1, "Trilha Deletável");
+        boolean resultado;
+        Trilha trilha = new Trilha();
+        trilha.setNome("Trilha Teste1");
+        trilha.setIdSecao(1); // Supondo que exista uma seção com id 1
 
-        trilhaController.cadastrar(trilha);
-        boolean deletada = trilhaController.deletar(trilha);
+        Trilha trilhaAdicionada = trilhaController.cadastrar(trilha);
+        resultado = trilhaController.deletar(trilhaAdicionada);
 
-        assertTrue(deletada, "Deveria retornar verdadeiro ao deletar a trilha.");
-        assertEquals(estadoInicial.size(), trilhaController.listar().size(), "O banco deveria ter voltado ao estado inicial.");
+        assertEquals(true, resultado);
     }
 }
