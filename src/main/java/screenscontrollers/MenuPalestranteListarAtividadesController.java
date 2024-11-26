@@ -1,7 +1,5 @@
 package screenscontrollers;
 
-import controllers.AtividadeController;
-import controllers.EventoController;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

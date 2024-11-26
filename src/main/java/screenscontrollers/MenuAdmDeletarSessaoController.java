@@ -1,13 +1,11 @@
 package screenscontrollers;
 
 
-import java.util.List;
 
 import controllers.SecaoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import models.Secao;
 
 public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
 

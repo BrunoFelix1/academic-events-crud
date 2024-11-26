@@ -1,7 +1,6 @@
 package controllers;
 
 import models.SubEvento;
-import models.SubEvento;
 import persistence.PersistenceSubEvento;
 import java.util.List;
 

@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.List;
 import interfaces.IPersistenciaControlador;
-import models.SubEvento;
 import models.Trilha;
 import persistence.PersistenceTrilha;
 

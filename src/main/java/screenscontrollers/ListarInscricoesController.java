@@ -2,14 +2,12 @@ package screenscontrollers;
 
 import java.util.List;
 
-import context.UserContext;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Inscricao;
-import models.Usuario; // Importando o modelo Usuario
 import persistence.PersistenceInscricao;
 
 public class ListarInscricoesController extends MenuUsuarioController {

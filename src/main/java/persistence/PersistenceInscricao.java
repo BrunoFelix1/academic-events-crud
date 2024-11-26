@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import database.ConexaoSQLServer;
 import interfaces.IPersistenciaControlador;
 import models.Inscricao;
-import models.Usuario;
 
 
 

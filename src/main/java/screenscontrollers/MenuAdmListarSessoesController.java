@@ -1,21 +1,12 @@
 package screenscontrollers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import controllers.SecaoController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 import models.Secao;
-import models.SubEvento;
 
 public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
 

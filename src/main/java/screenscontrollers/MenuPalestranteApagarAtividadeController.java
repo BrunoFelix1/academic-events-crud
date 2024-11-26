@@ -1,14 +1,11 @@
 package screenscontrollers;
 
 import controllers.AtividadeController;
-import controllers.EventoController;
-import controllers.SecaoController;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.Atividade;
 
 public class MenuPalestranteApagarAtividadeController implements IControladorTelas {
     @FXML

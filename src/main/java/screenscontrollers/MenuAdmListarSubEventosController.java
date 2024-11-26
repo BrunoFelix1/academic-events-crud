@@ -2,9 +2,7 @@ package screenscontrollers;
 
 import controllers.SubeventoController;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 import models.SubEvento;
 
 import java.util.ArrayList;

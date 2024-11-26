@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import models.Atividade;
 import persistence.PersistenceAtividade;
 
-import java.util.List;
 
 public class MenuPalestranteAtualizarAtividadeController implements IControladorTelas {
 

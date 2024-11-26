@@ -4,7 +4,6 @@ import controllers.TrilhaController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import models.Trilha;
 
 public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
