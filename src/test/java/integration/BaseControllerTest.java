@@ -28,6 +28,6 @@ public abstract class BaseControllerTest<T> {
             }
         }
     }
-
+    //a diferença dessa classe para suas implementações se dá nesse método abaixo
     protected abstract IController<T> createController();
 }
