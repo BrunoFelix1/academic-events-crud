@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioControllerTest {
-
+    //esse é o único que não herda de BaseControllerTest
     private static UsuarioController usuarioController;
     private static List<Usuario> estadoInicial;
 

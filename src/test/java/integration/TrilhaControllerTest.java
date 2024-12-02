@@ -1,48 +1,30 @@
 package integration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import controllers.IController;
 import controllers.TrilhaController;
 import models.Trilha;
 
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.List;
+public class TrilhaControllerTest extends BaseControllerTest<Trilha> {
 
-public class TrilhaControllerTest {
-
-    private static IController<Trilha> trilhaController;
-    private static List<Trilha> estadoInicial;
-
-    @BeforeEach
-    void setUp() {
-        trilhaController = new TrilhaController();
-        estadoInicial = new ArrayList<>(trilhaController.listar());
-    }
-    
-    @AfterEach
-    void tearDown() {
-        // Obtém o estado atual do banco de dados após o teste.
-        List<Trilha> estadoAtual = new ArrayList<>(trilhaController.listar());
-    
-        // Identifica e remove trilhas que foram adicionadas durante os testes.
-        for (Trilha trilha : estadoAtual) {
-            if (!estadoInicial.contains(trilha)) {
-                trilhaController.deletar(trilha);
-            }
-        }
+    @Override
+    protected IController<Trilha> createController() {
+        return new TrilhaController();
     }
 
     @Test
     void addTrilhaTest() {
         Trilha trilha = new Trilha();
         trilha.setNome("Trilha Teste");
-        trilha.setIdSecao(1); // Supondo que exista uma seção com id 1
-
-        Trilha trilhaAdicionada = trilhaController.cadastrar(trilha);
+        trilha.setIdSecao(1); 
+        Trilha trilhaAdicionada = controller.cadastrar(trilha);
         assertEquals(trilha, trilhaAdicionada);
     }
 
@@ -50,16 +32,16 @@ public class TrilhaControllerTest {
     void listTrilhasTest() {
         Trilha trilha1 = new Trilha();
         trilha1.setNome("Trilha Teste1");
-        trilha1.setIdSecao(1); // Supondo que exista uma seção com id 1
+        trilha1.setIdSecao(1); 
 
         Trilha trilha2 = new Trilha();
         trilha2.setNome("Trilha Teste2");
         trilha2.setIdSecao(1);
 
-        trilhaController.cadastrar(trilha1);
-        trilhaController.cadastrar(trilha2);
+        controller.cadastrar(trilha1);
+        controller.cadastrar(trilha2);
 
-        List<Trilha> trilhas = trilhaController.listar();
+        List<Trilha> trilhas = controller.listar();
         assertNotNull(trilhas);
         assertTrue(trilhas.size() >= 2);
     }
@@ -68,29 +50,31 @@ public class TrilhaControllerTest {
     void updateTrilhaTest() {
         Trilha trilhaAntiga = new Trilha();
         trilhaAntiga.setNome("Trilha Teste1");
-        trilhaAntiga.setIdSecao(1); // Supondo que exista uma seção com id 1
+        trilhaAntiga.setIdSecao(1); 
 
-        Trilha trilhaAntigaComId = trilhaController.cadastrar(trilhaAntiga);
+        Trilha trilhaAntigaComId = controller.cadastrar(trilhaAntiga);
 
         Trilha trilhaNova = new Trilha();
         trilhaNova.setNome("Trilha Teste2");
         trilhaNova.setIdSecao(1);
 
-        Trilha trilhaAtualizada = trilhaController.atualizar(trilhaAntigaComId, trilhaNova);
+        Trilha trilhaAtualizada = controller.atualizar(trilhaAntigaComId, trilhaNova);
 
         assertEquals(trilhaNova, trilhaAtualizada);
     }
 
     @Test
     void deleteTrilhaTest() {
-        boolean resultado;
         Trilha trilha = new Trilha();
         trilha.setNome("Trilha Teste1");
-        trilha.setIdSecao(1); // Supondo que exista uma seção com id 1
+        trilha.setIdSecao(1); 
 
-        Trilha trilhaAdicionada = trilhaController.cadastrar(trilha);
-        resultado = trilhaController.deletar(trilhaAdicionada);
+        Trilha trilhaComId = controller.cadastrar(trilha);
 
-        assertEquals(true, resultado);
+        boolean resultado = controller.deletar(trilhaComId);
+        assertTrue(resultado);
+
+        List<Trilha> trilhas = controller.listar();
+        assertFalse(trilhas.contains(trilhaComId));
     }
 }

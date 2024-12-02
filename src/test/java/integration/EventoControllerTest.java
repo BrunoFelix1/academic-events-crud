@@ -1,51 +1,22 @@
 package integration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import controllers.EventoController;
-import controllers.IController;
-import models.Evento;
-
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class EventoControllerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
-    private static IController<Evento> eventoController;
-    private static List<Evento> estadoInicial;
+import controllers.IController;
+import controllers.EventoController;
+import models.Evento;
 
-    @BeforeEach
-    void setUp() {
-        eventoController = new EventoController();
-        estadoInicial = new ArrayList<>(eventoController.listar());
-    }
-    
-    @AfterEach
-    void tearDown() {
-        // Obtém o estado atual do banco de dados após o teste.
-        List<Evento> estadoAtual = new ArrayList<>(eventoController.listar());
-    
-        // Identifica e remove eventos que foram adicionados durante os testes.
-        for (Evento evento : estadoAtual) {
-            if (!estadoInicial.contains(evento)) {
-                eventoController.deletar(evento);
-            }
-        }
-    }
+public class EventoControllerTest extends BaseControllerTest<Evento> {
 
-    @Test
-    void addEventoTest() {
-        Evento evento = new Evento();
-        evento.setTitulo("Evento Teste");
-        evento.setLocal("Local A");
-        evento.setHorario("13:00");
-        evento.setDescricao("Descrição Teste");
-
-        Evento eventoAdicionado = eventoController.cadastrar(evento);
-        assertEquals(evento, eventoAdicionado);
+    @Override
+    protected IController<Evento> createController() {
+        return new EventoController();
     }
 
     @Test
@@ -62,11 +33,12 @@ public class EventoControllerTest {
         evento2.setHorario("13:00");
         evento2.setDescricao("Descrição Teste2");
 
-        eventoController.cadastrar(evento1);
-        eventoController.cadastrar(evento2);
+        controller.cadastrar(evento1);
+        controller.cadastrar(evento2);
 
-        List<Evento> eventos = eventoController.listar();
+        List<Evento> eventos = controller.listar();
         assertNotNull(eventos);
+        assertTrue(eventos.size() >= 2);
     }
 
     @Test
@@ -77,7 +49,7 @@ public class EventoControllerTest {
         eventoAntigo.setHorario("13:00");
         eventoAntigo.setDescricao("Descrição Teste1");
 
-        Evento eventoAntigoComId = eventoController.cadastrar(eventoAntigo);
+        Evento eventoAntigoComId = controller.cadastrar(eventoAntigo);
 
         Evento eventoNovo = new Evento();
         eventoNovo.setTitulo("Evento Teste2");
@@ -85,23 +57,38 @@ public class EventoControllerTest {
         eventoNovo.setHorario("13:00");
         eventoNovo.setDescricao("Descrição Teste2");
 
-        Evento eventoAtualizado = eventoController.atualizar(eventoAntigoComId, eventoNovo);
+
+        Evento eventoAtualizado = controller.atualizar(eventoAntigoComId, eventoNovo);
 
         assertEquals(eventoNovo, eventoAtualizado);
     }
 
     @Test
     void deleteEventoTest() {
-        boolean resultado;
         Evento evento = new Evento();
         evento.setTitulo("Evento Teste1");
         evento.setLocal("Local A");
         evento.setHorario("13:00");
         evento.setDescricao("Descrição Teste1");
 
-        Evento eventoAdicionado = eventoController.cadastrar(evento);
-        resultado = eventoController.deletar(eventoAdicionado);
+        Evento eventoComId = controller.cadastrar(evento);
 
-        assertEquals(true, resultado);
+        boolean resultado = controller.deletar(eventoComId);
+        assertTrue(resultado);
+
+        List<Evento> eventos = controller.listar();
+        assertFalse(eventos.contains(eventoComId));
+    }
+
+    @Test
+    void addEventoTest() {
+        Evento evento = new Evento();
+        evento.setTitulo("Evento Teste");
+        evento.setLocal("Local A");
+        evento.setHorario("13:00");
+        evento.setDescricao("Descrição Teste");
+
+        Evento eventoAdicionado = controller.cadastrar(evento);
+        assertEquals(evento, eventoAdicionado);
     }
 }

@@ -83,4 +83,5 @@ public class SubEventoControllerTest extends BaseControllerTest<SubEvento> {
         List<SubEvento> subEventos = controller.listar();
         assertFalse(subEventos.contains(subEventoComId));
     }
+
 }

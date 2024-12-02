@@ -9,73 +9,78 @@ public class Secao {
     private String horario;
     private String nome;
     private String descricao;
+    private String titulo;
+        
+        //Construtor
+        public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome, String descricao) {
+            this.id = id;
+            this.id_evento = id_evento;
+            this.id_subEvento = id_subEvento;
+            this.local = local;
+            this.horario = horario;
+            this.nome = nome;
+            this.descricao = descricao;
+        }
     
-    //Construtor
-    public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome, String descricao) {
-        this.id = id;
-        this.id_evento = id_evento;
-        this.id_subEvento = id_subEvento;
-        this.local = local;
-        this.horario = horario;
-        this.nome = nome;
-        this.descricao = descricao;
-    }
-
-    public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome) {
-        this.id = id;
-        this.id_evento = id_evento;
-        this.id_subEvento = id_subEvento;
-        this.local = local;
-        this.horario = horario;
-        this.nome = nome;
-    }
-
-    public Secao(){}
+        public Secao(int id, int id_evento, int id_subEvento, String local, String horario, String nome) {
+            this.id = id;
+            this.id_evento = id_evento;
+            this.id_subEvento = id_subEvento;
+            this.local = local;
+            this.horario = horario;
+            this.nome = nome;
+        }
     
-    //Acessores
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId_evento() {
-        return id_evento;
-    }
-    public void setId_evento(int id_evento) {
-        this.id_evento = id_evento;
-    }
-    public int getId_subEvento() {
-        return id_subEvento;
-    }
-    public void setId_subEvento(int id_subEvento) {
-        this.id_subEvento = id_subEvento;
-    }
-    public String getLocal() {
-        return local;
-    }
-    public void setLocal(String local) {
-        this.local = local;
-    }
-    public String getHorario() {
-        return horario;
-    }
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
-    public String getNome() {
-        return this.nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public String getDescricao() {
-        return this.descricao;
-    }
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-
-   
+        public Secao(){}
+        
+        //Acessores
+        public int getId() {
+            return id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        public int getId_evento() {
+            return id_evento;
+        }
+        public void setId_evento(int id_evento) {
+            this.id_evento = id_evento;
+        }
+        public int getId_subEvento() {
+            return id_subEvento;
+        }
+        public void setId_subEvento(int id_subEvento) {
+            this.id_subEvento = id_subEvento;
+        }
+        public String getLocal() {
+            return local;
+        }
+        public void setLocal(String local) {
+            this.local = local;
+        }
+        public String getHorario() {
+            return horario;
+        }
+        public void setHorario(String horario) {
+            this.horario = horario;
+        }
+        public String getNome() {
+            return this.nome;
+        }
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+        public String getDescricao() {
+            return this.descricao;
+        }
+        public void setDescricao(String descricao) {
+            this.descricao = descricao;
+        }
+    
+        public void setTitulo(String titulo) {
+            this.titulo = titulo;
+        }
+        public String getTitulo(String titulo) {
+            return this.titulo;
+        }
 }
