@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
 
     @FXML
     private Button botaoDeletar;
@@ -30,7 +32,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
         }
 
         // Implementar lógica para deletar o subevento usando o ID
-        SubeventoController subeventoController = new SubeventoController();
+        SubeventoController subeventoController = controllerFactory.createSubeventoController();
         subeventoController.deletar(idSubEvento);
 
         // Limpar o campo de texto após a operação

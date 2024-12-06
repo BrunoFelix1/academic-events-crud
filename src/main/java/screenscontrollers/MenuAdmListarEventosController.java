@@ -8,6 +8,8 @@ import javafx.scene.control.TextArea;
 import models.Evento;
 
 public class MenuAdmListarEventosController extends MenuAdmGerEventController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
     @FXML
     private TextArea textAreaEventos;
 
@@ -16,7 +18,7 @@ public class MenuAdmListarEventosController extends MenuAdmGerEventController {
         // Carregar os eventos e exibi-los no textAreaEventos
         // Exemplo:
         // textAreaEventos.setText("Evento 1\nEvento 2\nEvento 3");
-        EventoController eventoc = new EventoController();
+        EventoController eventoc = controllerFactory.createEventoController();
         ArrayList<Evento> eventos = (ArrayList<Evento>) eventoc.listar();
         StringBuilder sb = new StringBuilder();
 

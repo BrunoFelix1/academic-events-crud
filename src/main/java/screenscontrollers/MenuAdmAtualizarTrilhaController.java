@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import models.Trilha;
 
 public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -38,7 +40,7 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
         int idTrilhaInt = Integer.parseInt(idTrilha);
         // Código para atualizar a trilha no sistema
         Trilha trilha = new Trilha(idTrilhaInt,sessaoRelacionadaInt,nomeTrilha);
-        TrilhaController trilhaController = new TrilhaController();
+        TrilhaController trilhaController = controllerFactory.createTrilhaController();
         trilhaController.atualizar(trilha);
 
         // Exibir mensagem de sucesso ou limpar os campos

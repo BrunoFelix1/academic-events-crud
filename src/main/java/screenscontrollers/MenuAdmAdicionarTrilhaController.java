@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import models.Trilha;
 
 public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
 
     @FXML
     private Button botaoSalvarTrilha;
@@ -26,11 +27,11 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
     @FXML
     void salvarTrilha() {
         // Implementar lógica para salvar a nova trilha
+        TrilhaController trilhaController = controllerFactory.createTrilhaController();
         String nomeTrilha = nomeTrilhaField.getText();
         String sessaoRelacionada = sessaoRelacionadaField.getText();
         int sessaoRelacionadaInt = Integer.parseInt(sessaoRelacionada);
         // Código para salvar a trilha no sistema
-        TrilhaController trilhaController = new TrilhaController();
         trilhaController.cadastrar(new Trilha(1,sessaoRelacionadaInt, nomeTrilha));
 
         // Exibir mensagem de sucesso ou limpar os campos

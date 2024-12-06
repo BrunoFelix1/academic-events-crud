@@ -8,6 +8,8 @@ import models.SubEvento;
 import java.util.ArrayList;
 
 public class MenuAdmListarSubEventosController extends MenuAdmGerenciarSubEventoController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
 
     @FXML
     private TextArea textAreaSubEventos;
@@ -15,7 +17,7 @@ public class MenuAdmListarSubEventosController extends MenuAdmGerenciarSubEvento
     @FXML
     public void initialize() {
         // Instancia o controlador de subeventos
-        SubeventoController subeventoController = new SubeventoController();
+        SubeventoController subeventoController = controllerFactory.createSubeventoController();
 
         // Obtém a lista de subeventos
         ArrayList<SubEvento> subeventos = (ArrayList<SubEvento>) subeventoController.listar();

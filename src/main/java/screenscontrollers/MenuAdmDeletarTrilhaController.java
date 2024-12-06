@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
+
     @FXML
     private Button botaoDeletar;
 
@@ -18,7 +21,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
         String idTrilha = idTrilhaField.getText();
         int idTrilhaInt = Integer.parseInt(idTrilha);
         // Código para deletar a trilha do sistema
-        TrilhaController trilhaController= new TrilhaController();
+        TrilhaController trilhaController = controllerFactory.createTrilhaController();
         trilhaController.deletar(idTrilhaInt);
         // Exibir mensagem de sucesso ou limpar o campo
         idTrilhaField.clear();

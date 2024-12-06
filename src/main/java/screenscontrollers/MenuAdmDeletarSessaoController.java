@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
 
     @FXML
     private Button botaoDeletar;
@@ -21,7 +22,7 @@ public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
         String idSessao = idSessaoField.getText();
 
         // Código para deletar a sessão do sistema
-        SecaoController secaoController = new SecaoController();
+        SecaoController secaoController = controllerFactory.createSecaoController();
         int id = Integer.parseInt(idSessao);
         secaoController.deletar(id);
         // Exibir mensagem de sucesso ou limpar o campo

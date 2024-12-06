@@ -9,6 +9,8 @@ import javafx.scene.control.TextArea;
 import models.Secao;
 
 public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
+    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+
 
     @FXML
     private ListView<String> listViewSessoes;
@@ -18,7 +20,7 @@ public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
     @FXML
     public void initialize() {
         // Carregar as sessões e exibi-las
-        SecaoController secaoController = new SecaoController();
+        SecaoController secaoController = controllerFactory.createSecaoController();
         ArrayList<Secao> secoes = (ArrayList<Secao>) secaoController.listar();
 
         StringBuilder sb = new StringBuilder();
