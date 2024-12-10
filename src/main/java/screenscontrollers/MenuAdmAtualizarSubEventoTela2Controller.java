@@ -1,8 +1,11 @@
 package screenscontrollers;
 
+import controllers.SubeventoController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import models.SubEvento;
 
 public class MenuAdmAtualizarSubEventoTela2Controller extends MenuAdmGerenciarSubEventoController {
 
@@ -24,18 +27,57 @@ public class MenuAdmAtualizarSubEventoTela2Controller extends MenuAdmGerenciarSu
     @FXML
     private TextField eventoAssociadoField;
 
+    private SubeventoController subeventoController = new SubeventoController();
+
+    @FXML
+    void initialize() {
+        botaoSalvarAlteracoes.setOnAction(event -> salvarAlteracoes());
+    }
 
     @FXML
     void salvarAlteracoes() {
-        // Implementar lógica para salvar as alterações do subevento
-        String nome = nomeSubEventoField.getText();
-        String local = localSubEventoField.getText();
-        String descricao = descricaoSubEventoField.getText();
-        String horario = horarioSubEventoField.getText();
-        String eventoAssociado = eventoAssociadoField.getText();
+        try {
+            String nome = nomeSubEventoField.getText();
+            String local = localSubEventoField.getText();
+            String descricao = descricaoSubEventoField.getText();
+            String horario = horarioSubEventoField.getText();
+            int eventoAssociado = Integer.parseInt(eventoAssociadoField.getText());
 
-        // Código para atualizar o subevento no sistema
+            SubEvento subEventoExistente = subeventoController.buscarPorId(eventoAssociado);
 
-        // Exibir mensagem de sucesso ou limpar os campos
+            if (subEventoExistente != null) {
+                subEventoExistente.setTitulo(nome);
+                subEventoExistente.setLocal(local);
+                subEventoExistente.setDescricao(descricao);
+                subEventoExistente.setHorario(horario);
+
+                subeventoController.atualizar(subEventoExistente, subEventoExistente);
+
+                showAlert("Sucesso", "SubEvento atualizado com sucesso!", Alert.AlertType.INFORMATION);
+                limparCampos();
+            } else {
+                showAlert("Erro", "SubEvento não encontrado!", Alert.AlertType.ERROR);
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Erro", "ID do evento associado deve ser um número válido!", Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            showAlert("Erro", "Erro ao atualizar SubEvento: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void limparCampos() {
+        nomeSubEventoField.clear();
+        localSubEventoField.clear();
+        descricaoSubEventoField.clear();
+        horarioSubEventoField.clear();
+        eventoAssociadoField.clear();
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

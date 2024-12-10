@@ -1,50 +1,54 @@
 package controllers;
 
-import models.SubEvento;
-import persistence.PersistenceSubEvento;
 import java.util.List;
 
-public class SubeventoController implements IController<SubEvento> {
+import models.SubEvento;
+import persistence.PersistenceSubEvento;
+
+public class SubeventoController {
+
     private PersistenceSubEvento subEventoP = new PersistenceSubEvento();
 
-    public List<SubEvento> listar(){
-        return subEventoP.getTodos();
-    }
-
-    public SubEvento cadastrar(SubEvento subEvento){
+    public SubEvento cadastrar(SubEvento subEvento) {
         List<SubEvento> lista = subEventoP.getTodos();
-        subEvento.setId(lista.size() +1);
-            subEventoP.add(subEvento);
-            return subEvento;
+        subEvento.setId(lista.size() + 1);
+        subEventoP.add(subEvento);
+        return subEvento;
     }
 
-    public SubEvento atualizar(SubEvento subEventoAntigo, SubEvento subEventoNovo){
-        subEventoP.update(subEventoAntigo, subEventoNovo);
+    public SubEvento atualizar(SubEvento subEventoAntigo, SubEvento subEventoNovo) {
+        if (subEventoAntigo != null && subEventoNovo != null) {
+            subEventoP.update(subEventoAntigo, subEventoNovo);
+        }
         return subEventoNovo;
     }
-    
-    public boolean deletar(int idSubEvento){
+
+    public boolean deletar(int idSubEvento) {
         SubEvento subEvento = subEventoP.getPorId(idSubEvento);
-        if( subEvento !=null ){
+        if (subEvento != null) {
             subEventoP.delete(subEvento);
             return true;
-        }
-        else {
-            System.out.println("SubEvento não encontrado");
+        } else {
+            System.out.println("SubEvento não encontrado para o ID: " + idSubEvento);
             return false;
         }
     }
 
-    @Override
-    public boolean deletar(SubEvento SubEvento) {
-        if( SubEvento !=null ){
-            subEventoP.delete(SubEvento);
+    public boolean deletar(SubEvento subEvento) {
+        if (subEvento != null) {
+            subEventoP.delete(subEvento);
             return true;
-        }
-        else {
-            System.out.println("Subevento não encontrada");
+        } else {
+            System.out.println("Tentativa de deletar um SubEvento nulo");
             return false;
         }
     }
 
+    public SubEvento buscarPorId(int id) {
+        return subEventoP.getPorId(id);
+    }
+
+    public List<SubEvento> listar() {
+        return subEventoP.getTodos();
+    }
 }
