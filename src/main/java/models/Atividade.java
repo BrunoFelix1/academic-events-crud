@@ -1,47 +1,49 @@
 package models;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "atividade")
 public class Atividade {
 
-    private int id;
-    private String tipoSubmissao;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String tipoDeAtividade;
     private String autor;
     private String resumo;
-    private int idTrilha;
-    
-    
-    public Atividade(int id, String tipoSubmissao, String autor, String resumo, int idTrilha) {
+
+    @ManyToOne
+    @JoinColumn(name = "trilha_id", nullable = false)
+    private Trilha trilha;
+
+    public Atividade(Long id, String tipoDeAtividade, String autor, String resumo, Trilha trilha) {
         this.id = id;
-        this.tipoSubmissao = tipoSubmissao;
+        this.tipoDeAtividade = tipoDeAtividade;
         this.autor = autor;
         this.resumo = resumo;
-        this.idTrilha = idTrilha;
+        this.trilha = trilha;
     }
-    
+
     public Atividade(){}
-    
+
     // Getters e Setters
 
-    public int getIdTrilha() {
-        return idTrilha;
-    }
-
-    public void setIdTrilha(int idTrilha) {
-        this.idTrilha = idTrilha;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    
-    public String getTipoSubmissao() {
-        return tipoSubmissao;
+
+    public String getTipoDeAtividade() {
+        return tipoDeAtividade;
     }
-    
-    public void setTipoSubmissao(String tipoSubmissao) {
-        this.tipoSubmissao = tipoSubmissao;
+
+    public void setTipoDeAtividade(String tipoDeAtividade) {
+        this.tipoDeAtividade = tipoDeAtividade;
     }
 
     public String getAutor() {
@@ -60,4 +62,11 @@ public class Atividade {
         this.resumo = resumo;
     }
 
+    public Trilha getTrilha() {
+        return trilha;
+    }
+
+    public void setTrilha(Trilha trilha) {
+        this.trilha = trilha;
+    }
 }

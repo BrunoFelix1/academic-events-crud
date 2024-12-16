@@ -1,3 +1,0 @@
-id,evento_id,titulo,local,horario,descricao
-1,1,0,Sala de Networking,12:00,Seção sobre Assunto A
-2,0,1,Sala 103,13:00,Seção sobre assunto B

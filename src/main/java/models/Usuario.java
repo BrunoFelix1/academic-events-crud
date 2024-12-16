@@ -1,49 +1,75 @@
 package models;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
 public class Usuario {
-    private int id;
-    private String CPF;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Size(max = 11)
+    private String cpf;
+
+    @NotNull
+    @Size(max = 100)
     private String nome;
-    private int idade;
+
+    private Integer idade;
     private String instituicao;
     private String tipoDeUsuario;
+
+    @NotNull
+    @Size(max = 50)
     private String login;
+
+    @NotNull
+    @Size(max = 100)
     private String senha;
 
-    public Usuario(int id, String CPF, String nome, int idade, String instituicao, String tipoDeUsuario, String login, String senha) {
-        this.id = id;
-        this.CPF = CPF;
-        this.nome = nome;
-        this.idade = idade;
-        this.instituicao = instituicao;
-        this.tipoDeUsuario = tipoDeUsuario;
-        this.login = login;
-        this.senha = senha;
-    }
-
-    public Usuario () {}
-    public boolean Logar(String login, String senha){
-        if (this.login.equals(login) && this.senha.equals(senha)){
-            return true;
+    public Usuario(Long id, String cpf, String nome, int idade, String instituicao, String tipoDeUsuario, String login, String senha) {
+            this.id = id;
+            this.cpf = cpf;
+            this.nome = nome;
+            this.idade = idade;
+            this.instituicao = instituicao;
+            this.tipoDeUsuario = tipoDeUsuario;
+            this.login = login;
+            this.senha = senha;
         }
-        else { return false; }
 
+    public Usuario() {}
+
+    public boolean Logar(String login, String senha) {
+        if (this.login.equals(login) && this.senha.equals(senha)) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
     // Getters e Setters
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -54,11 +80,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
@@ -75,38 +101,35 @@ public class Usuario {
     }
 
     public void setTipoDeUsuario(String tipoDeUsuario) {
-        if (tipoDeUsuario.equalsIgnoreCase("COMUM")){
+        if (tipoDeUsuario.equalsIgnoreCase("COMUM")) {
             this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
-        }
-        else if (tipoDeUsuario.equalsIgnoreCase("PALESTRANTE")){
+        } else if (tipoDeUsuario.equalsIgnoreCase("PALESTRANTE")) {
             this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
-        }
-        else if (tipoDeUsuario.equalsIgnoreCase("ADMINISTRADOR")){
+        } else if (tipoDeUsuario.equalsIgnoreCase("ADMINISTRADOR")) {
             this.tipoDeUsuario = tipoDeUsuario.toUpperCase();
-        }
-        else {
+        } else {
             this.tipoDeUsuario = "ERRADO";
         }
     }
 
-    public String getLogin(){
+    public String getLogin() {
         return this.login;
     }
 
-    public String getSenha(){
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
         return this.senha;
     }
 
-    public void setLogin(String s){
-        this.login = s;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public void setSenha(String a){
-        this.senha = a;
-    }
-
-    public boolean ValidarCPF(){
-        String cpf = this.CPF;
+    public boolean ValidarCPF() {
+        String cpf = this.cpf;
         cpf = cpf.replaceAll("[^0-9]", "");
 
         // Verifica se o CPF possui 11 dígitos
@@ -137,6 +160,5 @@ public class Usuario {
 
         // Verifica se os dígitos calculados são iguais aos dígitos informados
         return (digito1 == Character.getNumericValue(cpf.charAt(9))) && (digito2 == Character.getNumericValue(cpf.charAt(10)));
-
     }
 }

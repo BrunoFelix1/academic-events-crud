@@ -1,4 +1,0 @@
-id,cpf,nome,idade,instituicao,tipoDeUsuario
-1,14040160401,nome2,22,UPE,ADMINISTRADOR,nome2,456
-2,20431541094,nome3,23,UPE,COMUM,nome3,789
-3,15524376470,Edson,19,UPE,PALESTRANTE,Edson,123

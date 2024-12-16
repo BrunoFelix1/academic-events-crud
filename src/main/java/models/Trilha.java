@@ -1,34 +1,43 @@
 package models;
 
+import javax.persistence.*;
+
+@Entity
 public class Trilha {
-    private int id;
-    private int idSecao;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "secao_id", nullable = false)
+    private Secao secao;
+
     private String nome;
-    
+
     //Construtor
-    public Trilha(int id, int idSecao, String nome) {
+    public Trilha(Long id, Secao secao, String nome) {
         this.id = id;
-        this.idSecao = idSecao;
+        this.secao = secao;
         this.nome = nome;
     }
 
     public Trilha() {}
-    
+
     //Acessores
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getIdSecao() {
-        return idSecao;
+    public Secao getSecao() {
+        return secao;
     }
 
-    public void setIdSecao(int idSecao) {
-        this.idSecao = idSecao;
+    public void setSecao(Secao secao) {
+        this.secao = secao;
     }
 
     public String getNome() {
@@ -38,8 +47,5 @@ public class Trilha {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-
-
 }
 

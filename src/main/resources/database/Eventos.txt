@@ -1,4 +1,0 @@
-id,titulo,local,horario,descricao
-1,Conferência de Tecnologia,Centro de Convenções,09:00,Uma conferência sobre as últimas tendências em tecnologia.
-2,Workshop de Inteligência Artificial,Auditório Principal,14:00,Um workshop prático sobre técnicas avançadas de IA.
-3,Super,Upe,12:06,Evento da upe
