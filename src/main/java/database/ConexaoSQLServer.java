@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoSQLServer {
-        private static String url = "jdbc:sqlserver://192.168.0.124:1433;databaseName=academic;encrypt=true;trustServerCertificate=true";
+        private static String url = "jdbc:sqlserver://192.168.0.100:1433;databaseName=academic;encrypt=true;trustServerCertificate=true";
         //private String url = "jdbc:sqlserver://localhost:1433;databaseName=academic;encrypt=false";
         private static String usuario = "sa";
         private static String senha = "1234";
