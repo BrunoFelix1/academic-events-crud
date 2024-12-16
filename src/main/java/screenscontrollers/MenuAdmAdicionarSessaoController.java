@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Secao;
-import persistence.PersistenceSecao;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import services.SecaoService;
 
 public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController {
 
@@ -26,21 +30,26 @@ public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController
     @FXML
     private TextField subEventoRelacionadoField;
 
-    private PersistenceSecao persistence = new PersistenceSecao();
+    @Autowired
+    private SecaoService secaoService;
 
     @FXML
     void salvarSessao() {
         String nomeSessao = nomeSessaoField.getText();
         String localSessao = localSessaoField.getText();
-        String horarioSessao = horarioSessaoField.getText();
-        int idEventoRelacionado = Integer.parseInt(eventoRelacionadoField.getText());
-        int idSubEventoRelacionado = Integer.parseInt(subEventoRelacionadoField.getText());
-        int idSecao = persistence.getTodos().size()+1;
+        String horarioSessaoStr = horarioSessaoField.getText();
+        String eventoRelacionadoStr = eventoRelacionadoField.getText();
+        String subEventoRelacionadoStr = subEventoRelacionadoField.getText();
 
-        Secao novaSecao = new Secao(idSecao, idEventoRelacionado, idSubEventoRelacionado, localSessao, horarioSessao, nomeSessao);
+        Long idEventoRelacionado = Long.parseLong(eventoRelacionadoStr);
+        Long idSubEventoRelacionado = Long.parseLong(subEventoRelacionadoStr);
+        LocalDateTime horarioSessao = LocalDateTime.parse(horarioSessaoStr);
 
-        persistence.add(novaSecao);
+        Secao novaSecao = new Secao();
+        novaSecao.setNome(nomeSessao);
 
+
+        secaoService.adicionarSecao(novaSecao);
 
         nomeSessaoField.clear();
         localSessaoField.clear();

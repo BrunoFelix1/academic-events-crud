@@ -52,4 +52,16 @@ public class InscricaoService {
         return inscricaoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Inscricao não encontrada"));
     }
+
+    // Cancelar Inscricao
+    public void cancelarInscricao(Long usuarioId, Long eventoId, Long subEventoId, Long secaoId, Long trilhaId) {
+        Inscricao inscricao = inscricaoRepository.findByUsuarioIdAndEventoIdAndSubEventoIdAndSecaoIdAndTrilhaId(usuarioId, eventoId, subEventoId, secaoId, trilhaId)
+            .orElseThrow(() -> new RuntimeException("Inscrição não encontrada"));
+        inscricaoRepository.delete(inscricao);
+    }
+
+    // Adicionar método para listar Inscricoes por usuarioId
+    public List<Inscricao> listarInscricoesPorUsuario(Long usuarioId) {
+        return inscricaoRepository.findByUsuarioId(usuarioId);
+    }
 }

@@ -8,19 +8,33 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Inscricao;
-import persistence.PersistenceInscricao;
+import org.springframework.beans.factory.annotation.Autowired;
+import services.InscricaoService;
+import context.UserContext;
 
 public class ListarInscricoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
+    @Autowired
+    private InscricaoService inscricaoService;
+    
+    @Autowired
+    private UserContext userContext; // Injetar UserContext
+
     @FXML
     public void initialize() {
-        // Obtendo o usuário do contexto
-       // Usuario usuario = UserContext.getInstance().getUsuario();
-        PersistenceInscricao persistenceInscricao = new PersistenceInscricao();
-        List<Inscricao> inscricoes = persistenceInscricao.getTodos(); // Método para carregar as inscrições
-        populateScrollPane(inscricoes); // Preencher o ScrollPane com as inscrições
+        try {
+            // Obter o ID do usuário atual
+            Long usuarioId = userContext.getUsuario().getId();
+            
+            // Utilizar o InscricaoService para obter as inscrições do usuário
+            List<Inscricao> inscricoes = inscricaoService.listarInscricoesPorUsuario(usuarioId);
+            populateScrollPane(inscricoes); // Preencher o ScrollPane com as inscrições
+        } catch (Exception e) {
+            // ...tratamento de erro...
+            System.out.println(e.getMessage());
+        }
     }
 
     public void populateScrollPane(List<Inscricao> inscricoes) {
@@ -30,11 +44,11 @@ public class ListarInscricoesController extends MenuUsuarioController {
 
         for (Inscricao inscricao : inscricoes) {
             // Criando os Labels para cada atributo da inscrição
-            Label usuarioIdLabel = new Label("ID Usuário: " + inscricao.getIdUsuario());
-            Label eventoIdLabel = new Label("ID Evento: " + inscricao.getIdEvento());
-            Label subEventoIdLabel = new Label("ID Subevento: " + inscricao.getIdSubEvento());
-            Label secaoIdLabel = new Label("ID Seção: " + inscricao.getIdSecao());
-            Label trilhaIdLabel = new Label("ID Trilha: " + inscricao.getIdTrilha());
+            Label usuarioIdLabel = new Label("ID Usuário: " + inscricao.getUsuario().getId());
+            Label eventoIdLabel = new Label("ID Evento: " + inscricao.getEvento().getId());
+            Label subEventoIdLabel = new Label("ID Subevento: " + inscricao.getSubEvento().getId());
+            Label secaoIdLabel = new Label("ID Seção: " + inscricao.getSecao().getId());
+            Label trilhaIdLabel = new Label("ID Trilha: " + inscricao.getTrilha().getId());
 
             // Estilizando os Labels
             usuarioIdLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");

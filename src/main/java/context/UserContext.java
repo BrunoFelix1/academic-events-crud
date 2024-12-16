@@ -1,33 +1,26 @@
 package context;
 
+import org.springframework.stereotype.Component;
 import models.Usuario;
-//Classe para compartilar o contexto do usuário logado entre os controladores das telas
+
+@Component
 public class UserContext {
     private static UserContext instance;
     private Usuario usuario;
 
-    private UserContext() {
-        
+    public UserContext() {
+        instance = this;
     }
 
     public static UserContext getInstance() {
-        if (instance == null) {
-            instance = new UserContext();
-        }
         return instance;
-    }
-
-    public static void setInstance(boolean cancelarUsuario) {
-        if (cancelarUsuario){
-            instance = null;
-        }
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

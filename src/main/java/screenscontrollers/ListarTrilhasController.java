@@ -8,17 +8,26 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Trilha;
-import persistence.PersistenceTrilha;
+import org.springframework.beans.factory.annotation.Autowired;
+import services.TrilhaService;
 
 public class ListarTrilhasController extends MenuUsuarioController {
+    @Autowired
+    private TrilhaService trilhaService;
+
     @FXML
     private ScrollPane scrollPane;
 
     @FXML
     public void initialize() {
-        PersistenceTrilha persistenceTrilha = new PersistenceTrilha();
-        List<Trilha> trilhas = persistenceTrilha.getTodos(); // Método para carregar os trilhas (você pode implementar isso)
-        populateScrollPane(trilhas); // Preencher o ScrollPane com os trilhas
+        try {
+            // Utilizar o TrilhaService para obter as trilhas
+            List<Trilha> trilhas = trilhaService.listarTodasTrilhas();
+            populateScrollPane(trilhas); // Preencher o ScrollPane com as trilhas
+        } catch (Exception e) {
+            // ...tratamento de erro...
+            System.out.println(e.getMessage());
+        }
     }
 
     public void populateScrollPane(List<Trilha> trilhas) {
@@ -30,7 +39,7 @@ public class ListarTrilhasController extends MenuUsuarioController {
             // Criando os Labels para cada atributo do trilha
             Label idLabel = new Label("ID: " + trilha.getId());
             Label nomeLabel = new Label("Nome: " + trilha.getNome());
-            Label idSecaoLabel = new Label("ID Seção: " + trilha.getIdSecao());
+            Label idSecaoLabel = new Label("ID Seção: " + trilha.getSecao().getId());
             
             // Estilizando os Labels
             idLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2c1477;");

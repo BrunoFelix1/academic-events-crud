@@ -7,20 +7,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.SubEvento;
-import persistence.PersistenceSubEvento;
+import org.springframework.beans.factory.annotation.Autowired;
+import services.SubEventoService;
 
 public class ListarSubEventosController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px";
     
+    @Autowired
+    private SubEventoService subEventoService;
+
     @FXML
     private ScrollPane scrollPane;
 
     @FXML
     public void initialize() {
-        PersistenceSubEvento persistenceSubEvento = new PersistenceSubEvento();
-        List<SubEvento> subEventos = persistenceSubEvento.getTodos(); // Método para carregar os subeventos
-        populateScrollPane(subEventos); // Preencher o ScrollPane com os subeventos
+        try {
+            // Utilizar o SubEventoService para obter os subeventos
+            List<SubEvento> subEventos = subEventoService.listarTodosSubEventos();
+            populateScrollPane(subEventos); // Preencher o ScrollPane com os subeventos
+        } catch (Exception e) {
+            // ...tratamento de erro...
+            System.out.println(e.getMessage());
+        }
     }
 
     public void populateScrollPane(List<SubEvento> subEventos) {
@@ -31,7 +40,7 @@ public class ListarSubEventosController extends MenuUsuarioController {
         for (SubEvento subEvento : subEventos) {
             // Criando os Labels para cada atributo do subevento
             Label idLabel = new Label("ID: " + subEvento.getId());
-            Label eventoIdLabel = new Label("Evento ID: " + subEvento.getIdEvento());
+            Label eventoIdLabel = new Label("Evento ID: " + subEvento.getEvento().getId());
             Label tituloLabel = new Label("Título: " + subEvento.getTitulo());
             Label localLabel = new Label("Local: " + subEvento.getLocal());
             Label horarioLabel = new Label("Horário: " + subEvento.getHorario());
