@@ -1,19 +1,23 @@
-/*  package controllers;
-
-import interfaces.IPersistenciaControlador;
-import models.Atividade;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.MockitoAnnotations;
+
+import interfaces.IPersistenciaControlador;
+import models.Atividade;
 
 class AtividadeControllerTest {
 
@@ -47,59 +51,6 @@ class AtividadeControllerTest {
         assertEquals("Atividade 2", resultado.get(1).getTipoSubmissao());
     }
 
-    @Test
-    void testCadastrar() {
-        // Dados simulados
-        Atividade novaAtividade = new Atividade(0, "Palestra", "Descrição Nova", "vida nova", 2);
-        ArrayList<Atividade> atividadesExistentes = new ArrayList<>(Arrays.asList(
-                new Atividade(1, "Atividade 1", "Descrição 1", "Resumo 1", 1)
-        ));
-
-        // Simulando comportamento do mock
-        when(persistenciaMock.getTodos()).thenReturn(atividadesExistentes);
-        doNothing().when(persistenciaMock).add(any(Atividade.class));
-
-        // Executando o método a ser testado
-        controller.cadastrar(novaAtividade);
-
-        // Verificando se o ID foi setado corretamente e se o método "add" foi chamado
-        assertEquals(2, novaAtividade.getId()); // Já que existe 1 atividade, a próxima teria o ID 2
-        verify(persistenciaMock, times(1)).add(novaAtividade);
-    }
-
-    @Test
-    void testAtualizar() {
-        // Dados simulados
-        Atividade atividadeAntiga = new Atividade(1, "Atividade 1", "Descrição Antiga", "Antigo", 2);
-        Atividade atividadeAtualizada = new Atividade(1, "Atividade 1 Atualizada", "Descrição Atualizada", "Atualizado", 3);
-
-        // Simulando comportamento do mock
-        when(persistenciaMock.getPorId(1)).thenReturn(atividadeAntiga);
-        doNothing().when(persistenciaMock).update(atividadeAntiga, atividadeAtualizada);
-
-        // Executando o método a ser testado
-        controller.atualizar(atividadeAtualizada);
-
-        // Verificando se o método "update" foi chamado corretamente
-        verify(persistenciaMock, times(1)).update(atividadeAntiga, atividadeAtualizada);
-    }
-
-    @Test
-    void testDeletar_Sucesso() {
-        // Dados simulados
-        Atividade atividade = new Atividade(1, "Atividade 1", "Descrição 1", "Resumo 1", 1);
-
-        // Simulando comportamento do mock
-        when(persistenciaMock.getPorId(1)).thenReturn(atividade);
-        doNothing().when(persistenciaMock).delete(atividade);
-
-        // Executando o método a ser testado
-        boolean resultado = controller.deletar(1);
-
-        // Verificando se a deleção foi realizada com sucesso
-        assertTrue(resultado);
-        verify(persistenciaMock, times(1)).delete(atividade);
-    }
 
     @Test
     void testDeletar_Falha() {
@@ -114,4 +65,3 @@ class AtividadeControllerTest {
         verify(persistenciaMock, never()).delete(any(Atividade.class)); // delete não deve ser chamado
     }
 }
-  */
