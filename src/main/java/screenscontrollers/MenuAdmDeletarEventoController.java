@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Evento;
 
-import controllers.EventoController;
+import facade.Facade;
 
 public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
 
@@ -18,7 +18,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
     @FXML
     private TextField nomeEventoField;
 
-    private EventoController eventoController = new EventoController();
+    private Facade facade = new Facade();
 
     @FXML
     void deletarEvento() {
@@ -33,7 +33,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
             }
 
             // Buscar o evento pelo nome
-            List<Evento> eventos = eventoController.listarTodosEventos();
+            List<Evento> eventos = facade.listarEventos();
             Evento eventoParaDeletar = null;
             for (Evento evento : eventos) {
                 if (nomeEvento.equals(evento.getTitulo())) {
@@ -50,7 +50,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
             }
 
             // Deletar o evento
-            eventoController.deletarEvento(eventoParaDeletar.getId());
+            facade.deletarEvento(eventoParaDeletar.getId());
 
             // Limpar o campo após deletar
             nomeEventoField.clear();

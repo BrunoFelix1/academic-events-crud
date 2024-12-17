@@ -5,11 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.SubEvento;
 
+import facade.Facade;
 import models.Evento;
 import java.time.LocalDateTime;
-
-import controllers.EventoController;
-import controllers.SubEventoController;
 
 public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
@@ -31,8 +29,7 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
     @FXML
     private TextField eventoAssociadoField;
 
-    private SubEventoController subEventoController = new SubEventoController();
-    private EventoController eventoController = new EventoController();
+    private Facade facade = new Facade();
 
     @FXML
     void salvarSubEvento() {
@@ -50,11 +47,11 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
             Long eventoId = Long.parseLong(eventoIdStr);
             LocalDateTime horario = LocalDateTime.parse(horarioStr);
 
-            Evento evento = eventoController.buscarEventoPorId(eventoId);
+            Evento evento = facade.buscarEvento(eventoId);
 
             SubEvento novoSubEvento = new SubEvento(evento, nome, local, horario, descricao);
 
-            subEventoController.adicionarSubEvento(novoSubEvento);
+            facade.adicionarSubEvento(novoSubEvento);
 
             nomeSubEventoField.clear();
             localSubEventoField.clear();

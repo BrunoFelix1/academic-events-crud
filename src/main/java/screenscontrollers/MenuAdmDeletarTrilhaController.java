@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import controllers.TrilhaController;
+import facade.Facade;
 
 public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
     @FXML
@@ -13,7 +13,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
     @FXML
     private TextField idTrilhaField;
 
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     void deletarTrilha() {
@@ -31,7 +31,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
             Long idTrilha = Long.parseLong(idTrilhaStr);
 
             // Deletar a trilha
-            trilhaController.deletarTrilha(idTrilha);
+            facade.deletarTrilha(idTrilha);
 
             // Limpar o campo após deletar
             idTrilhaField.clear();

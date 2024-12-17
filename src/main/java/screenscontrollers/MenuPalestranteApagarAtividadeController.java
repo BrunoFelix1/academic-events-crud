@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import controllers.AtividadeController;
+import facade.Facade;
 
 public class MenuPalestranteApagarAtividadeController implements IControladorTelas {
     @FXML
@@ -16,7 +16,7 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
     @FXML
     private TextField idTXT;
 
-    private AtividadeController atividadeController = new AtividadeController();
+    private Facade facade = new Facade();
 
     @FXML
     private void onVoltar() {
@@ -38,7 +38,7 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
             Long id = Long.parseLong(idSessao);
 
             // Deletar a atividade
-            atividadeController.deletarAtividade(id);
+            facade.deletarAtividade(id);
             exibirAlertaSucesso("Atividade deletada com sucesso.");
 
             // Limpar o campo após deletar

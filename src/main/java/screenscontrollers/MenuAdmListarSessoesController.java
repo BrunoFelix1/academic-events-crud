@@ -7,7 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import models.Secao;
 
-import controllers.SecaoController;
+import facade.Facade;
 
 public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
 
@@ -16,13 +16,13 @@ public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
     @FXML
     private TextArea textAreaSecao;
 
-    private SecaoController secaoController = new SecaoController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SecaoController para obter as sessões
-            List<Secao> secoes = secaoController.listarTodasSecoes();
+            // Utilizar a Facade para obter as sessões
+            List<Secao> secoes = facade.listarSecoes();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre as sessões e adicionar ao StringBuilder

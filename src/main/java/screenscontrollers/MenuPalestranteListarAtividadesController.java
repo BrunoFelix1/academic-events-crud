@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Atividade;
 
-import controllers.AtividadeController;
+import facade.Facade;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
 
     private String fonteRepetida = "-fx-font-size: 12px;";
 
-    private AtividadeController atividadeController = new AtividadeController();
+    private Facade facade = new Facade();
 
     @FXML
     private void onVoltar() {
@@ -33,7 +33,7 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
     @FXML
     public void initialize() {
         try {
-            List<Atividade> atividades = atividadeController.listarTodasAtividades();
+            List<Atividade> atividades = facade.listarAtividades();
             populateScrollPane(atividades);
         } catch (Exception e) {
             System.out.println(e.getMessage());

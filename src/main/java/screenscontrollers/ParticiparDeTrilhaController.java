@@ -1,8 +1,7 @@
 package screenscontrollers;
 
 import context.UserContext;
-import controllers.InscricaoController;
-import controllers.TrilhaController;
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,8 +20,7 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    private InscricaoController inscricaoController = new InscricaoController();
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     private void participarDeTrilha() {
@@ -40,7 +38,7 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
                 Long trilhaIdLong = Long.parseLong(trilhaId);
 
                 // Verificar se a trilha existe
-                Trilha trilha = trilhaController.buscarTrilhaPorId(trilhaIdLong);
+                Trilha trilha = facade.buscarTrilha(trilhaIdLong);
                 if (trilha == null) {
                     textoMensagem.setText("Trilha não encontrada.");
                     return;
@@ -52,7 +50,7 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
                 novaInscricao.setTrilha(trilha);
 
                 // Chamar o serviço para cadastrar a inscrição
-                inscricaoController.adicionarInscricao(novaInscricao);
+                facade.adicionarInscricao(novaInscricao);
                 textoMensagem.setText("Você se cadastrou com sucesso na Trilha!");
             } else {
                 textoMensagem.setText("Erro: O ID informado não é válido.");

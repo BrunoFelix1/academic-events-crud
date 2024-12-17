@@ -5,14 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
 
-import controllers.SecaoController;
-import controllers.TrilhaController;
+import facade.Facade;
 import models.Secao;
 
 public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
 
-    private TrilhaController trilhaController = new TrilhaController();
-    private SecaoController secaoController = new SecaoController();
+    private Facade facade = new Facade();
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -51,17 +49,17 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
             Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
 
             // Buscar a Secao relacionada
-            Secao secao = secaoController.buscarSecaoPorId(sessaoId);
+            Secao secao = facade.buscarSecao(sessaoId);
 
             // Buscar a Trilha existente
-            Trilha trilha = trilhaController.buscarTrilhaPorId(idTrilha);
+            Trilha trilha = facade.buscarTrilha(idTrilha);
 
             // Atualizar os atributos da Trilha
             trilha.setNome(nomeTrilha);
             trilha.setSecao(secao);
 
-            // Utilizar o TrilhaController para atualizar a trilha
-            trilhaController.atualizarTrilha(idTrilha, trilha);
+            // Utilizar a Facade para atualizar a trilha
+            facade.atualizarTrilha(idTrilha, trilha);
 
             // Limpar os campos após salvar
             idTrilhaField.clear();

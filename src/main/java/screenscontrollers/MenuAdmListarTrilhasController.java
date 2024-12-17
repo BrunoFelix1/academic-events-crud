@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import models.Trilha;
 
-import controllers.TrilhaController;
+import facade.Facade;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ public class MenuAdmListarTrilhasController extends MenuAdmGerenciarTrilhaContro
     @FXML
     private TextArea textAreaTrilhas;
 
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o TrilhaController para obter as trilhas
-            List<Trilha> trilhas = trilhaController.listarTodasTrilhas();
+            // Utilizar a Facade para obter as trilhas
+            List<Trilha> trilhas = facade.listarTrilhas();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre as trilhas e adicionar ao StringBuilder

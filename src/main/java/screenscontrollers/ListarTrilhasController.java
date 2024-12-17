@@ -2,6 +2,7 @@ package screenscontrollers;
 
 import java.util.List;
 
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -9,11 +10,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Trilha;
 
-import controllers.TrilhaController;
-
 public class ListarTrilhasController extends MenuUsuarioController {
 
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     private ScrollPane scrollPane;
@@ -21,8 +20,8 @@ public class ListarTrilhasController extends MenuUsuarioController {
     @FXML
     public void initialize() {
         try {
-            // Utilizar o TrilhaController para obter as trilhas
-            List<Trilha> trilhas = trilhaController.listarTodasTrilhas();
+            // Utilizar a Facade para obter as trilhas
+            List<Trilha> trilhas = facade.listarTrilhas();
             populateScrollPane(trilhas); // Preencher o ScrollPane com as trilhas
         } catch (Exception e) {
             // ...tratamento de erro...

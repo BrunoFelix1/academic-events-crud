@@ -6,20 +6,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import models.Evento;
 
-import controllers.EventoController;
+import facade.Facade;
 
 public class MenuAdmListarEventosController extends MenuAdmGerEventController {
 
     @FXML
     private TextArea textAreaEventos;
 
-    private EventoController eventoController = new EventoController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o EventoController para obter os eventos
-            List<Evento> eventos = eventoController.listarTodosEventos();
+            // Utilizar a Facade para obter os eventos
+            List<Evento> eventos = facade.listarEventos();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre os eventos e adicionar ao StringBuilder

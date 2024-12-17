@@ -7,8 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Atividade;
 
-import controllers.AtividadeController;
-import controllers.TrilhaController;
+import facade.Facade;
 import models.Trilha;
 
 public class MenuPalestranteSubmeterAtividadeController implements IControladorTelas {
@@ -25,8 +24,7 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
     @FXML
     private TextField resumoAtv;
 
-    private AtividadeController atividadeController = new AtividadeController();
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     private void onVoltar() {
@@ -55,7 +53,7 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
 
             // Converter string para tipo apropriado
             Long trilhaId = Long.parseLong(idTrilha.getText());
-            Trilha trilha = trilhaController.buscarTrilhaPorId(trilhaId);
+            Trilha trilha = facade.buscarTrilha(trilhaId);
 
             // Criar nova atividade
             Atividade novaAtividade = new Atividade();
@@ -64,8 +62,8 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
             novaAtividade.setAutor(autorAtv.getText());
             novaAtividade.setResumo(resumoAtv.getText());
 
-            // Utilizar o AtividadeController para submeter a nova atividade
-            atividadeController.adicionarAtividade(novaAtividade);
+            // Utilizar a Facade para submeter a nova atividade
+            facade.adicionarAtividade(novaAtividade);
 
             // Limpar os campos após submeter
             idTrilha.clear();

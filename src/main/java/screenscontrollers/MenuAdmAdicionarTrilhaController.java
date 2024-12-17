@@ -5,8 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
 
-import controllers.SecaoController;
-import controllers.TrilhaController;
+import facade.Facade;
 import models.Secao;
 
 public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController {
@@ -26,8 +25,7 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
     @FXML
     private TextField sessaoRelacionadaField;
 
-    private TrilhaController trilhaController = new TrilhaController();
-    private SecaoController secaoController = new SecaoController(); // Instanciar SecaoController para buscar Secao relacionada
+    private Facade facade = new Facade();
 
     @FXML
     void salvarTrilha() {
@@ -45,13 +43,13 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
             Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
 
             // Buscar a Secao relacionada
-            Secao secao = secaoController.buscarSecaoPorId(sessaoId);
+            Secao secao = facade.buscarSecao(sessaoId);
 
             // Criar objeto Trilha sem definir o ID manualmente
             Trilha novaTrilha = new Trilha(secao, nomeTrilha);
 
-            // Utilizar o TrilhaController para adicionar a nova trilha
-            trilhaController.adicionarTrilha(novaTrilha);
+            // Utilizar a Facade para adicionar a nova trilha
+            facade.adicionarTrilha(novaTrilha);
 
             // Limpar os campos após salvar
             nomeTrilhaField.clear();

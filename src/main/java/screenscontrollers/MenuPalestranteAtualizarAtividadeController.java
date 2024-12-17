@@ -8,8 +8,7 @@ import javafx.stage.Stage;
 import models.Atividade;
 import models.Trilha;
 
-import controllers.AtividadeController;
-import controllers.TrilhaController;
+import facade.Facade;
 
 public class MenuPalestranteAtualizarAtividadeController implements IControladorTelas {
 
@@ -34,8 +33,7 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
     @FXML
     private TextField atvAutor;
 
-    private AtividadeController atividadeController = new AtividadeController();
-    private TrilhaController trilhaController = new TrilhaController();
+    private Facade facade = new Facade();
 
     @FXML
     private void onVoltar() {
@@ -57,10 +55,10 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
             // Converter string para tipo apropriado
             Long id = Long.parseLong(idString);
             Long trilhaId = Long.parseLong(idTrilha.getText());
-            Trilha trilha = trilhaController.buscarTrilhaPorId(trilhaId);
+            Trilha trilha = facade.buscarTrilha(trilhaId);
 
             // Buscar a atividade existente
-            Atividade atividadeAntiga = atividadeController.buscarAtividadePorId(id);
+            Atividade atividadeAntiga = facade.buscarAtividade(id);
 
             // Atualizar os atributos da atividade
             atividadeAntiga.setTipoDeAtividade(tipoSubmissao.getText());
@@ -68,8 +66,8 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
             atividadeAntiga.setTrilha(trilha);
             atividadeAntiga.setAutor(atvAutor.getText());
 
-            // Utilizar o AtividadeController para atualizar a atividade
-            atividadeController.atualizarAtividade(id, atividadeAntiga);
+            // Utilizar a Facade para atualizar a atividade
+            facade.atualizarAtividade(id, atividadeAntiga);
 
             // Limpar os campos após atualizar
             idAtividade.clear();

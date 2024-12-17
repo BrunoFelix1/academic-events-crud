@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import controllers.EventoController;
-import controllers.SecaoController;
-import controllers.SubEventoController;
+import facade.Facade;
 import models.Evento;
 import models.Secao;
 import models.SubEvento;
@@ -36,9 +34,7 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
     @FXML
     private TextField subEventoRelacionadoField;
 
-    private SecaoController secaoController = new SecaoController();
-    private EventoController eventoController = new EventoController(); // Instanciar EventoController para buscar Evento relacionado
-    private SubEventoController subEventoController = new SubEventoController(); // Instanciar SubEventoController para buscar SubEvento relacionado
+    private Facade facade = new Facade();
 
     @FXML
     void salvarAlteracoes() {
@@ -66,11 +62,11 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
             Long subEventoId = Long.parseLong(subEventoRelacionadoStr);
 
             // Buscar o Evento e SubEvento relacionados
-            Evento evento = eventoController.buscarEventoPorId(eventoId);
-            SubEvento subEvento = subEventoController.buscarSubEventoPorId(subEventoId);
+            Evento evento = facade.buscarEvento(eventoId);
+            SubEvento subEvento = facade.buscarSubEvento(subEventoId);
 
             // Buscar a Secao existente
-            Secao secao = secaoController.buscarSecaoPorId(idSessao);
+            Secao secao = facade.buscarSecao(idSessao);
 
             // Atualizar os atributos da Secao
             secao.setNome(nomeSessao);
@@ -79,8 +75,8 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
             secao.setEvento(evento);
             secao.setSubEvento(subEvento);
 
-            // Utilizar o SecaoController para atualizar a sessão
-            secaoController.atualizarSecao(secao.getId(), secao);
+            // Utilizar a Facade para atualizar a sessão
+            facade.atualizarSecao(secao.getId(), secao);
 
             // Limpar os campos após salvar
             idSessaoField.clear();

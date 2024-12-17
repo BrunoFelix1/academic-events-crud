@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
 import context.UserContext;
-import controllers.UsuarioController;
+import facade.Facade;
 
 public class TelaLoginController implements IControladorTelas {
     public Usuario usuarioAutenticado;
@@ -25,7 +25,7 @@ public class TelaLoginController implements IControladorTelas {
     @FXML
     private PasswordField txtSenha;
 
-    private UsuarioController usuarioController = new UsuarioController();
+    private Facade facade = new Facade();
 
     @FXML
     private void onVoltar() {
@@ -59,7 +59,7 @@ public class TelaLoginController implements IControladorTelas {
         String login = txtUsuario.getText();
         String senha = txtSenha.getText();
         try {
-            usuarioAutenticado = usuarioController.autenticarUsuario(login, senha);
+            usuarioAutenticado = facade.autenticarUsuario(login, senha);
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());

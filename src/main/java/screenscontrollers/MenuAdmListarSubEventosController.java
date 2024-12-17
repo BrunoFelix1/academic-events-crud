@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import models.SubEvento;
 
-import controllers.SubEventoController;
+import facade.Facade;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ public class MenuAdmListarSubEventosController extends MenuAdmGerenciarSubEvento
     @FXML
     private TextArea textAreaSubEventos;
 
-    private SubEventoController subEventoController = new SubEventoController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SubEventoController para obter os subeventos
-            List<SubEvento> subEventos = subEventoController.listarTodosSubEventos();
+            // Utilizar a Facade para obter os subeventos
+            List<SubEvento> subEventos = facade.listarSubEventos();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre os subeventos e adicionar ao StringBuilder

@@ -1,8 +1,7 @@
 package screenscontrollers;
 
 import context.UserContext;
-import controllers.EventoController;
-import controllers.InscricaoController;
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,8 +20,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    private InscricaoController inscricaoController = new InscricaoController();
-    private EventoController eventoController = new EventoController();
+    private Facade facade = new Facade();
 
     @FXML
     private void participarDeEvento() {
@@ -40,7 +38,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 Long eventoIdLong = Long.parseLong(eventoId);
 
                 // Verificar se o evento existe
-                Evento evento = eventoController.buscarEventoPorId(eventoIdLong);
+                Evento evento = facade.buscarEvento(eventoIdLong);
                 if (evento == null) {
                     textoMensagem.setText("Evento não encontrado.");
                     return;
@@ -52,7 +50,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 novaInscricao.setEvento(evento);
 
                 // Chamar o serviço para cadastrar a inscrição
-                inscricaoController.adicionarInscricao(novaInscricao);
+                facade.adicionarInscricao(novaInscricao);
                 textoMensagem.setText("Você se cadastrou com sucesso no evento!");
             } else {
                 textoMensagem.setText("Erro: O ID informado não é válido.");

@@ -2,7 +2,6 @@ package screenscontrollers;
 import java.io.IOException;
 
 
-import context.UserContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

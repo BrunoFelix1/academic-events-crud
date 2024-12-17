@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class MenuAdmAtualizarSubEventoTela1Controller extends MenuAdmGerenciarSubEventoController {
+
     @FXML
     private Button botaoProximo;
 
@@ -18,5 +19,4 @@ public class MenuAdmAtualizarSubEventoTela1Controller extends MenuAdmGerenciarSu
         // Passar o nome do subevento para a próxima tela (opcional)
         irParaTelaAtualizarSubEventoTela2(stage);
     }
-}
- */
+} */

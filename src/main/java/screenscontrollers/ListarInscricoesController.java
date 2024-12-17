@@ -2,6 +2,7 @@ package screenscontrollers;
 
 import java.util.List;
 
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,13 +11,12 @@ import javafx.scene.layout.VBox;
 import models.Inscricao;
 
 import context.UserContext;
-import controllers.InscricaoController;
 
 public class ListarInscricoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    private InscricaoController inscricaoController = new InscricaoController();
+    private Facade facade = new Facade();
     
     private UserContext userContext = UserContext.getInstance(); // Instanciar UserContext
 
@@ -26,8 +26,8 @@ public class ListarInscricoesController extends MenuUsuarioController {
             // Obter o ID do usuário atual
             Long usuarioId = userContext.getUsuario().getId();
             
-            // Utilizar o InscricaoController para obter as inscrições do usuário
-            List<Inscricao> inscricoes = inscricaoController.listarInscricoesPorUsuario(usuarioId);
+            // Utilizar a Facade para obter as inscrições do usuário
+            List<Inscricao> inscricoes = facade.listarInscricoesPorUsuario(usuarioId);
             populateScrollPane(inscricoes); // Preencher o ScrollPane com as inscrições
         } catch (Exception e) {
             // ...tratamento de erro...

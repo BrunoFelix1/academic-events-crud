@@ -1,13 +1,12 @@
 package screenscontrollers;
 
 import java.util.List;
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-
-import controllers.SecaoController;
 import models.Secao;
 
 public class ListarSecoesController extends MenuUsuarioController {
@@ -17,13 +16,13 @@ public class ListarSecoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    private SecaoController secaoController = new SecaoController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SecaoController para obter as seções
-            List<Secao> secoes = secaoController.listarTodasSecoes();
+            // Utilizar a Facade para obter as seções
+            List<Secao> secoes = facade.listarSecoes();
             populateScrollPane(secoes); // Preencher o ScrollPane com as seções
         } catch (Exception e) {
             // ...tratamento de erro...

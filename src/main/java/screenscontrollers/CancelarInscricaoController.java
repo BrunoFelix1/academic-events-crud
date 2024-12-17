@@ -1,9 +1,7 @@
 package screenscontrollers;
 
 import context.UserContext;
-import controllers.InscricaoController;
-import controllers.TrilhaController;
-import controllers.UsuarioController;
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,9 +29,7 @@ public class CancelarInscricaoController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    private UsuarioController usuarioController = new UsuarioController();
-    private TrilhaController trilhaController = new TrilhaController();
-    private InscricaoController inscricaoController = new InscricaoController();
+    private Facade facade = new Facade();
 
     @FXML
     private void cancelarInscricao() {
@@ -56,12 +52,12 @@ public class CancelarInscricaoController extends MenuUsuarioController {
             && isInteger(EventoId)
             && isInteger(SubEventoId)
             && isInteger(SecaoId)){
-                Usuario usuario = usuarioController.buscarUsuarioPorId(UserContext.getInstance().getUsuario().getId());
+                Usuario usuario = facade.buscarUsuario(UserContext.getInstance().getUsuario().getId());
                 Long trilhaIdLong = Long.parseLong(TrilhaId);
-                trilhaController.buscarTrilhaPorId(trilhaIdLong);
+                facade.buscarTrilha(trilhaIdLong);
                 
                 // Chamar o serviço para cancelar a inscrição
-                inscricaoController.cancelarInscricao(
+                facade.cancelarInscricao(
                     usuario.getId(), 
                     Long.parseLong(EventoId), 
                     Long.parseLong(SubEventoId), 

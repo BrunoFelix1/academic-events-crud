@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import controllers.SubEventoController;
+import facade.Facade;
 
 public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
@@ -14,7 +14,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
     @FXML
     private TextField idSubEventoField;
 
-    private SubEventoController subEventoController = new SubEventoController();
+    private Facade facade = new Facade();
 
     @FXML
     void deletarSubEvento() {
@@ -32,7 +32,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
             Long idSubEvento = Long.parseLong(idSubEventoStr);
 
             // Deletar o subevento
-            subEventoController.deletarSubEvento(idSubEvento);
+            facade.deletarSubEvento(idSubEvento);
 
             // Limpar o campo após deletar
             idSubEventoField.clear();

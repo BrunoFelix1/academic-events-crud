@@ -1,6 +1,7 @@
 package screenscontrollers;
 
 import java.util.List;
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -8,13 +9,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.SubEvento;
 
-import controllers.SubEventoController;
-
 public class ListarSubEventosController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px";
     
-    private SubEventoController subEventoController = new SubEventoController();
+    private Facade facade = new Facade();
 
     @FXML
     private ScrollPane scrollPane;
@@ -22,8 +21,8 @@ public class ListarSubEventosController extends MenuUsuarioController {
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SubEventoController para obter os subeventos
-            List<SubEvento> subEventos = subEventoController.listarTodosSubEventos();
+            // Utilizar a Facade para obter os subeventos
+            List<SubEvento> subEventos = facade.listarSubEventos();
             populateScrollPane(subEventos); // Preencher o ScrollPane com os subeventos
         } catch (Exception e) {
             // ...tratamento de erro...

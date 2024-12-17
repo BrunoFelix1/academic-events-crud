@@ -7,13 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
 
-import controllers.UsuarioController;
+import facade.Facade;
 
 import java.util.List;
 
 public class TelaCadastrarController implements IControladorTelas {
 
-    private UsuarioController usuarioController = new UsuarioController();
+    private Facade facade = new Facade();
 
     @FXML
     private TextField txtUsuario;
@@ -69,7 +69,7 @@ public class TelaCadastrarController implements IControladorTelas {
                 return;
             }
 
-            usuarioController.adicionarUsuario(usuarioCadastrado);
+            facade.adicionarUsuario(usuarioCadastrado);
             Stage stage = (Stage) btnCadastrar.getScene().getWindow();
             verificarTela(usuarioCadastrado, stage);
         } catch (Exception e) {
@@ -98,12 +98,12 @@ public class TelaCadastrarController implements IControladorTelas {
     }
 
     private boolean checarUsuario(String usuario) {
-        List<Usuario> lista = usuarioController.listarTodosUsuarios();
+        List<Usuario> lista = facade.listarUsuarios();
         return lista.stream().anyMatch(user -> user.getLogin().equals(usuario));
     }
 
     private boolean checarCPF(String cpf) {
-        List<Usuario> lista = usuarioController.listarTodosUsuarios();
+        List<Usuario> lista = facade.listarUsuarios();
         return lista.stream().anyMatch(user -> user.getCpf().equals(cpf));
     }
 

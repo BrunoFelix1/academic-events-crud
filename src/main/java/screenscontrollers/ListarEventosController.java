@@ -2,14 +2,13 @@ package screenscontrollers;
 
 import java.util.List;
 
+import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Evento;
-
-import controllers.EventoController;
 
 public class ListarEventosController extends MenuUsuarioController {
     
@@ -18,13 +17,13 @@ public class ListarEventosController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    private EventoController eventoController = new EventoController();
+    private Facade facade = new Facade();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o EventoController para obter os eventos
-            List<Evento> eventos = eventoController.listarTodosEventos();
+            // Utilizar a Facade para obter os eventos
+            List<Evento> eventos = facade.listarEventos();
             populateScrollPane(eventos); // Preencher o ScrollPane com os eventos
         } catch (Exception e) {
             // ...tratamento de erro...

@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import controllers.SecaoController;
+import facade.Facade;
 
 public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
 
@@ -14,7 +14,7 @@ public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
     @FXML
     private TextField idSessaoField;
 
-    private SecaoController secaoController = new SecaoController();
+    private Facade facade = new Facade();
 
     @FXML
     void deletarSessao() {
@@ -32,7 +32,7 @@ public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
             Long idSessao = Long.parseLong(idSessaoStr);
 
             // Deletar a sessão
-            secaoController.deletarSecao(idSessao);
+            facade.deletarSecao(idSessao);
 
             // Limpar o campo após deletar
             idSessaoField.clear();
