@@ -1,18 +1,18 @@
 package context;
 
-import org.springframework.stereotype.Component;
 import models.Usuario;
 
-@Component
 public class UserContext {
     private static UserContext instance;
     private Usuario usuario;
 
-    public UserContext() {
-        instance = this;
-    }
+    // Construtor que cria a instância se ainda não existir
+    private UserContext() {}
 
     public static UserContext getInstance() {
+        if (instance == null) {
+            instance = new UserContext();  // Cria a instância se não existir
+        }
         return instance;
     }
 

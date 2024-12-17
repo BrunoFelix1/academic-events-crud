@@ -1,0 +1,25 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="your-persistence-unit">
+        <class>models.Usuario</class>
+        <class>models.Inscricao</class>
+        <class>models.Evento</class>
+        <class>models.SubEvento</class>
+        <class>models.Secao</class>
+        <class>models.Trilha</class>
+        <class>models.Atividade</class>
+        <!-- Adicione outras classes de entidade aqui -->
+        <properties>
+            <!-- Configurações do banco de dados -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/p3_db"/>
+            <property name="jakarta.persistence.jdbc.user" value="p3"/>
+            <property name="jakarta.persistence.jdbc.password" value="123"/>
+
+            <!-- Configuração do Hibernate -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
