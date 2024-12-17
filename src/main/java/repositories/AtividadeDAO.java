@@ -11,12 +11,19 @@ import models.Atividade;
 public class AtividadeDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
 
-    public void insertAtividade(Atividade atividade) {
+    public boolean insertAtividade(Atividade atividade) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(atividade);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(atividade);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     public Atividade selectAtividade(long id) {

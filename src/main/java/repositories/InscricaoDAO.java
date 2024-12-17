@@ -12,12 +12,19 @@ import models.InscricaoId;
 public class InscricaoDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
 
-    public void insertInscricao(Inscricao inscricao) {
+    public boolean insertInscricao(Inscricao inscricao) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(inscricao);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(inscricao);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     public Inscricao selectInscricao(InscricaoId id) {

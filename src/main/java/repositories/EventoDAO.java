@@ -11,12 +11,19 @@ import models.Evento;
 public class EventoDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
 
-    public void insertEvento(Evento evento) {
+    public boolean insertEvento(Evento evento) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(evento);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(evento);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     public Evento selectEvento(long id) {

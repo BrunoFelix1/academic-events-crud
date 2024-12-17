@@ -11,12 +11,19 @@ import models.Trilha;
 public class TrilhaDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
 
-    public void insertTrilha(Trilha trilha) {
+    public boolean insertTrilha(Trilha trilha) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(trilha);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(trilha);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     public Trilha selectTrilha(long id) {

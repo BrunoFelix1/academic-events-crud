@@ -11,12 +11,19 @@ import models.Secao;
 public class SecaoDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
 
-    public void insertSecao(Secao secao) {
+    public boolean insertSecao(Secao secao) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(secao);
-        em.getTransaction().commit();
-        em.close();
+        try {
+            em.getTransaction().begin();
+            em.persist(secao);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     public Secao selectSecao(long id) {
