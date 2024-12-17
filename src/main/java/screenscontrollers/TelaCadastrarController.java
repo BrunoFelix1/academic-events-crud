@@ -44,8 +44,9 @@ public class TelaCadastrarController implements IControladorTelas {
     }
 
     @FXML
-    private void onCadastrar() {
+    public void onCadastrar() {
         try {
+            System.out.println(usuarioService);
             Usuario usuarioCadastrado = new Usuario();
             usuarioCadastrado.setLogin(txtUsuario.getText());
             usuarioCadastrado.setCpf(txtCPF.getText());

@@ -1,12 +1,71 @@
 package repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import models.Atividade;
 
-@Repository
-public interface AtividadeDAO extends JpaRepository<Atividade, Long> {
+public class AtividadeDAO {
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
+
+    public void insertAtividade(Atividade atividade) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(atividade);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public Atividade selectAtividade(long id) {
+        EntityManager em = emf.createEntityManager();
+        Atividade atividade = em.find(Atividade.class, id);
+        em.close();
+        return atividade;
+    }
+
+    public List<Atividade> selectAllAtividades() {
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Atividade> query = em.createQuery("SELECT a FROM Atividade a", Atividade.class);
+        List<Atividade> atividades = query.getResultList();
+        em.close();
+        return atividades;
+    }
+
+    public boolean deleteAtividade(long id) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Atividade atividade = em.find(Atividade.class, id);
+        if (atividade != null) {
+            em.remove(atividade);
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        }
+        em.getTransaction().rollback();
+        em.close();
+        return false;
+    }
+
+    public boolean updateAtividade(Atividade atividade) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Atividade existingAtividade = em.find(Atividade.class, atividade.getId());
+        if (existingAtividade != null) {
+            existingAtividade.setTipoDeAtividade(atividade.getTipoDeAtividade());
+            existingAtividade.setAutor(atividade.getAutor());
+            existingAtividade.setResumo(atividade.getResumo());
+            existingAtividade.setTrilha(atividade.getTrilha());
+            em.getTransaction().commit();
+            em.close();
+            return true;
+        }
+        em.getTransaction().rollback();
+        em.close();
+        return false;
+    }
 }
 
 

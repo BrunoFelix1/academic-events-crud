@@ -27,7 +27,7 @@ public class Inscricao {
     @JoinColumn(name = "trilha_id", nullable = true)
     private Trilha trilha;
 
-    //Construtor
+    // Construtor
     public Inscricao(Usuario usuario, Evento evento, SubEvento subEvento, Secao secao, Trilha trilha) {
         this.usuario = usuario;
         this.evento = evento;
@@ -38,7 +38,11 @@ public class Inscricao {
 
     public Inscricao() {}
 
-    //Acessores
+    // Acessores
+    public InscricaoId getId() {
+        return id;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
