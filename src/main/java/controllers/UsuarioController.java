@@ -11,8 +11,8 @@ public class UsuarioController {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // Adicionar Usuario
-    public void adicionarUsuario(Usuario usuario) {
-        usuarioDAO.insertUser(usuario);
+    public boolean adicionarUsuario(Usuario usuario) {
+        return usuarioDAO.insertUser(usuario);
     }
 
     // Atualizar Usuario

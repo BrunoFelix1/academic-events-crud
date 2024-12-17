@@ -10,8 +10,8 @@ public class SecaoController {
     private SecaoDAO secaoDAO = new SecaoDAO();
 
     // Adicionar Secao
-    public void adicionarSecao(Secao secao) {
-        secaoDAO.insertSecao(secao);
+    public boolean adicionarSecao(Secao secao) {
+        return secaoDAO.insertSecao(secao);
     }
 
     // Atualizar Secao

@@ -10,8 +10,8 @@ public class TrilhaController {
     private TrilhaDAO trilhaDAO = new TrilhaDAO();
 
     // Adicionar Trilha
-    public void adicionarTrilha(Trilha trilha) {
-        trilhaDAO.insertTrilha(trilha);
+    public boolean adicionarTrilha(Trilha trilha) {
+        return trilhaDAO.insertTrilha(trilha);
     }
 
     // Atualizar Trilha

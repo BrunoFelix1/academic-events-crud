@@ -11,8 +11,8 @@ public class InscricaoController {
     private InscricaoDAO inscricaoDAO = new InscricaoDAO();
 
     // Adicionar Inscricao
-    public void adicionarInscricao(Inscricao inscricao) {
-        inscricaoDAO.insertInscricao(inscricao);
+    public boolean adicionarInscricao(Inscricao inscricao) {
+        return inscricaoDAO.insertInscricao(inscricao);
     }
 
     // Atualizar Inscricao

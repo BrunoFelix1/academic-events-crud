@@ -10,8 +10,8 @@ public class EventoController {
     private EventoDAO eventoDAO = new EventoDAO();
 
     // Adicionar Evento
-    public void adicionarEvento(Evento evento) {
-        eventoDAO.insertEvento(evento);
+    public boolean adicionarEvento(Evento evento) {
+        return eventoDAO.insertEvento(evento);
     }
 
     // Atualizar Evento

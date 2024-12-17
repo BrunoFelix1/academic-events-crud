@@ -10,8 +10,8 @@ public class SubEventoController {
     private SubEventoDAO subEventoDAO = new SubEventoDAO();
 
     // Adicionar SubEvento
-    public void adicionarSubEvento(SubEvento subEvento) {
-        subEventoDAO.insertSubEvento(subEvento);
+    public boolean adicionarSubEvento(SubEvento subEvento) {
+        return subEventoDAO.insertSubEvento(subEvento);
     }
 
     // Atualizar SubEvento

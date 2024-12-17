@@ -10,8 +10,8 @@ public class AtividadeController {
     private AtividadeDAO atividadeDAO = new AtividadeDAO();
 
     // Adicionar Atividade
-    public void adicionarAtividade(Atividade atividade) {
-        atividadeDAO.insertAtividade(atividade);
+    public boolean adicionarAtividade(Atividade atividade) {
+        return atividadeDAO.insertAtividade(atividade);
     }
 
     // Atualizar Atividade
