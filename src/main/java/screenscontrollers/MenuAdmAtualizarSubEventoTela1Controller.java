@@ -1,4 +1,4 @@
-package screenscontrollers;
+/* package screenscontrollers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,3 +19,4 @@ public class MenuAdmAtualizarSubEventoTela1Controller extends MenuAdmGerenciarSu
         irParaTelaAtualizarSubEventoTela2(stage);
     }
 }
+ */

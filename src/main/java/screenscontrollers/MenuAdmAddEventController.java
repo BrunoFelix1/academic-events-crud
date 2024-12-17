@@ -4,8 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Evento;
-import persistence.PersistenceEvento;
+import org.springframework.beans.factory.annotation.Autowired;
+import services.EventoService;
+import java.time.LocalDateTime;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class MenuAdmAddEventController extends MenuAdmGerEventController {
     @FXML
     private Button botaoSalvarEvento;
@@ -22,21 +26,20 @@ public class MenuAdmAddEventController extends MenuAdmGerEventController {
     @FXML
     private TextField descricaoEventoField;
 
-    private PersistenceEvento persistence = new PersistenceEvento();
+    @Autowired
+    private EventoService eventoService;
 
     @FXML
     void salvarEvento() {
         String nomeEvento = nomeEventoField.getText();
         String localEvento = localEventoField.getText();
-        String horarioEvento = horarioEventoField.getText();
+        String horarioEventoStr = horarioEventoField.getText();
         String descricaoEvento = descricaoEventoField.getText();
-        int idEvento = persistence.getTodos().size()+1;
 
+        LocalDateTime horarioEvento = LocalDateTime.parse(horarioEventoStr);
 
-
-        Evento novoEvento = new Evento(idEvento, nomeEvento, localEvento, horarioEvento, descricaoEvento);
-        persistence.add(novoEvento);
-
+        Evento novoEvento = new Evento(nomeEvento, localEvento, horarioEvento, descricaoEvento);
+        eventoService.adicionarEvento(novoEvento);
 
         nomeEventoField.clear();
         localEventoField.clear();

@@ -111,6 +111,11 @@
     <version>2.2</version>
 
     </dependency>
+    <dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+        <version>3.0.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -153,7 +158,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>app.Main</mainClass> 
+                        <mainClass>Main</mainClass> 
                     </manifest>
                 </archive>
             </configuration>
@@ -210,7 +215,7 @@
                 </execution>
             </executions>
             <configuration>
-                <mainClass>app.Main</mainClass> <!-- Altere para o caminho da sua classe principal -->
+                <mainClass>Main</mainClass> <!-- Altere para o caminho da sua classe principal -->
             </configuration>
         </plugin>
         <plugin>

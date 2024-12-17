@@ -1,6 +1,7 @@
 package models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 public class Trilha {
@@ -22,6 +23,12 @@ public class Trilha {
     }
 
     public Trilha() {}
+
+    // Novo construtor sem o campo 'id'
+    public Trilha(Secao secao, String nome) {
+        this.secao = secao;
+        this.nome = nome;
+    }
 
     //Acessores
     public Long getId() {

@@ -24,11 +24,11 @@ public class SecaoService {
         Secao secao = secaoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Secao não encontrada"));
 
-        secao.setTitulo(secaoAtualizada.getTitulo());
         secao.setNome(secaoAtualizada.getNome());
         secao.setLocal(secaoAtualizada.getLocal());
         secao.setHorario(secaoAtualizada.getHorario());
-        secao.setDescricao(secaoAtualizada.getDescricao());
+        secao.setEvento(secaoAtualizada.getEvento());
+        secao.setSubEvento(secaoAtualizada.getSubEvento());
 
         return secaoRepository.save(secao);
     }

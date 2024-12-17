@@ -1,13 +1,18 @@
 package screenscontrollers;
 
-import controllers.TrilhaController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.TrilhaService;
+import services.SecaoService;
+import models.Secao;
+
+@Controller
 public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController {
-    private ControllersFactory controllerFactory = new DefaultControllersFactory();
 
     @FXML
     private Button botaoSalvarTrilha;
@@ -24,20 +29,44 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
     @FXML
     private TextField sessaoRelacionadaField;
 
+    @Autowired
+    private TrilhaService trilhaService;
+
+    @Autowired
+    private SecaoService secaoService; // Injetar SecaoService para buscar Secao relacionada
+
     @FXML
     void salvarTrilha() {
-        // Implementar lógica para salvar a nova trilha
-        TrilhaController trilhaController = controllerFactory.createTrilhaController();
-        String nomeTrilha = nomeTrilhaField.getText();
-        String sessaoRelacionada = sessaoRelacionadaField.getText();
-        int sessaoRelacionadaInt = Integer.parseInt(sessaoRelacionada);
-        // Código para salvar a trilha no sistema
-        trilhaController.cadastrar(new Trilha(1,sessaoRelacionadaInt, nomeTrilha));
+        try {
+            String nomeTrilha = nomeTrilhaField.getText();
+            String sessaoRelacionadaStr = sessaoRelacionadaField.getText();
 
-        // Exibir mensagem de sucesso ou limpar os campos
-        nomeTrilhaField.clear();
-        localTrilhaField.clear();
-        horarioTrilhaField.clear();
-        sessaoRelacionadaField.clear();
+            // Validar campos
+            if (nomeTrilha.isEmpty() || sessaoRelacionadaStr.isEmpty()) {
+                // ...mensagem de erro...
+                return;
+            }
+
+            // Converter strings para tipos apropriados
+            Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
+
+            // Buscar a Secao relacionada
+            Secao secao = secaoService.buscarSecaoPorId(sessaoId);
+
+            // Criar objeto Trilha sem definir o ID manualmente
+            Trilha novaTrilha = new Trilha(secao, nomeTrilha);
+
+            // Utilizar o TrilhaService para adicionar a nova trilha
+            trilhaService.adicionarTrilha(novaTrilha);
+
+            // Limpar os campos após salvar
+            nomeTrilhaField.clear();
+            sessaoRelacionadaField.clear();
+
+            // ...mensagem de sucesso...
+        } catch (Exception e) {
+            // ...tratamento de erro...
+            System.out.println(e.getMessage());
+        }
     }
 }

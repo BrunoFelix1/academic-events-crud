@@ -3,7 +3,19 @@ package screenscontrollers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.EventoService;
+import services.SecaoService;
+import services.SubEventoService;
+import models.Evento;
+import models.Secao;
+import models.SubEvento;
+
+import java.time.LocalDateTime;
+
+@Controller
 public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController {
 
     @FXML
@@ -27,18 +39,73 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
     @FXML
     private TextField subEventoRelacionadoField;
 
+    @Autowired
+    private SecaoService secaoService;
+
+    @Autowired
+    private EventoService eventoService; // Injetar EventoService para buscar Evento relacionado
+
+    @Autowired
+    private SubEventoService subEventoService; // Injetar SubEventoService para buscar SubEvento relacionado
+
     @FXML
     void salvarAlteracoes() {
-        // Implementar lógica para salvar as alterações da sessão
-        String idSessao = idSessaoField.getText();
-        String nomeSessao = nomeSessaoField.getText();
-        String localSessao = localSessaoField.getText();
-        String horarioSessao = horarioSessaoField.getText();
-        String eventoRelacionado = eventoRelacionadoField.getText();
-        String subEventoRelacionado = subEventoRelacionadoField.getText();
+        try {
+            String idSessaoStr = idSessaoField.getText();
+            String nomeSessao = nomeSessaoField.getText();
+            String localSessao = localSessaoField.getText();
+            String horarioSessaoStr = horarioSessaoField.getText();
+            String eventoRelacionadoStr = eventoRelacionadoField.getText();
+            String subEventoRelacionadoStr = subEventoRelacionadoField.getText();
 
-        // Código para atualizar a sessão no sistema
+            // Validar campos
+            if (idSessaoStr.isEmpty() || nomeSessao.isEmpty() || localSessao.isEmpty()
+                || horarioSessaoStr.isEmpty() || eventoRelacionadoStr.isEmpty()
+                || subEventoRelacionadoStr.isEmpty()) {
+                // ...mensagem de erro...
+                System.out.println("Por favor, preencha todos os campos.");
+                return;
+            }
 
-        // Exibir mensagem de sucesso ou limpar os campos
+            // Converter strings para tipos apropriados
+            Long idSessao = Long.parseLong(idSessaoStr);
+            LocalDateTime horarioSessao = LocalDateTime.parse(horarioSessaoStr);
+            Long eventoId = Long.parseLong(eventoRelacionadoStr);
+            Long subEventoId = Long.parseLong(subEventoRelacionadoStr);
+
+            // Buscar o Evento e SubEvento relacionados
+            Evento evento = eventoService.buscarEventoPorId(eventoId);
+            SubEvento subEvento = subEventoService.buscarSubEventoPorId(subEventoId);
+
+            // Buscar a Secao existente
+            Secao secao = secaoService.buscarSecaoPorId(idSessao);
+
+            // Atualizar os atributos da Secao
+            secao.setNome(nomeSessao);
+            secao.setLocal(localSessao);
+            secao.setHorario(horarioSessao);
+            secao.setEvento(evento);
+            secao.setSubEvento(subEvento);
+
+            // Utilizar o SecaoService para atualizar a sessão
+            secaoService.atualizarSecao(secao.getId(), secao);
+
+            // Limpar os campos após salvar
+            idSessaoField.clear();
+            nomeSessaoField.clear();
+            localSessaoField.clear();
+            horarioSessaoField.clear();
+            eventoRelacionadoField.clear();
+            subEventoRelacionadoField.clear();
+
+            // ...mensagem de sucesso...
+            System.out.println("Sessão atualizada com sucesso!");
+        } catch (NumberFormatException e) {
+            // ...tratamento de erro para conversão de números...
+            System.out.println("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
+        } catch (Exception e) {
+            // ...tratamento de erro genérico...
+            System.out.println("Erro ao atualizar a sessão: " + e.getMessage());
+        }
     }
 }

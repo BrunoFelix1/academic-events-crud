@@ -9,7 +9,9 @@ import javafx.scene.layout.VBox;
 import models.SubEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import services.SubEventoService;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class ListarSubEventosController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px";

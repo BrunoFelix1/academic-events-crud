@@ -1,11 +1,15 @@
 package screenscontrollers;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 import interfaces.IControladorTelas;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+@Controller
 public class TelaInicialController implements IControladorTelas {
 
     @FXML

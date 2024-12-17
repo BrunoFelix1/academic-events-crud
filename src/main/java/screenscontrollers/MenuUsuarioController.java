@@ -1,6 +1,8 @@
 package screenscontrollers;
 import java.io.IOException;
 
+import org.springframework.stereotype.Controller;
+
 import context.UserContext;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+@Controller
 public class MenuUsuarioController {
 
     @FXML
@@ -179,7 +182,6 @@ void irParaTelaCancelarInscricao() {
     @FXML
     void voltarParaMenuPrincipal() {
         try {
-            UserContext.setInstance(true);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/tela_inicial.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botaoVoltar.getScene().getWindow();

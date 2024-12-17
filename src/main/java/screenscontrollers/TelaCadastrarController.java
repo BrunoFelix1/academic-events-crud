@@ -1,18 +1,22 @@
 package screenscontrollers;
 
-import controllers.UsuarioController;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import services.UsuarioService;
 
 import java.util.List;
 
+@Controller
 public class TelaCadastrarController implements IControladorTelas {
 
-    private UsuarioController usuarioP = new UsuarioController();
+    @Autowired
+    private UsuarioService usuarioService;
 
     @FXML
     private TextField txtUsuario;
@@ -41,40 +45,44 @@ public class TelaCadastrarController implements IControladorTelas {
 
     @FXML
     private void onCadastrar() {
-        Usuario usuarioCadastrado = new Usuario();
-        usuarioCadastrado.setLogin(txtUsuario.getText());
-        usuarioCadastrado.setCPF(txtCPF.getText());
-        usuarioCadastrado.setSenha(txtSenha.getText());
-        usuarioCadastrado.setIdade(Integer.parseInt(txtIdade.getText()));
-        usuarioCadastrado.setNome(txtNome.getText());
-        usuarioCadastrado.setInstituicao(txtInstituicao.getText());
-        usuarioCadastrado.setTipoDeUsuario(txtTipoDeUsuario.getText());
+        try {
+            Usuario usuarioCadastrado = new Usuario();
+            usuarioCadastrado.setLogin(txtUsuario.getText());
+            usuarioCadastrado.setCpf(txtCPF.getText());
+            usuarioCadastrado.setSenha(txtSenha.getText());
+            usuarioCadastrado.setIdade(Integer.parseInt(txtIdade.getText()));
+            usuarioCadastrado.setNome(txtNome.getText());
+            usuarioCadastrado.setInstituicao(txtInstituicao.getText());
+            usuarioCadastrado.setTipoDeUsuario(txtTipoDeUsuario.getText());
 
-        if (checarUsuario(usuarioCadastrado.getLogin())) {
-            exibirAlerta("Esse nome de usuário já existe.");
-            return;
-        }
-        if (checarCPF(usuarioCadastrado.getCPF())) {
-            exibirAlerta("Esse CPF já foi cadastrado.");
-            return;
-        }
-        if (!checarTipoUsuario(usuarioCadastrado.getTipoDeUsuario())) {
-            exibirAlerta("Digite um tipo de usuário disponível.");
-            return;
-        }
-        if (!checarIdade(usuarioCadastrado.getIdade())) {
-            exibirAlerta("Digite uma idade válida.");
-            return;
-        }
+            if (checarUsuario(usuarioCadastrado.getLogin())) {
+                exibirAlerta("Esse nome de usuário já existe.");
+                return;
+            }
+            if (checarCPF(usuarioCadastrado.getCpf())) {
+                exibirAlerta("Esse CPF já foi cadastrado.");
+                return;
+            }
+            if (!checarTipoUsuario(usuarioCadastrado.getTipoDeUsuario())) {
+                exibirAlerta("Digite um tipo de usuário disponível.");
+                return;
+            }
+            if (!checarIdade(usuarioCadastrado.getIdade())) {
+                exibirAlerta("Digite uma idade válida.");
+                return;
+            }
 
-        if (usuarioP.cadastrar(usuarioCadastrado)) {
-            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-            verificarTela(usuarioCadastrado, stage);
-        } else {
-            exibirAlerta("Digite um CPF válido.");
+            if (usuarioService.adicionarUsuario(usuarioCadastrado) != null) {
+                Stage stage = (Stage) btnCadastrar.getScene().getWindow();
+                verificarTela(usuarioCadastrado, stage);
+            } else {
+                exibirAlerta("Digite um CPF válido.");
+            }
+        } catch (Exception e) {
+            exibirAlerta("Erro ao cadastrar usuário.");
+            e.printStackTrace();
         }
     }
-
 
     @FXML
     public void initialize() {
@@ -95,15 +103,14 @@ public class TelaCadastrarController implements IControladorTelas {
         }
     }
 
-
     private boolean checarUsuario(String usuario) {
-        List<Usuario> lista = usuarioP.listar();
+        List<Usuario> lista = usuarioService.listarTodosUsuarios();
         return lista.stream().anyMatch(user -> user.getLogin().equals(usuario));
     }
 
     private boolean checarCPF(String cpf) {
-        List<Usuario> lista = usuarioP.listar();
-        return lista.stream().anyMatch(user -> user.getCPF().equals(cpf));
+        List<Usuario> lista = usuarioService.listarTodosUsuarios();
+        return lista.stream().anyMatch(user -> user.getCpf().equals(cpf));
     }
 
     private boolean checarIdade(int idade) {

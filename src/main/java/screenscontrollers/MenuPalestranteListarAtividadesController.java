@@ -9,10 +9,15 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Atividade;
-import persistence.PersistenceAtividade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import services.AtividadeService;
 
 import java.util.List;
 
+
+@Controller
 public class MenuPalestranteListarAtividadesController implements IControladorTelas {
 
     @FXML
@@ -22,6 +27,9 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
 
     private String fonteRepetida = "-fx-font-size: 12px;";
 
+    @Autowired
+    private AtividadeService atividadeService;
+
     @FXML
     private void onVoltar() {
         mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnVoltar.getScene().getWindow());
@@ -29,9 +37,12 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
 
     @FXML
     public void initialize() {
-        PersistenceAtividade persistenceAtividade = new PersistenceAtividade();
-        List<Atividade> atividades = persistenceAtividade.getTodos();
-        populateScrollPane(atividades);
+        try {
+            List<Atividade> atividades = atividadeService.listarTodasAtividades();
+            populateScrollPane(atividades);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void populateScrollPane(List<Atividade> atividades) {
@@ -41,9 +52,9 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
 
         for (Atividade atividade : atividades) {
 
-            Label idLabel = new Label("ID da Trilha associada: " + atividade.getIdTrilha());
+            Label idLabel = new Label("ID da Trilha associada: " + atividade.getTrilha().getId());
             Label tituloLabel = new Label("ID: " + atividade.getId());
-            Label localLabel = new Label("Tipo de Submissão: " + atividade.getTipoSubmissao());
+            Label localLabel = new Label("Tipo de Submissão: " + atividade.getTipoDeAtividade());
             Label horarioLabel = new Label("Autor: " + atividade.getAutor());
             Label descricaoLabel = new Label("Resumo: " + atividade.getResumo());
 

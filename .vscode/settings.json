@@ -4,5 +4,8 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "brunofelix1",
         "projectKey": "BrunoFelix1_academic-events-crud"
-    }
+    },
+    "java.project.referencedLibraries": [
+        "C:\\javafx-sdk-21.0.5\\lib\\*.jar"
+    ]
 }

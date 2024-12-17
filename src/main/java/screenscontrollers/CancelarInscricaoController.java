@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import services.UsuarioService;
 import services.TrilhaService;
 import services.InscricaoService;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class CancelarInscricaoController extends MenuUsuarioController {
 
     @FXML

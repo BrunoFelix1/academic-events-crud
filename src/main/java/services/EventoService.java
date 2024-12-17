@@ -50,4 +50,6 @@ public class EventoService {
         return eventoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
     }
+
+    // Outros métodos relacionados a Evento podem ser adicionados aqui
 }

@@ -1,11 +1,9 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Entity
 public class Secao {
@@ -18,85 +16,91 @@ public class Secao {
     private Evento evento;
 
     @ManyToOne
-    @JoinColumn(name = "subevento_id", nullable = false)
+    @JoinColumn(name = "sub_evento_id", nullable = false)
     private SubEvento subEvento;
 
-    private String titulo;
+    @NotNull
+    @Size(max = 100)
     private String nome;
-    private String local;
-    private String horario;
+
+    @Size(max = 255)
     private String descricao;
 
-    //Construtor
-    public Secao(Long id, Evento evento, SubEvento subEvento, String local, String horario, String nome, String descricao) {
+    private String local;
+    private LocalDateTime horario;
+
+    // Construtor
+    public Secao(Long id, String nome, String descricao) {
         this.id = id;
-        this.evento = evento;
-        this.subEvento = subEvento;
-        this.local = local;
-        this.horario = horario;
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Secao(Long id, Evento evento, SubEvento subEvento, String local, String horario, String nome) {
-        this.id = id;
+    public Secao() {}
+
+    // Novo construtor sem o campo 'id'
+    public Secao(Evento evento, SubEvento subEvento, String nome, String local, LocalDateTime horario) {
         this.evento = evento;
         this.subEvento = subEvento;
+        this.nome = nome;
         this.local = local;
         this.horario = horario;
-        this.nome = nome;
     }
 
-    public Secao(){}
-
-    //Acessores
+    // Getters e Setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public Evento getEvento() {
         return evento;
     }
+
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
+
     public SubEvento getSubEvento() {
         return subEvento;
     }
+
     public void setSubEvento(SubEvento subEvento) {
         this.subEvento = subEvento;
     }
-    public String getLocal() {
-        return local;
-    }
-    public void setLocal(String local) {
-        this.local = local;
-    }
-    public String getHorario() {
-        return horario;
-    }
-    public void setHorario(String horario) {
-        this.horario = horario;
-    }
+
     public String getNome() {
-        return this.nome;
+        return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
     public String getDescricao() {
-        return this.descricao;
+        return descricao;
     }
+
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public String getLocal() {
+        return local;
     }
-    public String getTitulo() {
-        return this.titulo;
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public LocalDateTime getHorario() {
+        return horario;
+    }
+
+    public void setHorario(LocalDateTime horario) {
+        this.horario = horario;
     }
 }

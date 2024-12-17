@@ -1,10 +1,14 @@
 package screenscontrollers;
 
+import org.springframework.stereotype.Controller;
+
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+
+@Controller
 public class MenuPalestranteAtualizarAtividadeErroController implements IControladorTelas {
     @FXML
     private Button btnVoltar;

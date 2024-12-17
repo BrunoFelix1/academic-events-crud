@@ -1,4 +1,4 @@
-package screenscontrollers;
+/* package screenscontrollers;
 
 
 import javafx.fxml.FXML;
@@ -42,3 +42,4 @@ public class MenuAdmAtualizarEventoTela2Controller extends MenuAdmGerEventContro
         // Exibir mensagem de sucesso ou redirecionar para outra tela
     }
 }
+ */

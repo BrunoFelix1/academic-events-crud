@@ -1,8 +1,8 @@
 package models;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -45,6 +45,15 @@ public class SubEvento {
     }
 
     public SubEvento() {}
+
+    // Novo construtor sem o campo 'id'
+    public SubEvento(Evento evento, String nome, String local, LocalDateTime horario, String descricao) {
+        this.evento = evento;
+        this.nome = nome;
+        this.local = local;
+        this.horario = horario;
+        this.descricao = descricao;
+    }
 
     //Acessores
     public Long getId() {

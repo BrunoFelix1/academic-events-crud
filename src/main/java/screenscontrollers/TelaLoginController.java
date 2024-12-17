@@ -1,6 +1,5 @@
 package screenscontrollers;
 
-import controllers.UsuarioController;
 import exception.UsuarioNaoEncontradoException;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
@@ -10,7 +9,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
 import context.UserContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.UsuarioService;
+
+@Controller
 public class TelaLoginController implements IControladorTelas {
     public Usuario usuarioAutenticado;
 
@@ -24,6 +28,9 @@ public class TelaLoginController implements IControladorTelas {
     private TextField txtUsuario;
     @FXML
     private PasswordField txtSenha;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @FXML
     private void onVoltar() {
@@ -54,11 +61,10 @@ public class TelaLoginController implements IControladorTelas {
     }
 
     private boolean onBtnLogin() {
-        String usuario = txtUsuario.getText();
+        String login = txtUsuario.getText();
         String senha = txtSenha.getText();
-        UsuarioController usuarioController = new UsuarioController();
         try {
-            usuarioAutenticado = usuarioController.AutenticarUsuario(usuario, senha);
+            usuarioAutenticado = usuarioService.autenticarUsuario(login, senha);
             return true;
         } catch (UsuarioNaoEncontradoException e) {
             System.out.println("Erro de autenticação: " + e.getMessage());

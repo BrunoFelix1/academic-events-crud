@@ -9,8 +9,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Trilha;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import services.TrilhaService;
 
+@Controller
 public class ListarTrilhasController extends MenuUsuarioController {
     @Autowired
     private TrilhaService trilhaService;

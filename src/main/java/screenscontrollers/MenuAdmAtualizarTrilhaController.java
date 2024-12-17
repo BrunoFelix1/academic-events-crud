@@ -1,14 +1,23 @@
 package screenscontrollers;
 
-import controllers.TrilhaController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.TrilhaService;
+import services.SecaoService;
+import models.Secao;
+
+@Controller
 public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
-    private ControllersFactory controllerFactory = new DefaultControllersFactory();
+    @Autowired
+    private TrilhaService trilhaService;
 
+    @Autowired
+    private SecaoService secaoService;
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -30,19 +39,48 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
 
     @FXML
     void salvarAlteracoes() {
-        // Implementar lógica para salvar as alterações da trilha
-        String idTrilha = idTrilhaField.getText();
-        String nomeTrilha = nomeTrilhaField.getText();
-        String localTrilha = localTrilhaField.getText();
-        String horarioTrilha = horarioTrilhaField.getText();
-        String sessaoRelacionada = sessaoRelacionadaField.getText();
-        int sessaoRelacionadaInt = Integer.parseInt(sessaoRelacionada);
-        int idTrilhaInt = Integer.parseInt(idTrilha);
-        // Código para atualizar a trilha no sistema
-        Trilha trilha = new Trilha(idTrilhaInt,sessaoRelacionadaInt,nomeTrilha);
-        TrilhaController trilhaController = controllerFactory.createTrilhaController();
-        trilhaController.atualizar(trilha);
+        try {
+            String idTrilhaStr = idTrilhaField.getText();
+            String nomeTrilha = nomeTrilhaField.getText();
+            String sessaoRelacionadaStr = sessaoRelacionadaField.getText();
 
-        // Exibir mensagem de sucesso ou limpar os campos
+            // Validar campos
+            if (idTrilhaStr.isEmpty() || nomeTrilha.isEmpty() || sessaoRelacionadaStr.isEmpty()) {
+                // ...mensagem de erro...
+                System.out.println("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            // Converter strings para tipos apropriados
+            Long idTrilha = Long.parseLong(idTrilhaStr);
+            Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
+
+            // Buscar a Secao relacionada
+            Secao secao = secaoService.buscarSecaoPorId(sessaoId);
+
+            // Buscar a Trilha existente
+            Trilha trilha = trilhaService.buscarTrilhaPorId(idTrilha);
+
+            // Atualizar os atributos da Trilha
+            trilha.setNome(nomeTrilha);
+            trilha.setSecao(secao);
+
+            // Utilizar o TrilhaService para atualizar a trilha
+            trilhaService.atualizarTrilha(idTrilha, trilha);
+
+            // Limpar os campos após salvar
+            idTrilhaField.clear();
+            nomeTrilhaField.clear();
+            sessaoRelacionadaField.clear();
+
+            // ...mensagem de sucesso...
+            System.out.println("Trilha atualizada com sucesso!");
+        } catch (NumberFormatException e) {
+            // ...tratamento de erro para conversão de números...
+            System.out.println("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
+        } catch (Exception e) {
+            // ...tratamento de erro genérico...
+            System.out.println("Erro ao atualizar a trilha: " + e.getMessage());
+        }
     }
 }

@@ -9,9 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Trilha;
 import models.Inscricao;
-import persistence.PersistenceTrilha;
-import persistence.PersistenceInscricao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.InscricaoService;
+import services.TrilhaService;
+
+@Controller
 public class ParticiparDeTrilhaController extends MenuUsuarioController {
 
     @FXML
@@ -23,30 +27,47 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    private PersistenceInscricao persistence = new PersistenceInscricao();
-    private PersistenceTrilha TrilhaPersistence = new PersistenceTrilha();
+    @Autowired
+    private InscricaoService inscricaoService;
+
+    @Autowired
+    private TrilhaService trilhaService;
 
     @FXML
     private void participarDeTrilha() {
         try {
             // Pega o ID do Trilha do campo de texto
-            String TrilhaId = campoTrilhaId.getText();
+            String trilhaId = campoTrilhaId.getText();
 
             // Verifica se o campo não está vazio
-            if (TrilhaId == null || TrilhaId.trim().isEmpty()) {
+            if (trilhaId == null || trilhaId.trim().isEmpty()) {
                 textoMensagem.setText("Por favor, insira um ID de Trilha.");
                 return;
             }
-            if (isInteger(TrilhaId) && verificarTrilhaExistente(Integer.parseInt(TrilhaId), TrilhaPersistence.getTodos())){
-                Inscricao novaInscricao = new Inscricao(UserContext.getInstance().getUsuario().getId(), 0, 0, 0, Integer.parseInt(TrilhaId));
-                // Chama o método de cadastrar usando o ID do Trilha
-                persistence.add(novaInscricao);
+
+            if (isInteger(trilhaId)) {
+                Long trilhaIdLong = Long.parseLong(trilhaId);
+
+                // Verificar se a trilha existe
+                Trilha trilha = trilhaService.buscarTrilhaPorId(trilhaIdLong);
+                if (trilha == null) {
+                    textoMensagem.setText("Trilha não encontrada.");
+                    return;
+                }
+
+                // Criar nova inscrição
+                Inscricao novaInscricao = new Inscricao();
+                novaInscricao.setUsuario(UserContext.getInstance().getUsuario());
+                novaInscricao.setTrilha(trilha);
+
+                // Chamar o serviço para cadastrar a inscrição
+                inscricaoService.adicionarInscricao(novaInscricao);
                 textoMensagem.setText("Você se cadastrou com sucesso na Trilha!");
             } else {
-                textoMensagem.setText("Erro!");
+                textoMensagem.setText("Erro: O ID informado não é válido.");
             }
         } catch (Exception e) {
-            textoMensagem.setText("Erro!");
+            textoMensagem.setText("Erro ao se cadastrar na trilha.");
             System.out.println(e.getMessage());
         }
     }
@@ -58,14 +79,5 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public static boolean verificarTrilhaExistente(int idTrilha, List<Trilha> listaTrilhas) {
-        for (Trilha Trilha : listaTrilhas) {
-            if (Trilha.getId() == idTrilha) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -1,29 +1,53 @@
 package screenscontrollers;
 
-import controllers.TrilhaController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.TrilhaService;
+
+@Controller
 public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
-    private ControllersFactory controllerFactory = new DefaultControllersFactory();
-
-
     @FXML
     private Button botaoDeletar;
 
     @FXML
     private TextField idTrilhaField;
 
+    @Autowired
+    private TrilhaService trilhaService;
+
     @FXML
     void deletarTrilha() {
-        // Implementar lógica para deletar a trilha
-        String idTrilha = idTrilhaField.getText();
-        int idTrilhaInt = Integer.parseInt(idTrilha);
-        // Código para deletar a trilha do sistema
-        TrilhaController trilhaController = controllerFactory.createTrilhaController();
-        trilhaController.deletar(idTrilhaInt);
-        // Exibir mensagem de sucesso ou limpar o campo
-        idTrilhaField.clear();
+        try {
+            String idTrilhaStr = idTrilhaField.getText();
+
+            // Validar campo
+            if (idTrilhaStr.isEmpty()) {
+                // ...mensagem de erro...
+                System.out.println("Por favor, insira o ID da trilha.");
+                return;
+            }
+
+            // Converter string para tipo apropriado
+            Long idTrilha = Long.parseLong(idTrilhaStr);
+
+            // Deletar a trilha
+            trilhaService.deletarTrilha(idTrilha);
+
+            // Limpar o campo após deletar
+            idTrilhaField.clear();
+
+            // ...mensagem de sucesso...
+            System.out.println("Trilha deletada com sucesso!");
+        } catch (NumberFormatException e) {
+            // ...tratamento de erro para conversão de números...
+            System.out.println("Erro na conversão do ID. Certifique-se de que o ID é válido.");
+        } catch (Exception e) {
+            // ...tratamento de erro genérico...
+            System.out.println("Erro ao deletar a trilha: " + e.getMessage());
+        }
     }
 }

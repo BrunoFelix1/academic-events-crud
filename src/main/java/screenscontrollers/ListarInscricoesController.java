@@ -11,7 +11,9 @@ import models.Inscricao;
 import org.springframework.beans.factory.annotation.Autowired;
 import services.InscricaoService;
 import context.UserContext;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class ListarInscricoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;

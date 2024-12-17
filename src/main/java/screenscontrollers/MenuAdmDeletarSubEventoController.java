@@ -1,45 +1,55 @@
 package screenscontrollers;
 
-import controllers.SubeventoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.SubEventoService;
+
+@Controller
 public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController {
-    private ControllersFactory controllerFactory = new DefaultControllersFactory();
-
 
     @FXML
     private Button botaoDeletar;
 
     @FXML
-    private TextField nomeSubEventoField;
+    private TextField idSubEventoField;
+
+    @Autowired
+    private SubEventoService subEventoService;
 
     @FXML
     void deletarSubEvento() {
-        // Obtendo o valor do campo de texto
-        String nomeSubEventoStr = nomeSubEventoField.getText();
-
-        // Verificar se o campo de texto contém um valor numérico válido
-        int idSubEvento;
         try {
-            // Converter o valor do campo de texto em inteiro
-            idSubEvento = Integer.parseInt(nomeSubEventoStr);
+            String idSubEventoStr = idSubEventoField.getText();
+
+            // Validar campo
+            if (idSubEventoStr.isEmpty()) {
+                // ...mensagem de erro...
+                System.out.println("Por favor, insira o ID do subevento.");
+                return;
+            }
+
+            // Converter string para tipo apropriado
+            Long idSubEvento = Long.parseLong(idSubEventoStr);
+
+            // Deletar o subevento
+            subEventoService.deletarSubEvento(idSubEvento);
+
+            // Limpar o campo após deletar
+            idSubEventoField.clear();
+
+            // ...mensagem de sucesso...
+            System.out.println("Subevento deletado com sucesso!");
         } catch (NumberFormatException e) {
-            // Exibir mensagem de erro caso o valor não seja um número válido
-            System.out.println("O campo 'nome do subevento' deve conter um número válido.");
-            return;
+            // ...tratamento de erro para conversão de números...
+            System.out.println("Erro na conversão do ID. Certifique-se de que o ID é válido.");
+        } catch (Exception e) {
+            // ...tratamento de erro genérico...
+            System.out.println("Erro ao deletar o subevento: " + e.getMessage());
         }
-
-        // Implementar lógica para deletar o subevento usando o ID
-        SubeventoController subeventoController = controllerFactory.createSubeventoController();
-        subeventoController.deletar(idSubEvento);
-
-        // Limpar o campo de texto após a operação
-        nomeSubEventoField.clear();
-
-        // Exibir mensagem de sucesso ou feedback
-        System.out.println("Subevento deletado com sucesso!");
     }
 
 }

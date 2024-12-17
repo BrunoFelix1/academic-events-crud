@@ -8,8 +8,10 @@ import models.Secao;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import services.SecaoService;
 
+@Controller
 public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController {
 
     @FXML

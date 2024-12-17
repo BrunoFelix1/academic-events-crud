@@ -1,6 +1,5 @@
-package screenscontrollers;
+/* package screenscontrollers;
 
-import controllers.SubeventoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -81,3 +80,4 @@ public class MenuAdmAtualizarSubEventoTela2Controller extends MenuAdmGerenciarSu
         alert.showAndWait();
     }
 }
+ */

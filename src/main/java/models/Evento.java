@@ -1,6 +1,6 @@
 package models;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,6 +15,14 @@ public class Evento {
     private String local;
     private LocalDateTime horario;
     private String descricao;
+
+    // Novo construtor sem o campo 'id'
+    public Evento(String titulo, String local, LocalDateTime horario, String descricao) {
+        this.titulo = titulo;
+        this.local = local;
+        this.horario = horario;
+        this.descricao = descricao;
+    }
 
     // Getters e Setters
 

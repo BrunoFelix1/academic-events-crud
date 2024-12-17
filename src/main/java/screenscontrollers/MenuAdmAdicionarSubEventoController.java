@@ -4,8 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.SubEvento;
-import persistence.PersistenceSubEvento;
+import org.springframework.beans.factory.annotation.Autowired;
+import services.SubEventoService;
+import services.EventoService;
+import models.Evento;
+import java.time.LocalDateTime;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
@@ -26,26 +32,42 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
     @FXML
     private TextField eventoAssociadoField;
 
-    private PersistenceSubEvento persistence = new PersistenceSubEvento();
+    @Autowired
+    private SubEventoService subEventoService;
+
+    @Autowired
+    private EventoService eventoService;
 
     @FXML
     void salvarSubEvento() {
-        // Implementar lógica para salvar o subevento
-        String nome = nomeSubEventoField.getText();
-        String local = localSubEventoField.getText();
-        String descricao = descricaoSubEventoField.getText();
-        String horario = horarioSubEventoField.getText();
-        int eventoId = Integer.parseInt(eventoAssociadoField.getText());
-        int subeventoId = persistence.getTodos().size() + 1;
+        try {
+            String nome = nomeSubEventoField.getText();
+            String local = localSubEventoField.getText();
+            String descricao = descricaoSubEventoField.getText();
+            String horarioStr = horarioSubEventoField.getText();
+            String eventoIdStr = eventoAssociadoField.getText();
 
-        SubEvento novoSubEvento = new SubEvento(subeventoId, eventoId, nome, local, horario, descricao);
-        persistence.add(novoSubEvento);
+            if (nome.isEmpty() || local.isEmpty() || descricao.isEmpty() || horarioStr.isEmpty() || eventoIdStr.isEmpty()) {
+                return;
+            }
 
+            Long eventoId = Long.parseLong(eventoIdStr);
+            LocalDateTime horario = LocalDateTime.parse(horarioStr);
 
-        nomeSubEventoField.clear();
-        localSubEventoField.clear();
-        descricaoSubEventoField.clear();
-        horarioSubEventoField.clear();
-        eventoAssociadoField.clear();
+            Evento evento = eventoService.buscarEventoPorId(eventoId);
+
+            SubEvento novoSubEvento = new SubEvento(evento, nome, local, horario, descricao);
+
+            subEventoService.adicionarSubEvento(novoSubEvento);
+
+            nomeSubEventoField.clear();
+            localSubEventoField.clear();
+            descricaoSubEventoField.clear();
+            horarioSubEventoField.clear();
+            eventoAssociadoField.clear();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

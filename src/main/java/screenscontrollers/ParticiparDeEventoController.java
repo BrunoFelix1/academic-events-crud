@@ -9,9 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Evento;
 import models.Inscricao;
-import persistence.PersistenceEvento;
-import persistence.PersistenceInscricao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+import services.InscricaoService;
+import services.EventoService;
+
+@Controller
 public class ParticiparDeEventoController extends MenuUsuarioController {
 
     @FXML
@@ -23,8 +27,11 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    private PersistenceInscricao persistence = new PersistenceInscricao();
-    private PersistenceEvento eventoPersistence = new PersistenceEvento();
+    @Autowired
+    private InscricaoService inscricaoService;
+
+    @Autowired
+    private EventoService eventoService;
 
     @FXML
     private void participarDeEvento() {
@@ -37,16 +44,30 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 textoMensagem.setText("Por favor, insira um ID de evento.");
                 return;
             }
-            if (isInteger(eventoId) && verificarEventoExistente(Integer.parseInt(eventoId), eventoPersistence.getTodos())){
-                Inscricao novaInscricao = new Inscricao(UserContext.getInstance().getUsuario().getId(), Integer.parseInt(eventoId), 0, 0, 0);
-                // Chama o método de cadastrar usando o ID do evento
-                persistence.add(novaInscricao);
+
+            if (isInteger(eventoId)) {
+                Long eventoIdLong = Long.parseLong(eventoId);
+
+                // Verificar se o evento existe
+                Evento evento = eventoService.buscarEventoPorId(eventoIdLong);
+                if (evento == null) {
+                    textoMensagem.setText("Evento não encontrado.");
+                    return;
+                }
+
+                // Criar nova inscrição
+                Inscricao novaInscricao = new Inscricao();
+                novaInscricao.setUsuario(UserContext.getInstance().getUsuario());
+                novaInscricao.setEvento(evento);
+
+                // Chamar o serviço para cadastrar a inscrição
+                inscricaoService.adicionarInscricao(novaInscricao);
                 textoMensagem.setText("Você se cadastrou com sucesso no evento!");
             } else {
-                textoMensagem.setText("Erro!");
+                textoMensagem.setText("Erro: O ID informado não é válido.");
             }
         } catch (Exception e) {
-            textoMensagem.setText("Erro!");
+            textoMensagem.setText("Erro ao se cadastrar no evento.");
             System.out.println(e.getMessage());
         }
     }
@@ -58,14 +79,5 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public static boolean verificarEventoExistente(int idEvento, List<Evento> listaEventos) {
-        for (Evento evento : listaEventos) {
-            if (evento.getId() == idEvento) {
-                return true;
-            }
-        }
-        return false;
     }
 }

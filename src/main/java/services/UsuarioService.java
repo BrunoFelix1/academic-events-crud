@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repositories.UsuarioDAO;
 import models.Usuario;
+import exception.UsuarioNaoEncontradoException;
 
 import java.util.List;
 
@@ -52,5 +53,14 @@ public class UsuarioService {
     public Usuario buscarUsuarioPorId(Long id) {
         return usuarioRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+    }
+
+    // Autenticar Usuario
+    public Usuario autenticarUsuario(String login, String senha) throws UsuarioNaoEncontradoException {
+        Usuario usuario = usuarioRepository.findByLogin(login);
+        if (usuario == null || !usuario.getSenha().equals(senha)) {
+            throw new UsuarioNaoEncontradoException("Usuário ou senha inválidos.");
+        }
+        return usuario;
     }
 }
