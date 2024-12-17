@@ -3,12 +3,9 @@ package screenscontrollers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.SubEventoService;
+import controllers.SubEventoController;
 
-@Controller
 public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
@@ -17,8 +14,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
     @FXML
     private TextField idSubEventoField;
 
-    @Autowired
-    private SubEventoService subEventoService;
+    private SubEventoController subEventoController = new SubEventoController();
 
     @FXML
     void deletarSubEvento() {
@@ -36,7 +32,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
             Long idSubEvento = Long.parseLong(idSubEventoStr);
 
             // Deletar o subevento
-            subEventoService.deletarSubEvento(idSubEvento);
+            subEventoController.deletarSubEvento(idSubEvento);
 
             // Limpar o campo após deletar
             idSubEventoField.clear();

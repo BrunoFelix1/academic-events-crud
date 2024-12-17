@@ -8,11 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Evento;
-import org.springframework.beans.factory.annotation.Autowired;
-import services.EventoService;
-import org.springframework.stereotype.Controller;
 
-@Controller
+import controllers.EventoController;
+
 public class ListarEventosController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px;";
@@ -20,14 +18,13 @@ public class ListarEventosController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    @Autowired
-    private EventoService eventoService;
+    private EventoController eventoController = new EventoController();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o EventoService para obter os eventos
-            List<Evento> eventos = eventoService.listarTodosEventos();
+            // Utilizar o EventoController para obter os eventos
+            List<Evento> eventos = eventoController.listarTodosEventos();
             populateScrollPane(eventos); // Preencher o ScrollPane com os eventos
         } catch (Exception e) {
             // ...tratamento de erro...

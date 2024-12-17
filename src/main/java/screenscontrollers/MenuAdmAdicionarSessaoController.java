@@ -7,11 +7,8 @@ import models.Secao;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import services.SecaoService;
+import controllers.SecaoController;
 
-@Controller
 public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController {
 
     @FXML
@@ -32,8 +29,7 @@ public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController
     @FXML
     private TextField subEventoRelacionadoField;
 
-    @Autowired
-    private SecaoService secaoService;
+    private SecaoController secaoController = new SecaoController();
 
     @FXML
     void salvarSessao() {
@@ -50,8 +46,7 @@ public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController
         Secao novaSecao = new Secao();
         novaSecao.setNome(nomeSessao);
 
-
-        secaoService.adicionarSecao(novaSecao);
+        secaoController.adicionarSecao(novaSecao);
 
         nomeSessaoField.clear();
         localSessaoField.clear();

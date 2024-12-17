@@ -3,12 +3,9 @@ package screenscontrollers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.SecaoService;
+import controllers.SecaoController;
 
-@Controller
 public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
 
     @FXML
@@ -17,8 +14,7 @@ public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
     @FXML
     private TextField idSessaoField;
 
-    @Autowired
-    private SecaoService secaoService;
+    private SecaoController secaoController = new SecaoController();
 
     @FXML
     void deletarSessao() {
@@ -36,7 +32,7 @@ public class MenuAdmDeletarSessaoController extends MenuAdmGerSessaoController {
             Long idSessao = Long.parseLong(idSessaoStr);
 
             // Deletar a sessão
-            secaoService.deletarSecao(idSessao);
+            secaoController.deletarSecao(idSessao);
 
             // Limpar o campo após deletar
             idSessaoField.clear();

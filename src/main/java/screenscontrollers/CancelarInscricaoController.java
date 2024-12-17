@@ -1,7 +1,9 @@
 package screenscontrollers;
 
-
 import context.UserContext;
+import controllers.InscricaoController;
+import controllers.TrilhaController;
+import controllers.UsuarioController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,13 +11,6 @@ import javafx.scene.text.Text;
 
 import models.Usuario;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import services.UsuarioService;
-import services.TrilhaService;
-import services.InscricaoService;
-import org.springframework.stereotype.Controller;
-
-@Controller
 public class CancelarInscricaoController extends MenuUsuarioController {
 
     @FXML
@@ -36,14 +31,9 @@ public class CancelarInscricaoController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private TrilhaService trilhaService;
-
-    @Autowired
-    private InscricaoService inscricaoService;
+    private UsuarioController usuarioController = new UsuarioController();
+    private TrilhaController trilhaController = new TrilhaController();
+    private InscricaoController inscricaoController = new InscricaoController();
 
     @FXML
     private void cancelarInscricao() {
@@ -66,12 +56,12 @@ public class CancelarInscricaoController extends MenuUsuarioController {
             && isInteger(EventoId)
             && isInteger(SubEventoId)
             && isInteger(SecaoId)){
-                Usuario usuario = usuarioService.buscarUsuarioPorId(UserContext.getInstance().getUsuario().getId());
+                Usuario usuario = usuarioController.buscarUsuarioPorId(UserContext.getInstance().getUsuario().getId());
                 Long trilhaIdLong = Long.parseLong(TrilhaId);
-                trilhaService.buscarTrilhaPorId(trilhaIdLong);
+                trilhaController.buscarTrilhaPorId(trilhaIdLong);
                 
                 // Chamar o serviço para cancelar a inscrição
-                inscricaoService.cancelarInscricao(
+                inscricaoController.cancelarInscricao(
                     usuario.getId(), 
                     Long.parseLong(EventoId), 
                     Long.parseLong(SubEventoId), 

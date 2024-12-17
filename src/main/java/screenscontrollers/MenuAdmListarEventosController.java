@@ -1,32 +1,25 @@
 package screenscontrollers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import models.Evento;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.EventoService;
-import models.Evento;
+import controllers.EventoController;
 
-import java.util.List;
-
-@Controller
 public class MenuAdmListarEventosController extends MenuAdmGerEventController {
 
     @FXML
     private TextArea textAreaEventos;
 
-    @Autowired
-    private EventoService eventoService;
+    private EventoController eventoController = new EventoController();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o EventoService para obter os eventos
-            List<Evento> eventos = eventoService.listarTodosEventos();
+            // Utilizar o EventoController para obter os eventos
+            List<Evento> eventos = eventoController.listarTodosEventos();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre os eventos e adicionar ao StringBuilder

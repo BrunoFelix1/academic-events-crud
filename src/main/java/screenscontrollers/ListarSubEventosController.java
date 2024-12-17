@@ -7,17 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.SubEvento;
-import org.springframework.beans.factory.annotation.Autowired;
-import services.SubEventoService;
-import org.springframework.stereotype.Controller;
 
-@Controller
+import controllers.SubEventoController;
+
 public class ListarSubEventosController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px";
     
-    @Autowired
-    private SubEventoService subEventoService;
+    private SubEventoController subEventoController = new SubEventoController();
 
     @FXML
     private ScrollPane scrollPane;
@@ -25,8 +22,8 @@ public class ListarSubEventosController extends MenuUsuarioController {
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SubEventoService para obter os subeventos
-            List<SubEvento> subEventos = subEventoService.listarTodosSubEventos();
+            // Utilizar o SubEventoController para obter os subeventos
+            List<SubEvento> subEventos = subEventoController.listarTodosSubEventos();
             populateScrollPane(subEventos); // Preencher o ScrollPane com os subeventos
         } catch (Exception e) {
             // ...tratamento de erro...

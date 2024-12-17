@@ -8,21 +8,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Inscricao;
-import org.springframework.beans.factory.annotation.Autowired;
-import services.InscricaoService;
-import context.UserContext;
-import org.springframework.stereotype.Controller;
 
-@Controller
+import context.UserContext;
+import controllers.InscricaoController;
+
 public class ListarInscricoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    @Autowired
-    private InscricaoService inscricaoService;
+    private InscricaoController inscricaoController = new InscricaoController();
     
-    @Autowired
-    private UserContext userContext; // Injetar UserContext
+    private UserContext userContext = UserContext.getInstance(); // Instanciar UserContext
 
     @FXML
     public void initialize() {
@@ -30,8 +26,8 @@ public class ListarInscricoesController extends MenuUsuarioController {
             // Obter o ID do usuário atual
             Long usuarioId = userContext.getUsuario().getId();
             
-            // Utilizar o InscricaoService para obter as inscrições do usuário
-            List<Inscricao> inscricoes = inscricaoService.listarInscricoesPorUsuario(usuarioId);
+            // Utilizar o InscricaoController para obter as inscrições do usuário
+            List<Inscricao> inscricoes = inscricaoController.listarInscricoesPorUsuario(usuarioId);
             populateScrollPane(inscricoes); // Preencher o ScrollPane com as inscrições
         } catch (Exception e) {
             // ...tratamento de erro...

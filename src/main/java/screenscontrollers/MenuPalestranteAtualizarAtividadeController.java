@@ -8,13 +8,9 @@ import javafx.stage.Stage;
 import models.Atividade;
 import models.Trilha;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import controllers.AtividadeController;
+import controllers.TrilhaController;
 
-import services.AtividadeService;
-import services.TrilhaService;
-
-@Controller
 public class MenuPalestranteAtualizarAtividadeController implements IControladorTelas {
 
     @FXML
@@ -38,11 +34,8 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
     @FXML
     private TextField atvAutor;
 
-    @Autowired
-    private AtividadeService atividadeService;
-
-    @Autowired
-    private TrilhaService trilhaService;
+    private AtividadeController atividadeController = new AtividadeController();
+    private TrilhaController trilhaController = new TrilhaController();
 
     @FXML
     private void onVoltar() {
@@ -64,10 +57,10 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
             // Converter string para tipo apropriado
             Long id = Long.parseLong(idString);
             Long trilhaId = Long.parseLong(idTrilha.getText());
-            Trilha trilha = trilhaService.buscarTrilhaPorId(trilhaId);
+            Trilha trilha = trilhaController.buscarTrilhaPorId(trilhaId);
 
             // Buscar a atividade existente
-            Atividade atividadeAntiga = atividadeService.buscarAtividadePorId(id);
+            Atividade atividadeAntiga = atividadeController.buscarAtividadePorId(id);
 
             // Atualizar os atributos da atividade
             atividadeAntiga.setTipoDeAtividade(tipoSubmissao.getText());
@@ -75,8 +68,8 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
             atividadeAntiga.setTrilha(trilha);
             atividadeAntiga.setAutor(atvAutor.getText());
 
-            // Utilizar o AtividadeService para atualizar a atividade
-            atividadeService.atualizarAtividade(id, atividadeAntiga);
+            // Utilizar o AtividadeController para atualizar a atividade
+            atividadeController.atualizarAtividade(id, atividadeAntiga);
 
             // Limpar os campos após atualizar
             idAtividade.clear();

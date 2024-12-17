@@ -6,17 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import services.UsuarioService;
+
+import controllers.UsuarioController;
 
 import java.util.List;
 
-@Controller
 public class TelaCadastrarController implements IControladorTelas {
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioController usuarioController = new UsuarioController();
 
     @FXML
     private TextField txtUsuario;
@@ -46,7 +43,6 @@ public class TelaCadastrarController implements IControladorTelas {
     @FXML
     public void onCadastrar() {
         try {
-            System.out.println(usuarioService);
             Usuario usuarioCadastrado = new Usuario();
             usuarioCadastrado.setLogin(txtUsuario.getText());
             usuarioCadastrado.setCpf(txtCPF.getText());
@@ -73,12 +69,9 @@ public class TelaCadastrarController implements IControladorTelas {
                 return;
             }
 
-            if (usuarioService.adicionarUsuario(usuarioCadastrado) != null) {
-                Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-                verificarTela(usuarioCadastrado, stage);
-            } else {
-                exibirAlerta("Digite um CPF válido.");
-            }
+            usuarioController.adicionarUsuario(usuarioCadastrado);
+            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
+            verificarTela(usuarioCadastrado, stage);
         } catch (Exception e) {
             exibirAlerta("Erro ao cadastrar usuário.");
             e.printStackTrace();
@@ -105,12 +98,12 @@ public class TelaCadastrarController implements IControladorTelas {
     }
 
     private boolean checarUsuario(String usuario) {
-        List<Usuario> lista = usuarioService.listarTodosUsuarios();
+        List<Usuario> lista = usuarioController.listarTodosUsuarios();
         return lista.stream().anyMatch(user -> user.getLogin().equals(usuario));
     }
 
     private boolean checarCPF(String cpf) {
-        List<Usuario> lista = usuarioService.listarTodosUsuarios();
+        List<Usuario> lista = usuarioController.listarTodosUsuarios();
         return lista.stream().anyMatch(user -> user.getCpf().equals(cpf));
     }
 

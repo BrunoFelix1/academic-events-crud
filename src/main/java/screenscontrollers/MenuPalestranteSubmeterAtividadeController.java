@@ -6,14 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Atividade;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.AtividadeService;
+import controllers.AtividadeController;
+import controllers.TrilhaController;
 import models.Trilha;
-import services.TrilhaService;
 
-@Controller
 public class MenuPalestranteSubmeterAtividadeController implements IControladorTelas {
     @FXML
     private Button btnVoltar;
@@ -28,11 +25,8 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
     @FXML
     private TextField resumoAtv;
 
-    @Autowired
-    private AtividadeService atividadeService;
-
-    @Autowired
-    private TrilhaService trilhaService;
+    private AtividadeController atividadeController = new AtividadeController();
+    private TrilhaController trilhaController = new TrilhaController();
 
     @FXML
     private void onVoltar() {
@@ -61,7 +55,7 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
 
             // Converter string para tipo apropriado
             Long trilhaId = Long.parseLong(idTrilha.getText());
-            Trilha trilha = trilhaService.buscarTrilhaPorId(trilhaId);
+            Trilha trilha = trilhaController.buscarTrilhaPorId(trilhaId);
 
             // Criar nova atividade
             Atividade novaAtividade = new Atividade();
@@ -70,8 +64,8 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
             novaAtividade.setAutor(autorAtv.getText());
             novaAtividade.setResumo(resumoAtv.getText());
 
-            // Utilizar o AtividadeService para submeter a nova atividade
-            atividadeService.adicionarAtividade(novaAtividade);
+            // Utilizar o AtividadeController para submeter a nova atividade
+            atividadeController.adicionarAtividade(novaAtividade);
 
             // Limpar os campos após submeter
             idTrilha.clear();

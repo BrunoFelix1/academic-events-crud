@@ -1,6 +1,5 @@
 package screenscontrollers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -8,13 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Evento;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.EventoService;
+import controllers.EventoController;
 
-
-@Controller
 public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
 
     @FXML
@@ -23,8 +18,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
     @FXML
     private TextField nomeEventoField;
 
-    @Autowired
-    private EventoService eventoService;
+    private EventoController eventoController = new EventoController();
 
     @FXML
     void deletarEvento() {
@@ -39,7 +33,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
             }
 
             // Buscar o evento pelo nome
-            List<Evento> eventos = eventoService.listarTodosEventos();
+            List<Evento> eventos = eventoController.listarTodosEventos();
             Evento eventoParaDeletar = null;
             for (Evento evento : eventos) {
                 if (nomeEvento.equals(evento.getTitulo())) {
@@ -56,7 +50,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
             }
 
             // Deletar o evento
-            eventoService.deletarEvento(eventoParaDeletar.getId());
+            eventoController.deletarEvento(eventoParaDeletar.getId());
 
             // Limpar o campo após deletar
             nomeEventoField.clear();

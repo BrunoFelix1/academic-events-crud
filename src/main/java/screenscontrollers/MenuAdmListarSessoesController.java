@@ -1,19 +1,14 @@
 package screenscontrollers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import models.Secao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.SecaoService;
+import controllers.SecaoController;
 
-import java.util.List;
-
-@Controller
 public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
 
     @FXML
@@ -21,14 +16,13 @@ public class MenuAdmListarSessoesController extends MenuAdmGerSessaoController {
     @FXML
     private TextArea textAreaSecao;
 
-    @Autowired
-    private SecaoService secaoService;
+    private SecaoController secaoController = new SecaoController();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SecaoService para obter as sessões
-            List<Secao> secoes = secaoService.listarTodasSecoes();
+            // Utilizar o SecaoController para obter as sessões
+            List<Secao> secoes = secaoController.listarTodasSecoes();
             StringBuilder sb = new StringBuilder();
 
             // Iterar sobre as sessões e adicionar ao StringBuilder

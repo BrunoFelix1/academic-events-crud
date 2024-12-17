@@ -4,20 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.TrilhaService;
-import services.SecaoService;
+import controllers.SecaoController;
+import controllers.TrilhaController;
 import models.Secao;
 
-@Controller
 public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
-    @Autowired
-    private TrilhaService trilhaService;
 
-    @Autowired
-    private SecaoService secaoService;
+    private TrilhaController trilhaController = new TrilhaController();
+    private SecaoController secaoController = new SecaoController();
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -56,17 +51,17 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
             Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
 
             // Buscar a Secao relacionada
-            Secao secao = secaoService.buscarSecaoPorId(sessaoId);
+            Secao secao = secaoController.buscarSecaoPorId(sessaoId);
 
             // Buscar a Trilha existente
-            Trilha trilha = trilhaService.buscarTrilhaPorId(idTrilha);
+            Trilha trilha = trilhaController.buscarTrilhaPorId(idTrilha);
 
             // Atualizar os atributos da Trilha
             trilha.setNome(nomeTrilha);
             trilha.setSecao(secao);
 
-            // Utilizar o TrilhaService para atualizar a trilha
-            trilhaService.atualizarTrilha(idTrilha, trilha);
+            // Utilizar o TrilhaController para atualizar a trilha
+            trilhaController.atualizarTrilha(idTrilha, trilha);
 
             // Limpar os campos após salvar
             idTrilhaField.clear();

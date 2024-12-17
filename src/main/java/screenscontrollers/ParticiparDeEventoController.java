@@ -1,21 +1,15 @@
 package screenscontrollers;
 
-import java.util.List;
-
 import context.UserContext;
+import controllers.EventoController;
+import controllers.InscricaoController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Evento;
 import models.Inscricao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.InscricaoService;
-import services.EventoService;
-
-@Controller
 public class ParticiparDeEventoController extends MenuUsuarioController {
 
     @FXML
@@ -27,11 +21,8 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
     @FXML
     private Text textoMensagem;
 
-    @Autowired
-    private InscricaoService inscricaoService;
-
-    @Autowired
-    private EventoService eventoService;
+    private InscricaoController inscricaoController = new InscricaoController();
+    private EventoController eventoController = new EventoController();
 
     @FXML
     private void participarDeEvento() {
@@ -49,7 +40,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 Long eventoIdLong = Long.parseLong(eventoId);
 
                 // Verificar se o evento existe
-                Evento evento = eventoService.buscarEventoPorId(eventoIdLong);
+                Evento evento = eventoController.buscarEventoPorId(eventoIdLong);
                 if (evento == null) {
                     textoMensagem.setText("Evento não encontrado.");
                     return;
@@ -61,7 +52,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 novaInscricao.setEvento(evento);
 
                 // Chamar o serviço para cadastrar a inscrição
-                inscricaoService.adicionarInscricao(novaInscricao);
+                inscricaoController.adicionarInscricao(novaInscricao);
                 textoMensagem.setText("Você se cadastrou com sucesso no evento!");
             } else {
                 textoMensagem.setText("Erro: O ID informado não é válido.");

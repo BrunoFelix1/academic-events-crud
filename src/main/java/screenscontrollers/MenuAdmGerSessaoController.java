@@ -2,7 +2,6 @@ package screenscontrollers;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-@Controller
 public class MenuAdmGerSessaoController {
 
     @FXML

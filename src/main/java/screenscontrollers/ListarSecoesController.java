@@ -6,12 +6,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import services.SecaoService;
+
+import controllers.SecaoController;
 import models.Secao;
 
-@Controller
 public class ListarSecoesController extends MenuUsuarioController {
     
     private String fonteRepetida = "-fx-font-size: 12px;";
@@ -19,14 +17,13 @@ public class ListarSecoesController extends MenuUsuarioController {
     @FXML
     private ScrollPane scrollPane;
 
-    @Autowired
-    private SecaoService secaoService;
+    private SecaoController secaoController = new SecaoController();
 
     @FXML
     public void initialize() {
         try {
-            // Utilizar o SecaoService para obter as seções
-            List<Secao> secoes = secaoService.listarTodasSecoes();
+            // Utilizar o SecaoController para obter as seções
+            List<Secao> secoes = secaoController.listarTodasSecoes();
             populateScrollPane(secoes); // Preencher o ScrollPane com as seções
         } catch (Exception e) {
             // ...tratamento de erro...

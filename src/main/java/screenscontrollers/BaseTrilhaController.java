@@ -2,14 +2,12 @@ package screenscontrollers;
 
 import java.io.IOException;
 
-import org.springframework.stereotype.Controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-@Controller
 public abstract class BaseTrilhaController {
 
     protected void trocarCena(String caminhoFXML, Stage stage) {

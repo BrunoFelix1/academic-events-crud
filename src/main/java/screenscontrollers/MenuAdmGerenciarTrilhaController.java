@@ -1,12 +1,10 @@
 package screenscontrollers;
 
-import org.springframework.stereotype.Controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-@Controller
 public class MenuAdmGerenciarTrilhaController extends BaseTrilhaController {
 
     @FXML

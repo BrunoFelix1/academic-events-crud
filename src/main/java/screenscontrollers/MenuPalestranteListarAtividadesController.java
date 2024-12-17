@@ -9,15 +9,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Atividade;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.AtividadeService;
+import controllers.AtividadeController;
 
 import java.util.List;
 
-
-@Controller
 public class MenuPalestranteListarAtividadesController implements IControladorTelas {
 
     @FXML
@@ -27,8 +23,7 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
 
     private String fonteRepetida = "-fx-font-size: 12px;";
 
-    @Autowired
-    private AtividadeService atividadeService;
+    private AtividadeController atividadeController = new AtividadeController();
 
     @FXML
     private void onVoltar() {
@@ -38,7 +33,7 @@ public class MenuPalestranteListarAtividadesController implements IControladorTe
     @FXML
     public void initialize() {
         try {
-            List<Atividade> atividades = atividadeService.listarTodasAtividades();
+            List<Atividade> atividades = atividadeController.listarTodasAtividades();
             populateScrollPane(atividades);
         } catch (Exception e) {
             System.out.println(e.getMessage());

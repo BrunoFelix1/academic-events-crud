@@ -4,14 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.SubEvento;
-import org.springframework.beans.factory.annotation.Autowired;
-import services.SubEventoService;
-import services.EventoService;
+
 import models.Evento;
 import java.time.LocalDateTime;
-import org.springframework.stereotype.Controller;
 
-@Controller
+import controllers.EventoController;
+import controllers.SubEventoController;
+
 public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
     @FXML
@@ -32,11 +31,8 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
     @FXML
     private TextField eventoAssociadoField;
 
-    @Autowired
-    private SubEventoService subEventoService;
-
-    @Autowired
-    private EventoService eventoService;
+    private SubEventoController subEventoController = new SubEventoController();
+    private EventoController eventoController = new EventoController();
 
     @FXML
     void salvarSubEvento() {
@@ -54,11 +50,11 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
             Long eventoId = Long.parseLong(eventoIdStr);
             LocalDateTime horario = LocalDateTime.parse(horarioStr);
 
-            Evento evento = eventoService.buscarEventoPorId(eventoId);
+            Evento evento = eventoController.buscarEventoPorId(eventoId);
 
             SubEvento novoSubEvento = new SubEvento(evento, nome, local, horario, descricao);
 
-            subEventoService.adicionarSubEvento(novoSubEvento);
+            subEventoController.adicionarSubEvento(novoSubEvento);
 
             nomeSubEventoField.clear();
             localSubEventoField.clear();

@@ -5,12 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.AtividadeService;
+import controllers.AtividadeController;
 
-@Controller
 public class MenuPalestranteApagarAtividadeController implements IControladorTelas {
     @FXML
     private Button btnVoltar;
@@ -19,8 +16,7 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
     @FXML
     private TextField idTXT;
 
-    @Autowired
-    private AtividadeService atividadeService;
+    private AtividadeController atividadeController = new AtividadeController();
 
     @FXML
     private void onVoltar() {
@@ -42,7 +38,7 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
             Long id = Long.parseLong(idSessao);
 
             // Deletar a atividade
-            atividadeService.deletarAtividade(id);
+            atividadeController.deletarAtividade(id);
             exibirAlertaSucesso("Atividade deletada com sucesso.");
 
             // Limpar o campo após deletar

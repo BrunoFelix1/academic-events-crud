@@ -8,15 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import models.Trilha;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.TrilhaService;
+import controllers.TrilhaController;
 
-@Controller
 public class ListarTrilhasController extends MenuUsuarioController {
-    @Autowired
-    private TrilhaService trilhaService;
+
+    private TrilhaController trilhaController = new TrilhaController();
 
     @FXML
     private ScrollPane scrollPane;
@@ -24,8 +21,8 @@ public class ListarTrilhasController extends MenuUsuarioController {
     @FXML
     public void initialize() {
         try {
-            // Utilizar o TrilhaService para obter as trilhas
-            List<Trilha> trilhas = trilhaService.listarTodasTrilhas();
+            // Utilizar o TrilhaController para obter as trilhas
+            List<Trilha> trilhas = trilhaController.listarTodasTrilhas();
             populateScrollPane(trilhas); // Preencher o ScrollPane com as trilhas
         } catch (Exception e) {
             // ...tratamento de erro...

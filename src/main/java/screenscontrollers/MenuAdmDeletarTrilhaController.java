@@ -3,12 +3,9 @@ package screenscontrollers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.TrilhaService;
+import controllers.TrilhaController;
 
-@Controller
 public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
     @FXML
     private Button botaoDeletar;
@@ -16,8 +13,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
     @FXML
     private TextField idTrilhaField;
 
-    @Autowired
-    private TrilhaService trilhaService;
+    private TrilhaController trilhaController = new TrilhaController();
 
     @FXML
     void deletarTrilha() {
@@ -35,7 +31,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
             Long idTrilha = Long.parseLong(idTrilhaStr);
 
             // Deletar a trilha
-            trilhaService.deletarTrilha(idTrilha);
+            trilhaController.deletarTrilha(idTrilha);
 
             // Limpar o campo após deletar
             idTrilhaField.clear();

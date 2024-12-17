@@ -4,14 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Trilha;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
-import services.TrilhaService;
-import services.SecaoService;
+import controllers.SecaoController;
+import controllers.TrilhaController;
 import models.Secao;
 
-@Controller
 public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController {
 
     @FXML
@@ -29,11 +26,8 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
     @FXML
     private TextField sessaoRelacionadaField;
 
-    @Autowired
-    private TrilhaService trilhaService;
-
-    @Autowired
-    private SecaoService secaoService; // Injetar SecaoService para buscar Secao relacionada
+    private TrilhaController trilhaController = new TrilhaController();
+    private SecaoController secaoController = new SecaoController(); // Instanciar SecaoController para buscar Secao relacionada
 
     @FXML
     void salvarTrilha() {
@@ -51,13 +45,13 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
             Long sessaoId = Long.parseLong(sessaoRelacionadaStr);
 
             // Buscar a Secao relacionada
-            Secao secao = secaoService.buscarSecaoPorId(sessaoId);
+            Secao secao = secaoController.buscarSecaoPorId(sessaoId);
 
             // Criar objeto Trilha sem definir o ID manualmente
             Trilha novaTrilha = new Trilha(secao, nomeTrilha);
 
-            // Utilizar o TrilhaService para adicionar a nova trilha
-            trilhaService.adicionarTrilha(novaTrilha);
+            // Utilizar o TrilhaController para adicionar a nova trilha
+            trilhaController.adicionarTrilha(novaTrilha);
 
             // Limpar os campos após salvar
             nomeTrilhaField.clear();
