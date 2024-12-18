@@ -9,7 +9,6 @@ import models.Evento;
 import models.Secao;
 import models.SubEvento;
 
-import java.time.LocalDateTime;
 
 public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController {
 
@@ -57,7 +56,7 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
 
             // Converter strings para tipos apropriados
             Long idSessao = Long.parseLong(idSessaoStr);
-            LocalDateTime horarioSessao = LocalDateTime.parse(horarioSessaoStr);
+            String horarioSessao = horarioSessaoStr;
             Long eventoId = Long.parseLong(eventoRelacionadoStr);
             Long subEventoId = Long.parseLong(subEventoRelacionadoStr);
 

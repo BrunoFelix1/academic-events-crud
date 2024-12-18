@@ -1,7 +1,6 @@
 package models;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "evento")
@@ -13,11 +12,11 @@ public class Evento {
 
     private String titulo;
     private String local;
-    private LocalDateTime horario;
+    private String horario;
     private String descricao;
 
     // Novo construtor sem o campo 'id'
-    public Evento(String titulo, String local, LocalDateTime horario, String descricao) {
+    public Evento(String titulo, String local, String horario, String descricao) {
         this.titulo = titulo;
         this.local = local;
         this.horario = horario;
@@ -53,11 +52,11 @@ public class Evento {
         this.local = local;
     }
 
-    public LocalDateTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 

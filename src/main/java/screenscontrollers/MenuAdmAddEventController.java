@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import models.Evento;
 
 import facade.Facade;
-import java.time.LocalDateTime;
 
 public class MenuAdmAddEventController extends MenuAdmGerEventController {
     @FXML
@@ -33,7 +32,7 @@ public class MenuAdmAddEventController extends MenuAdmGerEventController {
         String horarioEventoStr = horarioEventoField.getText();
         String descricaoEvento = descricaoEventoField.getText();
 
-        LocalDateTime horarioEvento = LocalDateTime.parse(horarioEventoStr);
+        String horarioEvento = horarioEventoStr;
 
         Evento novoEvento = new Evento(nomeEvento, localEvento, horarioEvento, descricaoEvento);
         facade.adicionarEvento(novoEvento);

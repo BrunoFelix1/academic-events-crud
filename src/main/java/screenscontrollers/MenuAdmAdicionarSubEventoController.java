@@ -7,7 +7,6 @@ import models.SubEvento;
 
 import facade.Facade;
 import models.Evento;
-import java.time.LocalDateTime;
 
 public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
 
@@ -45,7 +44,7 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
             }
 
             Long eventoId = Long.parseLong(eventoIdStr);
-            LocalDateTime horario = LocalDateTime.parse(horarioStr);
+            String horario = horarioStr;
 
             Evento evento = facade.buscarEvento(eventoId);
 

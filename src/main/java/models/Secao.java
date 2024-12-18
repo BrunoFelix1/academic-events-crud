@@ -3,7 +3,6 @@ package models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Entity
 public class Secao {
@@ -27,7 +26,7 @@ public class Secao {
     private String descricao;
 
     private String local;
-    private LocalDateTime horario;
+    private String horario;
 
     // Construtor
     public Secao(Long id, String nome, String descricao) {
@@ -39,7 +38,7 @@ public class Secao {
     public Secao() {}
 
     // Novo construtor sem o campo 'id'
-    public Secao(Evento evento, SubEvento subEvento, String nome, String local, LocalDateTime horario) {
+    public Secao(Evento evento, SubEvento subEvento, String nome, String local, String horario) {
         this.evento = evento;
         this.subEvento = subEvento;
         this.nome = nome;
@@ -96,11 +95,11 @@ public class Secao {
         this.local = local;
     }
 
-    public LocalDateTime getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 }
