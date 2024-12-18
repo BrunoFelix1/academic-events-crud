@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import models.Secao;
 
 import facade.Facade;
-import java.time.LocalDateTime;
 
 public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController {
 
@@ -40,7 +39,7 @@ public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController
 
         Long idEventoRelacionado = Long.parseLong(eventoRelacionadoStr);
         Long idSubEventoRelacionado = Long.parseLong(subEventoRelacionadoStr);
-        LocalDateTime horarioSessao = LocalDateTime.parse(horarioSessaoStr);
+        String horarioSessao = horarioSessaoStr;
 
         Secao novaSecao = new Secao();
         novaSecao.setNome(nomeSessao);
