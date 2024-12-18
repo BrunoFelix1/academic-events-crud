@@ -12,6 +12,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: p3_db
+          POSTGRES_USER: p3
+          POSTGRES_PASSWORD: '123'
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       # Verifica o código do repositório
       - name: Check out repository
@@ -32,6 +47,13 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven
+
+      # Configura as variáveis de ambiente para o banco de dados
+      - name: Set up database environment variables
+        run: |
+          echo "JAKARTA_PERSISTENCE_JDBC_URL=jdbc:postgresql://localhost:5432/p3_db" >> $GITHUB_ENV
+          echo "JAKARTA_PERSISTENCE_JDBC_USER=p3" >> $GITHUB_ENV
+          echo "JAKARTA_PERSISTENCE_JDBC_PASSWORD=123" >> $GITHUB_ENV
 
       # Maven build e gera o relatório do JaCoCo
       - name: Build and test with Maven, including JaCoCo
