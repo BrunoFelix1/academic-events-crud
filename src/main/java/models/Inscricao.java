@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 
 @Entity
 public class Inscricao {
-    @EmbeddedId
-    private InscricaoId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("usuarioId")
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
     @ManyToOne
-    @MapsId("eventoId")
+    @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
     @ManyToOne
@@ -36,10 +37,11 @@ public class Inscricao {
         this.trilha = trilha;
     }
 
-    public Inscricao() {}
+    public Inscricao() {
+    }
 
     // Acessores
-    public InscricaoId getId() {
+    public Long getId() {
         return id;
     }
 

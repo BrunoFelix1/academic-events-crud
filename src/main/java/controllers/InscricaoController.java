@@ -2,7 +2,6 @@ package controllers;
 
 import repositories.InscricaoDAO;
 import models.Inscricao;
-import models.InscricaoId;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class InscricaoController {
     }
 
     // Atualizar Inscricao
-    public boolean atualizarInscricao(InscricaoId id, Inscricao inscricaoAtualizada) {
+    public boolean atualizarInscricao(Long id, Inscricao inscricaoAtualizada) {
         Inscricao inscricao = inscricaoDAO.selectInscricao(id);
         if (inscricao == null) {
             throw new RuntimeException("Inscricao não encontrada");
@@ -32,7 +31,7 @@ public class InscricaoController {
     }
 
     // Deletar Inscricao
-    public boolean deletarInscricao(InscricaoId id) {
+    public boolean deletarInscricao(Long id) {
         return inscricaoDAO.deleteInscricao(id);
     }
 
@@ -42,7 +41,7 @@ public class InscricaoController {
     }
 
     // Buscar Inscricao por ID
-    public Inscricao buscarInscricaoPorId(InscricaoId id) {
+    public Inscricao buscarInscricaoPorId(Long id) {
         Inscricao inscricao = inscricaoDAO.selectInscricao(id);
         if (inscricao == null) {
             throw new RuntimeException("Inscricao não encontrada");
@@ -51,12 +50,9 @@ public class InscricaoController {
     }
 
     // Cancelar Inscricao
-    public void cancelarInscricao(Long usuarioId, Long eventoId, Long subEventoId, Long secaoId, Long trilhaId) {
-        InscricaoId id = new InscricaoId();
-        id.setUsuarioId(usuarioId);
-        id.setEventoId(eventoId);
+    public void cancelarInscricao(Long id) {
         Inscricao inscricao = inscricaoDAO.selectInscricao(id);
-        if (inscricao == null || !inscricao.getSubEvento().getId().equals(subEventoId) || !inscricao.getSecao().getId().equals(secaoId) || !inscricao.getTrilha().getId().equals(trilhaId)) {
+        if (inscricao == null) {
             throw new RuntimeException("Inscrição não encontrada");
         }
         inscricaoDAO.deleteInscricao(id);

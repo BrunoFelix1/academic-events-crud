@@ -1,13 +1,11 @@
 package screenscontrollers;
 
-import context.UserContext;
 import facade.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import models.Usuario;
 
 public class CancelarInscricaoController extends MenuUsuarioController {
 
@@ -15,16 +13,7 @@ public class CancelarInscricaoController extends MenuUsuarioController {
     private Button botaoCancelarInscricao;
 
     @FXML
-    private TextField idEvento;
-
-    @FXML
-    private TextField idSubEvento;
-
-    @FXML
-    private TextField idSecao;
-
-    @FXML
-    private TextField idTrilha;
+    private TextField idInscricao;
 
     @FXML
     private Text textoMensagem;
@@ -34,43 +23,26 @@ public class CancelarInscricaoController extends MenuUsuarioController {
     @FXML
     private void cancelarInscricao() {
         try {
-            // Pega o ID do Trilha do campo de texto
-            String TrilhaId = idTrilha.getText();
-            String EventoId = idEvento.getText();
-            String SubEventoId = idSubEvento.getText();
-            String SecaoId = idSecao.getText();
+            // Pega o ID da Inscrição do campo de texto
+            String inscricaoId = idInscricao.getText();
 
             // Verifica se o campo não está vazio
-            if (TrilhaId == null || TrilhaId.trim().isEmpty()
-            || EventoId == null || EventoId.trim().isEmpty()
-            || SubEventoId == null || SubEventoId.trim().isEmpty()
-            || SecaoId == null || SecaoId.trim().isEmpty()) {
-                textoMensagem.setText("Por favor, insira um ID nos campos.");
+            if (inscricaoId == null || inscricaoId.trim().isEmpty()) {
+                textoMensagem.setText("Por favor, insira um ID de inscrição.");
                 return;
             }
-            if (isInteger(TrilhaId) 
-            && isInteger(EventoId)
-            && isInteger(SubEventoId)
-            && isInteger(SecaoId)){
-                Usuario usuario = facade.buscarUsuario(UserContext.getInstance().getUsuario().getId());
-                Long trilhaIdLong = Long.parseLong(TrilhaId);
-                facade.buscarTrilha(trilhaIdLong);
+            if (isInteger(inscricaoId)) {
+                Long inscricaoIdLong = Long.parseLong(inscricaoId);
                 
                 // Chamar o serviço para cancelar a inscrição
-                facade.cancelarInscricao(
-                    usuario.getId(), 
-                    Long.parseLong(EventoId), 
-                    Long.parseLong(SubEventoId), 
-                    Long.parseLong(SecaoId), 
-                    trilhaIdLong
-                );
+                facade.cancelarInscricao(inscricaoIdLong);
                 
                 textoMensagem.setText("Você cancelou com sucesso sua inscrição!");
             } else {
-                textoMensagem.setText("Erro!");
+                textoMensagem.setText("Erro! ID inválido.");
             }
         } catch (Exception e) {
-            textoMensagem.setText("Erro!");
+            textoMensagem.setText("Erro ao cancelar inscrição!");
             System.out.println(e.getMessage());
         }
     }

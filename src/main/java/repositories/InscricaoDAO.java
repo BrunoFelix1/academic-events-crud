@@ -7,7 +7,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 import models.Inscricao;
-import models.InscricaoId;
 
 public class InscricaoDAO {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("your-persistence-unit");
@@ -27,7 +26,7 @@ public class InscricaoDAO {
         }
     }
 
-    public Inscricao selectInscricao(InscricaoId id) {
+    public Inscricao selectInscricao(Long id) {
         EntityManager em = emf.createEntityManager();
         Inscricao inscricao = em.find(Inscricao.class, id);
         em.close();
@@ -42,7 +41,7 @@ public class InscricaoDAO {
         return inscricoes;
     }
 
-    public boolean deleteInscricao(InscricaoId id) {
+    public boolean deleteInscricao(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Inscricao inscricao = em.find(Inscricao.class, id);

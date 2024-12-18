@@ -1,187 +1,19 @@
 package integration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import facade.Facade;
 import models.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class FacadeTest {
+public class FacadeAtividadeTest extends BaseIntegrationTest {
 
-    private Facade facade;
-    private List<Long> eventosCriados;
-    private List<Long> atividadesCriadas;
-    private List<Long> secoesCriadas;
-    private List<Long> usuariosCriados;
-    private List<Long> trilhasCriadas;
-    private List<Long> subEventosCriados;
-    private List<InscricaoId> inscricoesCriadas;
-
-    @BeforeAll
-    void setUp() {
-        facade = new Facade();
-
-        // Inicializando listas de rastreamento de IDs criados durante os testes
-        eventosCriados = new ArrayList<>();
-        atividadesCriadas = new ArrayList<>();
-        secoesCriadas = new ArrayList<>();
-        usuariosCriados = new ArrayList<>();
-        trilhasCriadas = new ArrayList<>();
-        subEventosCriados = new ArrayList<>();
-        inscricoesCriadas = new ArrayList<>();
-    }
-
-    @AfterAll
-    void tearDown() {
-        limparInscricoes();
-        limparAtividades();
-        limparTrilhas();
-        limparSecoes();
-        limparSubEventos();
-        limparUsuarios();
-        limparEventos();
-        
-    }
-
-    private void limparEventos() {
-        for (Long eventoId : eventosCriados) {
-            facade.deletarEvento(eventoId);
-        }
-        eventosCriados.clear();
-    }
-
-    private void limparAtividades() {
-        for (Long atividadeId : atividadesCriadas) {
-            facade.deletarAtividade(atividadeId);
-        }
-        atividadesCriadas.clear();
-    }
-
-    private void limparSecoes() {
-        for (Long secaoId : secoesCriadas) {
-            facade.deletarSecao(secaoId);
-        }
-        secoesCriadas.clear();
-    }
-
-    private void limparUsuarios() {
-        for (Long usuarioId : usuariosCriados) {
-            facade.deletarUsuario(usuarioId);
-        }
-        usuariosCriados.clear();
-    }
-
-    private void limparTrilhas() {
-        for (Long trilhaId : trilhasCriadas) {
-            facade.deletarTrilha(trilhaId);
-        }
-        trilhasCriadas.clear();
-    }
-
-    private void limparSubEventos() {
-        for (Long subEventoId : subEventosCriados) {
-            facade.deletarSubEvento(subEventoId);
-        }
-        subEventosCriados.clear();
-    }
-
-    private void limparInscricoes() {
-        for (InscricaoId inscricaoId : inscricoesCriadas) {
-            facade.deletarInscricao(inscricaoId);
-        }
-        inscricoesCriadas.clear();
-    }
-
-    // Testes para Evento
-    @Test
-    void addEventoTest() {
-        Evento evento = new Evento();
-        evento.setTitulo("Evento Teste");
-        evento.setLocal("Local A");
-        evento.setHorario("13:00");
-        evento.setDescricao("Descrição Teste");
-
-        assertEquals(true, facade.adicionarEvento(evento));
-        eventosCriados.add(evento.getId()); // Rastrear o ID do evento criado
-    }
-
-    @Test
-    void listEventosTest() {
-        Evento evento1 = new Evento();
-        evento1.setTitulo("Evento Teste1");
-        evento1.setLocal("Local A");
-        evento1.setHorario("13:00");
-        evento1.setDescricao("Descrição Teste1");
-
-        Evento evento2 = new Evento();
-        evento2.setTitulo("Evento Teste2");
-        evento2.setLocal("Local B");
-        evento2.setHorario("13:00");
-        evento2.setDescricao("Descrição Teste2");
-
-        facade.adicionarEvento(evento1);
-        facade.adicionarEvento(evento2);
-
-        // Rastrear os IDs dos eventos criados
-        eventosCriados.add(evento1.getId());
-        eventosCriados.add(evento2.getId());
-
-        List<Evento> eventos = facade.listarEventos();
-        assertNotNull(eventos);
-        assertTrue(eventos.size() >= 2);
-    }
-
-    @Test
-    void updateEventoTest() {
-        Evento eventoAntigo = new Evento();
-        eventoAntigo.setTitulo("Evento Teste1");
-        eventoAntigo.setLocal("Local A");
-        eventoAntigo.setHorario("13:00");
-        eventoAntigo.setDescricao("Descrição Teste1");
-
-        facade.adicionarEvento(eventoAntigo);
-        Long eventoAntigoId = eventoAntigo.getId();
-        eventosCriados.add(eventoAntigoId); // Rastrear o ID do evento criado
-
-        Evento eventoNovo = new Evento();
-        eventoNovo.setTitulo("Evento Teste2");
-        eventoNovo.setLocal("Local B");
-        eventoNovo.setHorario("14:00");
-        eventoNovo.setDescricao("Descrição Teste2");
-
-        assertTrue(facade.atualizarEvento(eventoAntigoId, eventoNovo));
-    }
-
-    @Test
-    void deleteEventoTest() {
-        Evento evento = new Evento();
-        evento.setTitulo("Evento Teste1");
-        evento.setLocal("Local A");
-        evento.setHorario("13:00");
-        evento.setDescricao("Descrição Teste1");
-
-        facade.adicionarEvento(evento);
-        Long eventoId = evento.getId();
-        eventosCriados.add(eventoId); // Rastrear o ID do evento criado
-
-        boolean resultado = facade.deletarEvento(eventoId);
-        assertTrue(resultado);
-
-        // Remover o ID rastreado, pois já foi deletado
-        eventosCriados.remove(eventoId);
-    }
-
-    // Testes para Atividade
     @Test
     void addAtividadeTest() {
         Evento evento = new Evento("Evento Teste", "Local A", "13:00", "Descrição Teste");
@@ -323,5 +155,4 @@ public class FacadeTest {
         // Remover o ID rastreado, pois já foi deletado
         atividadesCriadas.remove(atividadeId);
     }
-   
 }

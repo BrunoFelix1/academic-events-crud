@@ -140,11 +140,11 @@ public class Facade {
         return inscricaoController.adicionarInscricao(inscricao);
     }
 
-    public boolean atualizarInscricao(InscricaoId id, Inscricao inscricaoAtualizada) {
+    public boolean atualizarInscricao(Long id, Inscricao inscricaoAtualizada) {
         return inscricaoController.atualizarInscricao(id, inscricaoAtualizada);
     }
 
-    public Inscricao buscarInscricao(InscricaoId id) {
+    public Inscricao buscarInscricao(Long id) {
         return inscricaoController.buscarInscricaoPorId(id);
     }
 
@@ -152,12 +152,12 @@ public class Facade {
         return inscricaoController.listarTodasInscricoes();
     }
 
-    public boolean deletarInscricao(InscricaoId id) {
+    public boolean deletarInscricao(Long id) {
         return inscricaoController.deletarInscricao(id);
     }
 
-    public void cancelarInscricao(Long usuarioId, Long eventoId, Long subEventoId, Long secaoId, Long trilhaId) {
-        inscricaoController.cancelarInscricao(usuarioId, eventoId, subEventoId, secaoId, trilhaId);
+    public void cancelarInscricao(Long id) {
+        inscricaoController.cancelarInscricao(id);
     }
 
     public List<Inscricao> listarInscricoesPorUsuario(Long usuarioId) {
