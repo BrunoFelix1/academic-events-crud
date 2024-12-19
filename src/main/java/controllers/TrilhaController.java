@@ -11,6 +11,12 @@ public class TrilhaController {
 
     // Adicionar Trilha
     public boolean adicionarTrilha(Trilha trilha) {
+        if (trilha.getNome() == null || trilha.getNome().isEmpty()) {
+            throw new RuntimeException("O nome da trilha é obrigatório");
+        }
+        if (trilha.getSecao() == null || trilha.getSecao().getId() == null) {
+            throw new RuntimeException("Seção inválida");
+        }
         return trilhaDAO.insertTrilha(trilha);
     }
 
@@ -19,6 +25,12 @@ public class TrilhaController {
         Trilha trilha = trilhaDAO.selectTrilha(id);
         if (trilha == null) {
             throw new RuntimeException("Trilha não encontrada");
+        }
+        if (trilhaAtualizada.getNome() == null || trilhaAtualizada.getNome().isEmpty()) {
+            throw new RuntimeException("O nome da trilha é obrigatório");
+        }
+        if (trilhaAtualizada.getSecao() == null || trilhaAtualizada.getSecao().getId() == null) {
+            throw new RuntimeException("Seção inválida");
         }
 
         trilha.setNome(trilhaAtualizada.getNome());
@@ -29,6 +41,10 @@ public class TrilhaController {
 
     // Deletar Trilha
     public boolean deletarTrilha(Long id) {
+        Trilha trilha = trilhaDAO.selectTrilha(id);
+        if (trilha == null) {
+            throw new RuntimeException("Trilha não encontrada");
+        }
         return trilhaDAO.deleteTrilha(id);
     }
 

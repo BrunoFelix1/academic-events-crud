@@ -156,8 +156,8 @@ public class Facade {
         return inscricaoController.deletarInscricao(id);
     }
 
-    public void cancelarInscricao(Long id) {
-        inscricaoController.cancelarInscricao(id);
+    public void cancelarInscricao(Long id, Long usuarioId) {
+        inscricaoController.cancelarInscricao(id, usuarioId);
     }
 
     public List<Inscricao> listarInscricoesPorUsuario(Long usuarioId) {

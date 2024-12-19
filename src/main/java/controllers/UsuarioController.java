@@ -12,6 +12,21 @@ public class UsuarioController {
 
     // Adicionar Usuario
     public boolean adicionarUsuario(Usuario usuario) {
+        if (usuario.getCpf() == null || usuario.getCpf().isEmpty()) {
+            throw new RuntimeException("CPF é obrigatório");
+        }
+        if (!usuario.ValidarCPF()) {
+            throw new RuntimeException("CPF inválido");
+        }
+        if (usuario.getNome() == null || usuario.getNome().isEmpty()) {
+            throw new RuntimeException("Nome é obrigatório");
+        }
+        if (usuario.getLogin() == null || usuario.getLogin().isEmpty()) {
+            throw new RuntimeException("Login é obrigatório");
+        }
+        if (usuario.getSenha() == null || usuario.getSenha().isEmpty()) {
+            throw new RuntimeException("Senha é obrigatória");
+        }
         return usuarioDAO.insertUser(usuario);
     }
 
@@ -20,6 +35,21 @@ public class UsuarioController {
         Usuario usuario = usuarioDAO.selectUser(id);
         if (usuario == null) {
             throw new RuntimeException("Usuario não encontrado");
+        }
+        if (usuarioAtualizado.getCpf() == null || usuarioAtualizado.getCpf().isEmpty()) {
+            throw new RuntimeException("CPF é obrigatório");
+        }
+        if (!usuarioAtualizado.ValidarCPF()) {
+            throw new RuntimeException("CPF inválido");
+        }
+        if (usuarioAtualizado.getNome() == null || usuarioAtualizado.getNome().isEmpty()) {
+            throw new RuntimeException("Nome é obrigatório");
+        }
+        if (usuarioAtualizado.getLogin() == null || usuarioAtualizado.getLogin().isEmpty()) {
+            throw new RuntimeException("Login é obrigatório");
+        }
+        if (usuarioAtualizado.getSenha() == null || usuarioAtualizado.getSenha().isEmpty()) {
+            throw new RuntimeException("Senha é obrigatória");
         }
 
         // Atualizar campos necessários
@@ -36,6 +66,10 @@ public class UsuarioController {
 
     // Deletar Usuario
     public boolean deletarUsuario(Long id) {
+        Usuario usuario = usuarioDAO.selectUser(id);
+        if (usuario == null) {
+            throw new RuntimeException("Usuario não encontrado");
+        }
         return usuarioDAO.deleteUser(id);
     }
 

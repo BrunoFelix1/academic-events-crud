@@ -11,6 +11,18 @@ public class SubEventoController {
 
     // Adicionar SubEvento
     public boolean adicionarSubEvento(SubEvento subEvento) {
+        if (subEvento.getNome() == null || subEvento.getNome().isEmpty()) {
+            throw new RuntimeException("O nome do subevento é obrigatório");
+        }
+        if (subEvento.getEvento() == null || subEvento.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
+        }
+        if (subEvento.getLocal() == null || subEvento.getLocal().isEmpty()) {
+            throw new RuntimeException("O local do subevento é obrigatório");
+        }
+        if (subEvento.getHorario() == null || subEvento.getHorario().isEmpty()) {
+            throw new RuntimeException("O horário do subevento é obrigatório");
+        }
         return subEventoDAO.insertSubEvento(subEvento);
     }
 
@@ -20,16 +32,35 @@ public class SubEventoController {
         if (subEvento == null) {
             throw new RuntimeException("SubEvento não encontrado");
         }
+        if (subEventoAtualizado.getNome() == null || subEventoAtualizado.getNome().isEmpty()) {
+            throw new RuntimeException("O nome do subevento é obrigatório");
+        }
+        if (subEventoAtualizado.getEvento() == null || subEventoAtualizado.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
+        }
+        if (subEventoAtualizado.getLocal() == null || subEventoAtualizado.getLocal().isEmpty()) {
+            throw new RuntimeException("O local do subevento é obrigatório");
+        }
+        if (subEventoAtualizado.getHorario() == null || subEventoAtualizado.getHorario().isEmpty()) {
+            throw new RuntimeException("O horário do subevento é obrigatório");
+        }
 
         subEvento.setNome(subEventoAtualizado.getNome());
         subEvento.setDescricao(subEventoAtualizado.getDescricao());
         subEvento.setData(subEventoAtualizado.getData());
+        subEvento.setLocal(subEventoAtualizado.getLocal());
+        subEvento.setHorario(subEventoAtualizado.getHorario());
+        subEvento.setEvento(subEventoAtualizado.getEvento());
 
         return subEventoDAO.updateSubEvento(subEvento);
     }
 
     // Deletar SubEvento
     public boolean deletarSubEvento(Long id) {
+        SubEvento subEvento = subEventoDAO.selectSubEvento(id);
+        if (subEvento == null) {
+            throw new RuntimeException("SubEvento não encontrado");
+        }
         return subEventoDAO.deleteSubEvento(id);
     }
 
