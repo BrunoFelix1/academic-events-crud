@@ -24,7 +24,7 @@ class EventoControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Inicializa os mocks
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -72,14 +72,14 @@ class EventoControllerTest {
     void testAtualizarEventoNaoEncontrado() {
         Evento eventoAtualizado = new Evento("Palestra de C++", "Auditório 4", "18:00", "Evento sobre C++");
 
-        when(eventoDAO.selectEvento(1L)).thenReturn(null); // Simula que o evento não existe
+        when(eventoDAO.selectEvento(1L)).thenReturn(null);
 
         Exception exception = assertThrows(RuntimeException.class, () -> {
             eventoController.atualizarEvento(1L, eventoAtualizado);
         });
 
         assertEquals("Evento não encontrado", exception.getMessage());
-        verify(eventoDAO, never()).updateEvento(any()); // Garante que o update não foi chamado
+        verify(eventoDAO, never()).updateEvento(any());
     }
 
     @Test
