@@ -94,6 +94,39 @@ public class InscricaoDAO {
         em.close();
         return result;
     }
+
+    public boolean inscricaoJaExiste(Long usuarioId, Long eventoId, Long subEventoId, Long secaoId, Long trilhaId) {
+        EntityManager em = emf.createEntityManager();
+        String hql = "FROM Inscricao i WHERE i.usuario.id = :usuarioId AND i.evento.id = :eventoId";
+        
+        if (subEventoId != null) {
+            hql += " AND i.subEvento.id = :subEventoId";
+        }
+        if (secaoId != null) {
+            hql += " AND i.secao.id = :secaoId";
+        }
+        if (trilhaId != null) {
+            hql += " AND i.trilha.id = :trilhaId";
+        }
+
+        TypedQuery<Inscricao> query = em.createQuery(hql, Inscricao.class);
+        query.setParameter("usuarioId", usuarioId);
+        query.setParameter("eventoId", eventoId);
+        
+        if (subEventoId != null) {
+            query.setParameter("subEventoId", subEventoId);
+        }
+        if (secaoId != null) {
+            query.setParameter("secaoId", secaoId);
+        }
+        if (trilhaId != null) {
+            query.setParameter("trilhaId", trilhaId);
+        }
+
+        boolean result = !query.getResultList().isEmpty();
+        em.close();
+        return result;
+    }
 }
 
 

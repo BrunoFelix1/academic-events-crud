@@ -65,20 +65,32 @@ public class FacadeInscricaoTest extends BaseIntegrationTest {
         facade.adicionarEvento(evento);
         eventosCriados.add(evento.getId());
 
-        SubEvento subEvento = new SubEvento(evento, "SubEvento Teste", "Local B", "14:00", "Descrição SubEvento");
-        facade.adicionarSubEvento(subEvento);
-        subEventosCriados.add(subEvento.getId());
+        SubEvento subEvento1 = new SubEvento(evento, "SubEvento Teste 1", "Local B", "14:00", "Descrição SubEvento 1");
+        facade.adicionarSubEvento(subEvento1);
+        subEventosCriados.add(subEvento1.getId());
 
-        Secao secao = new Secao(evento, subEvento, "Secao Teste", "Local C", "15:00");
-        facade.adicionarSecao(secao);
-        secoesCriadas.add(secao.getId());
+        SubEvento subEvento2 = new SubEvento(evento, "SubEvento Teste 2", "Local C", "15:00", "Descrição SubEvento 2");
+        facade.adicionarSubEvento(subEvento2);
+        subEventosCriados.add(subEvento2.getId());
 
-        Trilha trilha = new Trilha(secao, "Trilha Teste");
-        facade.adicionarTrilha(trilha);
-        trilhasCriadas.add(trilha.getId());
+        Secao secao1 = new Secao(evento, subEvento1, "Secao Teste 1", "Local D", "16:00");
+        facade.adicionarSecao(secao1);
+        secoesCriadas.add(secao1.getId());
 
-        Inscricao inscricao1 = new Inscricao(usuario, evento, subEvento, secao, trilha);
-        Inscricao inscricao2 = new Inscricao(usuario, evento, subEvento, secao, trilha);
+        Secao secao2 = new Secao(evento, subEvento2, "Secao Teste 2", "Local E", "17:00");
+        facade.adicionarSecao(secao2);
+        secoesCriadas.add(secao2.getId());
+
+        Trilha trilha1 = new Trilha(secao1, "Trilha Teste 1");
+        facade.adicionarTrilha(trilha1);
+        trilhasCriadas.add(trilha1.getId());
+
+        Trilha trilha2 = new Trilha(secao2, "Trilha Teste 2");
+        facade.adicionarTrilha(trilha2);
+        trilhasCriadas.add(trilha2.getId());
+
+        Inscricao inscricao1 = new Inscricao(usuario, evento, subEvento1, secao1, trilha1);
+        Inscricao inscricao2 = new Inscricao(usuario, evento, subEvento2, secao2, trilha2);
 
         facade.adicionarInscricao(inscricao1);
         facade.adicionarInscricao(inscricao2);

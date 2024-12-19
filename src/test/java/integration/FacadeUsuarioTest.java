@@ -26,7 +26,7 @@ public class FacadeUsuarioTest extends BaseIntegrationTest {
     void updateUsuarioTest() {
         Usuario usuarioAntigo = new Usuario();
         usuarioAntigo.setLogin("usuarioAntigo");
-        usuarioAntigo.setCpf("123.456.789-00");
+        usuarioAntigo.setCpf("641.528.610-29");
         usuarioAntigo.setSenha("senhaAntiga");
         usuarioAntigo.setIdade(30);
         usuarioAntigo.setNome("Nome Antigo");
@@ -39,7 +39,7 @@ public class FacadeUsuarioTest extends BaseIntegrationTest {
 
         Usuario usuarioNovo = new Usuario();
         usuarioNovo.setLogin("usuarioNovo");
-        usuarioNovo.setCpf("987.654.321-00");
+        usuarioNovo.setCpf("641.528.610-29");
         usuarioNovo.setSenha("senhaNova");
         usuarioNovo.setIdade(35);
         usuarioNovo.setNome("Nome Novo");

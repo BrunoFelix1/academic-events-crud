@@ -127,16 +127,16 @@ public class Facade {
         return subEventoController.buscarSubEventoPorId(id);
     }
 
-    public SubEvento buscarSubEventoPorNome(String nome) {
-        return subEventoController.buscarSubEventoPorNome(nome);
-    }
-
     public List<SubEvento> listarSubEventos() {
         return subEventoController.listarTodosSubEventos();
     }
 
     public boolean deletarSubEvento(Long id) {
         return subEventoController.deletarSubEvento(id);
+    }
+
+    public SubEvento buscarSubEventoPorNome(String nome) {
+        return subEventoController.buscarSubEventoPorNome(nome);
     }
 
     // Métodos para Inscricao

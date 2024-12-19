@@ -17,16 +17,28 @@ public class InscricaoController {
         if (inscricao.getEvento() == null || inscricao.getEvento().getId() == null) {
             throw new RuntimeException("Evento inválido");
         }
-        // Verificar se o usuário já está inscrito no evento
-        if (usuarioJaInscritoNoEvento(inscricao.getUsuario().getId(), inscricao.getEvento().getId())) {
-            throw new RuntimeException("Usuário já inscrito neste evento");
+        if (inscricao.getSubEvento() != null && inscricao.getSubEvento().getId() == null) {
+            throw new RuntimeException("SubEvento inválido");
+        }
+        if (inscricao.getSecao() != null && inscricao.getSecao().getId() == null) {
+            throw new RuntimeException("Secao inválida");
+        }
+        if (inscricao.getTrilha() != null && inscricao.getTrilha().getId() == null) {
+            throw new RuntimeException("Trilha inválida");
+        }
+        // Verificar se o usuário já está inscrito no evento, subevento, seção e trilha
+        if (inscricaoJaExiste(inscricao)) {
+            throw new RuntimeException("Inscrição já existente");
         }
         return inscricaoDAO.insertInscricao(inscricao);
     }
 
-    // Novo método para verificar se o usuário já está inscrito no evento
-    private boolean usuarioJaInscritoNoEvento(Long usuarioId, Long eventoId) {
-        return inscricaoDAO.usuarioJaInscritoNoEvento(usuarioId, eventoId);
+    // Novo método para verificar se a inscrição já existe
+    private boolean inscricaoJaExiste(Inscricao inscricao) {
+        return inscricaoDAO.inscricaoJaExiste(inscricao.getUsuario().getId(), inscricao.getEvento().getId(), 
+                                              inscricao.getSubEvento() != null ? inscricao.getSubEvento().getId() : null,
+                                              inscricao.getSecao() != null ? inscricao.getSecao().getId() : null,
+                                              inscricao.getTrilha() != null ? inscricao.getTrilha().getId() : null);
     }
 
     // Atualizar Inscrição
