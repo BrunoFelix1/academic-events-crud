@@ -38,16 +38,14 @@ public class MenuPalestranteApagarAtividadeController implements IControladorTel
             Long id = Long.parseLong(idSessao);
 
             // Deletar a atividade
-            facade.deletarAtividade(id);
-            exibirAlertaSucesso("Atividade deletada com sucesso.");
-
-            // Limpar o campo após deletar
-            idTXT.clear();
+            if (facade.deletarAtividade(id)) {
+                exibirAlertaSucesso("Atividade deletada com sucesso.");
+                idTXT.clear();
+            }
         } catch (NumberFormatException e) {
             exibirAlerta("Erro: O ID informado não é válido.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            exibirAlerta("Erro ao excluir atividade.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

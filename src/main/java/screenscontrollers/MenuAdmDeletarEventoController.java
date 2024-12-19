@@ -9,8 +9,9 @@ import javafx.scene.control.TextField;
 import models.Evento;
 
 import facade.Facade;
+import interfaces.IControladorTelas;
 
-public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
+public class MenuAdmDeletarEventoController extends MenuAdmGerEventController implements IControladorTelas {
 
     @FXML
     private Button botaoDeletar;
@@ -27,8 +28,7 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
 
             // Validar campo
             if (nomeEvento.isEmpty()) {
-                // ...mensagem de erro...
-                System.out.println("Por favor, insira o nome do evento.");
+                exibirAlerta("Por favor, insira o nome do evento.");
                 return;
             }
 
@@ -44,22 +44,17 @@ public class MenuAdmDeletarEventoController extends MenuAdmGerEventController {
 
             // Verificar se o evento foi encontrado
             if (eventoParaDeletar == null) {
-                // ...mensagem de erro...
-                System.out.println("Evento não encontrado.");
+                exibirAlerta("Evento não encontrado.");
                 return;
             }
 
             // Deletar o evento
-            facade.deletarEvento(eventoParaDeletar.getId());
-
-            // Limpar o campo após deletar
-            nomeEventoField.clear();
-
-            // ...mensagem de sucesso...
-            System.out.println("Evento deletado com sucesso!");
-        } catch (Exception e) {
-            // ...tratamento de erro genérico...
-            System.out.println("Erro ao deletar o evento: " + e.getMessage());
+            if (facade.deletarEvento(eventoParaDeletar.getId())) {
+                exibirAlertaSucesso("Evento deletado com sucesso!");
+                nomeEventoField.clear();
+            }
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

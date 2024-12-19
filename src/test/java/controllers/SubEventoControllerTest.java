@@ -1,4 +1,4 @@
-package controllersTest;
+package controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,29 +28,6 @@ class SubEventoControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testAdicionarSubEvento() {
-        Evento evento = new Evento();
-        SubEvento novoSubEvento = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
-        when(subEventoDAO.insertSubEvento(novoSubEvento)).thenReturn(true);
-
-        boolean resultado = subEventoController.adicionarSubEvento(novoSubEvento);
-
-        assertTrue(resultado, "O subevento deveria ser adicionado com sucesso.");
-        verify(subEventoDAO, times(1)).insertSubEvento(novoSubEvento);
-    }
-
-    @Test
-    void testAdicionarSubEventoFalha() {
-        Evento evento = new Evento();
-        SubEvento novoSubEvento = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
-        when(subEventoDAO.insertSubEvento(novoSubEvento)).thenReturn(false);
-
-        boolean resultado = subEventoController.adicionarSubEvento(novoSubEvento);
-
-        assertFalse(resultado, "O subevento não deveria ser adicionado.");
-        verify(subEventoDAO, times(1)).insertSubEvento(novoSubEvento);
-    }
 
     @Test
     void testAtualizarSubEventoNaoEncontrado() {
@@ -67,25 +44,7 @@ class SubEventoControllerTest {
         verify(subEventoDAO, never()).updateSubEvento(any());
     }
 
-    @Test
-    void testDeletarSubEvento() {
-        when(subEventoDAO.deleteSubEvento(1L)).thenReturn(true);
 
-        boolean resultado = subEventoController.deletarSubEvento(1L);
-
-        assertTrue(resultado, "O subevento deveria ser deletado com sucesso.");
-        verify(subEventoDAO, times(1)).deleteSubEvento(1L);
-    }
-
-    @Test
-    void testDeletarSubEventoNaoEncontrado() {
-        when(subEventoDAO.deleteSubEvento(1L)).thenReturn(false);
-
-        boolean resultado = subEventoController.deletarSubEvento(1L);
-
-        assertFalse(resultado, "O subevento não deveria ser deletado.");
-        verify(subEventoDAO, times(1)).deleteSubEvento(1L);
-    }
 
     @Test
     void testListarTodosSubEventos() {

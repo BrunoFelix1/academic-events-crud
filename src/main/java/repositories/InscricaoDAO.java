@@ -83,6 +83,17 @@ public class InscricaoDAO {
         em.close();
         return inscricoes;
     }
+
+    public boolean usuarioJaInscritoNoEvento(Long usuarioId, Long eventoId) {
+        EntityManager em = emf.createEntityManager();
+        String hql = "FROM Inscricao i WHERE i.usuario.id = :usuarioId AND i.evento.id = :eventoId";
+        TypedQuery<Inscricao> query = em.createQuery(hql, Inscricao.class);
+        query.setParameter("usuarioId", usuarioId);
+        query.setParameter("eventoId", eventoId);
+        boolean result = !query.getResultList().isEmpty();
+        em.close();
+        return result;
+    }
 }
 
 

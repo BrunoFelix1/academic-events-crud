@@ -11,6 +11,15 @@ public class SecaoController {
 
     // Adicionar Secao
     public boolean adicionarSecao(Secao secao) {
+        if (secao.getNome() == null || secao.getNome().isEmpty()) {
+            throw new RuntimeException("O nome da seção é obrigatório");
+        }
+        if (secao.getEvento() == null || secao.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
+        }
+        if (secao.getSubEvento() == null || secao.getSubEvento().getId() == null) {
+            throw new RuntimeException("SubEvento inválido");
+        }
         return secaoDAO.insertSecao(secao);
     }
 
@@ -19,6 +28,15 @@ public class SecaoController {
         Secao secao = secaoDAO.selectSecao(id);
         if (secao == null) {
             throw new RuntimeException("Secao não encontrada");
+        }
+        if (secaoAtualizada.getNome() == null || secaoAtualizada.getNome().isEmpty()) {
+            throw new RuntimeException("O nome da seção é obrigatório");
+        }
+        if (secaoAtualizada.getEvento() == null || secaoAtualizada.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
+        }
+        if (secaoAtualizada.getSubEvento() == null || secaoAtualizada.getSubEvento().getId() == null) {
+            throw new RuntimeException("SubEvento inválido");
         }
 
         secao.setNome(secaoAtualizada.getNome());
@@ -32,6 +50,10 @@ public class SecaoController {
 
     // Deletar Secao
     public boolean deletarSecao(Long id) {
+        Secao secao = secaoDAO.selectSecao(id);
+        if (secao == null) {
+            throw new RuntimeException("Secao não encontrada");
+        }
         return secaoDAO.deleteSecao(id);
     }
 

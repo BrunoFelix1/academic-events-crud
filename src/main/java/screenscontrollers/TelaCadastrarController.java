@@ -3,6 +3,7 @@ package screenscontrollers;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
@@ -20,7 +21,7 @@ public class TelaCadastrarController implements IControladorTelas {
     @FXML
     private TextField txtCPF;
     @FXML
-    private TextField txtSenha;
+    private PasswordField txtSenha;
     @FXML
     private TextField txtNome;
     @FXML
@@ -69,9 +70,16 @@ public class TelaCadastrarController implements IControladorTelas {
                 return;
             }
 
-            facade.adicionarUsuario(usuarioCadastrado);
-            Stage stage = (Stage) btnCadastrar.getScene().getWindow();
-            verificarTela(usuarioCadastrado, stage);
+            if (facade.adicionarUsuario(usuarioCadastrado)) {
+                exibirAlertaSucesso("Usuário cadastrado com sucesso!");
+                txtUsuario.clear();
+                txtCPF.clear();
+                txtSenha.clear();
+                txtNome.clear();
+                txtIdade.clear();
+                txtInstituicao.clear();
+                txtTipoDeUsuario.clear();
+            }
         } catch (Exception e) {
             exibirAlerta("Erro ao cadastrar usuário.");
             e.printStackTrace();
@@ -87,6 +95,8 @@ public class TelaCadastrarController implements IControladorTelas {
         });
     }
 
+    //FUNÇÃO PARA IR PARA A TELA LOGANDO DIRETO
+    @SuppressWarnings("unused")
     private void verificarTela(Usuario usuario, Stage stage) {
         if (usuario.getTipoDeUsuario().equalsIgnoreCase("COMUM")) {
             mostrarTela("/screens/MenuUsuario.fxml", stage);

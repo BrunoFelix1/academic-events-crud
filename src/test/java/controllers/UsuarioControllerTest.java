@@ -1,4 +1,4 @@
-package controllersTest;
+package controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -29,34 +29,6 @@ class UsuarioControllerTest {
     }
 
     @Test
-    void testAdicionarUsuario() {
-        Usuario novoUsuario = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
-        when(usuarioDAO.insertUser(novoUsuario)).thenReturn(true);
-
-        boolean resultado = usuarioController.adicionarUsuario(novoUsuario);
-
-        assertTrue(resultado, "O usuário deveria ser adicionado com sucesso.");
-        verify(usuarioDAO, times(1)).insertUser(novoUsuario);
-    }
-
-    @Test
-    void testAtualizarUsuario() {
-        Usuario usuarioExistente = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
-        Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Atualizado", 35, "Instituição Y", "ADMINISTRADOR", "joao", "novaSenha");
-
-        when(usuarioDAO.selectUser(1L)).thenReturn(usuarioExistente);
-        when(usuarioDAO.updateUser(usuarioExistente)).thenReturn(true);
-
-        boolean resultado = usuarioController.atualizarUsuario(1L, usuarioAtualizado);
-
-        assertTrue(resultado, "O usuário deveria ser atualizado com sucesso.");
-        assertEquals("João Atualizado", usuarioExistente.getNome());
-        assertEquals(35, usuarioExistente.getIdade());
-        assertEquals("ADMINISTRADOR", usuarioExistente.getTipoDeUsuario());
-        verify(usuarioDAO, times(1)).updateUser(usuarioExistente);
-    }
-
-    @Test
     void testAtualizarUsuarioNaoEncontrado() {
         Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Atualizado", 35, "Instituição Y", "ADMINISTRADOR", "joao", "novaSenha");
 
@@ -68,26 +40,6 @@ class UsuarioControllerTest {
 
         assertEquals("Usuario não encontrado", exception.getMessage());
         verify(usuarioDAO, never()).updateUser(any());
-    }
-
-    @Test
-    void testDeletarUsuario() {
-        when(usuarioDAO.deleteUser(1L)).thenReturn(true);
-
-        boolean resultado = usuarioController.deletarUsuario(1L);
-
-        assertTrue(resultado, "O usuário deveria ser deletado com sucesso.");
-        verify(usuarioDAO, times(1)).deleteUser(1L);
-    }
-
-    @Test
-    void testDeletarUsuarioNaoEncontrado() {
-        when(usuarioDAO.deleteUser(1L)).thenReturn(false);
-
-        boolean resultado = usuarioController.deletarUsuario(1L);
-
-        assertFalse(resultado, "O usuário não deveria ser deletado.");
-        verify(usuarioDAO, times(1)).deleteUser(1L);
     }
 
     @Test

@@ -6,8 +6,9 @@ import javafx.scene.control.TextField;
 import models.Evento;
 
 import facade.Facade;
+import interfaces.IControladorTelas;
 
-public class MenuAdmAddEventController extends MenuAdmGerEventController {
+public class MenuAdmAddEventController extends MenuAdmGerEventController implements IControladorTelas {
     @FXML
     private Button botaoSalvarEvento;
 
@@ -27,19 +28,26 @@ public class MenuAdmAddEventController extends MenuAdmGerEventController {
 
     @FXML
     void salvarEvento() {
-        String nomeEvento = nomeEventoField.getText();
-        String localEvento = localEventoField.getText();
-        String horarioEventoStr = horarioEventoField.getText();
-        String descricaoEvento = descricaoEventoField.getText();
+        try {
+            String nomeEvento = nomeEventoField.getText();
+            String localEvento = localEventoField.getText();
+            String horarioEventoStr = horarioEventoField.getText();
+            String descricaoEvento = descricaoEventoField.getText();
 
-        String horarioEvento = horarioEventoStr;
+            String horarioEvento = horarioEventoStr;
 
-        Evento novoEvento = new Evento(nomeEvento, localEvento, horarioEvento, descricaoEvento);
-        facade.adicionarEvento(novoEvento);
+            Evento novoEvento = new Evento(nomeEvento, localEvento, horarioEvento, descricaoEvento);
 
-        nomeEventoField.clear();
-        localEventoField.clear();
-        horarioEventoField.clear();
-        descricaoEventoField.clear();
+            // Validar e adicionar o evento usando a Facade
+            if (facade.adicionarEvento(novoEvento)) {
+                exibirAlertaSucesso("Evento adicionado com sucesso!");
+                nomeEventoField.clear();
+                localEventoField.clear();
+                horarioEventoField.clear();
+                descricaoEventoField.clear();
+            }
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
+        }
     }
 }

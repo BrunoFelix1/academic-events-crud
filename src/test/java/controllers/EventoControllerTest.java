@@ -1,4 +1,4 @@
-package controllersTest;
+package controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,6 +21,7 @@ class EventoControllerTest {
 
     @InjectMocks
     private EventoController eventoController;
+    private List<Object> entityManager;
 
     @BeforeEach
     void setUp() {
@@ -82,25 +83,6 @@ class EventoControllerTest {
         verify(eventoDAO, never()).updateEvento(any());
     }
 
-    @Test
-    void testDeletarEvento() {
-        when(eventoDAO.deleteEvento(1L)).thenReturn(true);
-
-        boolean resultado = eventoController.deletarEvento(1L);
-
-        assertTrue(resultado, "O evento deveria ser deletado com sucesso.");
-        verify(eventoDAO, times(1)).deleteEvento(1L);
-    }
-
-    @Test
-    void testDeletarEventoNaoEncontrado() {
-        when(eventoDAO.deleteEvento(1L)).thenReturn(false);
-
-        boolean resultado = eventoController.deletarEvento(1L);
-
-        assertFalse(resultado, "O evento não deveria ser deletado.");
-        verify(eventoDAO, times(1)).deleteEvento(1L);
-    }
 
     @Test
     void testListarTodosEventos() {

@@ -9,16 +9,37 @@ public class InscricaoController {
 
     private InscricaoDAO inscricaoDAO = new InscricaoDAO();
 
-    // Adicionar Inscricao
+    // Adicionar Inscrição
     public boolean adicionarInscricao(Inscricao inscricao) {
+        if (inscricao.getUsuario() == null || inscricao.getUsuario().getId() == null) {
+            throw new RuntimeException("Usuário inválido");
+        }
+        if (inscricao.getEvento() == null || inscricao.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
+        }
+        // Verificar se o usuário já está inscrito no evento
+        if (usuarioJaInscritoNoEvento(inscricao.getUsuario().getId(), inscricao.getEvento().getId())) {
+            throw new RuntimeException("Usuário já inscrito neste evento");
+        }
         return inscricaoDAO.insertInscricao(inscricao);
     }
 
-    // Atualizar Inscricao
+    // Novo método para verificar se o usuário já está inscrito no evento
+    private boolean usuarioJaInscritoNoEvento(Long usuarioId, Long eventoId) {
+        return inscricaoDAO.usuarioJaInscritoNoEvento(usuarioId, eventoId);
+    }
+
+    // Atualizar Inscrição
     public boolean atualizarInscricao(Long id, Inscricao inscricaoAtualizada) {
         Inscricao inscricao = inscricaoDAO.selectInscricao(id);
         if (inscricao == null) {
-            throw new RuntimeException("Inscricao não encontrada");
+            throw new RuntimeException("Inscrição não encontrada");
+        }
+        if (inscricaoAtualizada.getUsuario() == null || inscricaoAtualizada.getUsuario().getId() == null) {
+            throw new RuntimeException("Usuário inválido");
+        }
+        if (inscricaoAtualizada.getEvento() == null || inscricaoAtualizada.getEvento().getId() == null) {
+            throw new RuntimeException("Evento inválido");
         }
 
         inscricao.setUsuario(inscricaoAtualizada.getUsuario());
@@ -30,35 +51,43 @@ public class InscricaoController {
         return inscricaoDAO.updateInscricao(inscricao);
     }
 
-    // Deletar Inscricao
+    // Deletar Inscrição
     public boolean deletarInscricao(Long id) {
-        return inscricaoDAO.deleteInscricao(id);
-    }
-
-    // Listar todas as Inscricoes
-    public List<Inscricao> listarTodasInscricoes() {
-        return inscricaoDAO.selectAllInscricoes();
-    }
-
-    // Buscar Inscricao por ID
-    public Inscricao buscarInscricaoPorId(Long id) {
-        Inscricao inscricao = inscricaoDAO.selectInscricao(id);
-        if (inscricao == null) {
-            throw new RuntimeException("Inscricao não encontrada");
-        }
-        return inscricao;
-    }
-
-    // Cancelar Inscricao
-    public void cancelarInscricao(Long id) {
         Inscricao inscricao = inscricaoDAO.selectInscricao(id);
         if (inscricao == null) {
             throw new RuntimeException("Inscrição não encontrada");
         }
+        return inscricaoDAO.deleteInscricao(id);
+    }
+
+    // Listar todas as Inscrições
+    public List<Inscricao> listarTodasInscricoes() {
+        return inscricaoDAO.selectAllInscricoes();
+    }
+
+    // Buscar Inscrição por ID
+    public Inscricao buscarInscricaoPorId(Long id) {
+        Inscricao inscricao = inscricaoDAO.selectInscricao(id);
+        if (inscricao == null) {
+            throw new RuntimeException("Inscrição não encontrada");
+        }
+        return inscricao;
+    }
+
+    // Cancelar Inscrição
+    public void cancelarInscricao(Long id, Long usuarioId) {
+        Inscricao inscricao = inscricaoDAO.selectInscricao(id);
+        if (inscricao == null) {
+            throw new RuntimeException("Inscrição não encontrada");
+        }
+        // Verificar se a inscrição pertence ao usuário
+        if (!inscricao.getUsuario().getId().equals(usuarioId)) {
+            throw new RuntimeException("Você não tem permissão para cancelar esta inscrição");
+        }
         inscricaoDAO.deleteInscricao(id);
     }
 
-    // Adicionar método para listar Inscricoes por usuarioId
+    // Adicionar método para listar Inscrições por usuarioId
     public List<Inscricao> listarInscricoesPorUsuario(Long usuarioId) {
         return inscricaoDAO.findByUsuarioId(usuarioId);
     }

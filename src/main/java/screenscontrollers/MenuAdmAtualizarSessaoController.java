@@ -5,12 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import facade.Facade;
+import interfaces.IControladorTelas;
 import models.Evento;
 import models.Secao;
 import models.SubEvento;
 
 
-public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController {
+public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController implements IControladorTelas {
 
     @FXML
     private Button botaoSalvarAlteracoes;
@@ -49,8 +50,7 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
             if (idSessaoStr.isEmpty() || nomeSessao.isEmpty() || localSessao.isEmpty()
                 || horarioSessaoStr.isEmpty() || eventoRelacionadoStr.isEmpty()
                 || subEventoRelacionadoStr.isEmpty()) {
-                // ...mensagem de erro...
-                System.out.println("Por favor, preencha todos os campos.");
+                exibirAlerta("Por favor, preencha todos os campos.");
                 return;
             }
 
@@ -75,24 +75,19 @@ public class MenuAdmAtualizarSessaoController extends MenuAdmGerSessaoController
             secao.setSubEvento(subEvento);
 
             // Utilizar a Facade para atualizar a sessão
-            facade.atualizarSecao(secao.getId(), secao);
-
-            // Limpar os campos após salvar
-            idSessaoField.clear();
-            nomeSessaoField.clear();
-            localSessaoField.clear();
-            horarioSessaoField.clear();
-            eventoRelacionadoField.clear();
-            subEventoRelacionadoField.clear();
-
-            // ...mensagem de sucesso...
-            System.out.println("Sessão atualizada com sucesso!");
+            if (facade.atualizarSecao(secao.getId(), secao)) {
+                exibirAlertaSucesso("Sessão atualizada com sucesso!");
+                idSessaoField.clear();
+                nomeSessaoField.clear();
+                localSessaoField.clear();
+                horarioSessaoField.clear();
+                eventoRelacionadoField.clear();
+                subEventoRelacionadoField.clear();
+            }
         } catch (NumberFormatException e) {
-            // ...tratamento de erro para conversão de números...
-            System.out.println("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
-        } catch (Exception e) {
-            // ...tratamento de erro genérico...
-            System.out.println("Erro ao atualizar a sessão: " + e.getMessage());
+            exibirAlerta("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

@@ -34,36 +34,42 @@ public class TelaLoginController implements IControladorTelas {
 
     @FXML
     private void onLogin() {
-        if (onBtnLogin()) {
-            UserContext.getInstance().setUsuario(usuarioAutenticado);
-            if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("COMUM")){
-                mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
+        try {
+            String email = txtUsuario.getText();
+            String senha = txtSenha.getText();
+
+            // Validar campos
+            if (email.isEmpty() || senha.isEmpty()) {
+                exibirAlerta("Por favor, preencha todos os campos.");
+                return;
             }
-            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("ADMINISTRADOR")){
-                mostrarTela("/screens/MenuADM.fxml", (Stage) btnLogin.getScene().getWindow());
+
+            // Autenticar usuário
+            Usuario usuario = facade.autenticarUsuario(email, senha);
+            if (usuario != null) {
+                UserContext.getInstance().setUsuario(usuario);
+                exibirAlertaSucesso("Login realizado com sucesso!");
+                if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("COMUM")){
+                    mostrarTela("/screens/MenuUsuario.fxml", (Stage) btnLogin.getScene().getWindow());
+                }
+                else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("ADMINISTRADOR")){
+                    mostrarTela("/screens/MenuADM.fxml", (Stage) btnLogin.getScene().getWindow());
+                }
+                else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("PALESTRANTE")){
+                    mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnLogin.getScene().getWindow());
+                }
+            } else {
+                exibirAlerta("Email ou senha inválidos.");
             }
-            else if (UserContext.getInstance().getUsuario().getTipoDeUsuario().equals("PALESTRANTE")){
-                mostrarTela("/screens/Menu_Palestrante.fxml", (Stage) btnLogin.getScene().getWindow());
-            }
-        } else {
-            exibirAlerta("Usuário ou senha inválidos.");
+        } catch (UsuarioNaoEncontradoException e) {
+            exibirAlerta("Usuário não encontrado. Verifique suas credenciais.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 
     @FXML
     private void onCadastrar() {
         mostrarTela("/screens/tela_cadastro.fxml", (Stage) btnCadastrar.getScene().getWindow());
-    }
-
-    private boolean onBtnLogin() {
-        String login = txtUsuario.getText();
-        String senha = txtSenha.getText();
-        try {
-            usuarioAutenticado = facade.autenticarUsuario(login, senha);
-            return true;
-        } catch (UsuarioNaoEncontradoException e) {
-            System.out.println("Erro de autenticação: " + e.getMessage());
-            return false;
-        }
     }
 }
