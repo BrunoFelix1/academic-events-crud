@@ -4,11 +4,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import models.*;
+import models.Evento;
+import models.Secao;
+import models.SubEvento;
+import models.Trilha;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FacadeTrilhaTest extends BaseIntegrationTest {
