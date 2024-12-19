@@ -127,6 +127,10 @@ public class Facade {
         return subEventoController.buscarSubEventoPorId(id);
     }
 
+    public SubEvento buscarSubEventoPorNome(String nome) {
+        return subEventoController.buscarSubEventoPorNome(nome);
+    }
+
     public List<SubEvento> listarSubEventos() {
         return subEventoController.listarTodosSubEventos();
     }
@@ -183,5 +187,9 @@ public class Facade {
 
     public boolean deletarEvento(Long id) {
         return eventoController.deletarEvento(id);
+    }
+
+    public Evento buscarEventoPorNome(String nome) {
+        return eventoController.buscarEventoPorNome(nome);
     }
 }

@@ -1,40 +1,78 @@
-/* package screenscontrollers;
+package screenscontrollers;
 
-import java.io.IOException;
-
+import facade.Facade;
+import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import models.Evento;
 
-public class MenuAdmAtualizarEventoTela1Controller extends MenuAdmGerEventController {
-    
+public class MenuAdmAtualizarEventoTela1Controller extends MenuAdmGerEventController implements IControladorTelas {
 
     @FXML
     private Button botaoProximo;
 
     @FXML
+    private Button botaoSalvarAlteracoes;
+
+    @FXML
+    private TextField nomeAtualEventoField;
+
+    @FXML
     private TextField nomeEventoField;
 
     @FXML
-    void irParaTelaAtualizarEvento2() {
+    private TextField localEventoField;
+
+    @FXML
+    private TextField horarioEventoField;
+
+    @FXML
+    private TextField descricaoEventoField;
+
+    private Facade facade = new Facade();
+
+    @FXML
+    void salvarAlteracoes() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/screens/MenuADM_ger_event_AtualizarEvento_tela2.fxml"));
-            Parent root = loader.load();
+            String nomeAtualEvento = nomeAtualEventoField.getText();
+            String novoNomeEvento = nomeEventoField.getText();
+            String localAtualizado = localEventoField.getText();
+            String horarioAtualizado = horarioEventoField.getText();
+            String descricaoAtualizada = descricaoEventoField.getText();
 
-            // Passar o nome do evento para a próxima tela (opcional)
-            MenuAdmAtualizarEventoTela2Controller controller = loader.getController();
-            controller.setNomeEvento(nomeEventoField.getText());
+            // Validar campos
+            if (nomeAtualEvento.isEmpty() || novoNomeEvento.isEmpty() || localAtualizado.isEmpty() || horarioAtualizado.isEmpty() || descricaoAtualizada.isEmpty()) {
+                exibirAlerta("Por favor, preencha todos os campos.");
+                return;
+            }
 
-            Stage stage = (Stage) botaoProximo.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Buscar o evento pelo nome atual
+            Evento eventoParaAtualizar = facade.buscarEventoPorNome(nomeAtualEvento);
+
+            // Verificar se o evento foi encontrado
+            if (eventoParaAtualizar == null) {
+                exibirAlerta("Evento não encontrado.");
+                return;
+            }
+
+            // Atualizar os atributos do evento
+            eventoParaAtualizar.setTitulo(novoNomeEvento);
+            eventoParaAtualizar.setLocal(localAtualizado);
+            eventoParaAtualizar.setHorario(horarioAtualizado);
+            eventoParaAtualizar.setDescricao(descricaoAtualizada);
+
+            // Utilizar a Facade para atualizar o evento
+            if (facade.atualizarEvento(eventoParaAtualizar.getId(), eventoParaAtualizar)) {
+                exibirAlertaSucesso("Evento atualizado com sucesso!");
+                nomeAtualEventoField.clear();
+                nomeEventoField.clear();
+                localEventoField.clear();
+                horarioEventoField.clear();
+                descricaoEventoField.clear();
+            }
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }
- */

@@ -77,6 +77,17 @@ public class SubEventoController {
         }
         return subEvento;
     }
+
+    // Buscar SubEvento por Nome
+    public SubEvento buscarSubEventoPorNome(String nome) {
+        List<SubEvento> subEventos = subEventoDAO.selectAllSubEventos();
+        for (SubEvento subEvento : subEventos) {
+            if (subEvento.getNome().equalsIgnoreCase(nome)) {
+                return subEvento;
+            }
+        }
+        return null;
+    }
 }
 
 

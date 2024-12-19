@@ -3,7 +3,6 @@ package screenscontrollers;
 import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Usuario;
@@ -21,7 +20,7 @@ public class TelaCadastrarController implements IControladorTelas {
     @FXML
     private TextField txtCPF;
     @FXML
-    private PasswordField txtSenha;
+    private TextField txtSenha;
     @FXML
     private TextField txtNome;
     @FXML

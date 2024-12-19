@@ -48,20 +48,49 @@
                         text="Deletar Subevento" textFill="#2c1477"
                         onAction="#irParaTelaDeletarSubEvento" />
                 <Text fill="#537eda" layoutX="248.0" layoutY="119.0"
-                      text="Digite o nome do subevento que você quer atualizar"
+                      text="Atualize com as novas informações abaixo:"
                       wrappingWidth="353.884765625">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Text>
-                <Text fill="#537eda" layoutX="258.0" layoutY="185.0" text="Nome">
+                <Text fill="#537eda" layoutX="258.0" layoutY="185.0" text="Nome Atual:">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Text>
-                <TextField fx:id="nomeSubEventoField" layoutX="344.0" layoutY="168.0" />
-                <Button fx:id="botaoProximo" layoutX="480.0" layoutY="200.0"
-                        text="Próximo" onAction="#irParaTelaAtualizarSubEvento2" />
+                <TextField fx:id="nomeAtualSubEventoField" layoutX="400.0" layoutY="180.0" />
+                <Text fill="#537eda" layoutX="258.0" layoutY="235.0" text="Novo Nome:">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="nomeSubEventoField" layoutX="400.0" layoutY="230.0" />
+                <Text fill="#537eda" layoutX="258.0" layoutY="285.0" text="Local">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="localSubEventoField" layoutX="400.0" layoutY="280.0" />
+                <Text fill="#537eda" layoutX="258.0" layoutY="335.0" text="Horário">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="horarioSubEventoField" layoutX="400.0" layoutY="330.0" />
+                <Text fill="#537eda" layoutX="240.0" layoutY="385.0" text="Descrição">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="descricaoSubEventoField" layoutX="400.0" layoutY="380.0" />
+                <Text fill="#537eda" layoutX="240.0" layoutY="435.0" text="Evento Associado">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="eventoAssociadoField" layoutX="400.0" layoutY="430.0" />
+                <Button fx:id="botaoSalvarAlteracoes" layoutX="480.0" layoutY="470.0" onAction="#salvarAlteracoes" text="Salvar Alterações" />
             </children>
         </AnchorPane>
     </children>

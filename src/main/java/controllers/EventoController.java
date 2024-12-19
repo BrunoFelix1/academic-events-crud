@@ -70,5 +70,16 @@ public class EventoController {
         return evento;
     }
 
+    // Buscar Evento por Nome
+    public Evento buscarEventoPorNome(String nome) {
+        List<Evento> eventos = eventoDAO.selectAllEventos();
+        for (Evento evento : eventos) {
+            if (evento.getTitulo().equalsIgnoreCase(nome)) {
+                return evento;
+            }
+        }
+        return null;
+    }
+
     // Outros métodos relacionados a Evento podem ser adicionados aqui
 }
