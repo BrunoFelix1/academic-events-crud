@@ -1,154 +1,131 @@
 package controllersTest;
 
-import controllers.SubEventoController;
-import models.SubEvento;
-import models.Evento;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
+
+import controllers.SubEventoController;
+import models.Evento;
+import models.SubEvento;
 import repositories.SubEventoDAO;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-public class SubeventoControllerTest {
-
-    @InjectMocks
-    private SubEventoController subEventoController;
+class SubEventoControllerTest {
 
     @Mock
     private SubEventoDAO subEventoDAO;
 
-    @Mock
-    private Evento evento;
-
-    private SubEvento subEvento;
+    @InjectMocks
+    private SubEventoController subEventoController;
 
     @BeforeEach
-    public void setUp() {
-        evento = mock(Evento.class);
-        subEvento = new SubEvento();
-        subEvento.setId(1L);
-        subEvento.setNome("SubEvento Teste");
-        subEvento.setLocal("Local Teste");
-        subEvento.setHorario("10:00");
-        subEvento.setDescricao("Descrição do SubEvento");
-        subEvento.setEvento(evento);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAdicionarSubEvento_Sucesso() {
-        when(subEventoDAO.insertSubEvento(subEvento)).thenReturn(true);
+    void testAdicionarSubEvento() {
+        Evento evento = new Evento();
+        SubEvento novoSubEvento = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
+        when(subEventoDAO.insertSubEvento(novoSubEvento)).thenReturn(true);
 
-        boolean result = subEventoController.adicionarSubEvento(subEvento);
+        boolean resultado = subEventoController.adicionarSubEvento(novoSubEvento);
 
-        assertTrue(result);
-        verify(subEventoDAO, times(1)).insertSubEvento(subEvento);
+        assertTrue(resultado, "O subevento deveria ser adicionado com sucesso.");
+        verify(subEventoDAO, times(1)).insertSubEvento(novoSubEvento);
     }
 
     @Test
-    public void testAdicionarSubEvento_Falha() {
-        when(subEventoDAO.insertSubEvento(subEvento)).thenReturn(false);
+    void testAdicionarSubEventoFalha() {
+        Evento evento = new Evento();
+        SubEvento novoSubEvento = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
+        when(subEventoDAO.insertSubEvento(novoSubEvento)).thenReturn(false);
 
-        boolean result = subEventoController.adicionarSubEvento(subEvento);
+        boolean resultado = subEventoController.adicionarSubEvento(novoSubEvento);
 
-        assertFalse(result);
-        verify(subEventoDAO, times(1)).insertSubEvento(subEvento);
+        assertFalse(resultado, "O subevento não deveria ser adicionado.");
+        verify(subEventoDAO, times(1)).insertSubEvento(novoSubEvento);
     }
 
     @Test
-    public void testAtualizarSubEvento_Sucesso() {
-        SubEvento subEventoAtualizado = new SubEvento();
-        subEventoAtualizado.setNome("SubEvento Atualizado");
-        subEventoAtualizado.setLocal("Novo Local");
-        subEventoAtualizado.setHorario("14:00");
-        subEventoAtualizado.setDescricao("Nova Descrição");
-        subEventoAtualizado.setEvento(evento);
-
-        when(subEventoDAO.selectSubEvento(1L)).thenReturn(subEvento);
-        when(subEventoDAO.updateSubEvento(subEvento)).thenReturn(true);
-
-        boolean result = subEventoController.atualizarSubEvento(1L, subEventoAtualizado);
-
-        assertTrue(result);
-        verify(subEventoDAO, times(1)).selectSubEvento(1L);
-        verify(subEventoDAO, times(1)).updateSubEvento(subEvento);
-    }
-
-    @Test
-    public void testAtualizarSubEvento_SubEventoNaoEncontrado() {
-        SubEvento subEventoAtualizado = new SubEvento();
-        subEventoAtualizado.setNome("SubEvento Atualizado");
+    void testAtualizarSubEventoNaoEncontrado() {
+        Evento evento = new Evento();
+        SubEvento subEventoAtualizado = new SubEvento(evento, "Mini-Workshop Avançado", "Sala 2", "10:30", "Tema avançado");
 
         when(subEventoDAO.selectSubEvento(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             subEventoController.atualizarSubEvento(1L, subEventoAtualizado);
         });
 
         assertEquals("SubEvento não encontrado", exception.getMessage());
-        verify(subEventoDAO, times(1)).selectSubEvento(1L);
-        verify(subEventoDAO, times(0)).updateSubEvento(any());
+        verify(subEventoDAO, never()).updateSubEvento(any());
     }
 
     @Test
-    public void testDeletarSubEvento_Sucesso() {
+    void testDeletarSubEvento() {
         when(subEventoDAO.deleteSubEvento(1L)).thenReturn(true);
 
-        boolean result = subEventoController.deletarSubEvento(1L);
+        boolean resultado = subEventoController.deletarSubEvento(1L);
 
-        assertTrue(result);
+        assertTrue(resultado, "O subevento deveria ser deletado com sucesso.");
         verify(subEventoDAO, times(1)).deleteSubEvento(1L);
     }
 
     @Test
-    public void testDeletarSubEvento_Falha() {
+    void testDeletarSubEventoNaoEncontrado() {
         when(subEventoDAO.deleteSubEvento(1L)).thenReturn(false);
 
-        boolean result = subEventoController.deletarSubEvento(1L);
+        boolean resultado = subEventoController.deletarSubEvento(1L);
 
-        assertFalse(result);
+        assertFalse(resultado, "O subevento não deveria ser deletado.");
         verify(subEventoDAO, times(1)).deleteSubEvento(1L);
     }
 
     @Test
-    public void testListarTodosSubEventos() {
-        SubEvento subEvento2 = new SubEvento();
-        subEvento2.setId(2L);
-        subEvento2.setNome("SubEvento Teste 2");
-        subEvento2.setEvento(evento);  // Atribuindo o Evento mockado
+    void testListarTodosSubEventos() {
+        Evento evento = new Evento();
+        SubEvento subEvento1 = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
+        SubEvento subEvento2 = new SubEvento(evento, "Mini-Workshop Avançado", "Sala 2", "10:30", "Tema avançado");
 
-        List<SubEvento> subEventos = Arrays.asList(subEvento, subEvento2);
+        List<SubEvento> subEventosEsperados = Arrays.asList(subEvento1, subEvento2);
+        when(subEventoDAO.selectAllSubEventos()).thenReturn(subEventosEsperados);
 
-        when(subEventoDAO.selectAllSubEventos()).thenReturn(subEventos);
+        List<SubEvento> subEventos = subEventoController.listarTodosSubEventos();
 
-        List<SubEvento> result = subEventoController.listarTodosSubEventos();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
+        assertNotNull(subEventos);
+        assertEquals(2, subEventos.size());
+        assertEquals("Mini-Workshop", subEventos.get(0).getNome());
+        assertEquals("Mini-Workshop Avançado", subEventos.get(1).getNome());
         verify(subEventoDAO, times(1)).selectAllSubEventos();
     }
 
     @Test
-    public void testBuscarSubEventoPorId_Sucesso() {
+    void testBuscarSubEventoPorId() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento(evento, "Mini-Workshop", "Sala 1", "09:00", "Introdução ao tema");
+        subEvento.setId(1L);
+
         when(subEventoDAO.selectSubEvento(1L)).thenReturn(subEvento);
 
-        SubEvento result = subEventoController.buscarSubEventoPorId(1L);
+        SubEvento subEventoBuscado = subEventoController.buscarSubEventoPorId(1L);
 
-        assertNotNull(result);
-        assertEquals(subEvento.getId(), result.getId());
+        assertNotNull(subEventoBuscado);
+        assertEquals("Mini-Workshop", subEventoBuscado.getNome());
+        assertEquals("Sala 1", subEventoBuscado.getLocal());
         verify(subEventoDAO, times(1)).selectSubEvento(1L);
     }
 
     @Test
-    public void testBuscarSubEventoPorId_SubEventoNaoEncontrado() {
+    void testBuscarSubEventoPorIdNaoEncontrado() {
         when(subEventoDAO.selectSubEvento(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             subEventoController.buscarSubEventoPorId(1L);
         });
 

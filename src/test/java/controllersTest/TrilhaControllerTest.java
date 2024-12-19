@@ -1,147 +1,147 @@
 package controllersTest;
 
-import controllers.TrilhaController;
-import models.Trilha;
-import models.Secao;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
+
+import controllers.TrilhaController;
+import models.Secao;
+import models.Trilha;
 import repositories.TrilhaDAO;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-public class TrilhaControllerTest {
-
-    @InjectMocks
-    private TrilhaController trilhaController;
+class TrilhaControllerTest {
 
     @Mock
     private TrilhaDAO trilhaDAO;
 
-    @Mock
-    private Secao secao;
-
-    private Trilha trilha;
+    @InjectMocks
+    private TrilhaController trilhaController;
 
     @BeforeEach
-    public void setUp() {
-        trilha = new Trilha();
-        trilha.setId(1L);
-        trilha.setNome("Trilha Teste");
-        trilha.setSecao(secao);
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAdicionarTrilha_Sucesso() {
-        when(trilhaDAO.insertTrilha(trilha)).thenReturn(true);
+    void testAdicionarTrilha() {
+        Secao secao = new Secao();
+        Trilha novaTrilha = new Trilha(secao, "Trilha 1");
+        when(trilhaDAO.insertTrilha(novaTrilha)).thenReturn(true);
 
-        boolean result = trilhaController.adicionarTrilha(trilha);
+        boolean resultado = trilhaController.adicionarTrilha(novaTrilha);
 
-        assertTrue(result);
-        verify(trilhaDAO, times(1)).insertTrilha(trilha);
+        assertTrue(resultado, "A trilha deveria ser adicionada com sucesso.");
+        verify(trilhaDAO, times(1)).insertTrilha(novaTrilha);
     }
 
     @Test
-    public void testAdicionarTrilha_Falha() {
-        when(trilhaDAO.insertTrilha(trilha)).thenReturn(false);
+    void testAdicionarTrilhaFalha() {
+        Secao secao = new Secao();
+        Trilha novaTrilha = new Trilha(secao, "Trilha 1");
+        when(trilhaDAO.insertTrilha(novaTrilha)).thenReturn(false);
 
-        boolean result = trilhaController.adicionarTrilha(trilha);
+        boolean resultado = trilhaController.adicionarTrilha(novaTrilha);
 
-        assertFalse(result);
-        verify(trilhaDAO, times(1)).insertTrilha(trilha);
+        assertFalse(resultado, "A trilha não deveria ser adicionada.");
+        verify(trilhaDAO, times(1)).insertTrilha(novaTrilha);
     }
 
     @Test
-    public void testAtualizarTrilha_Sucesso() {
-        Trilha trilhaAtualizada = new Trilha();
-        trilhaAtualizada.setNome("Trilha Atualizada");
-        trilhaAtualizada.setSecao(secao);  // Atribuindo a Secao mockada
+    void testAtualizarTrilha() {
+        Secao secao = new Secao();
+        Trilha trilhaExistente = new Trilha(secao, "Trilha 1");
+        trilhaExistente.setId(1L);
+        Trilha trilhaAtualizada = new Trilha(secao, "Trilha Atualizada");
 
-        when(trilhaDAO.selectTrilha(1L)).thenReturn(trilha);
-        when(trilhaDAO.updateTrilha(trilha)).thenReturn(true);
+        when(trilhaDAO.selectTrilha(1L)).thenReturn(trilhaExistente);
+        when(trilhaDAO.updateTrilha(trilhaExistente)).thenReturn(true);
 
-        boolean result = trilhaController.atualizarTrilha(1L, trilhaAtualizada);
+        boolean resultado = trilhaController.atualizarTrilha(1L, trilhaAtualizada);
 
-        assertTrue(result);
-        verify(trilhaDAO, times(1)).selectTrilha(1L);
-        verify(trilhaDAO, times(1)).updateTrilha(trilha);
+        assertTrue(resultado, "A trilha deveria ser atualizada com sucesso.");
+        assertEquals("Trilha Atualizada", trilhaExistente.getNome());
+        verify(trilhaDAO, times(1)).updateTrilha(trilhaExistente);
     }
 
     @Test
-    public void testAtualizarTrilha_TrilhaNaoEncontrada() {
-        Trilha trilhaAtualizada = new Trilha();
-        trilhaAtualizada.setNome("Trilha Atualizada");
+    void testAtualizarTrilhaNaoEncontrada() {
+        Secao secao = new Secao();
+        Trilha trilhaAtualizada = new Trilha(secao, "Trilha Atualizada");
 
         when(trilhaDAO.selectTrilha(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             trilhaController.atualizarTrilha(1L, trilhaAtualizada);
         });
 
         assertEquals("Trilha não encontrada", exception.getMessage());
-        verify(trilhaDAO, times(1)).selectTrilha(1L);
-        verify(trilhaDAO, times(0)).updateTrilha(any());
+        verify(trilhaDAO, never()).updateTrilha(any());
     }
 
     @Test
-    public void testDeletarTrilha_Sucesso() {
+    void testDeletarTrilha() {
         when(trilhaDAO.deleteTrilha(1L)).thenReturn(true);
 
-        boolean result = trilhaController.deletarTrilha(1L);
+        boolean resultado = trilhaController.deletarTrilha(1L);
 
-        assertTrue(result);
+        assertTrue(resultado, "A trilha deveria ser deletada com sucesso.");
         verify(trilhaDAO, times(1)).deleteTrilha(1L);
     }
 
     @Test
-    public void testDeletarTrilha_Falha() {
+    void testDeletarTrilhaNaoEncontrada() {
         when(trilhaDAO.deleteTrilha(1L)).thenReturn(false);
 
-        boolean result = trilhaController.deletarTrilha(1L);
+        boolean resultado = trilhaController.deletarTrilha(1L);
 
-        assertFalse(result);
+        assertFalse(resultado, "A trilha não deveria ser deletada.");
         verify(trilhaDAO, times(1)).deleteTrilha(1L);
     }
 
     @Test
-    public void testListarTodasTrilhas() {
-        Trilha trilha2 = new Trilha();
-        trilha2.setId(2L);
-        trilha2.setNome("Trilha Teste 2");
-        trilha2.setSecao(secao);
+    void testListarTodasTrilhas() {
+        Secao secao = new Secao();
+        Trilha trilha1 = new Trilha(secao, "Trilha 1");
+        Trilha trilha2 = new Trilha(secao, "Trilha 2");
 
-        List<Trilha> trilhas = Arrays.asList(trilha, trilha2);
+        List<Trilha> trilhasEsperadas = Arrays.asList(trilha1, trilha2);
+        when(trilhaDAO.selectAllTrilhas()).thenReturn(trilhasEsperadas);
 
-        when(trilhaDAO.selectAllTrilhas()).thenReturn(trilhas);
+        List<Trilha> trilhas = trilhaController.listarTodasTrilhas();
 
-        List<Trilha> result = trilhaController.listarTodasTrilhas();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
+        assertNotNull(trilhas);
+        assertEquals(2, trilhas.size());
+        assertEquals("Trilha 1", trilhas.get(0).getNome());
+        assertEquals("Trilha 2", trilhas.get(1).getNome());
         verify(trilhaDAO, times(1)).selectAllTrilhas();
     }
 
     @Test
-    public void testBuscarTrilhaPorId_Sucesso() {
+    void testBuscarTrilhaPorId() {
+        Secao secao = new Secao();
+        Trilha trilha = new Trilha(secao, "Trilha 1");
+        trilha.setId(1L);
+
         when(trilhaDAO.selectTrilha(1L)).thenReturn(trilha);
 
-        Trilha result = trilhaController.buscarTrilhaPorId(1L);
+        Trilha trilhaBuscada = trilhaController.buscarTrilhaPorId(1L);
 
-        assertNotNull(result);
-        assertEquals(trilha.getId(), result.getId());
+        assertNotNull(trilhaBuscada);
+        assertEquals("Trilha 1", trilhaBuscada.getNome());
         verify(trilhaDAO, times(1)).selectTrilha(1L);
     }
 
     @Test
-    public void testBuscarTrilhaPorId_TrilhaNaoEncontrada() {
+    void testBuscarTrilhaPorIdNaoEncontrada() {
         when(trilhaDAO.selectTrilha(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             trilhaController.buscarTrilhaPorId(1L);
         });
 

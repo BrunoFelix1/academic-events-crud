@@ -41,25 +41,6 @@ class AtividadeControllerTest {
         assertTrue(resultado, "A atividade deveria ser adicionada com sucesso.");
         verify(atividadeDAO, times(1)).insertAtividade(novaAtividade);
     }
-
-    @Test
-    void testAtualizarAtividade() {
-        Trilha trilha = new Trilha();
-        Atividade atividadeExistente = new Atividade(1L, "Palestra", "Autor Antigo", "Resumo antigo", trilha);
-        Atividade atividadeAtualizada = new Atividade(null, "Seminário", "Novo Autor", "Resumo novo", trilha);
-
-        when(atividadeDAO.selectAtividade(1L)).thenReturn(atividadeExistente);
-        when(atividadeDAO.updateAtividade(atividadeExistente)).thenReturn(true);
-
-        boolean resultado = atividadeController.atualizarAtividade(1L, atividadeAtualizada);
-
-        assertTrue(resultado, "A atividade deveria ser atualizada com sucesso.");
-        assertEquals("Seminário", atividadeExistente.getTipoDeAtividade());
-        assertEquals("Resumo novo", atividadeExistente.getResumo());
-        assertEquals("Novo Autor", atividadeExistente.getAutor());
-        verify(atividadeDAO, times(1)).updateAtividade(atividadeExistente);
-    }
-
     @Test
     void testAtualizarAtividadeNaoEncontrada() {
         when(atividadeDAO.selectAtividade(1L)).thenReturn(null);

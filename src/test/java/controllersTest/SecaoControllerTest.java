@@ -1,165 +1,157 @@
 package controllersTest;
 
-import controllers.SecaoController;
-import models.Secao;
-import models.Evento;
-import models.SubEvento;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
+
+import controllers.SecaoController;
+import models.Evento;
+import models.Secao;
+import models.SubEvento;
 import repositories.SecaoDAO;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-public class SecaoControllerTest {
-
-    @InjectMocks
-    private SecaoController secaoController;
+class SecaoControllerTest {
 
     @Mock
     private SecaoDAO secaoDAO;
 
-    @Mock
-    private Evento evento;  // Mockando o Evento
-
-    @Mock
-    private SubEvento subEvento;  // Mockando o SubEvento
-
-    private Secao secao;
+    @InjectMocks
+    private SecaoController secaoController;
 
     @BeforeEach
-    public void setUp() {
-        // Mockando o Evento e o SubEvento
-        evento = mock(Evento.class);
-        subEvento = mock(SubEvento.class);
-
-        // Criando e inicializando a Secao com Evento e SubEvento mockados
-        secao = new Secao();
-        secao.setId(1L);
-        secao.setNome("Secao Teste");
-        secao.setLocal("Local Teste");
-        secao.setHorario("10:00");
-        secao.setDescricao("Descrição da Secao");
-        secao.setEvento(evento);  // Atribuindo o Evento mockado
-        secao.setSubEvento(subEvento);  // Atribuindo o SubEvento mockado
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAdicionarSecao_Sucesso() {
-        when(secaoDAO.insertSecao(secao)).thenReturn(true);
+    void testAdicionarSecao() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao novaSecao = new Secao(evento, subEvento, "Secao 1", "Sala A", "10:00");
+        when(secaoDAO.insertSecao(novaSecao)).thenReturn(true);
 
-        boolean result = secaoController.adicionarSecao(secao);
+        boolean resultado = secaoController.adicionarSecao(novaSecao);
 
-        assertTrue(result);
-        verify(secaoDAO, times(1)).insertSecao(secao);
+        assertTrue(resultado, "A seção deveria ser adicionada com sucesso.");
+        verify(secaoDAO, times(1)).insertSecao(novaSecao);
     }
 
     @Test
-    public void testAdicionarSecao_Falha() {
-        when(secaoDAO.insertSecao(secao)).thenReturn(false);
+    void testAdicionarSecaoFalha() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao novaSecao = new Secao(evento, subEvento, "Secao 1", "Sala A", "10:00");
+        when(secaoDAO.insertSecao(novaSecao)).thenReturn(false);
 
-        boolean result = secaoController.adicionarSecao(secao);
+        boolean resultado = secaoController.adicionarSecao(novaSecao);
 
-        assertFalse(result);
-        verify(secaoDAO, times(1)).insertSecao(secao);
+        assertFalse(resultado, "A seção não deveria ser adicionada.");
+        verify(secaoDAO, times(1)).insertSecao(novaSecao);
     }
 
     @Test
-    public void testAtualizarSecao_Sucesso() {
-        Secao secaoAtualizada = new Secao();
-        secaoAtualizada.setNome("Secao Atualizada");
-        secaoAtualizada.setLocal("Novo Local");
-        secaoAtualizada.setHorario("14:00");
-        secaoAtualizada.setDescricao("Nova Descrição");
-        secaoAtualizada.setEvento(evento);  // Atribuindo o Evento mockado
-        secaoAtualizada.setSubEvento(subEvento);  // Atribuindo o SubEvento mockado
+    void testAtualizarSecao() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao secaoExistente = new Secao(evento, subEvento, "Secao 1", "Sala A", "10:00");
+        secaoExistente.setId(1L);
+        Secao secaoAtualizada = new Secao(evento, subEvento, "Secao Atualizada", "Sala B", "14:00");
 
-        when(secaoDAO.selectSecao(1L)).thenReturn(secao);
-        when(secaoDAO.updateSecao(secao)).thenReturn(true);
+        when(secaoDAO.selectSecao(1L)).thenReturn(secaoExistente);
+        when(secaoDAO.updateSecao(secaoExistente)).thenReturn(true);
 
-        boolean result = secaoController.atualizarSecao(1L, secaoAtualizada);
+        boolean resultado = secaoController.atualizarSecao(1L, secaoAtualizada);
 
-        assertTrue(result);
-        verify(secaoDAO, times(1)).selectSecao(1L);
-        verify(secaoDAO, times(1)).updateSecao(secao);
+        assertTrue(resultado, "A seção deveria ser atualizada com sucesso.");
+        assertEquals("Secao Atualizada", secaoExistente.getNome());
+        assertEquals("Sala B", secaoExistente.getLocal());
+        assertEquals("14:00", secaoExistente.getHorario());
+        verify(secaoDAO, times(1)).updateSecao(secaoExistente);
     }
 
     @Test
-    public void testAtualizarSecao_SecaoNaoEncontrada() {
-        Secao secaoAtualizada = new Secao();
-        secaoAtualizada.setNome("Secao Atualizada");
+    void testAtualizarSecaoNaoEncontrada() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao secaoAtualizada = new Secao(evento, subEvento, "Secao Atualizada", "Sala B", "14:00");
 
         when(secaoDAO.selectSecao(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             secaoController.atualizarSecao(1L, secaoAtualizada);
         });
 
         assertEquals("Secao não encontrada", exception.getMessage());
-        verify(secaoDAO, times(1)).selectSecao(1L);
-        verify(secaoDAO, times(0)).updateSecao(any());
+        verify(secaoDAO, never()).updateSecao(any());
     }
 
     @Test
-    public void testDeletarSecao_Sucesso() {
+    void testDeletarSecao() {
         when(secaoDAO.deleteSecao(1L)).thenReturn(true);
 
-        boolean result = secaoController.deletarSecao(1L);
+        boolean resultado = secaoController.deletarSecao(1L);
 
-        assertTrue(result);
+        assertTrue(resultado, "A seção deveria ser deletada com sucesso.");
         verify(secaoDAO, times(1)).deleteSecao(1L);
     }
 
     @Test
-    public void testDeletarSecao_Falha() {
+    void testDeletarSecaoNaoEncontrada() {
         when(secaoDAO.deleteSecao(1L)).thenReturn(false);
 
-        boolean result = secaoController.deletarSecao(1L);
+        boolean resultado = secaoController.deletarSecao(1L);
 
-        assertFalse(result);
+        assertFalse(resultado, "A seção não deveria ser deletada.");
         verify(secaoDAO, times(1)).deleteSecao(1L);
     }
 
     @Test
-    public void testListarTodasSecoes() {
-        Secao secao2 = new Secao();
-        secao2.setId(2L);
-        secao2.setNome("Secao Teste 2");
-        secao2.setEvento(evento);  // Atribuindo o Evento mockado
-        secao2.setSubEvento(subEvento);  // Atribuindo o SubEvento mockado
+    void testListarTodasSecoes() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao secao1 = new Secao(evento, subEvento, "Secao 1", "Sala A", "10:00");
+        Secao secao2 = new Secao(evento, subEvento, "Secao 2", "Sala B", "14:00");
 
-        List<Secao> secoes = Arrays.asList(secao, secao2);
+        List<Secao> secoesEsperadas = Arrays.asList(secao1, secao2);
+        when(secaoDAO.selectAllSecoes()).thenReturn(secoesEsperadas);
 
-        when(secaoDAO.selectAllSecoes()).thenReturn(secoes);
+        List<Secao> secoes = secaoController.listarTodasSecoes();
 
-        List<Secao> result = secaoController.listarTodasSecoes();
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
+        assertNotNull(secoes);
+        assertEquals(2, secoes.size());
+        assertEquals("Secao 1", secoes.get(0).getNome());
+        assertEquals("Secao 2", secoes.get(1).getNome());
         verify(secaoDAO, times(1)).selectAllSecoes();
     }
 
     @Test
-    public void testBuscarSecaoPorId_Sucesso() {
+    void testBuscarSecaoPorId() {
+        Evento evento = new Evento();
+        SubEvento subEvento = new SubEvento();
+        Secao secao = new Secao(evento, subEvento, "Secao 1", "Sala A", "10:00");
+        secao.setId(1L);
+
         when(secaoDAO.selectSecao(1L)).thenReturn(secao);
 
-        Secao result = secaoController.buscarSecaoPorId(1L);
+        Secao secaoBuscada = secaoController.buscarSecaoPorId(1L);
 
-        assertNotNull(result);
-        assertEquals(secao.getId(), result.getId());
+        assertNotNull(secaoBuscada);
+        assertEquals("Secao 1", secaoBuscada.getNome());
+        assertEquals("Sala A", secaoBuscada.getLocal());
         verify(secaoDAO, times(1)).selectSecao(1L);
     }
 
     @Test
-    public void testBuscarSecaoPorId_SecaoNaoEncontrada() {
+    void testBuscarSecaoPorIdNaoEncontrada() {
         when(secaoDAO.selectSecao(1L)).thenReturn(null);
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
             secaoController.buscarSecaoPorId(1L);
         });
 

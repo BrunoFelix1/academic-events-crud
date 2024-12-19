@@ -3,128 +3,161 @@ package controllersTest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import controllers.UsuarioController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+
+import controllers.UsuarioController;
+import exception.UsuarioNaoEncontradoException;
 import models.Usuario;
 import repositories.UsuarioDAO;
-import exception.UsuarioNaoEncontradoException;
+
 import java.util.Arrays;
 import java.util.List;
 
-public class UsuarioControllerTest {
+class UsuarioControllerTest {
 
     @Mock
     private UsuarioDAO usuarioDAO;
 
+    @InjectMocks
     private UsuarioController usuarioController;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this); // Inicializa os mocks
-        usuarioController = new UsuarioController();
-        usuarioController.usuarioDAO = usuarioDAO; // Injeta o mock do DAO
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testAdicionarUsuario() {
-        Usuario usuario = new Usuario(1L, "12345678901", "João", 25, "Instituição X", "COMUM", "joao", "senha123");
+    void testAdicionarUsuario() {
+        Usuario novoUsuario = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
+        when(usuarioDAO.insertUser(novoUsuario)).thenReturn(true);
 
-        when(usuarioDAO.insertUser(usuario)).thenReturn(true);
+        boolean resultado = usuarioController.adicionarUsuario(novoUsuario);
 
-        boolean resultado = usuarioController.adicionarUsuario(usuario);
-
-        assertTrue(resultado);
-        verify(usuarioDAO, times(1)).insertUser(usuario); // Verifica se o método foi chamado
+        assertTrue(resultado, "O usuário deveria ser adicionado com sucesso.");
+        verify(usuarioDAO, times(1)).insertUser(novoUsuario);
     }
 
     @Test
-    public void testAtualizarUsuario() {
-        Usuario usuarioExistente = new Usuario(1L, "12345678901", "João", 25, "Instituição X", "COMUM", "joao", "senha123");
-        Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Silva", 26, "Instituição Y", "PALESTRANTE", "joao_silva", "senha1234");
+    void testAtualizarUsuario() {
+        Usuario usuarioExistente = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
+        Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Atualizado", 35, "Instituição Y", "ADMINISTRADOR", "joao", "novaSenha");
 
         when(usuarioDAO.selectUser(1L)).thenReturn(usuarioExistente);
-        when(usuarioDAO.updateUser(usuarioAtualizado)).thenReturn(true);
+        when(usuarioDAO.updateUser(usuarioExistente)).thenReturn(true);
 
         boolean resultado = usuarioController.atualizarUsuario(1L, usuarioAtualizado);
 
-        assertTrue(resultado);
-        verify(usuarioDAO, times(1)).selectUser(1L); // Verifica se o usuário foi buscado
-        verify(usuarioDAO, times(1)).updateUser(usuarioAtualizado); // Verifica se o método de atualização foi chamado
+        assertTrue(resultado, "O usuário deveria ser atualizado com sucesso.");
+        assertEquals("João Atualizado", usuarioExistente.getNome());
+        assertEquals(35, usuarioExistente.getIdade());
+        assertEquals("ADMINISTRADOR", usuarioExistente.getTipoDeUsuario());
+        verify(usuarioDAO, times(1)).updateUser(usuarioExistente);
     }
 
     @Test
-    public void testAtualizarUsuario_UsuarioNaoEncontrado() {
-        Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Silva", 26, "Instituição Y", "PALESTRANTE", "joao_silva", "senha1234");
+    void testAtualizarUsuarioNaoEncontrado() {
+        Usuario usuarioAtualizado = new Usuario(1L, "12345678901", "João Atualizado", 35, "Instituição Y", "ADMINISTRADOR", "joao", "novaSenha");
 
         when(usuarioDAO.selectUser(1L)).thenReturn(null);
 
-        assertThrows(RuntimeException.class, () -> usuarioController.atualizarUsuario(1L, usuarioAtualizado));
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            usuarioController.atualizarUsuario(1L, usuarioAtualizado);
+        });
+
+        assertEquals("Usuario não encontrado", exception.getMessage());
+        verify(usuarioDAO, never()).updateUser(any());
     }
 
     @Test
-    public void testDeletarUsuario() {
+    void testDeletarUsuario() {
         when(usuarioDAO.deleteUser(1L)).thenReturn(true);
 
         boolean resultado = usuarioController.deletarUsuario(1L);
 
-        assertTrue(resultado);
-        verify(usuarioDAO, times(1)).deleteUser(1L); // Verifica se o método foi chamado
+        assertTrue(resultado, "O usuário deveria ser deletado com sucesso.");
+        verify(usuarioDAO, times(1)).deleteUser(1L);
     }
 
     @Test
-    public void testListarTodosUsuarios() {
-        Usuario usuario1 = new Usuario(1L, "12345678901", "João", 25, "Instituição X", "COMUM", "joao", "senha123");
-        Usuario usuario2 = new Usuario(2L, "23456789012", "Maria", 30, "Instituição Y", "ADMINISTRADOR", "maria", "senha1234");
-        List<Usuario> usuarios = Arrays.asList(usuario1, usuario2);
+    void testDeletarUsuarioNaoEncontrado() {
+        when(usuarioDAO.deleteUser(1L)).thenReturn(false);
 
-        when(usuarioDAO.selectAllUsers()).thenReturn(usuarios);
+        boolean resultado = usuarioController.deletarUsuario(1L);
 
-        List<Usuario> resultado = usuarioController.listarTodosUsuarios();
-
-        assertEquals(2, resultado.size());
-        assertEquals("João", resultado.get(0).getNome());
-        verify(usuarioDAO, times(1)).selectAllUsers(); // Verifica se o método foi chamado
+        assertFalse(resultado, "O usuário não deveria ser deletado.");
+        verify(usuarioDAO, times(1)).deleteUser(1L);
     }
 
     @Test
-    public void testBuscarUsuarioPorId() {
-        Usuario usuario = new Usuario(1L, "12345678901", "João", 25, "Instituição X", "COMUM", "joao", "senha123");
+    void testListarTodosUsuarios() {
+        Usuario usuario1 = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
+        Usuario usuario2 = new Usuario(2L, "98765432109", "Maria", 25, "Instituição Y", "ADMINISTRADOR", "maria", "senha456");
+
+        List<Usuario> usuariosEsperados = Arrays.asList(usuario1, usuario2);
+        when(usuarioDAO.selectAllUsers()).thenReturn(usuariosEsperados);
+
+        List<Usuario> usuarios = usuarioController.listarTodosUsuarios();
+
+        assertNotNull(usuarios);
+        assertEquals(2, usuarios.size());
+        assertEquals("João", usuarios.get(0).getNome());
+        assertEquals("Maria", usuarios.get(1).getNome());
+        verify(usuarioDAO, times(1)).selectAllUsers();
+    }
+
+    @Test
+    void testBuscarUsuarioPorId() {
+        Usuario usuario = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
 
         when(usuarioDAO.selectUser(1L)).thenReturn(usuario);
 
-        Usuario resultado = usuarioController.buscarUsuarioPorId(1L);
+        Usuario usuarioBuscado = usuarioController.buscarUsuarioPorId(1L);
 
-        assertNotNull(resultado);
-        assertEquals("João", resultado.getNome());
-        verify(usuarioDAO, times(1)).selectUser(1L); // Verifica se o método foi chamado
+        assertNotNull(usuarioBuscado);
+        assertEquals("João", usuarioBuscado.getNome());
+        verify(usuarioDAO, times(1)).selectUser(1L);
     }
 
     @Test
-    public void testBuscarUsuarioPorId_UsuarioNaoEncontrado() {
+    void testBuscarUsuarioPorIdNaoEncontrado() {
         when(usuarioDAO.selectUser(1L)).thenReturn(null);
 
-        assertThrows(RuntimeException.class, () -> usuarioController.buscarUsuarioPorId(1L));
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            usuarioController.buscarUsuarioPorId(1L);
+        });
+
+        assertEquals("Usuario não encontrado", exception.getMessage());
+        verify(usuarioDAO, times(1)).selectUser(1L);
     }
 
     @Test
-    public void testAutenticarUsuario_Sucesso() throws UsuarioNaoEncontradoException {
-        Usuario usuario = new Usuario(1L, "12345678901", "João", 25, "Instituição X", "COMUM", "joao", "senha123");
+    void testAutenticarUsuario() throws UsuarioNaoEncontradoException {
+        Usuario usuario1 = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
+        Usuario usuario2 = new Usuario(2L, "98765432109", "Maria", 25, "Instituição Y", "ADMINISTRADOR", "maria", "senha456");
 
-        when(usuarioDAO.selectAllUsers()).thenReturn(Arrays.asList(usuario));
+        when(usuarioDAO.selectAllUsers()).thenReturn(Arrays.asList(usuario1, usuario2));
 
-        Usuario resultado = usuarioController.autenticarUsuario("joao", "senha123");
+        Usuario usuarioAutenticado = usuarioController.autenticarUsuario("joao", "senha123");
 
-        assertNotNull(resultado);
-        assertEquals("João", resultado.getNome());
-        verify(usuarioDAO, times(1)).selectAllUsers(); // Verifica se o método foi chamado
+        assertNotNull(usuarioAutenticado);
+        assertEquals("João", usuarioAutenticado.getNome());
+        verify(usuarioDAO, times(1)).selectAllUsers();
     }
 
     @Test
-    public void testAutenticarUsuario_UsuarioNaoEncontrado() {
-        when(usuarioDAO.selectAllUsers()).thenReturn(Arrays.asList());
+    void testAutenticarUsuarioFalha() {
+        Usuario usuario1 = new Usuario(1L, "12345678901", "João", 30, "Instituição X", "COMUM", "joao", "senha123");
+        Usuario usuario2 = new Usuario(2L, "98765432109", "Maria", 25, "Instituição Y", "ADMINISTRADOR", "maria", "senha456");
 
-        assertThrows(UsuarioNaoEncontradoException.class, () -> usuarioController.autenticarUsuario("joao", "senha123"));
+        when(usuarioDAO.selectAllUsers()).thenReturn(Arrays.asList(usuario1, usuario2));
+
+        Exception exception = assertThrows(UsuarioNaoEncontradoException.class, () -> {
+            usuarioController.autenticarUsuario("joao", "senhaErrada");
+        });
+
+        assertEquals("Usuário ou senha inválidos.", exception.getMessage());
+        verify(usuarioDAO, times(1)).selectAllUsers();
     }
 }
