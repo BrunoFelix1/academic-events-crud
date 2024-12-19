@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UsuarioController {
 
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    public UsuarioDAO usuarioDAO = new UsuarioDAO();
 
     // Adicionar Usuario
     public boolean adicionarUsuario(Usuario usuario) {
