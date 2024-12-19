@@ -1,4 +1,4 @@
-package controllersTest;
+package controllers;
 
 import controllers.AtividadeController;
 import models.Atividade;

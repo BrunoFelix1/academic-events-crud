@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import models.Secao;
+import models.Evento;
+import models.SubEvento;
 
 import facade.Facade;
 
@@ -33,16 +35,17 @@ public class MenuAdmAdicionarSessaoController extends MenuAdmGerSessaoController
     void salvarSessao() {
         String nomeSessao = nomeSessaoField.getText();
         String localSessao = localSessaoField.getText();
-        String horarioSessaoStr = horarioSessaoField.getText();
+        String horarioSessao = horarioSessaoField.getText();
         String eventoRelacionadoStr = eventoRelacionadoField.getText();
         String subEventoRelacionadoStr = subEventoRelacionadoField.getText();
 
         Long idEventoRelacionado = Long.parseLong(eventoRelacionadoStr);
         Long idSubEventoRelacionado = Long.parseLong(subEventoRelacionadoStr);
-        String horarioSessao = horarioSessaoStr;
 
-        Secao novaSecao = new Secao();
-        novaSecao.setNome(nomeSessao);
+        Evento evento = facade.buscarEvento(idEventoRelacionado);
+        SubEvento subEvento = facade.buscarSubEvento(idSubEventoRelacionado);
+
+        Secao novaSecao = new Secao(evento, subEvento, nomeSessao, localSessao, horarioSessao);
 
         facade.adicionarSecao(novaSecao);
 
