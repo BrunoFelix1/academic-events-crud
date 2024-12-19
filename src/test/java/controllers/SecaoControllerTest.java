@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.SecaoController;
 import models.Secao;
 import models.Evento;
 import models.SubEvento;

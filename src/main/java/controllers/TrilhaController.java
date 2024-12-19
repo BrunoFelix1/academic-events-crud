@@ -61,6 +61,17 @@ public class TrilhaController {
         }
         return trilha;
     }
+
+    // Buscar Trilha por Nome
+    public Trilha buscarTrilhaPorNome(String nome) {
+        List<Trilha> trilhas = trilhaDAO.selectAllTrilhas();
+        for (Trilha trilha : trilhas) {
+            if (trilha.getNome().equalsIgnoreCase(nome)) {
+                return trilha;
+            }
+        }
+        return null;
+    }
 }
 
 

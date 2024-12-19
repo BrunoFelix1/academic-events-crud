@@ -7,8 +7,9 @@ import models.Trilha;
 
 import facade.Facade;
 import models.Secao;
+import interfaces.IControladorTelas;
 
-public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController {
+public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaController implements IControladorTelas {
 
     @FXML
     private Button botaoSalvarTrilha;
@@ -35,7 +36,7 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
 
             // Validar campos
             if (nomeTrilha.isEmpty() || sessaoRelacionadaStr.isEmpty()) {
-                // ...mensagem de erro...
+                exibirAlerta("Por favor, preencha todos os campos.");
                 return;
             }
 
@@ -49,16 +50,13 @@ public class MenuAdmAdicionarTrilhaController extends MenuAdmGerenciarTrilhaCont
             Trilha novaTrilha = new Trilha(secao, nomeTrilha);
 
             // Utilizar a Facade para adicionar a nova trilha
-            facade.adicionarTrilha(novaTrilha);
-
-            // Limpar os campos após salvar
-            nomeTrilhaField.clear();
-            sessaoRelacionadaField.clear();
-
-            // ...mensagem de sucesso...
-        } catch (Exception e) {
-            // ...tratamento de erro...
-            System.out.println(e.getMessage());
+            if (facade.adicionarTrilha(novaTrilha)) {
+                exibirAlertaSucesso("Trilha adicionada com sucesso!");
+                nomeTrilhaField.clear();
+                sessaoRelacionadaField.clear();
+            }
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

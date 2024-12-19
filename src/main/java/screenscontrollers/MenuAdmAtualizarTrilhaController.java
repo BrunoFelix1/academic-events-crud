@@ -7,8 +7,9 @@ import models.Trilha;
 
 import facade.Facade;
 import models.Secao;
+import interfaces.IControladorTelas;
 
-public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController {
+public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaController implements IControladorTelas {
 
     private Facade facade = new Facade();
 
@@ -39,8 +40,7 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
 
             // Validar campos
             if (idTrilhaStr.isEmpty() || nomeTrilha.isEmpty() || sessaoRelacionadaStr.isEmpty()) {
-                // ...mensagem de erro...
-                System.out.println("Por favor, preencha todos os campos.");
+                exibirAlerta("Por favor, preencha todos os campos.");
                 return;
             }
 
@@ -59,21 +59,16 @@ public class MenuAdmAtualizarTrilhaController extends MenuAdmGerenciarTrilhaCont
             trilha.setSecao(secao);
 
             // Utilizar a Facade para atualizar a trilha
-            facade.atualizarTrilha(idTrilha, trilha);
-
-            // Limpar os campos após salvar
-            idTrilhaField.clear();
-            nomeTrilhaField.clear();
-            sessaoRelacionadaField.clear();
-
-            // ...mensagem de sucesso...
-            System.out.println("Trilha atualizada com sucesso!");
+            if (facade.atualizarTrilha(idTrilha, trilha)) {
+                exibirAlertaSucesso("Trilha atualizada com sucesso!");
+                idTrilhaField.clear();
+                nomeTrilhaField.clear();
+                sessaoRelacionadaField.clear();
+            }
         } catch (NumberFormatException e) {
-            // ...tratamento de erro para conversão de números...
-            System.out.println("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
-        } catch (Exception e) {
-            // ...tratamento de erro genérico...
-            System.out.println("Erro ao atualizar a trilha: " + e.getMessage());
+            exibirAlerta("Erro na conversão de IDs. Certifique-se de que todos os IDs são válidos.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

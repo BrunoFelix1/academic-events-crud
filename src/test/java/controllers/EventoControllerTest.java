@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
-import controllers.EventoController;
 import models.Evento;
 import repositories.EventoDAO;
 

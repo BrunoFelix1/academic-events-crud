@@ -67,16 +67,14 @@ public class MenuPalestranteAtualizarAtividadeController implements IControlador
             atividadeAntiga.setAutor(atvAutor.getText());
 
             // Utilizar a Facade para atualizar a atividade
-            facade.atualizarAtividade(id, atividadeAntiga);
-
-            // Limpar os campos após atualizar
-            idAtividade.clear();
-            tipoSubmissao.clear();
-            atvResumo.clear();
-            idTrilha.clear();
-            atvAutor.clear();
-
-            exibirAlertaSucesso("Atividade atualizada com sucesso!");
+            if (facade.atualizarAtividade(id, atividadeAntiga)) {
+                exibirAlertaSucesso("Atividade atualizada com sucesso!");
+                idAtividade.clear();
+                tipoSubmissao.clear();
+                atvResumo.clear();
+                idTrilha.clear();
+                atvAutor.clear();
+            }
         } catch (NumberFormatException e) {
             exibirAlerta("Erro: O ID informado não é válido.");
         } catch (Exception e) {

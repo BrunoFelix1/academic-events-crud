@@ -5,8 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import facade.Facade;
+import interfaces.IControladorTelas;
 
-public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController {
+public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaController implements IControladorTelas {
     @FXML
     private Button botaoDeletar;
 
@@ -22,8 +23,7 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
 
             // Validar campo
             if (idTrilhaStr.isEmpty()) {
-                // ...mensagem de erro...
-                System.out.println("Por favor, insira o ID da trilha.");
+                exibirAlerta("Por favor, insira o ID da trilha.");
                 return;
             }
 
@@ -31,19 +31,14 @@ public class MenuAdmDeletarTrilhaController extends MenuAdmGerenciarTrilhaContro
             Long idTrilha = Long.parseLong(idTrilhaStr);
 
             // Deletar a trilha
-            facade.deletarTrilha(idTrilha);
-
-            // Limpar o campo após deletar
-            idTrilhaField.clear();
-
-            // ...mensagem de sucesso...
-            System.out.println("Trilha deletada com sucesso!");
+            if (facade.deletarTrilha(idTrilha)) {
+                exibirAlertaSucesso("Trilha deletada com sucesso!");
+                idTrilhaField.clear();
+            }
         } catch (NumberFormatException e) {
-            // ...tratamento de erro para conversão de números...
-            System.out.println("Erro na conversão do ID. Certifique-se de que o ID é válido.");
-        } catch (Exception e) {
-            // ...tratamento de erro genérico...
-            System.out.println("Erro ao deletar a trilha: " + e.getMessage());
+            exibirAlerta("Erro na conversão do ID. Certifique-se de que o ID é válido.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.SubEventoController;
 import models.SubEvento;
 import models.Evento;
 import org.junit.jupiter.api.BeforeEach;

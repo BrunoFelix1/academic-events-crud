@@ -8,8 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import models.Trilha;
 import models.Inscricao;
+import interfaces.IControladorTelas;
 
-public class ParticiparDeTrilhaController extends MenuUsuarioController {
+public class ParticiparDeTrilhaController extends MenuUsuarioController implements IControladorTelas {
 
     @FXML
     private Button botaoParticiparDeTrilha;
@@ -25,12 +26,12 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
     @FXML
     private void participarDeTrilha() {
         try {
-            // Pega o ID do Trilha do campo de texto
+            // Pega o ID da trilha do campo de texto
             String trilhaId = campoTrilhaId.getText();
 
             // Verifica se o campo não está vazio
             if (trilhaId == null || trilhaId.trim().isEmpty()) {
-                textoMensagem.setText("Por favor, insira um ID de Trilha.");
+                exibirAlerta("Por favor, insira um ID de trilha.");
                 return;
             }
 
@@ -40,7 +41,7 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
                 // Verificar se a trilha existe
                 Trilha trilha = facade.buscarTrilha(trilhaIdLong);
                 if (trilha == null) {
-                    textoMensagem.setText("Trilha não encontrada.");
+                    exibirAlerta("Trilha não encontrada.");
                     return;
                 }
 
@@ -50,14 +51,15 @@ public class ParticiparDeTrilhaController extends MenuUsuarioController {
                 novaInscricao.setTrilha(trilha);
 
                 // Chamar o serviço para cadastrar a inscrição
-                facade.adicionarInscricao(novaInscricao);
-                textoMensagem.setText("Você se cadastrou com sucesso na Trilha!");
+                if (facade.adicionarInscricao(novaInscricao)) {
+                    exibirAlertaSucesso("Você se cadastrou com sucesso na trilha!");
+                    campoTrilhaId.clear();
+                }
             } else {
-                textoMensagem.setText("Erro: O ID informado não é válido.");
+                exibirAlerta("Erro: O ID informado não é válido.");
             }
-        } catch (Exception e) {
-            textoMensagem.setText("Erro ao se cadastrar na trilha.");
-            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 

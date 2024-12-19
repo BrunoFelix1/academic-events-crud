@@ -7,8 +7,9 @@ import models.SubEvento;
 
 import facade.Facade;
 import models.Evento;
+import interfaces.IControladorTelas;
 
-public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController {
+public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEventoController implements IControladorTelas {
 
     @FXML
     private Button botaoSalvarSubEvento;
@@ -40,6 +41,7 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
             String eventoIdStr = eventoAssociadoField.getText();
 
             if (nome.isEmpty() || local.isEmpty() || descricao.isEmpty() || horarioStr.isEmpty() || eventoIdStr.isEmpty()) {
+                exibirAlerta("Por favor, preencha todos os campos.");
                 return;
             }
 
@@ -50,16 +52,17 @@ public class MenuAdmAdicionarSubEventoController extends MenuAdmGerenciarSubEven
 
             SubEvento novoSubEvento = new SubEvento(evento, nome, local, horario, descricao);
 
-            facade.adicionarSubEvento(novoSubEvento);
-
-            nomeSubEventoField.clear();
-            localSubEventoField.clear();
-            descricaoSubEventoField.clear();
-            horarioSubEventoField.clear();
-            eventoAssociadoField.clear();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // Validar e adicionar o subevento usando a Facade
+            if (facade.adicionarSubEvento(novoSubEvento)) {
+                exibirAlertaSucesso("Subevento adicionado com sucesso!");
+                nomeSubEventoField.clear();
+                localSubEventoField.clear();
+                descricaoSubEventoField.clear();
+                horarioSubEventoField.clear();
+                eventoAssociadoField.clear();
+            }
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 }

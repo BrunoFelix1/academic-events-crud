@@ -2,6 +2,7 @@ package screenscontrollers;
 
 import context.UserContext;
 import facade.Facade;
+import interfaces.IControladorTelas;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,7 +10,7 @@ import javafx.scene.text.Text;
 import models.Evento;
 import models.Inscricao;
 
-public class ParticiparDeEventoController extends MenuUsuarioController {
+public class ParticiparDeEventoController extends MenuUsuarioController implements IControladorTelas {
 
     @FXML
     private Button botaoParticiparDeEvento;
@@ -30,7 +31,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
 
             // Verifica se o campo não está vazio
             if (eventoId == null || eventoId.trim().isEmpty()) {
-                textoMensagem.setText("Por favor, insira um ID de evento.");
+                exibirAlerta("Por favor, insira um ID de evento.");
                 return;
             }
 
@@ -40,7 +41,7 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 // Verificar se o evento existe
                 Evento evento = facade.buscarEvento(eventoIdLong);
                 if (evento == null) {
-                    textoMensagem.setText("Evento não encontrado.");
+                    exibirAlerta("Evento não encontrado.");
                     return;
                 }
 
@@ -50,14 +51,15 @@ public class ParticiparDeEventoController extends MenuUsuarioController {
                 novaInscricao.setEvento(evento);
 
                 // Chamar o serviço para cadastrar a inscrição
-                facade.adicionarInscricao(novaInscricao);
-                textoMensagem.setText("Você se cadastrou com sucesso no evento!");
+                if (facade.adicionarInscricao(novaInscricao)) {
+                    exibirAlertaSucesso("Você se cadastrou com sucesso no evento!");
+                    campoEventoId.clear();
+                }
             } else {
-                textoMensagem.setText("Erro: O ID informado não é válido.");
+                exibirAlerta("Erro: O ID informado não é válido.");
             }
-        } catch (Exception e) {
-            textoMensagem.setText("Erro ao se cadastrar no evento.");
-            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 

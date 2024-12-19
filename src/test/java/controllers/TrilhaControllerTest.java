@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.TrilhaController;
 import models.Trilha;
 import models.Secao;
 import org.junit.jupiter.api.BeforeEach;

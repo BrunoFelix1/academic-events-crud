@@ -63,15 +63,13 @@ public class MenuPalestranteSubmeterAtividadeController implements IControladorT
             novaAtividade.setResumo(resumoAtv.getText());
 
             // Utilizar a Facade para submeter a nova atividade
-            facade.adicionarAtividade(novaAtividade);
-
-            // Limpar os campos após submeter
-            idTrilha.clear();
-            tipoSubmissao.clear();
-            autorAtv.clear();
-            resumoAtv.clear();
-
-            exibirAlertaSucesso("Atividade submetida com sucesso!");
+            if (facade.adicionarAtividade(novaAtividade)) {
+                exibirAlertaSucesso("Atividade submetida com sucesso!");
+                idTrilha.clear();
+                tipoSubmissao.clear();
+                autorAtv.clear();
+                resumoAtv.clear();
+            }
         } catch (NumberFormatException e) {
             exibirAlerta("Erro: O ID informado não é válido.");
         } catch (Exception e) {

@@ -6,9 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import context.UserContext;
+import interfaces.IControladorTelas;
 
-
-public class CancelarInscricaoController extends MenuUsuarioController {
+public class CancelarInscricaoController extends MenuUsuarioController implements IControladorTelas {
 
     @FXML
     private Button botaoCancelarInscricao;
@@ -29,7 +29,7 @@ public class CancelarInscricaoController extends MenuUsuarioController {
 
             // Verifica se o campo não está vazio
             if (inscricaoId == null || inscricaoId.trim().isEmpty()) {
-                textoMensagem.setText("Por favor, insira um ID de inscrição.");
+                exibirAlerta("Por favor, insira um ID de inscrição.");
                 return;
             }
             if (isInteger(inscricaoId)) {
@@ -41,12 +41,12 @@ public class CancelarInscricaoController extends MenuUsuarioController {
                 // Chamar o serviço para cancelar a inscrição com o ID do usuário
                 facade.cancelarInscricao(inscricaoIdLong, userId);
                 
-                textoMensagem.setText("Você cancelou com sucesso sua inscrição!");
+                exibirAlertaSucesso("Você cancelou com sucesso sua inscrição!");
             } else {
-                textoMensagem.setText("Erro! ID inválido.");
+                exibirAlerta("Erro! ID inválido.");
             }
         } catch (Exception e) {
-            textoMensagem.setText("Erro ao cancelar inscrição!");
+            exibirAlerta("Erro ao cancelar inscrição!");
             System.out.println(e.getMessage());
         }
     }

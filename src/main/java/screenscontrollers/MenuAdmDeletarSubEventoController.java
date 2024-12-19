@@ -5,8 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import facade.Facade;
+import interfaces.IControladorTelas;
 
-public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController {
+public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEventoController implements IControladorTelas {
 
     @FXML
     private Button botaoDeletar;
@@ -23,8 +24,7 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
 
             // Validar campo
             if (idSubEventoStr.isEmpty()) {
-                // ...mensagem de erro...
-                System.out.println("Por favor, insira o ID do subevento.");
+                exibirAlerta("Por favor, insira o ID do subevento.");
                 return;
             }
 
@@ -32,19 +32,14 @@ public class MenuAdmDeletarSubEventoController extends MenuAdmGerenciarSubEvento
             Long idSubEvento = Long.parseLong(idSubEventoStr);
 
             // Deletar o subevento
-            facade.deletarSubEvento(idSubEvento);
-
-            // Limpar o campo após deletar
-            idSubEventoField.clear();
-
-            // ...mensagem de sucesso...
-            System.out.println("Subevento deletado com sucesso!");
+            if (facade.deletarSubEvento(idSubEvento)) {
+                exibirAlertaSucesso("Subevento deletado com sucesso!");
+                idSubEventoField.clear();
+            }
         } catch (NumberFormatException e) {
-            // ...tratamento de erro para conversão de números...
-            System.out.println("Erro na conversão do ID. Certifique-se de que o ID é válido.");
-        } catch (Exception e) {
-            // ...tratamento de erro genérico...
-            System.out.println("Erro ao deletar o subevento: " + e.getMessage());
+            exibirAlerta("Erro na conversão do ID. Certifique-se de que o ID é válido.");
+        } catch (RuntimeException e) {
+            exibirAlerta(e.getMessage());
         }
     }
 
