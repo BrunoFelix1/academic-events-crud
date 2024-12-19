@@ -2,7 +2,6 @@ package integration;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,7 +20,7 @@ public class FacadeSubEventoTest extends BaseIntegrationTest {
         eventosCriados.add(evento.getId());
 
         SubEvento subEvento = new SubEvento(evento, "SubEvento Teste", "Local B", "14:00", "Descrição SubEvento");
-        assertEquals(true, facade.adicionarSubEvento(subEvento));
+        assertTrue(facade.adicionarSubEvento(subEvento));
         subEventosCriados.add(subEvento.getId()); // Rastrear o ID do subevento criado
     }
 
@@ -31,14 +30,12 @@ public class FacadeSubEventoTest extends BaseIntegrationTest {
         facade.adicionarEvento(evento);
         eventosCriados.add(evento.getId());
 
-        SubEvento subEvento1 = new SubEvento(evento, "SubEvento Teste1", "Local B", "14:00", "Descrição SubEvento1");
-        SubEvento subEvento2 = new SubEvento(evento, "SubEvento Teste2", "Local C", "15:00", "Descrição SubEvento2");
-
+        SubEvento subEvento1 = new SubEvento(evento, "SubEvento Teste 1", "Local B", "14:00", "Descrição SubEvento 1");
         facade.adicionarSubEvento(subEvento1);
-        facade.adicionarSubEvento(subEvento2);
-
-        // Rastrear os IDs dos subeventos criados
         subEventosCriados.add(subEvento1.getId());
+
+        SubEvento subEvento2 = new SubEvento(evento, "SubEvento Teste 2", "Local C", "15:00", "Descrição SubEvento 2");
+        facade.adicionarSubEvento(subEvento2);
         subEventosCriados.add(subEvento2.getId());
 
         List<SubEvento> subEventos = facade.listarSubEventos();
@@ -52,12 +49,12 @@ public class FacadeSubEventoTest extends BaseIntegrationTest {
         facade.adicionarEvento(evento);
         eventosCriados.add(evento.getId());
 
-        SubEvento subEventoAntigo = new SubEvento(evento, "SubEvento Teste1", "Local B", "14:00", "Descrição SubEvento1");
+        SubEvento subEventoAntigo = new SubEvento(evento, "SubEvento Teste", "Local B", "14:00", "Descrição SubEvento");
         facade.adicionarSubEvento(subEventoAntigo);
         Long subEventoAntigoId = subEventoAntigo.getId();
         subEventosCriados.add(subEventoAntigoId); // Rastrear o ID do subevento criado
 
-        SubEvento subEventoNovo = new SubEvento(evento, "SubEvento Teste2", "Local C", "15:00", "Descrição SubEvento2");
+        SubEvento subEventoNovo = new SubEvento(evento, "SubEvento Teste Atualizado", "Local C", "15:00", "Descrição SubEvento Atualizado");
         assertTrue(facade.atualizarSubEvento(subEventoAntigoId, subEventoNovo));
     }
 
@@ -72,6 +69,10 @@ public class FacadeSubEventoTest extends BaseIntegrationTest {
         Long subEventoId = subEvento.getId();
         subEventosCriados.add(subEventoId); // Rastrear o ID do subevento criado
 
-        assertTrue(facade.deletarSubEvento(subEventoId));
+        boolean resultado = facade.deletarSubEvento(subEventoId);
+        assertTrue(resultado);
+
+        // Remover o ID rastreado, pois já foi deletado
+        subEventosCriados.remove(subEventoId);
     }
 }

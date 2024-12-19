@@ -2,10 +2,8 @@ package integration;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -30,7 +28,7 @@ public class FacadeTrilhaTest extends BaseIntegrationTest {
         secoesCriadas.add(secao.getId());
 
         Trilha trilha = new Trilha(secao, "Trilha Teste");
-        assertEquals(true, facade.adicionarTrilha(trilha));
+        assertTrue(facade.adicionarTrilha(trilha));
         trilhasCriadas.add(trilha.getId()); // Rastrear o ID da trilha criada
     }
 
@@ -48,8 +46,8 @@ public class FacadeTrilhaTest extends BaseIntegrationTest {
         facade.adicionarSecao(secao);
         secoesCriadas.add(secao.getId());
 
-        Trilha trilha1 = new Trilha(secao, "Trilha Teste1");
-        Trilha trilha2 = new Trilha(secao, "Trilha Teste2");
+        Trilha trilha1 = new Trilha(secao, "Trilha Teste 1");
+        Trilha trilha2 = new Trilha(secao, "Trilha Teste 2");
 
         facade.adicionarTrilha(trilha1);
         facade.adicionarTrilha(trilha2);
@@ -77,12 +75,12 @@ public class FacadeTrilhaTest extends BaseIntegrationTest {
         facade.adicionarSecao(secao);
         secoesCriadas.add(secao.getId());
 
-        Trilha trilhaAntiga = new Trilha(secao, "Trilha Teste1");
+        Trilha trilhaAntiga = new Trilha(secao, "Trilha Teste 1");
         facade.adicionarTrilha(trilhaAntiga);
         Long trilhaAntigaId = trilhaAntiga.getId();
         trilhasCriadas.add(trilhaAntigaId); // Rastrear o ID da trilha criada
 
-        Trilha trilhaNova = new Trilha(secao, "Trilha Teste2");
+        Trilha trilhaNova = new Trilha(secao, "Trilha Teste Atualizada");
         assertTrue(facade.atualizarTrilha(trilhaAntigaId, trilhaNova));
     }
 
@@ -105,6 +103,10 @@ public class FacadeTrilhaTest extends BaseIntegrationTest {
         Long trilhaId = trilha.getId();
         trilhasCriadas.add(trilhaId); // Rastrear o ID da trilha criada
 
-        assertTrue(facade.deletarTrilha(trilhaId));
+        boolean resultado = facade.deletarTrilha(trilhaId);
+        assertTrue(resultado);
+
+        // Remover o ID rastreado, pois já foi deletado
+        trilhasCriadas.remove(trilhaId);
     }
 }
