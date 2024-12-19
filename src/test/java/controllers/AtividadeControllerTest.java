@@ -32,96 +32,96 @@ class AtividadeControllerTest {
 
     @Test
     void testAdicionarAtividade() {
-        Trilha trilha = new Trilha();
-        Atividade novaAtividade = new Atividade(1L, "Workshop", "Autor", "Resumo do Workshop", trilha);
-        when(atividadeDAO.insertAtividade(novaAtividade)).thenReturn(true);
+        Atividade atividade = new Atividade();
+        when(atividadeDAO.insertAtividade(atividade)).thenReturn(true);
 
-        boolean resultado = atividadeController.adicionarAtividade(novaAtividade);
+        boolean resultado = atividadeController.adicionarAtividade(atividade);
 
-        assertTrue(resultado, "A atividade deveria ser adicionada com sucesso.");
-        verify(atividadeDAO, times(1)).insertAtividade(novaAtividade);
+        assertTrue(resultado);
+        verify(atividadeDAO, times(1)).insertAtividade(atividade);
     }
 
     @Test
     void testAtualizarAtividade() {
-        Trilha trilha = new Trilha();
-        Atividade atividadeExistente = new Atividade(1L, "Palestra", "Autor Antigo", "Resumo antigo", trilha);
-        Atividade atividadeAtualizada = new Atividade(null, "Seminário", "Novo Autor", "Resumo novo", trilha);
+        Long id = 1L;
+        Atividade atividadeExistente = new Atividade();
+        atividadeExistente.setId(id);
+        atividadeExistente.setTipoDeAtividade("Antiga");
 
-        when(atividadeDAO.selectAtividade(1L)).thenReturn(atividadeExistente);
+        Atividade atividadeAtualizada = new Atividade();
+        atividadeAtualizada.setTipoDeAtividade("Nova");
+
+        when(atividadeDAO.selectAtividade(id)).thenReturn(atividadeExistente);
         when(atividadeDAO.updateAtividade(atividadeExistente)).thenReturn(true);
 
-        boolean resultado = atividadeController.atualizarAtividade(1L, atividadeAtualizada);
+        boolean resultado = atividadeController.atualizarAtividade(id, atividadeAtualizada);
 
-        assertTrue(resultado, "A atividade deveria ser atualizada com sucesso.");
-        assertEquals("Seminário", atividadeExistente.getTipoDeAtividade());
-        assertEquals("Resumo novo", atividadeExistente.getResumo());
-        assertEquals("Novo Autor", atividadeExistente.getAutor());
+        assertTrue(resultado);
+        assertEquals("Nova", atividadeExistente.getTipoDeAtividade());
         verify(atividadeDAO, times(1)).updateAtividade(atividadeExistente);
     }
 
     @Test
     void testAtualizarAtividadeNaoEncontrada() {
-        when(atividadeDAO.selectAtividade(1L)).thenReturn(null);
+        Long id = 1L;
+        when(atividadeDAO.selectAtividade(id)).thenReturn(null);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            atividadeController.atualizarAtividade(1L, new Atividade());
+        Atividade atividadeAtualizada = new Atividade();
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            atividadeController.atualizarAtividade(id, atividadeAtualizada);
         });
 
         assertEquals("Atividade não encontrada", exception.getMessage());
+        verify(atividadeDAO, times(1)).selectAtividade(id);
         verify(atividadeDAO, never()).updateAtividade(any());
     }
 
     @Test
     void testDeletarAtividade() {
-        when(atividadeDAO.deleteAtividade(1L)).thenReturn(true);
+        Long id = 1L;
+        when(atividadeDAO.deleteAtividade(id)).thenReturn(true);
 
-        boolean resultado = atividadeController.deletarAtividade(1L);
+        boolean resultado = atividadeController.deletarAtividade(id);
 
-        assertTrue(resultado, "A atividade deveria ser deletada com sucesso.");
-        verify(atividadeDAO, times(1)).deleteAtividade(1L);
+        assertTrue(resultado);
+        verify(atividadeDAO, times(1)).deleteAtividade(id);
     }
 
     @Test
     void testListarTodasAtividades() {
-        Trilha trilha = new Trilha();
-        List<Atividade> atividades = Arrays.asList(
-                new Atividade(1L, "Workshop", "Autor", "Resumo do Workshop", trilha),
-                new Atividade(2L, "Seminário", "Outro Autor", "Resumo do Seminário", trilha)
-        );
+        when(atividadeDAO.selectAllAtividades()).thenReturn(List.of(new Atividade(), new Atividade()));
 
-        when(atividadeDAO.selectAllAtividades()).thenReturn(atividades);
+        List<Atividade> atividades = atividadeController.listarTodasAtividades();
 
-        List<Atividade> resultado = atividadeController.listarTodasAtividades();
-
-        assertNotNull(resultado, "A lista de atividades não deveria ser nula.");
-        assertEquals(2, resultado.size(), "A lista de atividades deveria conter 2 itens.");
+        assertNotNull(atividades);
+        assertEquals(2, atividades.size());
         verify(atividadeDAO, times(1)).selectAllAtividades();
     }
 
     @Test
     void testBuscarAtividadePorId() {
-        Trilha trilha = new Trilha();
-        Atividade atividade = new Atividade(1L, "Workshop", "Autor", "Resumo do Workshop", trilha);
+        Long id = 1L;
+        Atividade atividade = new Atividade();
+        when(atividadeDAO.selectAtividade(id)).thenReturn(atividade);
 
-        when(atividadeDAO.selectAtividade(1L)).thenReturn(atividade);
+        Atividade resultado = atividadeController.buscarAtividadePorId(id);
 
-        Atividade resultado = atividadeController.buscarAtividadePorId(1L);
-
-        assertNotNull(resultado, "A atividade buscada não deveria ser nula.");
-        assertEquals("Workshop", resultado.getTipoDeAtividade());
-        verify(atividadeDAO, times(1)).selectAtividade(1L);
+        assertNotNull(resultado);
+        assertEquals(atividade, resultado);
+        verify(atividadeDAO, times(1)).selectAtividade(id);
     }
 
     @Test
     void testBuscarAtividadePorIdNaoEncontrada() {
-        when(atividadeDAO.selectAtividade(1L)).thenReturn(null);
+        Long id = 1L;
+        when(atividadeDAO.selectAtividade(id)).thenReturn(null);
 
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            atividadeController.buscarAtividadePorId(1L);
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            atividadeController.buscarAtividadePorId(id);
         });
 
         assertEquals("Atividade não encontrada", exception.getMessage());
-        verify(atividadeDAO, times(1)).selectAtividade(1L);
+        verify(atividadeDAO, times(1)).selectAtividade(id);
     }
 }

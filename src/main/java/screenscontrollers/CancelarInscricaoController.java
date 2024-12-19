@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import context.UserContext;
 
 
 public class CancelarInscricaoController extends MenuUsuarioController {
@@ -34,8 +35,11 @@ public class CancelarInscricaoController extends MenuUsuarioController {
             if (isInteger(inscricaoId)) {
                 Long inscricaoIdLong = Long.parseLong(inscricaoId);
                 
-                // Chamar o serviço para cancelar a inscrição
-                facade.cancelarInscricao(inscricaoIdLong);
+                // Pega o ID do usuário do contexto
+                Long userId = UserContext.getInstance().getUsuario().getId();
+                
+                // Chamar o serviço para cancelar a inscrição com o ID do usuário
+                facade.cancelarInscricao(inscricaoIdLong, userId);
                 
                 textoMensagem.setText("Você cancelou com sucesso sua inscrição!");
             } else {
