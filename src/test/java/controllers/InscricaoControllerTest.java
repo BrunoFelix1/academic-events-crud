@@ -15,17 +15,34 @@ class InscricaoControllerTest {
 
     private InscricaoDAO inscricaoDAO;
     private InscricaoController controller;
+    private Usuario mockUsuario;
+    private Evento mockEvento;
+    private SubEvento mockSubEvento;
+    private Secao mockSecao;
+    private Trilha mockTrilha;
 
     @BeforeEach
     void setUp() {
         inscricaoDAO = mock(InscricaoDAO.class);
         controller = new InscricaoController();
         controller.inscricaoDAO = inscricaoDAO; // Tornar o DAO acessível para testes
+
+        mockUsuario = mock(Usuario.class);
+        mockEvento = mock(Evento.class);
+        mockSubEvento = mock(SubEvento.class);
+        mockSecao = mock(Secao.class);
+        mockTrilha = mock(Trilha.class);
+
+        when(mockUsuario.getId()).thenReturn(1L);
+        when(mockEvento.getId()).thenReturn(1L);
+        when(mockSubEvento.getId()).thenReturn(1L);
+        when(mockSecao.getId()).thenReturn(1L);
+        when(mockTrilha.getId()).thenReturn(1L);
     }
 
     @Test
     void testAdicionarInscricao_Sucesso() {
-        Inscricao inscricao = new Inscricao(new Usuario(12L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricao = new Inscricao(mockUsuario, mockEvento, null, null, null);
 
         when(inscricaoDAO.inscricaoJaExiste(1L, 1L, null, null, null)).thenReturn(false);
         when(inscricaoDAO.insertInscricao(inscricao)).thenReturn(true);
@@ -37,16 +54,29 @@ class InscricaoControllerTest {
     }
 
     @Test
+    void testAdicionarInscricao_InscricaoJaExiste() {
+        Inscricao inscricao = new Inscricao(mockUsuario, mockEvento, null, null, null);
+
+        when(inscricaoDAO.inscricaoJaExiste(1L, 1L, null, null, null)).thenReturn(true);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            controller.adicionarInscricao(inscricao);
+        });
+
+        assertEquals("Inscrição já existente", exception.getMessage());
+    }
+
+    @Test
     void testAtualizarInscricao_Sucesso() {
-        Inscricao inscricaoExistente = new Inscricao(new Usuario(12L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricaoExistente = new Inscricao(mockUsuario, mockEvento, null, null, null);
         inscricaoExistente.setId(1L);
 
-        Inscricao inscricaoAtualizada = new Inscricao(new Usuario(12L,"71109791400","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricaoAtualizada = new Inscricao(mockUsuario, mockEvento, null, null, null);
 
         when(inscricaoDAO.selectInscricao(1L)).thenReturn(inscricaoExistente);
         when(inscricaoDAO.updateInscricao(any())).thenReturn(true);
 
-        boolean resultado = controller.atualizarInscricao(12L, inscricaoAtualizada);
+        boolean resultado = controller.atualizarInscricao(1L, inscricaoAtualizada);
 
         assertTrue(resultado);
         verify(inscricaoDAO).updateInscricao(any());
@@ -65,7 +95,7 @@ class InscricaoControllerTest {
 
     @Test
     void testDeletarInscricao_Sucesso() {
-        Inscricao inscricao = new Inscricao(new Usuario(12L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricao = new Inscricao(mockUsuario, mockEvento, null, null, null);
         inscricao.setId(1L);
 
         when(inscricaoDAO.selectInscricao(1L)).thenReturn(inscricao);
@@ -91,8 +121,8 @@ class InscricaoControllerTest {
     @Test
     void testListarTodasInscricoes() {
         List<Inscricao> inscricoes = Arrays.asList(
-                new Inscricao(new Usuario(12L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null),
-                new Inscricao(new Usuario(10L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null)
+                new Inscricao(mockUsuario, mockEvento, null, null, null),
+                new Inscricao(mockUsuario, mockEvento, null, null, null)
         );
 
         when(inscricaoDAO.selectAllInscricoes()).thenReturn(inscricoes);
@@ -105,7 +135,7 @@ class InscricaoControllerTest {
 
     @Test
     void testBuscarInscricaoPorId_Sucesso() {
-        Inscricao inscricao = new Inscricao(new Usuario(1L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricao = new Inscricao(mockUsuario, mockEvento, null, null, null);
         inscricao.setId(1L);
 
         when(inscricaoDAO.selectInscricao(1L)).thenReturn(inscricao);
@@ -130,14 +160,45 @@ class InscricaoControllerTest {
 
     @Test
     void testCancelarInscricao_Sucesso() {
-        Inscricao inscricao = new Inscricao(new Usuario(12L,"71109791488","Italo",21,"upe","COMUM","123","1234"), new Evento("Evento","Aqui", "12:00", "EVENTO MANEIRO"), null, null, null);
+        Inscricao inscricao = new Inscricao(mockUsuario, mockEvento, null, null, null);
         inscricao.setId(1L);
 
-        when(inscricaoDAO.selectInscricao(12L)).thenReturn(inscricao);
+        when(inscricaoDAO.selectInscricao(1L)).thenReturn(inscricao);
 
-        controller.cancelarInscricao(12L, 1L);
+        controller.cancelarInscricao(1L, 1L);
 
-        verify(inscricaoDAO).deleteInscricao(12L);
+        verify(inscricaoDAO).deleteInscricao(1L);
     }
 
+    @Test
+    void testCancelarInscricao_PermissaoNegada() {
+        Usuario outroUsuario = mock(Usuario.class);
+        when(outroUsuario.getId()).thenReturn(2L);
+
+        Inscricao inscricao = new Inscricao(outroUsuario, mockEvento, null, null, null);
+        inscricao.setId(1L);
+
+        when(inscricaoDAO.selectInscricao(1L)).thenReturn(inscricao);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+            controller.cancelarInscricao(1L, 1L);
+        });
+
+        assertEquals("Você não tem permissão para cancelar esta inscrição", exception.getMessage());
+    }
+
+    @Test
+    void testListarInscricoesPorUsuario() {
+        List<Inscricao> inscricoes = Arrays.asList(
+                new Inscricao(mockUsuario, mockEvento, null, null, null),
+                new Inscricao(mockUsuario, mockEvento, null, null, null)
+        );
+
+        when(inscricaoDAO.findByUsuarioId(1L)).thenReturn(inscricoes);
+
+        List<Inscricao> resultado = controller.listarInscricoesPorUsuario(1L);
+
+        assertEquals(2, resultado.size());
+        verify(inscricaoDAO).findByUsuarioId(1L);
+    }
 }
