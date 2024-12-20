@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InscricaoController {
 
-    private InscricaoDAO inscricaoDAO = new InscricaoDAO();
+    protected InscricaoDAO inscricaoDAO = new InscricaoDAO();
 
     // Adicionar Inscrição
     public boolean adicionarInscricao(Inscricao inscricao) {

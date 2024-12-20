@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TrilhaController {
 
-    private TrilhaDAO trilhaDAO = new TrilhaDAO();
+    public TrilhaDAO trilhaDAO = new TrilhaDAO();
 
     // Adicionar Trilha
     public boolean adicionarTrilha(Trilha trilha) {

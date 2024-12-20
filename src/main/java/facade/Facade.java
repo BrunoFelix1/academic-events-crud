@@ -3,6 +3,7 @@ package facade;
 import controllers.*;
 import exception.UsuarioNaoEncontradoException;
 import models.*;
+import repositories.AtividadeDAO;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Facade {
     private EventoController eventoController;
 
     public Facade() {
-        this.atividadeController = new AtividadeController();
+        this.atividadeController = new AtividadeController(new AtividadeDAO());
         this.secaoController = new SecaoController();
         this.usuarioController = new UsuarioController();
         this.trilhaController = new TrilhaController();

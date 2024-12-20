@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EventoController {
 
-    private EventoDAO eventoDAO = new EventoDAO();
+    protected EventoDAO eventoDAO = new EventoDAO();
 
     // Adicionar Evento
     public boolean adicionarEvento(Evento evento) {

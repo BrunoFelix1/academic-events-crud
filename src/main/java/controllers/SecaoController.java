@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SecaoController {
 
-    private SecaoDAO secaoDAO = new SecaoDAO();
+    protected SecaoDAO secaoDAO = new SecaoDAO();
 
     // Adicionar Secao
     public boolean adicionarSecao(Secao secao) {

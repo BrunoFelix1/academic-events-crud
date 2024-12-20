@@ -31,11 +31,11 @@ public class UsuarioControllerTest {
         usuario.setInstituicao("Instituicao Teste");
         usuario.setTipoDeUsuario("COMUM");
 
-        when(usuarioDAO.insertUsuario(usuario)).thenReturn(true);
+        when(usuarioDAO.insertUser(usuario)).thenReturn(true);
 
         boolean resultado = usuarioController.adicionarUsuario(usuario);
         assertTrue(resultado);
-        verify(usuarioDAO, times(1)).insertUsuario(usuario);
+        verify(usuarioDAO, times(1)).insertUser(usuario);
     }
 
     @Test

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SubEventoController {
 
-    private SubEventoDAO subEventoDAO = new SubEventoDAO();
+    protected SubEventoDAO subEventoDAO = new SubEventoDAO();
 
     // Adicionar SubEvento
     public boolean adicionarSubEvento(SubEvento subEvento) {

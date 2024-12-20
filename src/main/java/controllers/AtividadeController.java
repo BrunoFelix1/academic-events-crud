@@ -13,6 +13,7 @@ public class AtividadeController {
         this.atividadeDAO = atividadeDAO;
     }
 
+
     // Adicionar Atividade
     public boolean adicionarAtividade(Atividade atividade) {
         if (atividade.getTipoDeAtividade() == null || atividade.getTipoDeAtividade().isEmpty()) {
