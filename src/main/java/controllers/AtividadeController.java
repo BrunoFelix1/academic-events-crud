@@ -1,13 +1,17 @@
 package controllers;
 
-import repositories.AtividadeDAO;
-import models.Atividade;
-
 import java.util.List;
+
+import models.Atividade;
+import repositories.AtividadeDAO;
 
 public class AtividadeController {
 
-    private AtividadeDAO atividadeDAO = new AtividadeDAO();
+    private AtividadeDAO atividadeDAO;
+
+    public AtividadeController(AtividadeDAO atividadeDAO) {
+        this.atividadeDAO = atividadeDAO;
+    }
 
     // Adicionar Atividade
     public boolean adicionarAtividade(Atividade atividade) {
