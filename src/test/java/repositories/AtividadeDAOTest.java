@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import repositories.AtividadeDAO;
 import models.Atividade;
 import models.Trilha;
 

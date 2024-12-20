@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import repositories.InscricaoDAO;
 import models.Inscricao;
 import models.Usuario;
 import models.Evento;
